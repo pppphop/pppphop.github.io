@@ -8,12 +8,22 @@ theme = "PaperMod"
   defaultTheme = "light"
   # 启用数学公式支持
   math = true
+  # 配置 Goldmark 以安全地渲染原始 HTML 和数学公式
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true  # 注意：这允许渲染原始 HTML，请知悉
+  # 配置数学公式渲染 (Hugo 0.123.0 及以上)
+  [markup.math]
+    enable = true
+    # 默认渲染引擎是 'mathjax'，你也可以选择 'katex'
+    # render = 'mathjax'
   
 [params.assets]
   # 设置漂亮的背景图
   favicon = "/favicon.ico"
   # 你可以在这里添加自定义CSS
-
+    customCSS = ["css/extended/custom.css"]
 [menu]
   [[menu.main]]
     identifier = "categories"

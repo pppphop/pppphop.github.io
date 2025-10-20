@@ -1,27 +1,26 @@
-/* 渐变背景 */
+/* 纯白背景 */
 body {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    background-attachment: fixed;
+    background: #ffffff;
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* 主内容区域 */
 .page {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.98);
     border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     margin: 20px auto;
     padding: 2rem;
     max-width: 1200px;
+    border: 1px solid #f0f0f0;
 }
 
-/* 导航栏美化 */
+/* 导航栏保持原有样式 */
 header {
-    background: rgba(255, 255, 255, 0.9) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid #eaeaea;
 }
 
 /* 文章卡片样式 */
@@ -30,94 +29,12 @@ header {
     border-radius: 8px;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
     transition: all 0.3s ease;
     border-left: 4px solid #667eea;
 }
 
 .post-entry:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-}
-
-/* 标题样式 */
-.post-title {
-    color: #2d3748;
-    font-weight: 600;
-}
-
-/* 链接样式 */
-a {
-    color: #667eea;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-a:hover {
-    color: #764ba2;
-}
-
-/* 代码块样式 */
-code {
-    background: #f7fafc;
-    color: #e53e3e;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-family: 'Fira Code', 'Consolas', monospace;
-}
-
-pre {
-    background: #2d3748 !important;
-    border-radius: 8px;
-    padding: 1rem;
-}
-
-/* 按钮样式 */
-button, .btn {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-button:hover, .btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-}
-
-/* 分类标签样式 */
-.terms-tags li {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    border-radius: 20px;
-    transition: all 0.3s ease;
-}
-
-.terms-tags li:hover {
-    transform: scale(1.05);
-}
-
-.terms-tags li a {
-    color: white !important;
-}
-
-/* 页脚样式 */
-footer {
-    text-align: center;
-    padding: 2rem;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-    .page {
-        margin: 10px;
-        padding: 1rem;
-    }
-    
-    body {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }

@@ -6,12 +6,83 @@
     <description>Recent content in Posts on pppphop的学习博客</description>
     <generator>Hugo -- 0.151.2</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 20 Oct 2025 11:55:04 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 20 Oct 2025 14:35:01 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pre-总结反思与问题汇总</title>
+      <link>http://localhost:1313/posts/pre-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E4%B8%8E%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</link>
+      <pubDate>Mon, 20 Oct 2025 14:35:01 +0800</pubDate>
+      <guid>http://localhost:1313/posts/pre-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E4%B8%8E%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</guid>
+      <description>&lt;h1 id=&#34;pre-总结反思与问题汇总&#34;&gt;Pre-总结反思与问题汇总&lt;/h1&gt;
+&lt;h3 id=&#34;t1推箱子-logisim&#34;&gt;T1.推箱子-Logisim&lt;/h3&gt;
+&lt;p&gt;出现了严重的失误，花了两个多小时导致道心破碎，甚至一度想“大不了爆零吧”。主要需要反思以下几点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;平常“真值表生成状态机&amp;quot;的轮椅题做的太多了，往往没有过多的输入输出设计，导致看到题目第一眼是懵的，甚至还在想怎么设计状态转移图和真值表，“难道要三十个状态吗”，对较新颖的题型不熟练导致没有做题的底气，对于$flag$保持一周的创新点也处理的略微慌张；&lt;/li&gt;
+&lt;li&gt;对&lt;strong&gt;早晚一拍概念不清晰&lt;/strong&gt;，是拿$x$比较还是拿$xnext$比较，到考试结束前五分钟甚至都没有意识到这个问题；&lt;/li&gt;
+&lt;li&gt;看到$flag$要保持一拍，确实很快想到了要用&lt;strong&gt;寄存器&lt;/strong&gt;，但心里不踏实的感觉，有点不敢实践，总想“先不管交一交看一看&amp;quot;，后面用寄存器还是没过，我就以为自己想法错了，开始一阵瞎改，把状态机模块的$flag$直接废除不用了，丝毫没有意识到是$out$的问题；&lt;/li&gt;
+&lt;li&gt;不会&lt;strong&gt;自动化测试&lt;/strong&gt;，手动点在考场紧张的环境下，有时候输出错了也没发现，精神高度紧张可能忽略掉一些东西，有空可以学一学有没有更好的测试方式；&lt;/li&gt;
+&lt;li&gt;值得夸奖的是我的状态转移模块一般就写对了，没有更多的更改，而且我做的很从容淡定有自信，可能是考试刚开始还很冷静。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;本题的解题思路:&lt;/p&gt;
+&lt;p&gt;先设计状态转移模块$fsm$，用$tunnel$表示$x$,$x+dx$,$y$,$y+dy$，判断$x+dx$是否$&amp;gt;5$，$y+dy$是否$&amp;gt;5$，以及$x$，$y$是否同时等于那六个障碍物的$x$，$y$坐标，将这些或起来，便是我们想要的&lt;strong&gt;实时的下一拍的&lt;/strong&gt;$flag$。当然，作为组合逻辑，我们本就只能输出实时的，&amp;ldquo;保持一拍&amp;quot;得在主电路里实现。注意：$dx$，$dy$要进行&lt;strong&gt;零扩展&lt;/strong&gt;变成三位，比较器一定要选$Unsigned$。&lt;/p&gt;
+&lt;p&gt;然后设计主电路，首先两个$3$位寄存器分别存$x$，$y$当下的值，与$dx$，$dy$一同传入$fsm$模块，得到的$flag$在寄存器中&lt;strong&gt;缓一拍&lt;/strong&gt;输出，既实现了将$fsm$模块中对$x+dx$，$y+dy$判断导致的“早一拍”问题，又实现了无$reset$信号时保持一拍，有$reset$立马清零的效果。至于$out$就更简单了，使用比较器判断当前$x$，$y$（可以从寄存器$Q$端引出隧道）是否都为0即可，组合逻辑。&lt;/p&gt;
+&lt;p&gt;[Pre-T1-电路文件](&lt;a href=&#34;https://github.com/pppphop/pppphop.github.io/blob/main/blog&#34;&gt;https://github.com/pppphop/pppphop.github.io/blob/main/blog&lt;/a&gt; files/T1.circ)&lt;/p&gt;
+&lt;h3 id=&#34;t2roll-verilog&#34;&gt;T2.Roll-Verilog&lt;/h3&gt;
+&lt;p&gt;暴露了我Verilog已经几近与忘光了的事实。太久没写，没地方可以评测，没有什么有创新点的题目，对一些稍微进阶的语言技巧都记不太清不敢用。总结一下当中遇到的各种问题：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;$for$循环怎么写都不会了？是在什么模块里面能写？晚些时候一定要查证一下，在我印象中是$tb$文件的$initial$用的多，要提交的文件应该是尽量不要用$initial$，不能综合还是什么？时序逻辑里不能$for$吗？组合逻辑可以？这次只有$assign$我用着放心，得亏是简单的组合逻辑；（查证：&lt;strong&gt;组合逻辑&lt;/strong&gt;和&lt;strong&gt;时序逻辑&lt;/strong&gt;都可使用可综合的$for$循环，用在$always$块里即可）&lt;/li&gt;
+&lt;li&gt;$wire$的拼接，用大括号，&lt;strong&gt;从高位到低位&lt;/strong&gt;，考场上甚至不确定；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;数组的定义方式&lt;/strong&gt;！不是像$C$语言一样$a[8]$，应该是$a[7:0]$这种？晚点查证一下；（查证后回答：应是$a[0:7]$）&lt;/li&gt;
+&lt;li&gt;最初居然定义$reg$类型，明显这里都用$wire$就好，顶多循环变量用$reg$，说明基本概念还没有炉火纯青，虽然看到报错能立马意识到；&lt;/li&gt;
+&lt;li&gt;$testbench$中要不要用$initial$，感觉这还是我第一次直接$assign$，两行就写完了。看向巨的反应我应该写的不对。不确定是不是最好的写法。而且实例化的写法有点忘了，结合报错试探了好几下；（查证：实现一次测试完给的两个测试点，要用$initial$，还是用$initial$比较好，组合逻辑的$testbench$&lt;strong&gt;无需$clk$&lt;/strong&gt;，但是也要延迟10s）&lt;/li&gt;
+&lt;li&gt;对于一部分报错信息看不懂，看到反倒懵了，还是得多练。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;本题解题思路：&lt;/p&gt;
+&lt;p&gt;这题很简单，哪怕设$8+8$个变量然后各种复制粘贴$assign$也是能过的。但是本题的目的是让你学如何使用$for$循环，以及&amp;rdquo;-：&amp;ldquo;的使用。那么首先这是一道组合逻辑，由输入和逻辑运算直接得到输出，具体操作都给你了，按操作翻译一遍就行，当然我们在写循环的过程中，难免遇到一些问题：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;循环变量&lt;/strong&gt;用什么？在&lt;code&gt;always&lt;/code&gt;外面设&lt;code&gt;integer&lt;/code&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;$for$放在哪？放在&lt;code&gt;always @(*)&lt;/code&gt;里面&lt;/li&gt;
+&lt;li&gt;数组是怎么定义的？&lt;code&gt;wire [3:0] a[0:7]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;注意$i++$会报错，Verilog没有这种语法，要用$i=i+1$&lt;/li&gt;
+&lt;li&gt;如果直接&lt;code&gt;arr[i]=a[(i + 1) * 4 - 1-:i*4]&lt;/code&gt;，会收到报错：$i\ is\ not\ a\ constant$。其实并不是要求中括号内非得都是常数，&lt;strong&gt;只要冒号左右两边不全为变量就行&lt;/strong&gt;。于是我们学会使用&lt;code&gt;[i-:4]&lt;/code&gt;，意思是&lt;strong&gt;往低里取从$i$开始$4$个位&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;最后将&lt;code&gt;sum[i]&lt;/code&gt;用&lt;strong&gt;大括号拼接&lt;/strong&gt;起来，&lt;code&gt;assign&lt;/code&gt;给$out$就行了。代码及其$testbench$见下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-verilog&#34; data-lang=&#34;verilog&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;module&lt;/span&gt; roll(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;input&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;31&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] a,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;output&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;31&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] out
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    );
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;reg&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] arr[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;],sum[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;],tmp;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;integer&lt;/span&gt; i,j;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;always&lt;/span&gt; @(&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;begin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt;(i&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;i&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;;i&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;i&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;begin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		arr[i]&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;a[(i &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	sum[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;arr[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt;(i&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;i&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;;i&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;i&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;begin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		sum[i&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;sum[i]&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;arr[i&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;assign&lt;/span&gt; out&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;{sum[&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;],sum[&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;],sum[&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;],sum[&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;],sum[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;],sum[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;],sum[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;],sum[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]};
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;endmodule&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-verilog&#34; data-lang=&#34;verilog&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;module&lt;/span&gt; tbroll(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    );
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;reg&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;31&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] a;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;wire&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;31&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] out;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;initial&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;begin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	a&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;32&amp;#39;h11111111&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	#&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	a&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;32&amp;#39;h87654321&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	#&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;roll r(a,out);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;endmodule&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;t3submatrix-mips&#34;&gt;T3.Submatrix-MIPS&lt;/h3&gt;
+&lt;p&gt;整体写法和常用指令确实记得，但是很多地方也不熟练或遗忘了。总结问题如下：&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Hi</title>
       <link>http://localhost:1313/posts/20251020-hi/</link>
-      <pubDate>Mon, 20 Oct 2025 11:55:04 +0800</pubDate>
+      <pubDate>Mon, 20 Oct 2025 13:55:04 +0800</pubDate>
       <guid>http://localhost:1313/posts/20251020-hi/</guid>
       <description>&lt;p&gt;$hello ~world!$&lt;/p&gt;</description>
     </item>
