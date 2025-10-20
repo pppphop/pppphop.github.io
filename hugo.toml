@@ -5,16 +5,33 @@ theme = "PaperMod"
 
 [params]
   description = "分享专业课学习经验和知识总结"
-  defaultTheme = "auto"
-  # 启用数学公式支持
+  defaultTheme = "auto"  # auto, light, dark
+  # 启用主题颜色
+  themeColor = "#3F51B5"
+  # 启用主屏幕颜色
+  maskColor = "#3F51B5"
+  # 启用背景渐变
+  homeInfoParams = true
+  # 启用社交图标
+  socialIcons = true
+  # 启用代码高亮
+  highlightjs = true
+  # 启用数学公式
   math = true
+  # 自定义CSS
   customCSS = ["css/extended/custom.css"]
-  
-[params.assets]
-  # 设置漂亮的背景图
-  favicon = "/favicon.ico"
-  # 你可以在这里添加自定义CSS
 
+# 作者信息
+[author]
+  name = "pppphop"
+  image = "/images/avatar.jpg"  # 你可以添加头像
+  bio = "分享学习经验和技术总结"
+
+# 社交链接
+[social]
+  GitHub = "pppphop"
+
+# 菜单配置
 [menu]
   [[menu.main]]
     identifier = "categories"
@@ -32,8 +49,6 @@ theme = "PaperMod"
     url = "/archives/"
     weight = 30
 
-[params.homeInfoParams]
-  Title = "欢迎来到我的学习博客"
-  Content = """
-  这里记录了我的专业课学习经验、技术总结和成长历程
-  """
+# 启用代码高亮
+[markup.highlight]
+  guessSyntax = true

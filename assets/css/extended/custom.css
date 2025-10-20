@@ -1,13 +1,12 @@
-/* 自定义样式 - 美化博客外观 */
-
 /* 渐变背景 */
 body {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     background-attachment: fixed;
     min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* 主内容区域样式 */
+/* 主内容区域 */
 .page {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 12px;
@@ -15,6 +14,7 @@ body {
     backdrop-filter: blur(10px);
     margin: 20px auto;
     padding: 2rem;
+    max-width: 1200px;
 }
 
 /* 导航栏美化 */
@@ -31,45 +31,93 @@ header {
     padding: 1.5rem;
     margin-bottom: 1.5rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.3s ease;
+    border-left: 4px solid #667eea;
 }
 
 .post-entry:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* 标题样式 */
+.post-title {
+    color: #2d3748;
+    font-weight: 600;
+}
+
+/* 链接样式 */
+a {
+    color: #667eea;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #764ba2;
 }
 
 /* 代码块样式 */
 code {
-    background: #f8f9fa;
-    border-radius: 4px;
+    background: #f7fafc;
+    color: #e53e3e;
     padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Fira Code', 'Consolas', monospace;
 }
 
 pre {
-    border-radius: 8px;
     background: #2d3748 !important;
+    border-radius: 8px;
+    padding: 1rem;
 }
 
-/* 数学公式样式 */
-.katex {
-    font-size: 1.1em;
+/* 按钮样式 */
+button, .btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-/* 分类和标签样式 */
+button:hover, .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* 分类标签样式 */
 .terms-tags li {
     background: linear-gradient(135deg, #667eea, #764ba2);
     border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.terms-tags li:hover {
+    transform: scale(1.05);
 }
 
 .terms-tags li a {
     color: white !important;
 }
 
-/* 响应式调整 */
+/* 页脚样式 */
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* 响应式设计 */
 @media (max-width: 768px) {
     .page {
         margin: 10px;
         padding: 1rem;
+    }
+    
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
 }
