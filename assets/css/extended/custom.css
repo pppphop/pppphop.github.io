@@ -1,0 +1,75 @@
+/* 自定义样式 - 美化博客外观 */
+
+/* 渐变背景 */
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/* 主内容区域样式 */
+.page {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    margin: 20px auto;
+    padding: 2rem;
+}
+
+/* 导航栏美化 */
+header {
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 文章卡片样式 */
+.post-entry {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-entry:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* 代码块样式 */
+code {
+    background: #f8f9fa;
+    border-radius: 4px;
+    padding: 2px 6px;
+}
+
+pre {
+    border-radius: 8px;
+    background: #2d3748 !important;
+}
+
+/* 数学公式样式 */
+.katex {
+    font-size: 1.1em;
+}
+
+/* 分类和标签样式 */
+.terms-tags li {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 20px;
+}
+
+.terms-tags li a {
+    color: white !important;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .page {
+        margin: 10px;
+        padding: 1rem;
+    }
+}
