@@ -5,7 +5,7 @@ theme = "PaperMod"
 
 [params]
   description = "分享专业课学习经验和知识总结"
-  defaultTheme = "auto"
+  defaultTheme = "light"
   # 启用数学公式支持
   math = true
   
