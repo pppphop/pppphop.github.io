@@ -13,7 +13,7 @@
       <link>http://localhost:1313/posts/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</link>
       <pubDate>Mon, 20 Oct 2025 11:55:04 +0800</pubDate>
       <guid>http://localhost:1313/posts/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</guid>
-      <description>&lt;p&gt;hello world&lt;/p&gt;</description>
+      <description>&lt;p&gt;$hello ~world!$&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
