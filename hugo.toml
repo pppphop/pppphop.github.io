@@ -11,7 +11,7 @@ theme = "PaperMod"
   # 启用主屏幕颜色
   maskColor = "#3F51B5"
   # 启用背景渐变
-  homeInfoParams = true
+  #homeInfoParams = true
   # 启用社交图标
   socialIcons = true
   # 启用代码高亮
@@ -22,13 +22,13 @@ theme = "PaperMod"
   customCSS = ["css/extended/custom.css"]
 
 # 作者信息
-[author]
+[params.author]
   name = "pppphop"
   image = "/images/avatar.jpg"  # 你可以添加头像
   bio = "分享学习经验和技术总结"
 
 # 社交链接
-[social]
+[params.social]
   GitHub = "pppphop"
 
 # 菜单配置
