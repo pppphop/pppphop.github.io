@@ -26,7 +26,7 @@
 &lt;p&gt;本题的解题思路:&lt;/p&gt;
 &lt;p&gt;先设计状态转移模块$fsm$，用$tunnel$表示$x$,$x+dx$,$y$,$y+dy$，判断$x+dx$是否$&amp;gt;5$，$y+dy$是否$&amp;gt;5$，以及$x$，$y$是否同时等于那六个障碍物的$x$，$y$坐标，将这些或起来，便是我们想要的&lt;strong&gt;实时的下一拍的&lt;/strong&gt;$flag$。当然，作为组合逻辑，我们本就只能输出实时的，&amp;ldquo;保持一拍&amp;quot;得在主电路里实现。注意：$dx$，$dy$要进行&lt;strong&gt;零扩展&lt;/strong&gt;变成三位，比较器一定要选$Unsigned$。&lt;/p&gt;
 &lt;p&gt;然后设计主电路，首先两个$3$位寄存器分别存$x$，$y$当下的值，与$dx$，$dy$一同传入$fsm$模块，得到的$flag$在寄存器中&lt;strong&gt;缓一拍&lt;/strong&gt;输出，既实现了将$fsm$模块中对$x+dx$，$y+dy$判断导致的“早一拍”问题，又实现了无$reset$信号时保持一拍，有$reset$立马清零的效果。至于$out$就更简单了，使用比较器判断当前$x$，$y$（可以从寄存器$Q$端引出隧道）是否都为0即可，组合逻辑。&lt;/p&gt;
-&lt;p&gt;[Pre-T1-电路文件](&lt;a href=&#34;https://github.com/pppphop/pppphop.github.io/blob/main/blog&#34;&gt;https://github.com/pppphop/pppphop.github.io/blob/main/blog&lt;/a&gt; files/T1.circ)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://localhost:1313/files/T1.circ&#34;&gt;Pre-T1-电路文件&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;t2roll-verilog&#34;&gt;T2.Roll-Verilog&lt;/h3&gt;
 &lt;p&gt;暴露了我Verilog已经几近与忘光了的事实。太久没写，没地方可以评测，没有什么有创新点的题目，对一些稍微进阶的语言技巧都记不太清不敢用。总结一下当中遇到的各种问题：&lt;/p&gt;
 &lt;ol&gt;

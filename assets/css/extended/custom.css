@@ -38,3 +38,73 @@ header {
     transform: translateY(-2px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
+/* 分类和标签页面样式 */
+.terms {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.terms li {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+}
+
+.terms li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.terms li a {
+    color: white !important;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: block;
+}
+
+.terms-count {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+}
+
+/* 文章列表中的分类标签 */
+.post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.post-categories, .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.category-badge, .tag-badge {
+    background: #667eea;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.tag-badge {
+    background: #764ba2;
+}
+
+.category-badge:hover, .tag-badge:hover {
+    background: #5a6fd8;
+    transform: translateY(-2px);
+    color: white;
+    text-decoration: none;
+}

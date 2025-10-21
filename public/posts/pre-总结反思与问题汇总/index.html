@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
 <title>Pre-总结反思与问题汇总 | pppphop的学习博客</title>
-<meta name="keywords" content="">
+<meta name="keywords" content="co, 总结">
 <meta name="description" content="Pre-总结反思与问题汇总
 T1.推箱子-Logisim
 出现了严重的失误，花了两个多小时导致道心破碎，甚至一度想“大不了爆零吧”。主要需要反思以下几点：
@@ -20,7 +20,7 @@ T1.推箱子-Logisim
 本题的解题思路:
 先设计状态转移模块$fsm$，用$tunnel$表示$x$,$x&#43;dx$,$y$,$y&#43;dy$，判断$x&#43;dx$是否$&gt;5$，$y&#43;dy$是否$&gt;5$，以及$x$，$y$是否同时等于那六个障碍物的$x$，$y$坐标，将这些或起来，便是我们想要的实时的下一拍的$flag$。当然，作为组合逻辑，我们本就只能输出实时的，&ldquo;保持一拍&quot;得在主电路里实现。注意：$dx$，$dy$要进行零扩展变成三位，比较器一定要选$Unsigned$。
 然后设计主电路，首先两个$3$位寄存器分别存$x$，$y$当下的值，与$dx$，$dy$一同传入$fsm$模块，得到的$flag$在寄存器中缓一拍输出，既实现了将$fsm$模块中对$x&#43;dx$，$y&#43;dy$判断导致的“早一拍”问题，又实现了无$reset$信号时保持一拍，有$reset$立马清零的效果。至于$out$就更简单了，使用比较器判断当前$x$，$y$（可以从寄存器$Q$端引出隧道）是否都为0即可，组合逻辑。
-[Pre-T1-电路文件](https://github.com/pppphop/pppphop.github.io/blob/main/blog files/T1.circ)
+Pre-T1-电路文件
 T2.Roll-Verilog
 暴露了我Verilog已经几近与忘光了的事实。太久没写，没地方可以评测，没有什么有创新点的题目，对一些稍微进阶的语言技巧都记不太清不敢用。总结一下当中遇到的各种问题：
 
@@ -74,7 +74,7 @@ T3.Submatrix-MIPS
 整体写法和常用指令确实记得，但是很多地方也不熟练或遗忘了。总结问题如下：">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/pre-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E4%B8%8E%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.a2a8fbfe66409783744e00a45f98f95fcd69ac556aa3eeabdfebaa8e8667fc1c.css" integrity="sha256-oqj7/mZAl4N0TgCkX5j5X81prFVqo&#43;6r3&#43;uqjoZn/Bw=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f7924675719bcb577fb82cc9a8da3decd9c080b4982301b090b4b1fc21f381e2.css" integrity="sha256-95JGdXGby1d/uCzJqNo97NnAgLSYIwGwkLSx/CHzgeI=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -168,11 +168,11 @@ T3.Submatrix-MIPS
 
 <article class="post-single">
   <header class="post-header">
-    
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       Pre-总结反思与问题汇总
     </h1>
-    <div class="post-meta"><span title='2025-10-20 14:35:01 +0800 CST'>October 20, 2025</span>
+    <div class="post-meta"><span title='2025-10-20 14:35:01 +0800 CST'>October 20, 2025</span>&nbsp;·&nbsp;<span>4 min</span>
 
 </div>
   </header> 
@@ -189,7 +189,7 @@ T3.Submatrix-MIPS
 <p>本题的解题思路:</p>
 <p>先设计状态转移模块$fsm$，用$tunnel$表示$x$,$x+dx$,$y$,$y+dy$，判断$x+dx$是否$&gt;5$，$y+dy$是否$&gt;5$，以及$x$，$y$是否同时等于那六个障碍物的$x$，$y$坐标，将这些或起来，便是我们想要的<strong>实时的下一拍的</strong>$flag$。当然，作为组合逻辑，我们本就只能输出实时的，&ldquo;保持一拍&quot;得在主电路里实现。注意：$dx$，$dy$要进行<strong>零扩展</strong>变成三位，比较器一定要选$Unsigned$。</p>
 <p>然后设计主电路，首先两个$3$位寄存器分别存$x$，$y$当下的值，与$dx$，$dy$一同传入$fsm$模块，得到的$flag$在寄存器中<strong>缓一拍</strong>输出，既实现了将$fsm$模块中对$x+dx$，$y+dy$判断导致的“早一拍”问题，又实现了无$reset$信号时保持一拍，有$reset$立马清零的效果。至于$out$就更简单了，使用比较器判断当前$x$，$y$（可以从寄存器$Q$端引出隧道）是否都为0即可，组合逻辑。</p>
-<p>[Pre-T1-电路文件](<a href="https://github.com/pppphop/pppphop.github.io/blob/main/blog">https://github.com/pppphop/pppphop.github.io/blob/main/blog</a> files/T1.circ)</p>
+<p><a href="/files/T1.circ">Pre-T1-电路文件</a></p>
 <h3 id="t2roll-verilog">T2.Roll-Verilog<a hidden class="anchor" aria-hidden="true" href="#t2roll-verilog">#</a></h3>
 <p>暴露了我Verilog已经几近与忘光了的事实。太久没写，没地方可以评测，没有什么有创新点的题目，对一些稍微进阶的语言技巧都记不太清不敢用。总结一下当中遇到的各种问题：</p>
 <ol>
@@ -721,6 +721,8 @@ syscall
 
   <footer class="post-footer">
     <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/co/">Co</a></li>
+      <li><a href="http://localhost:1313/tags/%E6%80%BB%E7%BB%93/">总结</a></li>
     </ul>
   </footer>
 </article>

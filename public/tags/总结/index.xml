@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>pppphop的学习博客</title>
-    <link>http://localhost:1313/</link>
-    <description>Recent content on pppphop的学习博客</description>
+    <title>总结 on pppphop的学习博客</title>
+    <link>http://localhost:1313/tags/%E6%80%BB%E7%BB%93/</link>
+    <description>Recent content in 总结 on pppphop的学习博客</description>
     <generator>Hugo -- 0.151.2</generator>
     <language>zh-cn</language>
     <lastBuildDate>Mon, 20 Oct 2025 14:35:01 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/%E6%80%BB%E7%BB%93/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Pre-总结反思与问题汇总</title>
       <link>http://localhost:1313/posts/pre-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E4%B8%8E%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</link>
@@ -78,34 +78,6 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;endmodule&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;t3submatrix-mips&#34;&gt;T3.Submatrix-MIPS&lt;/h3&gt;
 &lt;p&gt;整体写法和常用指令确实记得，但是很多地方也不熟练或遗忘了。总结问题如下：&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Hi</title>
-      <link>http://localhost:1313/posts/20251020-hi/</link>
-      <pubDate>Mon, 20 Oct 2025 13:55:04 +0800</pubDate>
-      <guid>http://localhost:1313/posts/20251020-hi/</guid>
-      <description>&lt;p&gt;$hello ~world!$&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>第一篇博客</title>
-      <link>http://localhost:1313/posts/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</link>
-      <pubDate>Mon, 20 Oct 2025 11:55:04 +0800</pubDate>
-      <guid>http://localhost:1313/posts/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</guid>
-      <description>&lt;p&gt;$hello ~world!$&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>分类</title>
-      <link>http://localhost:1313/categories/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/categories/</guid>
-      <description>categories</description>
-    </item>
-    <item>
-      <title>标签</title>
-      <link>http://localhost:1313/tags/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/</guid>
-      <description>tags</description>
     </item>
   </channel>
 </rss>

@@ -2,6 +2,8 @@
 title: Pre-总结反思与问题汇总
 date: '2025-10-20T14:35:01+08:00'
 math: true
+categories: ["计算机组成"]
+tags: ["co", "总结"]
 ---
 
 # Pre-总结反思与问题汇总
@@ -22,7 +24,7 @@ math: true
 
 然后设计主电路，首先两个$3$位寄存器分别存$x$，$y$当下的值，与$dx$，$dy$一同传入$fsm$模块，得到的$flag$在寄存器中**缓一拍**输出，既实现了将$fsm$模块中对$x+dx$，$y+dy$判断导致的“早一拍”问题，又实现了无$reset$信号时保持一拍，有$reset$立马清零的效果。至于$out$就更简单了，使用比较器判断当前$x$，$y$（可以从寄存器$Q$端引出隧道）是否都为0即可，组合逻辑。
 
-[Pre-T1-电路文件](https://github.com/pppphop/pppphop.github.io/blob/main/blog files/T1.circ)
+[Pre-T1-电路文件](/files/T1.circ)
 
 ### T2.Roll-Verilog
 

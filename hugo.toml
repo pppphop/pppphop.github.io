@@ -6,6 +6,8 @@ theme = "PaperMod"
 [params]
   description = "分享专业课学习经验和知识总结"
   defaultTheme = "light"
+  ShowBreadCrumbs = true
+  ShowReadingTime = true
   # 启用数学公式支持
   math = true
   # 配置 Goldmark 以安全地渲染原始 HTML 和数学公式
@@ -46,3 +48,7 @@ theme = "PaperMod"
   Content = """
   这里记录了我的专业课学习经验、技术总结和成长历程
   """
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
