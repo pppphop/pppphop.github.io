@@ -6,8 +6,30 @@
     <description>Recent content in 总结 on pppphop的学习博客</description>
     <generator>Hugo -- 0.151.2</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 20 Oct 2025 14:35:01 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 21 Oct 2025 10:35:01 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/%E6%80%BB%E7%BB%93/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>P0课下-总结反思文档</title>
+      <link>http://localhost:1313/posts/p0%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E6%96%87%E6%A1%A3/</link>
+      <pubDate>Tue, 21 Oct 2025 10:35:01 +0800</pubDate>
+      <guid>http://localhost:1313/posts/p0%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E6%96%87%E6%A1%A3/</guid>
+      <description>&lt;h1 id=&#34;p0课下-总结反思文档&#34;&gt;P0课下-总结反思文档&lt;/h1&gt;
+&lt;p&gt;本次课的实验教程相当完善，按部就班走就没有大问题，会有一些细节理解上的偏差和纠结。我们先把教程上知识点及引导部分放上来。&lt;/p&gt;
+&lt;h2 id=&#34;1如何设计电路模块&#34;&gt;1.如何设计电路模块&lt;/h2&gt;
+&lt;h3 id=&#34;概览&#34;&gt;概览&lt;/h3&gt;
+&lt;p&gt;相信通过之前数个教程的学习，你已经对我们将要使用的工具——Logisim 与 ISE 已经比较熟悉。从这个 Project 开始，我们将要使用这两个工具来进行数字电路元件的设计。在我们这个 Project 中我们将主要关注 Logisim 组合电路和时序电路的设计。&lt;/p&gt;
+&lt;h3 id=&#34;电路设计的目标&#34;&gt;电路设计的目标&lt;/h3&gt;
+&lt;p&gt;电路设计需要有一个“需求”——电路的功能与特性，这是我们电路设计的目标。如果我们从某个电路的用户角度看，我们实际上也是把电路本身作为一个“&lt;strong&gt;黑箱&lt;/strong&gt;”，不关心其中的实现。因此我们自己在设计电路时，比起具体的实现，我们最先需要关心的就是电路的功能与特性。所谓磨刀不误砍柴功，通过对电路功能的深度理解和详细设计，我们往往能够在设计中节省很多精力，下面就给大家介绍一种规范需求的方法——端口定义表。&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;P0-1-1&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/posts/P0-1-1.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;上图是一个 8 位加法器最为简单的定义表，定义了它有 5 个信号，8 位信号 A、B、SUM，1 位信号 C0 和 Overflow。方向中用 I 代表 Input 输入，用 O 代表 Output 输出。描述一栏用汉语对加法器进行了简单的描述。信号的语法遵循了类似 Verilog HDL 中的写法，如此，通过这个简单的端口定义表，我们就能够知晓我们这个 8 位加法器应该做什么。&lt;/p&gt;
+&lt;p&gt;对于更复杂的电路，我们会使用两张表。&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;P0-1-2&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/posts/P0-1-2.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;一张模块接口定义表与一张功能定义表，原因是对于这些复杂电路来说，简单的端口定义已经无法识别其功能，或者该模块在不同的情况与输入下有不同的功能，这种时候我们需要使用功能定义表来对模块的功能进行约定。&lt;/p&gt;
+&lt;p&gt;在对我们设计的电路有了如此合理，无歧义的设计目标后，我们才能去动手实现真正的电路。我们需要把设计与实现这两项工作分开来保证我们在工程中较高的完成率。**因此，建议，或者说要求，大家在之后我们的电路设计作业中，先要对模块的端口和功能进行书面化的定义，可以不拘泥于具体形式，但是一定要是可供他人阅读，立马明白模块功能的，**再去进行实际的设计，我们不希望看到最终你设计的电路出问题是从功能定义上就出了毛病。我们之后的练习题部分也将会给出定义表供大家参照。&lt;/p&gt;
+&lt;h3 id=&#34;分析目标并划分层次&#34;&gt;分析目标并划分层次&lt;/h3&gt;
+&lt;p&gt;在定义清楚设计的目标之后，我们需要对我们的实现目标进行分析——这是一个时序电路？还是一个无状态的纯组合电路？它需要同时有多个功能吗？需要分层化设计吗？需要模块化设计么？——解决这些问题的过程，其实就是完成实现的过程。而这些问题往往也与实际的模块要求有关系，之后我们将用具体的实例来进行说明。&lt;/p&gt;
+&lt;p&gt;模块设计相信大家在理论课以及前面的指导中已经有所耳闻，在这里需要提的一点是&lt;strong&gt;分层&lt;/strong&gt;的设计思想，在计算机科学中领域中有一句名言，**“在计算机科学中的任何问题都可以通过增加一个间接层来解决”（Any problem in computer science can be solved with another layer of indirection. ）。**这句话即使是在电路设计这个偏硬的领域下也是有效的，以 32 位加法器为例，初拿到手，可能会觉得无所适从，输入是两个 32 位数，输出是一个 32 位数，关系虽然抽象上简单，但是并不能简单地用门电路概括。但是如果我们添加一个“一位加法器”的间接层。使用 1 位加法器拼出一个 32 位加法器比较简单，单独拼出一个 1 位加法器也很简单。如此，问题就解决了！可见分层的威力，希望大家在设计时也要重视这种思想，当然，&lt;strong&gt;分层&lt;/strong&gt;的思想在后续课程中可能会和大家一次又一次的见面，记得和熟人打个招呼！&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Pre-总结反思与问题汇总</title>
       <link>http://localhost:1313/posts/pre-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E4%B8%8E%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</link>
