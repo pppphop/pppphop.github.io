@@ -2,7 +2,8 @@
 title: Pre-总结反思与问题汇总
 date: '2025-10-20T14:35:01+08:00'
 math: true
-categories: ["计算机组成"]
+categories: 
+- 北航计算机组成原理
 tags: ["co", "总结"]
 ---
 

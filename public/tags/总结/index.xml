@@ -13,8 +13,7 @@
       <link>http://localhost:1313/posts/p0%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E6%96%87%E6%A1%A3/</link>
       <pubDate>Tue, 21 Oct 2025 10:35:01 +0800</pubDate>
       <guid>http://localhost:1313/posts/p0%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E6%96%87%E6%A1%A3/</guid>
-      <description>&lt;h1 id=&#34;p0课下-总结反思文档&#34;&gt;P0课下-总结反思文档&lt;/h1&gt;
-&lt;p&gt;本次课的实验教程相当完善，按部就班走就没有大问题，会有一些细节理解上的偏差和纠结。我们先把教程上知识点及引导部分放上来。&lt;/p&gt;
+      <description>&lt;p&gt;本次课的实验教程相当完善，按部就班走就没有大问题，会有一些细节理解上的偏差和纠结。我们先把教程上知识点及引导部分放上来。&lt;/p&gt;
 &lt;h2 id=&#34;1如何设计电路模块&#34;&gt;1.如何设计电路模块&lt;/h2&gt;
 &lt;h3 id=&#34;概览&#34;&gt;概览&lt;/h3&gt;
 &lt;p&gt;相信通过之前数个教程的学习，你已经对我们将要使用的工具——Logisim 与 ISE 已经比较熟悉。从这个 Project 开始，我们将要使用这两个工具来进行数字电路元件的设计。在我们这个 Project 中我们将主要关注 Logisim 组合电路和时序电路的设计。&lt;/p&gt;
@@ -35,8 +34,7 @@
       <link>http://localhost:1313/posts/pre-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E4%B8%8E%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</link>
       <pubDate>Mon, 20 Oct 2025 14:35:01 +0800</pubDate>
       <guid>http://localhost:1313/posts/pre-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E4%B8%8E%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</guid>
-      <description>&lt;h1 id=&#34;pre-总结反思与问题汇总&#34;&gt;Pre-总结反思与问题汇总&lt;/h1&gt;
-&lt;h3 id=&#34;t1推箱子-logisim&#34;&gt;T1.推箱子-Logisim&lt;/h3&gt;
+      <description>&lt;h3 id=&#34;t1推箱子-logisim&#34;&gt;T1.推箱子-Logisim&lt;/h3&gt;
 &lt;p&gt;出现了严重的失误，花了两个多小时导致道心破碎，甚至一度想“大不了爆零吧”。主要需要反思以下几点：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;平常“真值表生成状态机&amp;quot;的轮椅题做的太多了，往往没有过多的输入输出设计，导致看到题目第一眼是懵的，甚至还在想怎么设计状态转移图和真值表，“难道要三十个状态吗”，对较新颖的题型不熟练导致没有做题的底气，对于$flag$保持一周的创新点也处理的略微慌张；&lt;/li&gt;
