@@ -24,7 +24,7 @@
 模块设计相信大家在理论课以及前面的指导中已经有所耳闻，在这里需要提的一点是分层的设计思想，在计算机科学中领域中有一句名言，**“在计算机科学中的任何问题都可以通过增加一个间接层来解决”（Any problem in computer science can be solved with another layer of indirection. ）。**这句话即使是在电路设计这个偏硬的领域下也是有效的，以 32 位加法器为例，初拿到手，可能会觉得无所适从，输入是两个 32 位数，输出是一个 32 位数，关系虽然抽象上简单，但是并不能简单地用门电路概括。但是如果我们添加一个“一位加法器”的间接层。使用 1 位加法器拼出一个 32 位加法器比较简单，单独拼出一个 1 位加法器也很简单。如此，问题就解决了！可见分层的威力，希望大家在设计时也要重视这种思想，当然，分层的思想在后续课程中可能会和大家一次又一次的见面，记得和熟人打个招呼！">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/p0%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E6%96%87%E6%A1%A3/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.24d819dc4d2827eb4e2db2c4a384d73f1ca441951495cdb6a1e1b55479d01ea1.css" integrity="sha256-JNgZ3E0oJ&#43;tOLbLEo4TXPxykQZUUlc22oeG1VHnQHqE=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f47cb38354bfa021218603f350d093ddd1c11c9a412e0a78972bc0fa441235b5.css" integrity="sha256-9Hyzg1S/oCEhhgPzUNCT3dHBHJpBLgp4lyvA&#43;kQSNbU=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -122,7 +122,7 @@
     <h1 class="post-title entry-hint-parent">
       P0课下-总结反思文档
     </h1>
-    <div class="post-meta"><span title='2025-10-21 10:35:01 +0800 CST'>October 21, 2025</span>&nbsp;·&nbsp;<span>4 min</span>
+    <div class="post-meta"><span title='2025-10-21 10:35:01 +0800 CST'>October 21, 2025</span>&nbsp;·&nbsp;<span>3 min</span>
 
 </div>
   </header> 
@@ -492,7 +492,7 @@ $$</p>
 <p>1.记得补三个$0$！否则测评数据点会恰好错一个位。体现了读题的重要性。往往开始做题又会忘掉一些细节。</p>
 <p>2.用好Tunnel，但不要过多。不要一眼望过去全是Tunnel，尽量“线比隧道多”。</p>
 <h4 id="logisim源文件与连线截图">Logisim源文件与连线截图<a hidden class="anchor" aria-hidden="true" href="#logisim源文件与连线截图">#</a></h4>
-<p>[crc.circ](<a href="https://github.com/pppphop/pppphop.github.io/blob/main/blog">https://github.com/pppphop/pppphop.github.io/blob/main/blog</a> files/crc.circ)</p>
+<p><a href="/files/crc.circ">crc.circ</a></p>
 <p><img alt="image-20251012201301017" loading="lazy" src="/images/posts/image-20251012201301017.png"></p>
 <p><img alt="image-20251012201317373" loading="lazy" src="/images/posts/image-20251012201317373.png"></p>
 <h3 id="t2grf">T2.GRF<a hidden class="anchor" aria-hidden="true" href="#t2grf">#</a></h3>
@@ -510,7 +510,7 @@ $$</p>
 <li>巧用Ctrl C+V，可以将寄存器设置好后，$1\rightarrow 2 \rightarrow 4 \rightarrow 8 \rightarrow 16 \rightarrow 32$，就能迅速搞定这32个寄存器。Tunnel也可以复制粘贴，每次改一下标签。</li>
 </ol>
 <h4 id="logisim源文件与连线截图-1">Logisim源文件与连线截图<a hidden class="anchor" aria-hidden="true" href="#logisim源文件与连线截图-1">#</a></h4>
-<p>[grf.circ](<a href="https://github.com/pppphop/pppphop.github.io/blob/main/blog">https://github.com/pppphop/pppphop.github.io/blob/main/blog</a> files/grf.circ)</p>
+<p><a href="/files/grf.circ">grf.circ</a></p>
 <p><img alt="image-20251013142829715" loading="lazy" src="/images/posts/image-20251013142829715.png"></p>
 <p><img alt="image-20251013142901730" loading="lazy" src="/images/posts/image-20251013142901730.png"></p>
 <h3 id="t3navigation">T3.Navigation<a hidden class="anchor" aria-hidden="true" href="#t3navigation">#</a></h3>
@@ -529,7 +529,7 @@ $$</p>
 <li>仔细读题，“到达B机房后计小组将会在下一周期回到原点，（下一周期的输入将被忽略掉）”所以我们这么做是没有问题的，相当于他在$B$还是停留了一拍，这一拍用来输出$arrival=1$，也体现了这是个Moore型有限状态机</li>
 </ol>
 <h4 id="logisim源文件与连线截图-2">Logisim源文件与连线截图<a hidden class="anchor" aria-hidden="true" href="#logisim源文件与连线截图-2">#</a></h4>
-<p>[navigation.circ](<a href="https://github.com/pppphop/pppphop.github.io/blob/main/blog">https://github.com/pppphop/pppphop.github.io/blob/main/blog</a> files/navigation.circ)</p>
+<p><a href="/files/navigation.circ">navigation.circ</a></p>
 <p><img alt="image-20251013145400358" loading="lazy" src="/images/posts/image-20251013145400358.png"></p>
 <h3 id="t4fsm">T4.FSM<a hidden class="anchor" aria-hidden="true" href="#t4fsm">#</a></h3>
 <p>这是很常见的Mealy型状态机，但是想要一次搭对并不简单，难点和易错点其实在同步复位。</p>
@@ -546,7 +546,7 @@ $$</p>
 <li>本题刚开始连的时候你会感到奇怪，怎么没有输入$clk$信号？那么就是我们从组件中直接拿出$Clock$就行了。</li>
 </ol>
 <h4 id="logisim源文件与连线截图-3">Logisim源文件与连线截图<a hidden class="anchor" aria-hidden="true" href="#logisim源文件与连线截图-3">#</a></h4>
-<p>[fsm.circ](<a href="https://github.com/pppphop/pppphop.github.io/blob/main/blog">https://github.com/pppphop/pppphop.github.io/blob/main/blog</a> files/fsm.circ)</p>
+<p><a href="/files/fsm.circ">fsm.circ</a></p>
 <p><img alt="image-20251013170526900" loading="lazy" src="/images/posts/image-20251013170526900.png"></p>
 <h3 id="t5ftoi">T5.ftoi<a hidden class="anchor" aria-hidden="true" href="#t5ftoi">#</a></h3>
 <p>一道组合逻辑，难！不愧是附加题，对于我这种比较蠢的，相当于跳出了我的“舒适圈”，看到题就无处下手了。放在高中，这算是一道“新定义”题。个人觉得题目其实挺难读懂的，比如取整数是个什么取法。但我朋友都说还好。</p>
@@ -566,7 +566,7 @@ $$</p>
 <li>左移右移需将$frac$扩展至$32$位</li>
 </ol>
 <h4 id="logisim源文件与连线截图-4">Logisim源文件与连线截图<a hidden class="anchor" aria-hidden="true" href="#logisim源文件与连线截图-4">#</a></h4>
-<p>[ftoi.circ](<a href="https://github.com/pppphop/pppphop.github.io/blob/main/blog">https://github.com/pppphop/pppphop.github.io/blob/main/blog</a> files/ftoi.circ)</p>
+<p><a href="/files/ftoi.circ">ftoi.circ</a></p>
 <p><img alt="image-20251013180659668" loading="lazy" src="/images/posts/mage-20251013180659668.png"></p>
 <p><img alt="image-20251013180713158" loading="lazy" src="/images/posts/image-20251013180713158.png"></p>
 
