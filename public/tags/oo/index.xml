@@ -9,11 +9,42 @@
     <lastBuildDate>Sat, 25 Oct 2025 07:38:01 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/oo/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>oopre-第一次作业-非迭代</title>
+      <title>oopre-第一次作业-非迭代&amp;课程入门手册</title>
       <link>http://localhost:1313/posts/oopre%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A-%E9%9D%9E%E8%BF%AD%E4%BB%A3%E8%AF%BE%E7%A8%8B%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</link>
       <pubDate>Sat, 25 Oct 2025 07:38:01 +0800</pubDate>
       <guid>http://localhost:1313/posts/oopre%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A-%E9%9D%9E%E8%BF%AD%E4%BB%A3%E8%AF%BE%E7%A8%8B%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</guid>
-      <description>&lt;p&gt;本次作业指导书部分过多，而且比较冗杂，我就不放上来了，但是有几个部分还是挺重要的，这份博客就作为一个oopre课程入门手册吧，后续想到什么继续补充。本次作业只有一个修改语法错误的作业，还是很容易的，也附于最后。&lt;/p&gt;</description>
+      <description>&lt;p&gt;本次作业指导书部分过多，而且比较冗杂，我就不放上来了，但是有几个部分还是挺重要的，这份博客就作为一个oopre课程入门手册吧，暂时只是开了个坑，后续想到什么继续补充，尚未完结。本次作业只有一个修改语法错误的作业，还是很容易的，也附于最后。&lt;/p&gt;
+&lt;h2 id=&#34;1环境配置&#34;&gt;1.环境配置&lt;/h2&gt;
+&lt;p&gt;​	这一部分由于过去快两个月了，我也记不清当时我具体遇到了哪些问题。提一提我印象比较深的吧。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;编译器，无脑IDEA就行，真的好用，社区版就够用，如果有多余经历可以整个$Jetbrains$的学生认证，后面会讲到。&lt;/li&gt;
+&lt;li&gt;环境变量，这个一般不需要你自己配，可以在IDEA里直接下，当然我们课程指定了版本是$Java 1.8$，要注意一下，使用其他版本提交时可能出现编译错误。自己添加环境变量路径的话，在左下角$win$图标里搜$java$，打开文件位置，确定是正确的版本，复制粘贴到系统路径里就行&lt;/li&gt;
+&lt;li&gt;我遇到的一些问题：IDEA断网。搜不到任何课程要求的插件，显示连接不到互联网。解决方法：重启应用/等会再试&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;2git的使用&#34;&gt;2.GIT的使用&lt;/h2&gt;
+&lt;p&gt;​	这块你可以&lt;strong&gt;完全不学&lt;/strong&gt;，IDEA帮你提供了推送提交的选项。实在需要用也可以问问ai。如果想学，参考廖雪峰的网站，讲的真的很好：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://liaoxuefeng.com/books/git/introduction/index.html&#34;&gt;https://liaoxuefeng.com/books/git/introduction/index.html&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;附第一次作业题目&#34;&gt;附.第一次作业题目&lt;/h2&gt;
+&lt;h4 id=&#34;作业要求&#34;&gt;作业要求&lt;/h4&gt;
+&lt;p&gt;课程组在本次作业对应的 git 仓库中提供了一份 &lt;strong&gt;有错误&lt;/strong&gt; 的代码，你需要对代码进行修改，使程序能够正确的完成上面的场景逻辑。完成代码的修改后，你需要将代码提交到 hw1 的评测窗口，并且通过所有测试点&lt;/p&gt;
+&lt;h4 id=&#34;背景描述&#34;&gt;背景描述&lt;/h4&gt;
+&lt;p&gt;欢迎来到虚拟宠物乐园！你是一位宠物爱好者，初始经验值为 0，你拥有一只可爱的虚拟宠物，宠物拥有 &lt;strong&gt;名字、饥饿度、快乐度和健康度&lt;/strong&gt; 四种属性信息。你的任务是照顾好它，确保它不会太饿、太不开心或者太不健康。你可以给它喂食不同的食物来降低它的饥饿度，也可以陪它玩耍来提高它的快乐度。但是要小心，过度喂食可能会降低宠物的健康度！&lt;/p&gt;
+&lt;p&gt;具体的，我们做出如下约定：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;有两种食物 biscuit 和 fruit 可供喂食，每次喂食后，&lt;/p&gt;
+&lt;p&gt;玩家经验值增加 5 点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;biscuit：喂食 biscuit 后，宠物的 &lt;strong&gt;饥饿度降低 10 点&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;fruit：喂食 fruit 后，宠物的 &lt;strong&gt;饥饿度降低 8 点&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;特殊的，当宠物被喂食超过 &lt;strong&gt;3&lt;/strong&gt; 次 biscuit 后，每次喂食 biscuit（从第 4 次开始）后，饥饿度降低 10 点的同时，&lt;strong&gt;健康度降低 5 点&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;陪宠物进行一次玩耍，&lt;strong&gt;宠物的快乐度升高 5 点&lt;/strong&gt;，&lt;strong&gt;玩家经验值增加 7 点&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;宠物的饥饿度和健康度不得低于 0，快乐度不得高于 100。如果某次操作使得宠物的饥饿度或健康度小于 0，则宠物的饥饿度或健康度视为 0；如果某次操作使得宠物的快乐度超过 100，则宠物的快乐度视为 100。&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

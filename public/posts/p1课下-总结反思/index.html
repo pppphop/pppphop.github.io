@@ -673,7 +673,7 @@ endcase
 <p>在这个部分中，我们的目标是完成Splitter、ALU和EXT的搭建。相信经过之前的学习，大家对这三个组合逻辑部件已经有了一定的了解。在组合逻辑电路中，这是相当简单的例子。我们也希望大家能够从这些简单的例子中，复习使用 Verilog 进行电路设计的一般流程，并且学会如何测试自己所搭建电路的正确性。在本门课程中，Debug 和测试将会是非常重要的技能，希望大家能在课下努力锻炼这种能力。</p>
 <h3 id="1verilog-实现-splitter">1、Verilog 实现 Splitter<a hidden class="anchor" aria-hidden="true" href="#1verilog-实现-splitter">#</a></h3>
 <p>使用 Verilog 搭建一个32位 Splitter , 给定一个32位的二进制数作为输入，将其划分为四个8位的二进制数作为输出。</p>
-<p><img alt="p1.0.1.1.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/9eecdef4-8110-472e-bb32-ecb896b013d0/p1.0.1.1.png"></p>
+<p><img alt="p1.0.1.1.png" loading="lazy" src="/images/posts/p1.0.1.1.png"></p>
 <h3 id="要求">要求：<a hidden class="anchor" aria-hidden="true" href="#要求">#</a></h3>
 <ul>
 <li>必须严格按照模块的端口定义</li>
@@ -682,9 +682,9 @@ endcase
 <h3 id="p1_l0_alu-verilog部件设计p1q2">P1_L0_ALU-Verilog部件设计(P1.Q2)<a hidden class="anchor" aria-hidden="true" href="#p1_l0_alu-verilog部件设计p1q2">#</a></h3>
 <h3 id="2verilog-实现-alu">2、Verilog 实现 ALU<a hidden class="anchor" aria-hidden="true" href="#2verilog-实现-alu">#</a></h3>
 <p>使用 Verilog 搭建一个 32 位六运算 ALU 并提交。具体模块端口定义如下：</p>
-<p><img alt="p1.0.2.1.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/e0d9e824-3100-4e38-99cc-fea7d372364b/p1.0.2.1.png"></p>
+<p><img alt="p1.0.2.1.png" loading="lazy" src="/images/posts/p1.0.2.1.png"></p>
 <p>模块功能定义如下：</p>
-<p><img alt="p1.0.2.2.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/a1f5c6ca-cba2-43d1-b08a-3b93d65a5486/p1.0.2.2.png"></p>
+<p><img alt="p1.0.2.2.png" loading="lazy" src="/images/posts/p1.0.2.2.png"></p>
 <h3 id="知识复习">知识复习：<a hidden class="anchor" aria-hidden="true" href="#知识复习">#</a></h3>
 <p>在这里我们需要复习逻辑右移和算术右移的区别：</p>
 <p>逻辑右移不考虑符号位，右移一位，左边补零即可。</p>
@@ -704,9 +704,9 @@ endcase
 <h3 id="p1_l0_ext-verilog部件设计p1q3">P1_L0_EXT-Verilog部件设计(P1.Q3)<a hidden class="anchor" aria-hidden="true" href="#p1_l0_ext-verilog部件设计p1q3">#</a></h3>
 <h3 id="3verilog-实现-ext">3、Verilog 实现 EXT<a hidden class="anchor" aria-hidden="true" href="#3verilog-实现-ext">#</a></h3>
 <p>EXT为扩展单元，其主要功能是完成将输入到其中的16位数据进行符号扩展、零扩展以及将输入的16位数加载到高位等操作。具体模块端口定义如下：</p>
-<p><img alt="p1.0.3.1.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/8e350563-53ce-4ed2-9d64-553de61939d8/p1.0.3.1.png"></p>
+<p><img alt="p1.0.3.1.png" loading="lazy" src="/images/posts/p1.0.3.1.png"></p>
 <p>模块功能定义如下：</p>
-<p><img alt="p1.0.3.2.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/e3ab006b-5996-4d3d-b0c7-6e7d901dd445/p1.0.3.2.png"></p>
+<p><img alt="p1.0.3.2.png" loading="lazy" src="/images/posts/p1.0.3.2.png"></p>
 <h3 id="要求-2">要求：<a hidden class="anchor" aria-hidden="true" href="#要求-2">#</a></h3>
 <ul>
 <li>必须严格按照模块的端口定义</li>
@@ -718,7 +718,7 @@ endcase
 <p>在完成了 Verilog 组合逻辑部件设计的三道编程题之后，相信大家对于使用 Verilog 进行设计的一般流程和方法已经再次熟悉。现在，我们将进行下一步的挑战——设计包含<strong>时序逻辑</strong>的 Verilog 部件，这也将是我们从组合逻辑部件到之后的<strong>有限状态机</strong>的重要过渡。 在 Verilog 的教程部分，我们曾设计了一个简易的计数器。而我们现在的任务就是设计一个加强版的计数器——格雷码计数器。 如果你对格雷码的定义和优点等知识有所遗忘，这个链接可以帮到你： <a href="https://en.wikipedia.org/wiki/Gray_code">格雷码-wikipedia</a></p>
 <h3 id="2模块规格">2、模块规格<a hidden class="anchor" aria-hidden="true" href="#2模块规格">#</a></h3>
 <p>我们的格雷码计数器端口定义如下：</p>
-<p><img alt="p1.0.4.1.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/3d697aad-7b6c-4f05-b36b-3056f9f701d5/p1.0.4.1.png"></p>
+<p><img alt="p1.0.4.1.png" loading="lazy" src="/images/posts/p1.0.4.1.png"></p>
 <p>我们要实现的功能如下：</p>
 <h4 id="1-在任意一个时钟上升沿到来的时候如果复位信号有效则将计数器清零">1、 在任意一个时钟上升沿到来的时候，如果复位信号有效，则将计数器清零；<a hidden class="anchor" aria-hidden="true" href="#1-在任意一个时钟上升沿到来的时候如果复位信号有效则将计数器清零">#</a></h4>
 <h4 id="2-每个时钟上升沿到来的时候如果使能信号有效计数器的值1">2、 每个时钟上升沿到来的时候，如果使能信号有效，计数器的值+1；<a hidden class="anchor" aria-hidden="true" href="#2-每个时钟上升沿到来的时候如果使能信号有效计数器的值1">#</a></h4>
@@ -726,9 +726,9 @@ endcase
 <h4 id="4-计数器初值为0">4、 计数器初值为0；<a hidden class="anchor" aria-hidden="true" href="#4-计数器初值为0">#</a></h4>
 <h4 id="5-当计数器的值在1后出现溢出的情况时将会回到零同时从发生溢出的这个时钟上升沿开始溢出标志位将会持续输出1直到计数器被清零为止其余情况下溢出标志位必须为0">5、 当计数器的值在+1后出现溢出的情况时，将会回到零，同时从发生溢出的这个时钟上升沿开始，溢出标志位将会持续输出1，直到计数器被清零为止（其余情况下溢出标志位必须为0）。<a hidden class="anchor" aria-hidden="true" href="#5-当计数器的值在1后出现溢出的情况时将会回到零同时从发生溢出的这个时钟上升沿开始溢出标志位将会持续输出1直到计数器被清零为止其余情况下溢出标志位必须为0">#</a></h4>
 <p>示范波形：</p>
-<p><img alt="p1.0.4.2.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/7b78c462-8ba4-4367-931c-a1f190834d31/p1.0.4.2.png"></p>
+<p><img alt="p1.0.4.2.png" loading="lazy" src="/images/posts/p1.0.4.2.png"></p>
 <p>为了方便大家设计，这里附上3位格雷码的计数方式：</p>
-<p><img alt="p1.0.4.3.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/916bf9b3-ac3f-40a6-90df-d1c014dd0cb5/p1.0.4.3.png"></p>
+<p><img alt="p1.0.4.3.png" loading="lazy" src="/images/posts/p1.0.4.3.png"></p>
 <h3 id="3要求">3、要求<a hidden class="anchor" aria-hidden="true" href="#3要求">#</a></h3>
 <ul>
 <li>必须严格按照模块的端口定义</li>
@@ -742,11 +742,11 @@ endcase
 <p>2、表达式F可以按如下的规则产生：</p>
 <p>a. 单个数字[0-9]是F； b. 如果<strong>X</strong>是F，<strong>Y</strong>是F，<strong>X+Y</strong>也是F； c. 如果<strong>X</strong>是F，<strong>Y</strong>是F，<strong>X*Y</strong>也是F。</p>
 <p>排除显而易见的所用符号不合法，所有的非法情况总结如下：</p>
-<p><img alt="p1.0.6.1.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/06674c70-2698-4f77-a1de-248d29722934/p1.0.6.1.png"></p>
+<p><img alt="p1.0.6.1.png" loading="lazy" src="/images/posts/p1.0.6.1.png"></p>
 <p>现在，我们需要你用Verilog HDL语言设计一个有限状态机来识别这样的表达式。</p>
 <h3 id="2模块规格-1">2、模块规格<a hidden class="anchor" aria-hidden="true" href="#2模块规格-1">#</a></h3>
 <p>模块名：<strong>expr</strong></p>
-<p><img alt="p1.0.5.1.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/e1a38b76-3fc0-4389-a1f7-08f36239f6d0/p1.0.5.1.png"></p>
+<p><img alt="p1.0.5.1.png" loading="lazy" src="/images/posts/p1.0.5.1.png"></p>
 <h3 id="3功能要求">3、功能要求<a hidden class="anchor" aria-hidden="true" href="#3功能要求">#</a></h3>
 <p>每个时钟上升沿，状态机从 in 中读入一个ASCII编码的字符。假设读入的第i个字符为ci，则第n个时钟上升沿时，可以拼出一个字符串:</p>
 <p>s=c1c2&hellip;.cn</p>
@@ -757,7 +757,7 @@ endcase
 <p>输入：s = <strong>1+2+3+4</strong> 输出：out = 1</p>
 <p>输入：s = <strong>1+2+3+</strong> 输出：out = 0</p>
 <p>示范波形（输入：s=<strong>1+2*3</strong>, 清零一周期, s&rsquo;=<strong>1+2*3</strong>。时钟周期10ns）：</p>
-<p><img alt="p1.0.4.3 1.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/f2720cc7-a8e8-453d-89c9-bc6ce2b691e2/p1.0.4.3__1_.png"></p>
+<p><img alt="p1.0.4.3 1.png" loading="lazy" src="/images/posts/p1.0.4.3__1_.png"></p>
 <h3 id="5提交要求">5、提交要求<a hidden class="anchor" aria-hidden="true" href="#5提交要求">#</a></h3>
 <ul>
 <li>必须严格按照模块的端口定义。</li>
@@ -814,7 +814,7 @@ endcase
 <li><strong>保证输入的单词数和单词长度均小于2^32</strong></li>
 </ul>
 <h3 id="示例波形">示例波形<a hidden class="anchor" aria-hidden="true" href="#示例波形">#</a></h3>
-<p><img alt="example_blockchecker.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/ebe8c4fa-7fcf-4413-98ca-54407d779c86/example_blockchecker.png"></p>
+<p><img alt="example_blockchecker.png" loading="lazy" src="/images/posts/example_blockchecker.png"></p>
 <h2 id="思路与题解">思路与题解<a hidden class="anchor" aria-hidden="true" href="#思路与题解">#</a></h2>
 <p>好了那么进入正题，我们依次看每道题目。可以说前三题都是白送，只需要你会一点Verilog的语法即可。时序逻辑两道题稍有新意，BlockChecker相当有难度。</p>
 <h3 id="t1-splitter">T1-splitter<a hidden class="anchor" aria-hidden="true" href="#t1-splitter">#</a></h3>

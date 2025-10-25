@@ -110,6 +110,49 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">P1课下-总结反思
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>这次可能是最简单的一次课下了？只有附加题较难。当然这并不是好事，可能会导致上机难度陡然上升而我们在课下没有得到充分练习的情况。还是与往常一样，分为教程复现，题面，思路与题解三部分。
+教程 Verilog FSM 设计流程 设计流程 对于状态机的概念和用法在理论课和前面部分的学习中接触到了很多，所以在此不再过多叙述。
+在 Verilog HDL 中可以用许多种方法来描述有限状态机，最常用的方法是用 always 语句和 case 语句。下面具体说明用 Verilog 设计有限状态机的一般步骤：
+逻辑抽象，得出状态转换图。
+状态化简（该步骤可以省略），如果在状态转换图中出现两个一样的状态则需要将其合并为一个状态，以得到最简的状态转换图。
+状态分配，也就是状态编码。通常有很多种编码方式，比如 Gray 编码、独热编码等。在实际电路中，需综合考虑电路复杂度与电路性能之间的折中。这里的设计没有用到特别复杂的电路逻辑，所以大家可以自行决定用哪种编码方式。（不过，对于需要在FPGA上运行的电路，推荐使用独热编码方式。因为 FPGA 有丰富的寄存器资源，门逻辑相对缺乏，采用独热编码可以有效提高电路的速度和可靠性，也有利于提高器件资源的利用率。）
+下面利用独热编码来介绍状态编码定义的两种方式：parameter 和 `define 语句。
+用 parameter 参数定义：用 n 个 parameter 常量表示 n 个状态，如下图所示： parameter State1 = 4&#39;b0001, State2 = 4&#39;b0010, State3 = 4&#39;b0100, State4 = 4&#39;b1000; ............... case (State) State1:........; State2:........; ........ 用`define 语句定义：用 n 个宏名表示 n 个状态，如下所示： `define State1 4&#39;b0001 // 不要加分号 `define State2 4&#39;b0010 `define State3 4&#39;b0100 `define State4 4&#39;b1000 ... case (State) `State1:...; `State2:...; ... endcase 根据状态转移图得出次态逻辑和输出逻辑。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-10-25 07:58:22 +0800 CST'>October 25, 2025</span>&nbsp;·&nbsp;<span>8 min</span></footer>
+  <a class="entry-link" aria-label="post link to P1课下-总结反思" href="http://localhost:1313/posts/p1%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">oopre-第一次作业-非迭代&amp;课程入门手册
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>本次作业指导书部分过多，而且比较冗杂，我就不放上来了，但是有几个部分还是挺重要的，这份博客就作为一个oopre课程入门手册吧，暂时只是开了个坑，后续想到什么继续补充，尚未完结。本次作业只有一个修改语法错误的作业，还是很容易的，也附于最后。
+1.环境配置 ​	这一部分由于过去快两个月了，我也记不清当时我具体遇到了哪些问题。提一提我印象比较深的吧。
+编译器，无脑IDEA就行，真的好用，社区版就够用，如果有多余经历可以整个$Jetbrains$的学生认证，后面会讲到。 环境变量，这个一般不需要你自己配，可以在IDEA里直接下，当然我们课程指定了版本是$Java 1.8$，要注意一下，使用其他版本提交时可能出现编译错误。自己添加环境变量路径的话，在左下角$win$图标里搜$java$，打开文件位置，确定是正确的版本，复制粘贴到系统路径里就行 我遇到的一些问题：IDEA断网。搜不到任何课程要求的插件，显示连接不到互联网。解决方法：重启应用/等会再试 2.GIT的使用 ​	这块你可以完全不学，IDEA帮你提供了推送提交的选项。实在需要用也可以问问ai。如果想学，参考廖雪峰的网站，讲的真的很好：
+https://liaoxuefeng.com/books/git/introduction/index.html
+附.第一次作业题目 作业要求 课程组在本次作业对应的 git 仓库中提供了一份 有错误 的代码，你需要对代码进行修改，使程序能够正确的完成上面的场景逻辑。完成代码的修改后，你需要将代码提交到 hw1 的评测窗口，并且通过所有测试点
+背景描述 欢迎来到虚拟宠物乐园！你是一位宠物爱好者，初始经验值为 0，你拥有一只可爱的虚拟宠物，宠物拥有 名字、饥饿度、快乐度和健康度 四种属性信息。你的任务是照顾好它，确保它不会太饿、太不开心或者太不健康。你可以给它喂食不同的食物来降低它的饥饿度，也可以陪它玩耍来提高它的快乐度。但是要小心，过度喂食可能会降低宠物的健康度！
+具体的，我们做出如下约定：
+有两种食物 biscuit 和 fruit 可供喂食，每次喂食后，
+玩家经验值增加 5 点
+biscuit：喂食 biscuit 后，宠物的 饥饿度降低 10 点 fruit：喂食 fruit 后，宠物的 饥饿度降低 8 点 特殊的，当宠物被喂食超过 3 次 biscuit 后，每次喂食 biscuit（从第 4 次开始）后，饥饿度降低 10 点的同时，健康度降低 5 点 陪宠物进行一次玩耍，宠物的快乐度升高 5 点，玩家经验值增加 7 点
+宠物的饥饿度和健康度不得低于 0，快乐度不得高于 100。如果某次操作使得宠物的饥饿度或健康度小于 0，则宠物的饥饿度或健康度视为 0；如果某次操作使得宠物的快乐度超过 100，则宠物的快乐度视为 100。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-10-25 07:38:01 +0800 CST'>October 25, 2025</span>&nbsp;·&nbsp;<span>1 min</span></footer>
+  <a class="entry-link" aria-label="post link to oopre-第一次作业-非迭代&课程入门手册" href="http://localhost:1313/posts/oopre%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A-%E9%9D%9E%E8%BF%AD%E4%BB%A3%E8%AF%BE%E7%A8%8B%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">P0课下-总结反思文档
     </h2>
   </header>
