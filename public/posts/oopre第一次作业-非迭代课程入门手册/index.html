@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>oopre-第一次作业-非迭代&amp;课程入门手册 | pppphop的学习博客</title>
+<meta name="keywords" content="OO, 总结">
+<meta name="description" content="本次作业指导书部分过多，而且比较冗杂，我就不放上来了，但是有几个部分还是挺重要的，这份博客就作为一个oopre课程入门手册吧，暂时只是开了个坑，后续想到什么继续补充，尚未完结。本次作业只有一个修改语法错误的作业，还是很容易的，也附于最后。
+1.环境配置
+​	这一部分由于过去快两个月了，我也记不清当时我具体遇到了哪些问题。提一提我印象比较深的吧。
+
+编译器，无脑IDEA就行，真的好用，社区版就够用，如果有多余经历可以整个$Jetbrains$的学生认证，后面会讲到。
+环境变量，这个一般不需要你自己配，可以在IDEA里直接下，当然我们课程指定了版本是$Java 1.8$，要注意一下，使用其他版本提交时可能出现编译错误。自己添加环境变量路径的话，在左下角$win$图标里搜$java$，打开文件位置，确定是正确的版本，复制粘贴到系统路径里就行
+我遇到的一些问题：IDEA断网。搜不到任何课程要求的插件，显示连接不到互联网。解决方法：重启应用/等会再试
+
+2.GIT的使用
+​	这块你可以完全不学，IDEA帮你提供了推送提交的选项。实在需要用也可以问问ai。如果想学，参考廖雪峰的网站，讲的真的很好：
+https://liaoxuefeng.com/books/git/introduction/index.html
+附.第一次作业题目
+作业要求
+课程组在本次作业对应的 git 仓库中提供了一份 有错误 的代码，你需要对代码进行修改，使程序能够正确的完成上面的场景逻辑。完成代码的修改后，你需要将代码提交到 hw1 的评测窗口，并且通过所有测试点
+背景描述
+欢迎来到虚拟宠物乐园！你是一位宠物爱好者，初始经验值为 0，你拥有一只可爱的虚拟宠物，宠物拥有 名字、饥饿度、快乐度和健康度 四种属性信息。你的任务是照顾好它，确保它不会太饿、太不开心或者太不健康。你可以给它喂食不同的食物来降低它的饥饿度，也可以陪它玩耍来提高它的快乐度。但是要小心，过度喂食可能会降低宠物的健康度！
+具体的，我们做出如下约定：
+
+
+有两种食物 biscuit 和 fruit 可供喂食，每次喂食后，
+玩家经验值增加 5 点
+
+biscuit：喂食 biscuit 后，宠物的 饥饿度降低 10 点
+fruit：喂食 fruit 后，宠物的 饥饿度降低 8 点
+特殊的，当宠物被喂食超过 3 次 biscuit 后，每次喂食 biscuit（从第 4 次开始）后，饥饿度降低 10 点的同时，健康度降低 5 点
+
+
+
+陪宠物进行一次玩耍，宠物的快乐度升高 5 点，玩家经验值增加 7 点
+
+
+宠物的饥饿度和健康度不得低于 0，快乐度不得高于 100。如果某次操作使得宠物的饥饿度或健康度小于 0，则宠物的饥饿度或健康度视为 0；如果某次操作使得宠物的快乐度超过 100，则宠物的快乐度视为 100。">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/oopre%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A-%E9%9D%9E%E8%BF%AD%E4%BB%A3%E8%AF%BE%E7%A8%8B%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f47cb38354bfa021218603f350d093ddd1c11c9a412e0a78972bc0fa441235b5.css" integrity="sha256-9Hyzg1S/oCEhhgPzUNCT3dHBHJpBLgp4lyvA&#43;kQSNbU=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/oopre%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A-%E9%9D%9E%E8%BF%AD%E4%BB%A3%E8%AF%BE%E7%A8%8B%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      tags: 'ams'
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="pppphop的学习博客 (Alt + H)">pppphop的学习博客</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      oopre-第一次作业-非迭代&amp;课程入门手册
+    </h1>
+    <div class="post-meta"><span title='2025-10-25 07:38:01 +0800 CST'>October 25, 2025</span>&nbsp;·&nbsp;<span>1 min</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>本次作业指导书部分过多，而且比较冗杂，我就不放上来了，但是有几个部分还是挺重要的，这份博客就作为一个oopre课程入门手册吧，暂时只是开了个坑，后续想到什么继续补充，尚未完结。本次作业只有一个修改语法错误的作业，还是很容易的，也附于最后。</p>
+<h2 id="1环境配置">1.环境配置<a hidden class="anchor" aria-hidden="true" href="#1环境配置">#</a></h2>
+<p>​	这一部分由于过去快两个月了，我也记不清当时我具体遇到了哪些问题。提一提我印象比较深的吧。</p>
+<ul>
+<li>编译器，无脑IDEA就行，真的好用，社区版就够用，如果有多余经历可以整个$Jetbrains$的学生认证，后面会讲到。</li>
+<li>环境变量，这个一般不需要你自己配，可以在IDEA里直接下，当然我们课程指定了版本是$Java 1.8$，要注意一下，使用其他版本提交时可能出现编译错误。自己添加环境变量路径的话，在左下角$win$图标里搜$java$，打开文件位置，确定是正确的版本，复制粘贴到系统路径里就行</li>
+<li>我遇到的一些问题：IDEA断网。搜不到任何课程要求的插件，显示连接不到互联网。解决方法：重启应用/等会再试</li>
+</ul>
+<h2 id="2git的使用">2.GIT的使用<a hidden class="anchor" aria-hidden="true" href="#2git的使用">#</a></h2>
+<p>​	这块你可以<strong>完全不学</strong>，IDEA帮你提供了推送提交的选项。实在需要用也可以问问ai。如果想学，参考廖雪峰的网站，讲的真的很好：</p>
+<p><a href="https://liaoxuefeng.com/books/git/introduction/index.html">https://liaoxuefeng.com/books/git/introduction/index.html</a></p>
+<h2 id="附第一次作业题目">附.第一次作业题目<a hidden class="anchor" aria-hidden="true" href="#附第一次作业题目">#</a></h2>
+<h4 id="作业要求">作业要求<a hidden class="anchor" aria-hidden="true" href="#作业要求">#</a></h4>
+<p>课程组在本次作业对应的 git 仓库中提供了一份 <strong>有错误</strong> 的代码，你需要对代码进行修改，使程序能够正确的完成上面的场景逻辑。完成代码的修改后，你需要将代码提交到 hw1 的评测窗口，并且通过所有测试点</p>
+<h4 id="背景描述">背景描述<a hidden class="anchor" aria-hidden="true" href="#背景描述">#</a></h4>
+<p>欢迎来到虚拟宠物乐园！你是一位宠物爱好者，初始经验值为 0，你拥有一只可爱的虚拟宠物，宠物拥有 <strong>名字、饥饿度、快乐度和健康度</strong> 四种属性信息。你的任务是照顾好它，确保它不会太饿、太不开心或者太不健康。你可以给它喂食不同的食物来降低它的饥饿度，也可以陪它玩耍来提高它的快乐度。但是要小心，过度喂食可能会降低宠物的健康度！</p>
+<p>具体的，我们做出如下约定：</p>
+<ol>
+<li>
+<p>有两种食物 biscuit 和 fruit 可供喂食，每次喂食后，</p>
+<p>玩家经验值增加 5 点</p>
+<ul>
+<li>biscuit：喂食 biscuit 后，宠物的 <strong>饥饿度降低 10 点</strong></li>
+<li>fruit：喂食 fruit 后，宠物的 <strong>饥饿度降低 8 点</strong></li>
+<li>特殊的，当宠物被喂食超过 <strong>3</strong> 次 biscuit 后，每次喂食 biscuit（从第 4 次开始）后，饥饿度降低 10 点的同时，<strong>健康度降低 5 点</strong></li>
+</ul>
+</li>
+<li>
+<p>陪宠物进行一次玩耍，<strong>宠物的快乐度升高 5 点</strong>，<strong>玩家经验值增加 7 点</strong></p>
+</li>
+<li>
+<p>宠物的饥饿度和健康度不得低于 0，快乐度不得高于 100。如果某次操作使得宠物的饥饿度或健康度小于 0，则宠物的饥饿度或健康度视为 0；如果某次操作使得宠物的快乐度超过 100，则宠物的快乐度视为 100。</p>
+</li>
+</ol>
+<h4 id="输入要求">输入要求<a hidden class="anchor" aria-hidden="true" href="#输入要求">#</a></h4>
+<p>游戏开始时，你会收到一个虚拟宠物的名字和它的初始饥饿度、快乐度和健康度。</p>
+<p>第 11 行一个字符串，表示虚拟宠物的名字；第 2,3,42,3,4 行一行一个非负整数，依次表示虚拟宠物的初始饥饿度、快乐度和健康度。</p>
+<p>从第 55 行开始，你将从标准输入读取一系列指令，直到遇到结束指令为止。每个指令可以是以下几种之一：</p>
+<ul>
+<li><code>feed &lt;food_name&gt;</code>: 给宠物喂食某种食物（food_name 只可能为 <code>biscuit</code> 和 <code>fruit</code> 其中之一）。</li>
+<li><code>play</code>: 和宠物一起玩耍。</li>
+<li><code>status</code>: 查看宠物的当前状态。</li>
+<li><code>quit</code>: 结束游戏。</li>
+</ul>
+<p>数据保证指令数不超过 200200 条。</p>
+<h4 id="输出要求">输出要求<a hidden class="anchor" aria-hidden="true" href="#输出要求">#</a></h4>
+<p>对于每个 <code>status</code> 指令，你需要输出宠物的当前状态，格式为：</p>
+<pre tabindex="0"><code>&lt;pet_name&gt;:
+Hunger: &lt;hunger&gt;
+Happiness: &lt;happiness&gt;
+Health: &lt;health&gt;
+</code></pre><p>其中<code>&lt;pet_name&gt;</code>是宠物的名字，<code>&lt;hunger&gt;</code>、<code>&lt;happiness&gt;</code>和<code>&lt;health&gt;</code>分别是宠物的饥饿度、快乐度和健康度。</p>
+<p>当游戏结束（即遇到<code>quit</code>指令），你需要输出最终状态和一条告别消息：</p>
+<pre tabindex="0"><code>&lt;pet_name&gt;:
+Hunger: &lt;hunger&gt;
+Happiness: &lt;happiness&gt;
+Health: &lt;health&gt;
+
+Final Player Exp: &lt;exp&gt;
+
+Thank you for playing!
+</code></pre><p><strong>注意，输出的内容在我们所给的代码中是正确完成的，同学们不修改 <code>System.out</code> 相关的内容即可。</strong></p>
+<h4 id="样例">样例<a hidden class="anchor" aria-hidden="true" href="#样例">#</a></h4>
+<h5 id="输入样例-1">输入样例 1<a hidden class="anchor" aria-hidden="true" href="#输入样例-1">#</a></h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>dog
+</span></span><span style="display:flex;"><span>10
+</span></span><span style="display:flex;"><span>10
+</span></span><span style="display:flex;"><span>10
+</span></span><span style="display:flex;"><span>feed fruit
+</span></span><span style="display:flex;"><span>play
+</span></span><span style="display:flex;"><span>status
+</span></span><span style="display:flex;"><span>feed biscuit
+</span></span><span style="display:flex;"><span>quit
+</span></span></code></pre></div><h5 id="输出样例-1">输出样例 1<a hidden class="anchor" aria-hidden="true" href="#输出样例-1">#</a></h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>dog:
+</span></span><span style="display:flex;"><span>Hunger: 2
+</span></span><span style="display:flex;"><span>Happiness: 15
+</span></span><span style="display:flex;"><span>Health: 10
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dog:
+</span></span><span style="display:flex;"><span>Hunger: 0
+</span></span><span style="display:flex;"><span>Happiness: 15
+</span></span><span style="display:flex;"><span>Health: 10
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Final Player Exp: 17
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Thank you for playing!
+</span></span></code></pre></div><h5 id="输入样例-2">输入样例 2<a hidden class="anchor" aria-hidden="true" href="#输入样例-2">#</a></h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>dog
+</span></span><span style="display:flex;"><span>100
+</span></span><span style="display:flex;"><span>100
+</span></span><span style="display:flex;"><span>100
+</span></span><span style="display:flex;"><span>feed biscuit
+</span></span><span style="display:flex;"><span>feed biscuit
+</span></span><span style="display:flex;"><span>feed biscuit
+</span></span><span style="display:flex;"><span>feed biscuit
+</span></span><span style="display:flex;"><span>feed biscuit
+</span></span><span style="display:flex;"><span>quit
+</span></span></code></pre></div><h5 id="输出样例-2">输出样例 2<a hidden class="anchor" aria-hidden="true" href="#输出样例-2">#</a></h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>dog:
+</span></span><span style="display:flex;"><span>Hunger: 50
+</span></span><span style="display:flex;"><span>Happiness: 100
+</span></span><span style="display:flex;"><span>Health: 90
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Final Player Exp: 25
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Thank you for playing!
+</span></span></code></pre></div><h2 id="附作业思路总结">附.作业思路总结<a hidden class="anchor" aria-hidden="true" href="#附作业思路总结">#</a></h2>
+<p>​	这次没什么好总结的，不断修改他报错的地方就行。建议趁机学一下$java$语法，其实和$C$还是挺相似的。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/oo/">OO</a></li>
+      <li><a href="http://localhost:1313/tags/%E6%80%BB%E7%BB%93/">总结</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">pppphop的学习博客</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

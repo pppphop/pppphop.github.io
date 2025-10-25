@@ -4,7 +4,9 @@ date: '2025-10-20T14:35:01+08:00'
 math: true
 categories: 
 - 北航计算机组成原理
-tags: ["co", "总结"]
+tags: 
+- CO
+- "总结"
 ---
 
 ### T1.推箱子-Logisim

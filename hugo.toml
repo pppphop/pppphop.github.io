@@ -52,3 +52,4 @@ theme = "PaperMod"
 [taxonomies]
   category = "categories"
   tag = "tags"
+  preserveTaxonomyNames = true

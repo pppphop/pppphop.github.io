@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>面向对象程序设计先导 on pppphop的学习博客</title>
+    <link>http://localhost:1313/categories/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%85%88%E5%AF%BC/</link>
+    <description>Recent content in 面向对象程序设计先导 on pppphop的学习博客</description>
+    <generator>Hugo -- 0.151.2</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 25 Oct 2025 07:38:01 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%85%88%E5%AF%BC/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>oopre-第一次作业-非迭代</title>
+      <link>http://localhost:1313/posts/oopre%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A-%E9%9D%9E%E8%BF%AD%E4%BB%A3%E8%AF%BE%E7%A8%8B%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</link>
+      <pubDate>Sat, 25 Oct 2025 07:38:01 +0800</pubDate>
+      <guid>http://localhost:1313/posts/oopre%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A-%E9%9D%9E%E8%BF%AD%E4%BB%A3%E8%AF%BE%E7%A8%8B%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</guid>
+      <description>&lt;p&gt;本次作业指导书部分过多，而且比较冗杂，我就不放上来了，但是有几个部分还是挺重要的，这份博客就作为一个oopre课程入门手册吧，后续想到什么继续补充。本次作业只有一个修改语法错误的作业，还是很容易的，也附于最后。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

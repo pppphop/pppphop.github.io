@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>P1课下-总结反思 | pppphop的学习博客</title>
+<meta name="keywords" content="CO, 总结">
+<meta name="description" content="这次可能是最简单的一次课下了？只有附加题较难。当然这并不是好事，可能会导致上机难度陡然上升而我们在课下没有得到充分练习的情况。还是与往常一样，分为教程复现，题面，思路与题解三部分。
+教程
+Verilog FSM 设计流程
+设计流程
+对于状态机的概念和用法在理论课和前面部分的学习中接触到了很多，所以在此不再过多叙述。
+在 Verilog HDL 中可以用许多种方法来描述有限状态机，最常用的方法是用 always 语句和 case 语句。下面具体说明用 Verilog 设计有限状态机的一般步骤：
+
+
+逻辑抽象，得出状态转换图。
+
+
+状态化简（该步骤可以省略），如果在状态转换图中出现两个一样的状态则需要将其合并为一个状态，以得到最简的状态转换图。
+
+
+状态分配，也就是状态编码。通常有很多种编码方式，比如 Gray 编码、独热编码等。在实际电路中，需综合考虑电路复杂度与电路性能之间的折中。这里的设计没有用到特别复杂的电路逻辑，所以大家可以自行决定用哪种编码方式。（不过，对于需要在FPGA上运行的电路，推荐使用独热编码方式。因为 FPGA 有丰富的寄存器资源，门逻辑相对缺乏，采用独热编码可以有效提高电路的速度和可靠性，也有利于提高器件资源的利用率。）
+下面利用独热编码来介绍状态编码定义的两种方式：parameter 和 `define 语句。
+
+用 parameter 参数定义：用 n 个 parameter 常量表示 n 个状态，如下图所示：
+
+parameter State1 = 4&#39;b0001,
+       State2 = 4&#39;b0010,
+       State3 = 4&#39;b0100,
+       State4 = 4&#39;b1000;
+...............
+
+case (State)
+     State1:........;
+     State2:........;
+     ........
+
+用`define 语句定义：用 n 个宏名表示 n 个状态，如下所示：
+
+`define State1 4&#39;b0001
+ // 不要加分号
+`define State2 4&#39;b0010
+`define State3 4&#39;b0100
+`define State4 4&#39;b1000
+...
+
+case (State)
+    `State1:...;
+    `State2:...;
+    ...
+endcase
+
+
+根据状态转移图得出次态逻辑和输出逻辑。">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/p1%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f47cb38354bfa021218603f350d093ddd1c11c9a412e0a78972bc0fa441235b5.css" integrity="sha256-9Hyzg1S/oCEhhgPzUNCT3dHBHJpBLgp4lyvA&#43;kQSNbU=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/p1%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      tags: 'ams'
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="pppphop的学习博客 (Alt + H)">pppphop的学习博客</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      P1课下-总结反思
+    </h1>
+    <div class="post-meta"><span title='2025-10-25 07:58:22 +0800 CST'>October 25, 2025</span>&nbsp;·&nbsp;<span>8 min</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>这次可能是最简单的一次课下了？只有附加题较难。当然这并不是好事，可能会导致上机难度陡然上升而我们在课下没有得到充分练习的情况。还是与往常一样，分为教程复现，题面，思路与题解三部分。</p>
+<h2 id="教程">教程<a hidden class="anchor" aria-hidden="true" href="#教程">#</a></h2>
+<h3 id="verilog-fsm-设计流程">Verilog FSM 设计流程<a hidden class="anchor" aria-hidden="true" href="#verilog-fsm-设计流程">#</a></h3>
+<h4 id="设计流程">设计流程<a hidden class="anchor" aria-hidden="true" href="#设计流程">#</a></h4>
+<p>对于状态机的概念和用法在理论课和前面部分的学习中接触到了很多，所以在此不再过多叙述。</p>
+<p>在 Verilog HDL 中可以用许多种方法来描述有限状态机，最常用的方法是用 <strong>always 语句</strong>和 <strong>case 语句</strong>。下面具体说明用 Verilog 设计有限状态机的一般步骤：</p>
+<ol>
+<li>
+<p>逻辑抽象，得出状态转换图。</p>
+</li>
+<li>
+<p>状态化简（该步骤可以省略），如果在状态转换图中出现两个一样的状态则需要将其合并为一个状态，以得到最简的状态转换图。</p>
+</li>
+<li>
+<p>状态分配，也就是状态编码。通常有很多种编码方式，比如 Gray 编码、独热编码等。在实际电路中，需综合考虑电路复杂度与电路性能之间的折中。这里的设计没有用到特别复杂的电路逻辑，所以大家可以自行决定用哪种编码方式。（不过，对于需要在FPGA上运行的电路，推荐使用<strong>独热</strong>编码方式。因为 <a href="http://cscore.buaa.edu.cn/tutorial/fpga/intro/intro/">FPGA</a> 有丰富的寄存器资源，门逻辑相对缺乏，采用独热编码可以有效提高电路的速度和可靠性，也有利于提高器件资源的利用率。）</p>
+<p>下面利用独热编码来介绍状态编码定义的两种方式：parameter 和 `define 语句。</p>
+<ul>
+<li>用 parameter 参数定义：用 n 个 parameter 常量表示 n 个状态，如下图所示：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#66d9ef">parameter</span> State1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span><span style="color:#ae81ff">&#39;b0001</span>,
+</span></span><span style="display:flex;"><span>       State2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span><span style="color:#ae81ff">&#39;b0010</span>,
+</span></span><span style="display:flex;"><span>       State3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span><span style="color:#ae81ff">&#39;b0100</span>,
+</span></span><span style="display:flex;"><span>       State4 <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span><span style="color:#ae81ff">&#39;b1000</span>;
+</span></span><span style="display:flex;"><span>...............
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">case</span> (State)
+</span></span><span style="display:flex;"><span>     State1:........;
+</span></span><span style="display:flex;"><span>     State2:........;
+</span></span><span style="display:flex;"><span>     ........
+</span></span></code></pre></div><ul>
+<li>用`define 语句定义：用 n 个宏名表示 n 个状态，如下所示：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#75715e">`define State1 4&#39;b0001
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// 不要加分号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">`define State2 4&#39;b0010
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">`define State3 4&#39;b0100
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">`define State4 4&#39;b1000
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">case</span> (State)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">`State1</span><span style="color:#f92672">:</span>...;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">`State2</span><span style="color:#f92672">:</span>...;
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">endcase</span>
+</span></span></code></pre></div></li>
+<li>
+<p>根据状态转移图得出次态逻辑和输出逻辑。</p>
+</li>
+<li>
+<p>按照相应逻辑，用 Verilog HDL 来描述有限状态机状态转移的情况。</p>
+</li>
+</ol>
+<ul>
+<li>复位时回到起始状态（敏感信号为<strong>时钟</strong>和<strong>复位</strong>信号，注意同步复位和异步复位的区别）</li>
+<li>用 case 或 if-else 语句描述出状态的转移（根据现态（和输入）产生次态，可以与复位时回到起始状态的语句放在同一个 always 块中，即敏感信号为时钟和复位信号）</li>
+<li>输出信号描述。用 case 语句或 if-else 语句描述状态机的输出信号</li>
+</ul>
+<h4 id="设计建议">设计建议<a hidden class="anchor" aria-hidden="true" href="#设计建议">#</a></h4>
+<p>下面给出设计的几点建议：</p>
+<ul>
+<li>一般用 <strong>case、casez 或 casex</strong> 语句进行状态判断，比用 if-else 语句更加清晰明了。</li>
+<li>在 case 语句的最后，要加上 <strong>default</strong> 分支语句，以避免锁存器的产生。</li>
+<li>状态机一般应设计为<strong>同步</strong>方式，并由一个时钟信号来触发。</li>
+<li>实用的状态机都应设计为由唯一的<strong>时钟边沿</strong>触发的<strong>同步</strong>运行方式。</li>
+</ul>
+<h3 id="verilog-状态机设计示例">Verilog 状态机设计示例<a hidden class="anchor" aria-hidden="true" href="#verilog-状态机设计示例">#</a></h3>
+<h4 id="moore-型状态机设计示例">MOORE 型状态机设计示例<a hidden class="anchor" aria-hidden="true" href="#moore-型状态机设计示例">#</a></h4>
+<p>在上一节中，我们复习了 Verilog 状态机的设计流程。这一节我们以一个简单的状态机为例，解析如何全面地设计一个 Moore 型状态机。下面是一道简单的题目：</p>
+<h4 id="用于识别串-1010-的自动机">用于识别串 1010 的自动机<a hidden class="anchor" aria-hidden="true" href="#用于识别串-1010-的自动机">#</a></h4>
+<p>clk 上升沿时，读入一个字符 in ，这时若<code>1010</code>是已读入的字符串的后缀，则 out 输出<code>1</code>，否则输出<code>0</code>。</p>
+<blockquote>
+<p>例如：对于已有输入<code>101</code>，输出为<code>0</code>，对于<code>101010</code>，输出为<code>1</code>。</p>
+</blockquote>
+<p>设计状态机的第一步，我们需要先分析问题，确定状态的<strong>数量</strong>和<strong>定义</strong>。</p>
+<p>这道题我们需要设计一个识别 1010 的状态机。要确定它的状态数量，我们可能直觉认为要设置5种状态，分别处理读入了 ∅,1,10,101,1010 五种情况。这种想法是可行的，我们先根据这个直观的理解画出部分状态转换图，其中 state=0,1,2,3,4 分别对应“读入了∅,1,10,101,1010”。</p>
+<p><img alt="p1.0.5.2" loading="lazy" src="/images/posts/p1.0.5.2.png"></p>
+<p>显然，如果从零时刻开始，串行输入 1010 ，状态机会按照 state=0-&gt;1-&gt;2-&gt;3-&gt;4 的顺序转移，假如我们规定 out=1 当且仅当 state=4 ，那么状态机可以正确识别 1010 的串。问题是，当匹配到 101 时，如果读入了一个1，得到了 1011 ，我们该如何正确选择应该转移到哪个状态？为此，我们要用一种啰嗦的方式严格定义状态 statei 的意义。我们看到，所谓“读入了 ∅,1,10,101,1010”是一种很模糊的说法，它有歧义。例如字符流是 1010 ，我们该说“读入了10”，还是“读入了1010”呢？因此，原来的说法不是良好的定义，因为它不能单单根据字符流来确定究竟是哪个状态。</p>
+<p><strong>定义</strong>：设目标字符串 1010 为 str；状态机处于 statei 当且仅当：i&gt;0, 设所有 1&lt;=j&lt;=4, str[1:j] 能匹配的输入字符流的后缀为 <strong>S</strong>，str[1:i] 匹配的输入字符流的后缀在 <strong>S</strong> 中最长; i=0, 当且仅当所有 1&lt;=j&lt;=4, str[1:j] 都不能匹配输入字符流的任何一个后缀。</p>
+<p>str[1:i] 的意义是 str 第 1 个字符到第 i 个字符的部分，比如 str[1:4] 就是 <strong>1010</strong>。通过这个定义，我们就可以很好地直接根据字符流确定是哪个状态。例如读入了 1010 时，显然 str[1:2], str[1:4] 都可以匹配 1010 的后缀，前者对应 state2，后者对应 state4，然而后者匹配的后缀长度最长，因此我们确定这时应该是 state=state4。</p>
+<p>这样的定义是有好处的，有了它，我们就可以根据字符流判断是哪个状态。当然，这种状态的正确性的维护有赖于状态转移函数的选择。如果状态转移函数胡乱规定，我们就无法确定状态的正确性。</p>
+<p><img alt="p1.0.5.2" loading="lazy" src="/images/posts/p1.0.5.2.png"></p>
+<p>在这里，我们采用类似于动态规划的思路规划状态转移函数。思路是：每在状态之间加入一条或几条表示状态转移的边，都要保证这样的操作能维持一个<strong>性质</strong>——在外界输入保证变换只涉及当前已经加入的边的条件下，涉及到的状态不违背我们事先约定的定义。</p>
+<p>现在我们有四条边，我们考虑在这四条边上进行状态转移的情况。初始状态为 state=0。显然要走到 4，只有一条路径 0-&gt;1-&gt;2-&gt;3-&gt;4，对应输入 1010。state=0 时，我们回顾<strong>定义</strong>，输入的字符流是 ∅，这时谁也匹配不了，我们保持了状态定义的正确性；state=1，输入的字符流是 1，str[1:i], i=1 能匹配最长的后缀，而别的 str[1:j] 都不能匹配，我们再次保持了状态定义的正确性……接下来你可以自己推导，我们初步的状态转移设置确实维护了<strong>定义的正确性</strong>。</p>
+<p>接下来，我们要补全状态转换图。当前的状态转换图是不完整的，我们在维持定义正确性的前提下补全每个状态下 0,1 两种输入对应的状态转移后，就得到了完整的正确的状态转换图。</p>
+<p>首先从 state=0 开始考虑，我们欠缺了输入为 0 的情况。我们尝试加入一条边，再验证它的正确性。</p>
+<p><img alt="p1.0.5.3" loading="lazy" src="/images/posts/p1.0.5.3.png"></p>
+<p>首先，我们根据前面的分析，知道假如状态转移只走之前加过的边，状态的定义是被保持的。现在我们考虑经过新加边的情况。当 state=0，对任意 1&lt;=j&lt;=4，输入字符流的末尾没有一个符合 str[1:j]，新加边表示我们又读入了一个 0，显然还是没有 statej 来匹配输入字符流的后缀。因此新加边没有影响定义的正确性。</p>
+<p>接着我们看 state=1。我们像上面一样，添加一个状态转移边并分析正确性。</p>
+<p><img alt="p1.0.5.4" loading="lazy" src="/images/posts/p1.0.5.4.png"></p>
+<p>回顾定义，state=1 时，字符串&quot;1&quot;即 str[1:1] 匹配的输入字符流的后缀在所有状态中最长的。隐含的意思是，我们不需要考虑输入字符流的后缀有什么“101”的情况。这时我们读入了一个字符 1，那么输入字符流的一个后缀是 11，我们扫遍所有的 statej，发现还是 state1 匹配的后缀最长，因此要保持在 state=1。我们再次维护了上述的定义的正确性。</p>
+<p>以此类推，我们容易得到正确的状态转移图：</p>
+<p><img alt="p1.0.5.5" loading="lazy" src="/images/posts/p1.0.5.5.png"></p>
+<p>最后，把状态转换图改写成对应的 Verilog 程序，并注意根据 state 维护 out 的值，我们就成功实现了一个能正确识别1010串的 Moore 型有限状态机。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#66d9ef">module</span> fsm_1010(
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">input</span> clk,
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">input</span> in,
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">output</span> <span style="color:#66d9ef">reg</span> out <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">reg</span> [<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] state <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">/* state 被期望能够正确表示当前累计读入的 1010 前缀的长度。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     比如未读入时 state=0; 读入到 10 时我们期望有 state&lt;=2。*/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">always</span> @(<span style="color:#66d9ef">posedge</span> clk) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">case</span> (state)
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>                state <span style="color:#f92672">&lt;=</span> in <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>                out <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>                state <span style="color:#f92672">&lt;=</span> in <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>                out <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>                state <span style="color:#f92672">&lt;=</span> in <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>                out <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">3</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>                state <span style="color:#f92672">&lt;=</span> in <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>                out <span style="color:#f92672">&lt;=</span> (in <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">4</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>                state <span style="color:#f92672">&lt;=</span> in <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>                out <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">endcase</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">endmodule</span>
+</span></span></code></pre></div><h4 id="状态机编码风格">状态机编码风格<a hidden class="anchor" aria-hidden="true" href="#状态机编码风格">#</a></h4>
+<p>前面我们已经知道了如何使用 Verilog 语言来描述状态机。这里介绍一下状态机的典型状态编码风格，仍然使用前面的例子进行分析。状态机的编码风格有一段式（也称高速状态机）、两段式、三段式等。</p>
+<h5 id="一段式状态机">一段式状态机<a hidden class="anchor" aria-hidden="true" href="#一段式状态机">#</a></h5>
+<p>一段式状态机将整个状态机编写在<strong>一个</strong> always 模块里，该模块采用同步时序逻辑，全部使用非阻塞赋值。该模块既描述状态转移，又描述状态的输入和输出。上面的例程就是典型的一段式状态机。</p>
+<p>采用一段式状态机在思路上比较容易，书写的用时少，且运行速度快，在上机的时候可以节省编码的用时。但缺点是维护代码和调试比较困难。采用两段式和三段式状态机可以避免以上问题。</p>
+<h5 id="两段式状态机">两段式状态机<a hidden class="anchor" aria-hidden="true" href="#两段式状态机">#</a></h5>
+<p>两段式状态机使用<strong>两个</strong> always 模块，第一个 always 模块采用同步时序逻辑描述状态转移；第二个 always 模块使用组合逻辑判断状态转移的条件，描述状态转移的规律。</p>
+<p>和一段式状态机相比，采用两段式状态机实现了同步时序列逻辑和组合逻辑的分离，便于阅读、理解和维护，有利于综合工具优化代码，方便用户添加时序约束条件。但缺点是编码环节多，代码量稍大，较为繁琐，因为要将其拆分成两个不同的模块。</p>
+<p>示例代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#66d9ef">module</span> fsm_1010 (
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">input</span> clk,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">input</span> in,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">output</span> <span style="color:#66d9ef">reg</span> out
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">reg</span> [<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] state <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">reg</span> [<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] next_state;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 描述状态转移的时序逻辑
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">always</span> @(<span style="color:#66d9ef">posedge</span> clk) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>    state <span style="color:#f92672">&lt;=</span> next_state; <span style="color:#75715e">// 这里还可以视情况添加复位功能
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 判断状态转移条件以及产生输出组合逻辑
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">always</span> @(state, in) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> (state)
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>                next_state <span style="color:#f92672">=</span> in <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>                out <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>                next_state <span style="color:#f92672">=</span> in <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>                out <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>                next_state <span style="color:#f92672">=</span> in <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>                out <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">3</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>                next_state <span style="color:#f92672">=</span> in <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>                out <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">4</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>                next_state <span style="color:#f92672">=</span> in <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>                out <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>                next_state <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>                out <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">endcase</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span> <span style="color:#66d9ef">module</span>
+</span></span></code></pre></div><h5 id="三段式状态机">三段式状态机<a hidden class="anchor" aria-hidden="true" href="#三段式状态机">#</a></h5>
+<p>三段式状态机使用<strong>三个</strong> always 模块，第一个 always 模块采用同步时序逻辑描述状态转移；第二个 always 模块采用组合逻辑判断状态转移条件，描述状态转移规律；第三个 always 模块采用组合逻辑或者时序逻辑述每个状态的输出。</p>
+<p>和两段式状态机相比，这样可以减少毛刺的产生（想想这是为什么）。其缺点和两段式状态机相同，编码复杂，消耗的资源也比较多，因为需要初态和次态状态寄存器等。</p>
+<blockquote>
+<p>这是因为三段式状态机将输出分离成独立的组合逻辑，减小了关键路径和时延，所以可以减少毛刺现象。</p>
+</blockquote>
+<p>示例代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#66d9ef">module</span> fsm_1010 (
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">input</span> clk,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">input</span> in,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">output</span> <span style="color:#66d9ef">reg</span> out
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">reg</span> [<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] state <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">reg</span> [<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] next_state;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 描述状态转移的时序逻辑
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">always</span> @(<span style="color:#66d9ef">posedge</span> clk) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>    state <span style="color:#f92672">&lt;=</span> next_state;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 判断状态转移条件的组合逻辑
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">always</span> @(state, in) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> (state)
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>                next_state <span style="color:#f92672">=</span> in <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>                next_state <span style="color:#f92672">=</span> in <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>                next_state <span style="color:#f92672">=</span> in <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">3</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>                next_state <span style="color:#f92672">=</span> in <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">4</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>                next_state <span style="color:#f92672">=</span> in <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>                next_state <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">endcase</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 产生输出的组合逻辑
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">always</span> @(state) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>    out <span style="color:#f92672">=</span> (state <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span>) <span style="color:#f92672">?</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">endmodule</span>
+</span></span></code></pre></div><h5 id="小结">小结<a hidden class="anchor" aria-hidden="true" href="#小结">#</a></h5>
+<p>上面的例子是针对 Moore 状态机的，在 Mealy 状态机上也可以尝试使用这三种风格进行状态机的书写，代码框架是相同的。</p>
+<p>同学们可以根据自身情况选用这三种不同风格的状态机，但一定要明白它们的内在区别和其中的设计原理，帮助自己在课下和上机的时候顺利完成各种状态机的书写。</p>
+<table>
+  <thead>
+      <tr>
+          <th>思考题</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Verilog 语言和 Logisim 软件都可以用来对数字电路进行建模，你认为它们各有什么优缺点？</td>
+      </tr>
+      <tr>
+          <td>在使用 Verilog 编写电路时，一般很少使用到循环语句，如<code>for</code>语句等，Verilog 语言中也不包含<code>break</code>、<code>continue</code>这样的关键字。思考这是为什么？</td>
+      </tr>
+      <tr>
+          <td>Verilog 中的<code>generate</code>块在教程正文中并未提及，但有时这种语法可以给我们编写模块带来许多方便之处。请查阅相关资料，了解其作用与相关用法。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="verilog-模块代码样例">Verilog 模块代码样例<a hidden class="anchor" aria-hidden="true" href="#verilog-模块代码样例">#</a></h3>
+<h4 id="小型通用模板">小型通用模板<a hidden class="anchor" aria-hidden="true" href="#小型通用模板">#</a></h4>
+<p>这一节主要给出笔者个人对于不同需求的代码样例，供大家参考。</p>
+<ul>
+<li>
+<p>MUX</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#66d9ef">assign</span> result <span style="color:#f92672">=</span> (Aluop <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span><span style="color:#ae81ff">&#39;d0</span>) <span style="color:#f92672">?</span> (srca <span style="color:#f92672">+</span> srcb) <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                   (Aluop <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span><span style="color:#ae81ff">&#39;d1</span>) <span style="color:#f92672">?</span> (srca <span style="color:#f92672">-</span> srcb) <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                   (Aluop <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span><span style="color:#ae81ff">&#39;d2</span>) <span style="color:#f92672">?</span> (srca <span style="color:#f92672">&amp;</span> srcb) <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                   (Aluop <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span><span style="color:#ae81ff">&#39;d3</span>) <span style="color:#f92672">?</span> (srca <span style="color:#f92672">|</span> srcb) <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                   (Aluop <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span><span style="color:#ae81ff">&#39;d4</span>) <span style="color:#f92672">?</span> (srca <span style="color:#f92672">^</span> srcb) <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                   (Aluop <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span><span style="color:#ae81ff">&#39;d5</span>) <span style="color:#f92672">?</span> (srca <span style="color:#f92672">&gt;</span> srcb) <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                   <span style="color:#ae81ff">32</span><span style="color:#ae81ff">&#39;d0</span>;
+</span></span></code></pre></div></li>
+<li>
+<p>如果涉及有符号数的运算，不推荐使用三目运算符，推荐使用 always@(<em>) 的方式，一般来说 always@(</em>) 配合 case 写出的类似 MUX 语句在仿真中的行为类似纯组合逻辑，但是 result 在写代码时应写为 reg 型。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#66d9ef">always</span> @(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">case</span>(Aluop)
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">4</span><span style="color:#ae81ff">&#39;d0</span><span style="color:#f92672">:</span><span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> srca <span style="color:#f92672">+</span> srcb;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">4</span><span style="color:#ae81ff">&#39;d1</span><span style="color:#f92672">:</span><span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> srca <span style="color:#f92672">-</span> srcb;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">4</span><span style="color:#ae81ff">&#39;d2</span><span style="color:#f92672">:</span><span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> srca <span style="color:#f92672">&amp;</span> srcb;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">4</span><span style="color:#ae81ff">&#39;d3</span><span style="color:#f92672">:</span><span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> srca <span style="color:#f92672">|</span> srcb;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">4</span><span style="color:#ae81ff">&#39;d4</span><span style="color:#f92672">:</span><span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> srca <span style="color:#f92672">^</span> srcb;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">4</span><span style="color:#ae81ff">&#39;d5</span><span style="color:#f92672">:</span><span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> srca <span style="color:#f92672">&gt;</span> srcb;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">endcase</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span></code></pre></div></li>
+<li>
+<p>流水线寄存器（P5）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#66d9ef">module</span> pipeline_sample(
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">input</span> clk,
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">input</span> reset,
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">input</span> stall,
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">input</span> flush,
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">input</span> [<span style="color:#ae81ff">31</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] aluResultAtExe,
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// 可能还有其他来自前一级的输入
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#66d9ef">output</span> [<span style="color:#ae81ff">31</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] aluResultAtMemory
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// 可能还有要输出到后一级的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#75715e">// 输入输出应配对
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   );
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// 根据端口定义，可能还要开其他的临时寄存器
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#66d9ef">reg</span> [<span style="color:#ae81ff">31</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] aluResult;
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// 根据临时寄存器的值，可能还要连其他的线
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#66d9ef">assign</span> aluResultAtMemory <span style="color:#f92672">=</span> aluResult;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">always</span> @(<span style="color:#66d9ef">posedge</span> clk)
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// 可能还要处理其他的临时寄存器
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#75715e">// 复位 或者 清除流水线寄存器（阻塞，异常中断处理会用到）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>       <span style="color:#66d9ef">if</span>(reset <span style="color:#f92672">|</span> flush)
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>           aluResult <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">32</span><span style="color:#ae81ff">&#39;d0</span>;
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#75715e">// 判定是否应阻塞该级，不阻塞时才更新为前一级的值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>           <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>stall)
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>               aluResult <span style="color:#f92672">&lt;=</span> aluResultAtExe;
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">endmodule</span>
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="verilog-代码规范">Verilog 代码规范<a hidden class="anchor" aria-hidden="true" href="#verilog-代码规范">#</a></h3>
+<p>本文档是推荐的 Verilog 编程规范，遵守本规范可以减少你代码中出现的问题，避免在“莫名其妙”的问题上浪费时间。</p>
+<h4 id="vc-001-信号名称采用-snake_case">VC-001 信号名称采用 <code>snake_case</code><a hidden class="anchor" aria-hidden="true" href="#vc-001-信号名称采用-snake_case">#</a></h4>
+<p>信号名称通常采用 <code>snake_case</code>，即变量名全小写，单词之间用下划线分隔。</p>
+<h4 id="vc-002-信号极性为低有效用-_n-后缀表示">VC-002 信号极性为低有效用 <code>_n</code> 后缀表示<a hidden class="anchor" aria-hidden="true" href="#vc-002-信号极性为低有效用-_n-后缀表示">#</a></h4>
+<p>对于复位和使能信号，例如 <code>rst</code> 和 <code>we</code>，如果添加了 <code>_n</code> 后缀，表示值为零时生效（低有效，Active Low），值为一时不生效；如果没有添加 <code>_n</code> 后缀，表示值为一时生效（高有效，Active High），值为零时不生效。详细解释见下面的表格：</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">信号名称</th>
+          <th style="text-align: left">极性</th>
+          <th style="text-align: left">1&rsquo;b1</th>
+          <th style="text-align: left">1&rsquo;b0</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">rst</td>
+          <td style="text-align: left">高有效</td>
+          <td style="text-align: left">复位</td>
+          <td style="text-align: left">不复位</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">rst_n</td>
+          <td style="text-align: left">低有效</td>
+          <td style="text-align: left">不复位</td>
+          <td style="text-align: left">复位</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">we</td>
+          <td style="text-align: left">高有效</td>
+          <td style="text-align: left">写入</td>
+          <td style="text-align: left">不写入</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">we_n</td>
+          <td style="text-align: left">低有效</td>
+          <td style="text-align: left">不写入</td>
+          <td style="text-align: left">写入</td>
+      </tr>
+  </tbody>
+</table>
+<p>当代码中需要混合使用 <code>rst</code> 和 <code>rst_n</code> 的时候，采用以下的方式来转换：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#66d9ef">module</span> test(
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">input</span> rst_n
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">wire</span> rst;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// GOOD
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">assign</span> rst <span style="color:#f92672">=</span> <span style="color:#f92672">~</span>rst_n;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// GOOD
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// Verilog
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">always</span> @(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>    rst <span style="color:#f92672">=</span> <span style="color:#f92672">~</span>rst_n;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">endmodule</span>
+</span></span></code></pre></div><h4 id="vc-003-信号仅在一个-always-块中赋值">VC-003 信号仅在一个 <code>always</code> 块中赋值<a hidden class="anchor" aria-hidden="true" href="#vc-003-信号仅在一个-always-块中赋值">#</a></h4>
+<p>通常情况下，一个信号只会在一个 <code>always</code> 块中赋值。</p>
+<h4 id="vc-004-组合逻辑采用-always--块或者-assign-编写">VC-004 组合逻辑采用 <code>always @(*)</code> 块或者 <code>assign</code> 编写<a hidden class="anchor" aria-hidden="true" href="#vc-004-组合逻辑采用-always--块或者-assign-编写">#</a></h4>
+<p>组合逻辑的 <code>always</code> 块，使用以下的写法：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#75715e">// Verilog
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">always</span> @(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>  c <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// GOOD
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">assign</span> c <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b;
+</span></span></code></pre></div><h4 id="vc-005-组合逻辑-always-块中仅使用阻塞赋值">VC-005 组合逻辑 <code>always</code> 块中仅使用阻塞赋值<a hidden class="anchor" aria-hidden="true" href="#vc-005-组合逻辑-always-块中仅使用阻塞赋值">#</a></h4>
+<p>表示组合逻辑的 <code>always</code> 块中所有的赋值请使用阻塞赋值（<code>=</code>）。</p>
+<h4 id="vc-006-组合逻辑-always-块中保证每个分支都进行赋值">VC-006 组合逻辑 <code>always</code> 块中保证每个分支都进行赋值<a hidden class="anchor" aria-hidden="true" href="#vc-006-组合逻辑-always-块中保证每个分支都进行赋值">#</a></h4>
+<p>如果使用了条件语句 <code>if</code>，需要保证信号在每个可能的分支途径下都进行了赋值。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#75715e">// GOOD
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">always</span> @(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (reset_n) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#ae81ff">&#39;b0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// BAD
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">always</span> @(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (reset_n) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>请不要列举敏感信号：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#75715e">// BAD
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">always</span> @ (b, c) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>  a <span style="color:#f92672">=</span> b <span style="color:#f92672">+</span> c;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><h4 id="vc-007-时序逻辑在-always-posedge-clock-中实现">VC-007 时序逻辑在 <code>always @(posedge clock)</code> 中实现<a hidden class="anchor" aria-hidden="true" href="#vc-007-时序逻辑在-always-posedge-clock-中实现">#</a></h4>
+<p>当需要表示时序逻辑时，使用以下的写法：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#75715e">// Verilog
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">always</span> @(<span style="color:#66d9ef">posedge</span> clock) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>  c <span style="color:#f92672">&lt;=</span> a <span style="color:#f92672">+</span> b;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><h4 id="vc-008-时序逻辑-always-块中仅使用非阻塞赋值">VC-008 时序逻辑 <code>always</code> 块中仅使用非阻塞赋值<a hidden class="anchor" aria-hidden="true" href="#vc-008-时序逻辑-always-块中仅使用非阻塞赋值">#</a></h4>
+<p>时序逻辑 <code>always</code> 块中，所有的赋值请使用非阻塞赋值（<code>&lt;=</code>）。</p>
+<h4 id="vc-009-不要使用下降沿触发特殊协议除外">VC-009 不要使用下降沿触发，特殊协议除外<a hidden class="anchor" aria-hidden="true" href="#vc-009-不要使用下降沿触发特殊协议除外">#</a></h4>
+<p>通常情况下，请不要使用下降沿触发：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#75715e">// BAD: do not use negedge
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">always</span> @ (<span style="color:#66d9ef">negedge</span> clock) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><h4 id="vc-010-不要使用非时钟--复位信号的边沿触发">VC-010 不要使用非时钟 / 复位信号的边沿触发<a hidden class="anchor" aria-hidden="true" href="#vc-010-不要使用非时钟--复位信号的边沿触发">#</a></h4>
+<p>通常情况下，不要使用除了时钟和复位以外的信号做边沿触发。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#75715e">// BAD: do not use non-clock/reset signals
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">always</span> @ (<span style="color:#66d9ef">posedge</span> signal) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><h4 id="vc-011-时序逻辑中不要使用时钟信号">VC-011 时序逻辑中不要使用时钟信号<a hidden class="anchor" aria-hidden="true" href="#vc-011-时序逻辑中不要使用时钟信号">#</a></h4>
+<p>在时序逻辑中，请不要在敏感列表以外的地方使用时钟信号：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#75715e">// BAD
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">always</span> @ (<span style="color:#66d9ef">posedge</span> clock) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (clock) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><h4 id="vc-012-使用同步复位而不是异步复位">VC-012 使用同步复位，而不是异步复位<a hidden class="anchor" aria-hidden="true" href="#vc-012-使用同步复位而不是异步复位">#</a></h4>
+<p>对于 FPGA，请使用同步复位：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#75715e">// Verilog
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">always</span> @(<span style="color:#66d9ef">posedge</span> clock) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (reset) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span><span style="color:#ae81ff">&#39;b0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">&lt;=</span> a <span style="color:#f92672">+</span> b;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><h4 id="vc-013-不要在内部模块中使用-inout">VC-013 不要在内部模块中使用 <code>inout</code><a hidden class="anchor" aria-hidden="true" href="#vc-013-不要在内部模块中使用-inout">#</a></h4>
+<p>FPGA 内部的模块之间请不要使用 <code>inout</code>，仿真环境除外。</p>
+<h4 id="vc-014-用-localparam-命名状态机的各个状态">VC-014 用 localparam 命名状态机的各个状态<a hidden class="anchor" aria-hidden="true" href="#vc-014-用-localparam-命名状态机的各个状态">#</a></h4>
+<p>编写状态机的时候，用 <code>localparam</code> 命名各个状态：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#75715e">// GOOD
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">localparam</span> sInit <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#ae81ff">&#39;d0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">localparam</span> sIdle <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#ae81ff">&#39;d1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">localparam</span> sWork <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#ae81ff">&#39;d2</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">localparam</span> sDone <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#ae81ff">&#39;d3</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">reg</span> [<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] state;
+</span></span></code></pre></div><p>如果仿真工具不支持在波形中显示为对应的状态名称，可以采用以下的方法：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#66d9ef">`ifndef</span> SYNTHESIS
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">reg</span> [<span style="color:#ae81ff">39</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] state_string; <span style="color:#75715e">// 40 bits = 5 byte
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">always</span> @ (<span style="color:#f92672">*</span>) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span>(state)
+</span></span><span style="display:flex;"><span>      sInit: state_string <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sInit&#34;</span>;
+</span></span><span style="display:flex;"><span>      sIdle: state_string <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sIdle&#34;</span>;
+</span></span><span style="display:flex;"><span>      sWork: state_string <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sWork&#34;</span>;
+</span></span><span style="display:flex;"><span>      sDone: state_string <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sDone&#34;</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> state_string <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;?????&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">endcase</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">`endif</span>
+</span></span></code></pre></div><p>此时在仿真波形中，<code>state_string</code> 信号就可以看到状态的名称了。</p>
+<h3 id="其他可参考的-verilog-编程规范">其他可参考的 Verilog 编程规范<a hidden class="anchor" aria-hidden="true" href="#其他可参考的-verilog-编程规范">#</a></h3>
+<ul>
+<li>本规范修改自 <a href="https://github.com/thu-cs-lab/verilog-coding-standard">thu-cs-lab/verilog-coding-standard</a></li>
+<li><a href="http://fpgacpu.ca/fpga/verilog.html">Verilog Coding Standard</a></li>
+<li><a href="https://github.com/lowRISC/style-guides/blob/master/VerilogCodingStyle.md">lowRISC Verilog Coding Style</a></li>
+</ul>
+<h2 id="p1课下题面">P1课下题面<a hidden class="anchor" aria-hidden="true" href="#p1课下题面">#</a></h2>
+<h3 id="p1_l0_splitter-verilog部件设计p1q1">P1_L0_splitter-Verilog部件设计(P1.Q1)<a hidden class="anchor" aria-hidden="true" href="#p1_l0_splitter-verilog部件设计p1q1">#</a></h3>
+<h3 id="前言">前言<a hidden class="anchor" aria-hidden="true" href="#前言">#</a></h3>
+<p>在这个部分中，我们的目标是完成Splitter、ALU和EXT的搭建。相信经过之前的学习，大家对这三个组合逻辑部件已经有了一定的了解。在组合逻辑电路中，这是相当简单的例子。我们也希望大家能够从这些简单的例子中，复习使用 Verilog 进行电路设计的一般流程，并且学会如何测试自己所搭建电路的正确性。在本门课程中，Debug 和测试将会是非常重要的技能，希望大家能在课下努力锻炼这种能力。</p>
+<h3 id="1verilog-实现-splitter">1、Verilog 实现 Splitter<a hidden class="anchor" aria-hidden="true" href="#1verilog-实现-splitter">#</a></h3>
+<p>使用 Verilog 搭建一个32位 Splitter , 给定一个32位的二进制数作为输入，将其划分为四个8位的二进制数作为输出。</p>
+<p><img alt="p1.0.1.1.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/9eecdef4-8110-472e-bb32-ecb896b013d0/p1.0.1.1.png"></p>
+<h3 id="要求">要求：<a hidden class="anchor" aria-hidden="true" href="#要求">#</a></h3>
+<ul>
+<li>必须严格按照模块的端口定义</li>
+<li>文件内模块名: splitter</li>
+</ul>
+<h3 id="p1_l0_alu-verilog部件设计p1q2">P1_L0_ALU-Verilog部件设计(P1.Q2)<a hidden class="anchor" aria-hidden="true" href="#p1_l0_alu-verilog部件设计p1q2">#</a></h3>
+<h3 id="2verilog-实现-alu">2、Verilog 实现 ALU<a hidden class="anchor" aria-hidden="true" href="#2verilog-实现-alu">#</a></h3>
+<p>使用 Verilog 搭建一个 32 位六运算 ALU 并提交。具体模块端口定义如下：</p>
+<p><img alt="p1.0.2.1.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/e0d9e824-3100-4e38-99cc-fea7d372364b/p1.0.2.1.png"></p>
+<p>模块功能定义如下：</p>
+<p><img alt="p1.0.2.2.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/a1f5c6ca-cba2-43d1-b08a-3b93d65a5486/p1.0.2.2.png"></p>
+<h3 id="知识复习">知识复习：<a hidden class="anchor" aria-hidden="true" href="#知识复习">#</a></h3>
+<p>在这里我们需要复习逻辑右移和算术右移的区别：</p>
+<p>逻辑右移不考虑符号位，右移一位，左边补零即可。</p>
+<p>算术右移需要考虑符号位，右移一位，若符号位为 1 ，在左边补 1 ；否则，补 0 。</p>
+<p>例如，8 位二进制数 10111101 分别右移2位。</p>
+<ul>
+<li>逻辑右移结果为<strong>00</strong>101111</li>
+<li>算术右移结果为<strong>11</strong>101111</li>
+</ul>
+<h3 id="提示">提示：<a hidden class="anchor" aria-hidden="true" href="#提示">#</a></h3>
+<p>在进行有符号数的相关操作时，应注意 <strong>$signed()</strong> 的使用。若有必要，请参照Verilog教程的语法部分中的相关介绍进行复习。</p>
+<h3 id="要求-1">要求：<a hidden class="anchor" aria-hidden="true" href="#要求-1">#</a></h3>
+<ul>
+<li>必须严格按照模块的端口定义</li>
+<li>文件内模块名: alu</li>
+</ul>
+<h3 id="p1_l0_ext-verilog部件设计p1q3">P1_L0_EXT-Verilog部件设计(P1.Q3)<a hidden class="anchor" aria-hidden="true" href="#p1_l0_ext-verilog部件设计p1q3">#</a></h3>
+<h3 id="3verilog-实现-ext">3、Verilog 实现 EXT<a hidden class="anchor" aria-hidden="true" href="#3verilog-实现-ext">#</a></h3>
+<p>EXT为扩展单元，其主要功能是完成将输入到其中的16位数据进行符号扩展、零扩展以及将输入的16位数加载到高位等操作。具体模块端口定义如下：</p>
+<p><img alt="p1.0.3.1.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/8e350563-53ce-4ed2-9d64-553de61939d8/p1.0.3.1.png"></p>
+<p>模块功能定义如下：</p>
+<p><img alt="p1.0.3.2.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/e3ab006b-5996-4d3d-b0c7-6e7d901dd445/p1.0.3.2.png"></p>
+<h3 id="要求-2">要求：<a hidden class="anchor" aria-hidden="true" href="#要求-2">#</a></h3>
+<ul>
+<li>必须严格按照模块的端口定义</li>
+<li>文件内模块名: ext</li>
+</ul>
+<h3 id="p1_l0_gray-verilog时序逻辑p1q4">P1_L0_gray-Verilog时序逻辑(P1.Q4)<a hidden class="anchor" aria-hidden="true" href="#p1_l0_gray-verilog时序逻辑p1q4">#</a></h3>
+<h3 id="提交要求">提交要求<a hidden class="anchor" aria-hidden="true" href="#提交要求">#</a></h3>
+<h3 id="1前言">1、前言<a hidden class="anchor" aria-hidden="true" href="#1前言">#</a></h3>
+<p>在完成了 Verilog 组合逻辑部件设计的三道编程题之后，相信大家对于使用 Verilog 进行设计的一般流程和方法已经再次熟悉。现在，我们将进行下一步的挑战——设计包含<strong>时序逻辑</strong>的 Verilog 部件，这也将是我们从组合逻辑部件到之后的<strong>有限状态机</strong>的重要过渡。 在 Verilog 的教程部分，我们曾设计了一个简易的计数器。而我们现在的任务就是设计一个加强版的计数器——格雷码计数器。 如果你对格雷码的定义和优点等知识有所遗忘，这个链接可以帮到你： <a href="https://en.wikipedia.org/wiki/Gray_code">格雷码-wikipedia</a></p>
+<h3 id="2模块规格">2、模块规格<a hidden class="anchor" aria-hidden="true" href="#2模块规格">#</a></h3>
+<p>我们的格雷码计数器端口定义如下：</p>
+<p><img alt="p1.0.4.1.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/3d697aad-7b6c-4f05-b36b-3056f9f701d5/p1.0.4.1.png"></p>
+<p>我们要实现的功能如下：</p>
+<h4 id="1-在任意一个时钟上升沿到来的时候如果复位信号有效则将计数器清零">1、 在任意一个时钟上升沿到来的时候，如果复位信号有效，则将计数器清零；<a hidden class="anchor" aria-hidden="true" href="#1-在任意一个时钟上升沿到来的时候如果复位信号有效则将计数器清零">#</a></h4>
+<h4 id="2-每个时钟上升沿到来的时候如果使能信号有效计数器的值1">2、 每个时钟上升沿到来的时候，如果使能信号有效，计数器的值+1；<a hidden class="anchor" aria-hidden="true" href="#2-每个时钟上升沿到来的时候如果使能信号有效计数器的值1">#</a></h4>
+<h4 id="3-在满足1时即使2的条件满足也不必执行2">3、 在满足1时，即使2的条件满足，也不必执行2；<a hidden class="anchor" aria-hidden="true" href="#3-在满足1时即使2的条件满足也不必执行2">#</a></h4>
+<h4 id="4-计数器初值为0">4、 计数器初值为0；<a hidden class="anchor" aria-hidden="true" href="#4-计数器初值为0">#</a></h4>
+<h4 id="5-当计数器的值在1后出现溢出的情况时将会回到零同时从发生溢出的这个时钟上升沿开始溢出标志位将会持续输出1直到计数器被清零为止其余情况下溢出标志位必须为0">5、 当计数器的值在+1后出现溢出的情况时，将会回到零，同时从发生溢出的这个时钟上升沿开始，溢出标志位将会持续输出1，直到计数器被清零为止（其余情况下溢出标志位必须为0）。<a hidden class="anchor" aria-hidden="true" href="#5-当计数器的值在1后出现溢出的情况时将会回到零同时从发生溢出的这个时钟上升沿开始溢出标志位将会持续输出1直到计数器被清零为止其余情况下溢出标志位必须为0">#</a></h4>
+<p>示范波形：</p>
+<p><img alt="p1.0.4.2.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/7b78c462-8ba4-4367-931c-a1f190834d31/p1.0.4.2.png"></p>
+<p>为了方便大家设计，这里附上3位格雷码的计数方式：</p>
+<p><img alt="p1.0.4.3.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/916bf9b3-ac3f-40a6-90df-d1c014dd0cb5/p1.0.4.3.png"></p>
+<h3 id="3要求">3、要求<a hidden class="anchor" aria-hidden="true" href="#3要求">#</a></h3>
+<ul>
+<li>必须严格按照模块的端口定义</li>
+<li>文件内模块名: gray</li>
+</ul>
+<h3 id="p1_l0_表达式状态机-verilog表达式状态机p1q5">P1_L0_表达式状态机-Verilog表达式状态机(P1.Q5)<a hidden class="anchor" aria-hidden="true" href="#p1_l0_表达式状态机-verilog表达式状态机p1q5">#</a></h3>
+<h3 id="提交要求-1">提交要求<a hidden class="anchor" aria-hidden="true" href="#提交要求-1">#</a></h3>
+<h3 id="1简介">1、简介<a hidden class="anchor" aria-hidden="true" href="#1简介">#</a></h3>
+<p>计算机经常用于处理关于表达式的问题。现在有这样一类表达式F的字符串需要你来验证它们的合法性：</p>
+<p>1、表达式F中只含有数字0-9，加号+，乘号*。</p>
+<p>2、表达式F可以按如下的规则产生：</p>
+<p>a. 单个数字[0-9]是F； b. 如果<strong>X</strong>是F，<strong>Y</strong>是F，<strong>X+Y</strong>也是F； c. 如果<strong>X</strong>是F，<strong>Y</strong>是F，<strong>X*Y</strong>也是F。</p>
+<p>排除显而易见的所用符号不合法，所有的非法情况总结如下：</p>
+<p><img alt="p1.0.6.1.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/06674c70-2698-4f77-a1de-248d29722934/p1.0.6.1.png"></p>
+<p>现在，我们需要你用Verilog HDL语言设计一个有限状态机来识别这样的表达式。</p>
+<h3 id="2模块规格-1">2、模块规格<a hidden class="anchor" aria-hidden="true" href="#2模块规格-1">#</a></h3>
+<p>模块名：<strong>expr</strong></p>
+<p><img alt="p1.0.5.1.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/e1a38b76-3fc0-4389-a1f7-08f36239f6d0/p1.0.5.1.png"></p>
+<h3 id="3功能要求">3、功能要求<a hidden class="anchor" aria-hidden="true" href="#3功能要求">#</a></h3>
+<p>每个时钟上升沿，状态机从 in 中读入一个ASCII编码的字符。假设读入的第i个字符为ci，则第n个时钟上升沿时，可以拼出一个字符串:</p>
+<p>s=c1c2&hellip;.cn</p>
+<p>我们需要你此时判断 s 是否符合表达式F的定义。假如s符合F的定义，那么 out 应输出1，否则输出0。</p>
+<p>另外，每个 clr 上升沿时，请清零状态；如果 clk 的上升沿时 clr 为 1，也需要清零状态。清零后，上面定义的字符串s也应从空串开始计算。如果s当前是空串，out也应输出0。注意，我们不需要你分析表达式的语法和语义，只要判断形式上合法性就可以正确求解。</p>
+<h3 id="4输入输出样例">4、输入输出样例<a hidden class="anchor" aria-hidden="true" href="#4输入输出样例">#</a></h3>
+<p>时序规范：总是保证in信号稳定时clk才产生上升沿。</p>
+<p>输入：s = <strong>1+2+3+4</strong> 输出：out = 1</p>
+<p>输入：s = <strong>1+2+3+</strong> 输出：out = 0</p>
+<p>示范波形（输入：s=<strong>1+2*3</strong>, 清零一周期, s&rsquo;=<strong>1+2*3</strong>。时钟周期10ns）：</p>
+<p><img alt="p1.0.4.3 1.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/f2720cc7-a8e8-453d-89c9-bc6ce2b691e2/p1.0.4.3__1_.png"></p>
+<h3 id="5提交要求">5、提交要求<a hidden class="anchor" aria-hidden="true" href="#5提交要求">#</a></h3>
+<ul>
+<li>必须严格按照模块的端口定义。</li>
+<li>文件内模块名: <strong>expr</strong></li>
+<li>注意由于 <code>string</code> 是 SystemVerilog 的保留字，本题模块名改为 <strong>expr</strong>。</li>
+</ul>
+<h3 id="p1_l1_blockchecker-语句块检查模拟附加题">P1_L1_BlockChecker-语句块检查模拟(附加题)<a hidden class="anchor" aria-hidden="true" href="#p1_l1_blockchecker-语句块检查模拟附加题">#</a></h3>
+<p>本题为附加题，通过与否不计入P1课下通过条件。</p>
+<p>现在需要你用Verilog语言编写一个模拟语句块检查的工具。</p>
+<p>为了简化要求，<strong>输入由ASCII字母和空格组成</strong>。一个或多个连续出现的字母构成一个单词，单词<strong>不区分大小写</strong>，单词之间由一个或多个空格分隔开。检查工具检查<strong>自复位之后的输入中</strong>，begin和end是否能够匹配。</p>
+<p>匹配规则类似括号匹配：一个begin只能匹配一个end，但是一个匹配的begin必须出现在对应的end之前；允许出现嵌套；最后若出现不能按上述规则匹配的begin或end，则匹配失败。</p>
+<p>输入的读取在<strong>时钟上升沿</strong>进行。</p>
+<p>匹配示例：Hello world，begin comPuTer orGANization End。</p>
+<p>不匹配示例：eND，beGin study。</p>
+<p><strong>建议大家认真查看示例波形。</strong></p>
+<p>模块端口定义如下：</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">信号名</th>
+          <th style="text-align: left">方向</th>
+          <th style="text-align: left">描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">clk</td>
+          <td style="text-align: left">I</td>
+          <td style="text-align: left">时钟信号</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">reset</td>
+          <td style="text-align: left">I</td>
+          <td style="text-align: left">异步复位信号（高电平有效，复位时将输入记录清空）</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">in[7:0]</td>
+          <td style="text-align: left">I</td>
+          <td style="text-align: left">当前输入字符的ASCII码</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">result</td>
+          <td style="text-align: left">O</td>
+          <td style="text-align: left">当前输入是否能够完成begin和end的匹配</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="提交要求-2">提交要求<a hidden class="anchor" aria-hidden="true" href="#提交要求-2">#</a></h3>
+<ul>
+<li>必须严格按照模块的端口定义</li>
+<li>文件内模块名：BlockChecker</li>
+<li><strong>模块内不要包含任何$display语句</strong> ，以防造成误判</li>
+<li>我们保证在使用模块前进行复位</li>
+<li><strong>保证输入的单词数和单词长度均小于2^32</strong></li>
+</ul>
+<h3 id="示例波形">示例波形<a hidden class="anchor" aria-hidden="true" href="#示例波形">#</a></h3>
+<p><img alt="example_blockchecker.png" loading="lazy" src="http://cscore.buaa.edu.cn/assets/cscore-image/refkxh/ebe8c4fa-7fcf-4413-98ca-54407d779c86/example_blockchecker.png"></p>
+<h2 id="思路与题解">思路与题解<a hidden class="anchor" aria-hidden="true" href="#思路与题解">#</a></h2>
+<p>好了那么进入正题，我们依次看每道题目。可以说前三题都是白送，只需要你会一点Verilog的语法即可。时序逻辑两道题稍有新意，BlockChecker相当有难度。</p>
+<h3 id="t1-splitter">T1-splitter<a hidden class="anchor" aria-hidden="true" href="#t1-splitter">#</a></h3>
+<p>四行代码搞定，依次<code>assign</code>为输入中对应的八位即可，不多解释。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#66d9ef">module</span> splitter(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">input</span> [<span style="color:#ae81ff">31</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] A,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">output</span> [<span style="color:#ae81ff">8</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] O1,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">output</span> [<span style="color:#ae81ff">8</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] O2,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">output</span> [<span style="color:#ae81ff">8</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] O3,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">output</span> [<span style="color:#ae81ff">8</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] O4
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">assign</span> O1<span style="color:#f92672">=</span>A[<span style="color:#ae81ff">31</span><span style="color:#f92672">:</span><span style="color:#ae81ff">24</span>];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">assign</span> O2<span style="color:#f92672">=</span>A[<span style="color:#ae81ff">23</span><span style="color:#f92672">:</span><span style="color:#ae81ff">16</span>];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">assign</span> O3<span style="color:#f92672">=</span>A[<span style="color:#ae81ff">15</span><span style="color:#f92672">:</span><span style="color:#ae81ff">8</span>];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">assign</span> O4<span style="color:#f92672">=</span>A[<span style="color:#ae81ff">7</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">endmodule</span>
+</span></span></code></pre></div><p>如果你是初学者~~（虽然不应该，pre都学过语法了）~~，注意一下是从大往小写<code>[7:0]</code>而非<code>[0:7]</code>就行。</p>
+<h3 id="t2-alu">T2-ALU<a hidden class="anchor" aria-hidden="true" href="#t2-alu">#</a></h3>
+<p>没错，这个模块将会在将来的P4中遇到，还是很重要的。只要学会使用<code>switch-case</code>语句就行了（当然你就<code>if-else if</code>也不是不行），仍然是组合逻辑，可以选择<code>assign</code>和三目运算符直接解决，或者<code>always @(*)</code>里面使用条件语句。因为情况较多，而且后者好加语句和后续维护，我倾向于使用后者。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#66d9ef">always</span> @(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> (ALUOp)
+</span></span><span style="display:flex;"><span>		<span style="color:#ae81ff">3</span><span style="color:#ae81ff">&#39;b000</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>			C<span style="color:#f92672">=</span>A<span style="color:#f92672">+</span>B;
+</span></span><span style="display:flex;"><span>		<span style="color:#ae81ff">3</span><span style="color:#ae81ff">&#39;b001</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>			C<span style="color:#f92672">=</span>A<span style="color:#f92672">-</span>B;
+</span></span><span style="display:flex;"><span>		<span style="color:#ae81ff">3</span><span style="color:#ae81ff">&#39;b010</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>			C<span style="color:#f92672">=</span>A<span style="color:#f92672">&amp;</span>B;
+</span></span><span style="display:flex;"><span>		<span style="color:#ae81ff">3</span><span style="color:#ae81ff">&#39;b011</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>			C<span style="color:#f92672">=</span>A<span style="color:#f92672">|</span>B;
+</span></span><span style="display:flex;"><span>		<span style="color:#ae81ff">3</span><span style="color:#ae81ff">&#39;b100</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>			C<span style="color:#f92672">=</span>A<span style="color:#f92672">&gt;&gt;</span>B;
+</span></span><span style="display:flex;"><span>		<span style="color:#ae81ff">3</span><span style="color:#ae81ff">&#39;b101</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>			C<span style="color:#f92672">=</span>$signed(A)<span style="color:#f92672">&gt;&gt;&gt;</span>({<span style="color:#ae81ff">1</span><span style="color:#ae81ff">&#39;b0</span>,B[<span style="color:#ae81ff">30</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>]});
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">default</span> C<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">endcase</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">endmodule</span>
+</span></span></code></pre></div><h4 id="注意事项">注意事项<a hidden class="anchor" aria-hidden="true" href="#注意事项">#</a></h4>
+<p>1.这里算数右移需要考虑符号，使用<code>$signed(A)</code>将其转换为有符号形式。其实这里比较意义不明，因为字节是$32$位的，两个右移最多$5$位有效，否则相当于在循环移。在搭建单周期$CPU$时这里会有改动。</p>
+<p>2.建议所有条件语句都加上<code>default</code>或者<code>else</code>，以免产生锁存器，增强鲁棒性。</p>
+<h3 id="t3-ext">T3-EXT<a hidden class="anchor" aria-hidden="true" href="#t3-ext">#</a></h3>
+<p>这题很简单，就是一个条件语句+信号位拼接的题，但我甚至卡在了编译那块，不知道为什么报语法错误。实际上还是我对拼接的语法理解模糊，少套了一层大括号。变量信号<code>x[y:z]</code>是不用加一层大括号的，但是若干个常数和信号就要了，比如<code>{16{1'b0}}</code>，会显得大括号很多。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#66d9ef">module</span> ext(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">input</span> [<span style="color:#ae81ff">15</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] imm,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">input</span> [<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] EOp,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">output</span> <span style="color:#66d9ef">reg</span> [<span style="color:#ae81ff">31</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] ext
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">always</span> @(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> (EOp)
+</span></span><span style="display:flex;"><span>		<span style="color:#ae81ff">2</span><span style="color:#ae81ff">&#39;b00</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>			ext<span style="color:#f92672">=</span>{{<span style="color:#ae81ff">16</span>{imm[<span style="color:#ae81ff">15</span>]}},imm};
+</span></span><span style="display:flex;"><span>		<span style="color:#ae81ff">2</span><span style="color:#ae81ff">&#39;b01</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>			ext<span style="color:#f92672">=</span>{{<span style="color:#ae81ff">16</span>{<span style="color:#ae81ff">1</span><span style="color:#ae81ff">&#39;b0</span>}},imm};
+</span></span><span style="display:flex;"><span>		<span style="color:#ae81ff">2</span><span style="color:#ae81ff">&#39;b10</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>			ext<span style="color:#f92672">=</span>{imm,{<span style="color:#ae81ff">16</span>{<span style="color:#ae81ff">1</span><span style="color:#ae81ff">&#39;b0</span>}}};
+</span></span><span style="display:flex;"><span>		<span style="color:#ae81ff">2</span><span style="color:#ae81ff">&#39;b11</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>			ext<span style="color:#f92672">=</span>{{<span style="color:#ae81ff">14</span>{imm[<span style="color:#ae81ff">15</span>]}},imm,<span style="color:#ae81ff">2</span><span style="color:#ae81ff">&#39;b00</span>};
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> ext<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">endcase</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">endmodule</span>
+</span></span></code></pre></div><h3 id="t4-gray">T4-gray<a hidden class="anchor" aria-hidden="true" href="#t4-gray">#</a></h3>
+<p>其实只是计时器，把数字$0-7$重新”编码“了一下而已。最开始写着写着忘了这事。后来我在想怎么把格雷码和$cnt$一一对应上呢？我便去百度了一下，查到：
+$$
+G_i=B_i <del>\oplus ~ B_{i+1}</del>~ (0\leq i\leq n-1)
+$$
+$G_i$为格雷码的每一位，$B_i$是二进制码的每一位，约定$B_n=0$。这样我们很快就能做出来。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#66d9ef">module</span> gray(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">input</span> Clk,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">input</span> Reset,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">input</span> En,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">output</span> [<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] Output,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">output</span> <span style="color:#66d9ef">reg</span> Overflow
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">reg</span> [<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] cnt;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">always</span> @(<span style="color:#66d9ef">posedge</span> Clk) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(Reset) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>		Overflow<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>		cnt<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span>(cnt<span style="color:#f92672">==</span><span style="color:#ae81ff">3</span><span style="color:#ae81ff">&#39;b111</span> <span style="color:#f92672">&amp;&amp;</span> En<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>			cnt<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>			Overflow<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>			cnt<span style="color:#f92672">&lt;=</span>cnt<span style="color:#f92672">+</span>En;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">assign</span> Output<span style="color:#f92672">=</span>{cnt[<span style="color:#ae81ff">2</span>],{cnt[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">^</span>cnt[<span style="color:#ae81ff">1</span>]},{cnt[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">^</span>cnt[<span style="color:#ae81ff">1</span>]}};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">endmodule</span>
+</span></span></code></pre></div><h3 id="t5--expr">T5- expr<a hidden class="anchor" aria-hidden="true" href="#t5--expr">#</a></h3>
+<p>一个状态转移图略显奇怪的有限状态机，实际上只需要三个状态就行了。初始$S_0$，符号结尾$S_1$，数字结尾（合法序列）$S_2$，已经非法了的状态$S_3$。</p>
+<p><img alt="FSM" loading="lazy" src="/images/posts/FSM.jpg"></p>
+<p>或者从另一种角度来看，$S_1$是暂时非法的状态，$S_2$是暂时合法，$S_3$是永久非法，除非$reset$否则无法跳出。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span><span style="color:#66d9ef">module</span> expr(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">input</span> clk,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">input</span> clr,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">input</span> [<span style="color:#ae81ff">7</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] in,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">output</span> out
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">reg</span> [<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>] status;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">always</span> @(<span style="color:#66d9ef">posedge</span> clk <span style="color:#66d9ef">or</span> <span style="color:#66d9ef">posedge</span> clr) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(clr) <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>		status<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">case</span> (status)
+</span></span><span style="display:flex;"><span>		<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span>(in<span style="color:#f92672">==</span><span style="color:#ae81ff">8</span><span style="color:#ae81ff">&#39;d42</span> <span style="color:#f92672">||</span> in<span style="color:#f92672">==</span><span style="color:#ae81ff">8</span><span style="color:#ae81ff">&#39;d43</span>) status<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">else</span> status<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span>(in<span style="color:#f92672">==</span><span style="color:#ae81ff">8</span><span style="color:#ae81ff">&#39;d42</span> <span style="color:#f92672">||</span> in<span style="color:#f92672">==</span><span style="color:#ae81ff">8</span><span style="color:#ae81ff">&#39;d43</span>) status<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">else</span> status<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span>(in<span style="color:#f92672">==</span><span style="color:#ae81ff">8</span><span style="color:#ae81ff">&#39;d42</span> <span style="color:#f92672">||</span> in<span style="color:#f92672">==</span><span style="color:#ae81ff">8</span><span style="color:#ae81ff">&#39;d43</span>) status<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">else</span> status<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#ae81ff">3</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>			status<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> status<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">endcase</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">assign</span> out<span style="color:#f92672">=</span>(status<span style="color:#f92672">==</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">?</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">endmodule</span>
+</span></span></code></pre></div><h4 id="注意事项-1">注意事项<a hidden class="anchor" aria-hidden="true" href="#注意事项-1">#</a></h4>
+<ol>
+<li>字符可以用双引号引起来使用，免得像我这里一样查<code>ascii</code>表。</li>
+<li>可以看出其实是$Moore$型有限状态机，虽然题目没有明说，做的时候我也没有考虑这些。</li>
+</ol>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/co/">CO</a></li>
+      <li><a href="http://localhost:1313/tags/%E6%80%BB%E7%BB%93/">总结</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">pppphop的学习博客</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
