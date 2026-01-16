@@ -1,0 +1,1034 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="这次可能是最简单的一次课下了？只有附加题较难。当然这并不是好事，可能会导致上机难度陡然上升而我们在课下没有得到充分练习的情况。还是与往常一样，分为教程复现，题面，思路与题解三部分。 教程Verilog FSM 设计流程设计流程对于状态机的概念和用法在理论课和前面部分的学习中接触到了很多，所以在此不再过多叙述。 在 Verilog HDL 中可以用许多种方法来描述有限状态机，最常用的方法是用 alw">
+<meta property="og:type" content="article">
+<meta property="og:title" content="P1课下-总结反思">
+<meta property="og:url" content="http://example.com/2026/01/16/P1%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="这次可能是最简单的一次课下了？只有附加题较难。当然这并不是好事，可能会导致上机难度陡然上升而我们在课下没有得到充分练习的情况。还是与往常一样，分为教程复现，题面，思路与题解三部分。 教程Verilog FSM 设计流程设计流程对于状态机的概念和用法在理论课和前面部分的学习中接触到了很多，所以在此不再过多叙述。 在 Verilog HDL 中可以用许多种方法来描述有限状态机，最常用的方法是用 alw">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/.com//p1.0.5.2.png">
+<meta property="og:image" content="http://example.com/.com//p1.0.5.2.png">
+<meta property="og:image" content="http://example.com/.com//p1.0.5.3.png">
+<meta property="og:image" content="http://example.com/.com//p1.0.5.4.png">
+<meta property="og:image" content="http://example.com/.com//p1.0.5.5.png">
+<meta property="og:image" content="http://example.com/.com//p1.0.1.1.png">
+<meta property="og:image" content="http://example.com/.com//p1.0.2.1.png">
+<meta property="og:image" content="http://example.com/.com//p1.0.2.2.png">
+<meta property="og:image" content="http://example.com/.com//p1.0.3.1.png">
+<meta property="og:image" content="http://example.com/.com//p1.0.3.2.png">
+<meta property="og:image" content="http://example.com/.com//p1.0.4.1.png">
+<meta property="og:image" content="http://example.com/.com//p1.0.4.2.png">
+<meta property="og:image" content="http://example.com/.com//p1.0.4.3.png">
+<meta property="og:image" content="http://example.com/.com//p1.0.6.1.png">
+<meta property="og:image" content="http://example.com/.com//p1.0.5.1.png">
+<meta property="og:image" content="http://example.com/.com//p1.0.4.3__1_.png">
+<meta property="og:image" content="http://example.com/.com//example_blockchecker.png">
+<meta property="og:image" content="http://example.com/.com//FSM.jpg">
+<meta property="article:published_time" content="2026-01-16T11:08:29.000Z">
+<meta property="article:modified_time" content="2026-01-16T11:09:25.694Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="CO">
+<meta property="article:tag" content="CO课下">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/.com//p1.0.5.2.png">
+  
+  
+  
+  <title>P1课下-总结反思 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="P1课下-总结反思"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-16 19:08" pubdate>
+          January 16, 2026 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.7k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          65 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">P1课下-总结反思</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>这次可能是最简单的一次课下了？只有附加题较难。当然这并不是好事，可能会导致上机难度陡然上升而我们在课下没有得到充分练习的情况。还是与往常一样，分为教程复现，题面，思路与题解三部分。</p>
+<h2 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h2><h3 id="Verilog-FSM-设计流程"><a href="#Verilog-FSM-设计流程" class="headerlink" title="Verilog FSM 设计流程"></a>Verilog FSM 设计流程</h3><h4 id="设计流程"><a href="#设计流程" class="headerlink" title="设计流程"></a>设计流程</h4><p>对于状态机的概念和用法在理论课和前面部分的学习中接触到了很多，所以在此不再过多叙述。</p>
+<p>在 Verilog HDL 中可以用许多种方法来描述有限状态机，最常用的方法是用 <strong>always 语句</strong>和 <strong>case 语句</strong>。下面具体说明用 Verilog 设计有限状态机的一般步骤：</p>
+<ol>
+<li><p>逻辑抽象，得出状态转换图。</p>
+</li>
+<li><p>状态化简（该步骤可以省略），如果在状态转换图中出现两个一样的状态则需要将其合并为一个状态，以得到最简的状态转换图。</p>
+</li>
+<li><p>状态分配，也就是状态编码。通常有很多种编码方式，比如 Gray 编码、独热编码等。在实际电路中，需综合考虑电路复杂度与电路性能之间的折中。这里的设计没有用到特别复杂的电路逻辑，所以大家可以自行决定用哪种编码方式。（不过，对于需要在FPGA上运行的电路，推荐使用<strong>独热</strong>编码方式。因为 <a target="_blank" rel="noopener" href="http://cscore.buaa.edu.cn/tutorial/fpga/intro/intro/">FPGA</a> 有丰富的寄存器资源，门逻辑相对缺乏，采用独热编码可以有效提高电路的速度和可靠性，也有利于提高器件资源的利用率。）</p>
+<p>下面利用独热编码来介绍状态编码定义的两种方式：parameter 和 `define 语句。</p>
+<ul>
+<li>用 parameter 参数定义：用 n 个 parameter 常量表示 n 个状态，如下图所示：</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">parameter</span> State1 = <span class="hljs-number">4&#x27;b0001</span>,<br>       State2 = <span class="hljs-number">4&#x27;b0010</span>,<br>       State3 = <span class="hljs-number">4&#x27;b0100</span>,<br>       State4 = <span class="hljs-number">4&#x27;b1000</span>;<br>...............<br><br><span class="hljs-keyword">case</span> (State)<br>     State1:........;<br>     State2:........;<br>     ........<br></code></pre></td></tr></table></figure>
+<ul>
+<li>用`define 语句定义：用 n 个宏名表示 n 个状态，如下所示：</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-meta">`<span class="hljs-keyword">define</span> State1 4&#x27;b0001</span><br> <span class="hljs-comment">// 不要加分号</span><br><span class="hljs-meta">`<span class="hljs-keyword">define</span> State2 4&#x27;b0010</span><br><span class="hljs-meta">`<span class="hljs-keyword">define</span> State3 4&#x27;b0100</span><br><span class="hljs-meta">`<span class="hljs-keyword">define</span> State4 4&#x27;b1000</span><br>...<br><br><span class="hljs-keyword">case</span> (State)<br>    `State1:...;<br>    `State2:...;<br>    ...<br><span class="hljs-keyword">endcase</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>根据状态转移图得出次态逻辑和输出逻辑。</p>
+</li>
+<li><p>按照相应逻辑，用 Verilog HDL 来描述有限状态机状态转移的情况。</p>
+</li>
+</ol>
+<ul>
+<li>复位时回到起始状态（敏感信号为<strong>时钟</strong>和<strong>复位</strong>信号，注意同步复位和异步复位的区别）</li>
+<li>用 case 或 if-else 语句描述出状态的转移（根据现态（和输入）产生次态，可以与复位时回到起始状态的语句放在同一个 always 块中，即敏感信号为时钟和复位信号）</li>
+<li>输出信号描述。用 case 语句或 if-else 语句描述状态机的输出信号</li>
+</ul>
+<h4 id="设计建议"><a href="#设计建议" class="headerlink" title="设计建议"></a>设计建议</h4><p>下面给出设计的几点建议：</p>
+<ul>
+<li>一般用 <strong>case、casez 或 casex</strong> 语句进行状态判断，比用 if-else 语句更加清晰明了。</li>
+<li>在 case 语句的最后，要加上 <strong>default</strong> 分支语句，以避免锁存器的产生。</li>
+<li>状态机一般应设计为<strong>同步</strong>方式，并由一个时钟信号来触发。</li>
+<li>实用的状态机都应设计为由唯一的<strong>时钟边沿</strong>触发的<strong>同步</strong>运行方式。</li>
+</ul>
+<h3 id="Verilog-状态机设计示例"><a href="#Verilog-状态机设计示例" class="headerlink" title="Verilog 状态机设计示例"></a>Verilog 状态机设计示例</h3><h4 id="MOORE-型状态机设计示例"><a href="#MOORE-型状态机设计示例" class="headerlink" title="MOORE 型状态机设计示例"></a>MOORE 型状态机设计示例</h4><p>在上一节中，我们复习了 Verilog 状态机的设计流程。这一节我们以一个简单的状态机为例，解析如何全面地设计一个 Moore 型状态机。下面是一道简单的题目：</p>
+<h4 id="用于识别串-1010-的自动机"><a href="#用于识别串-1010-的自动机" class="headerlink" title="用于识别串 1010 的自动机"></a>用于识别串 1010 的自动机</h4><p>clk 上升沿时，读入一个字符 in ，这时若<code>1010</code>是已读入的字符串的后缀，则 out 输出<code>1</code>，否则输出<code>0</code>。</p>
+<blockquote>
+<p>例如：对于已有输入<code>101</code>，输出为<code>0</code>，对于<code>101010</code>，输出为<code>1</code>。</p>
+</blockquote>
+<p>设计状态机的第一步，我们需要先分析问题，确定状态的<strong>数量</strong>和<strong>定义</strong>。</p>
+<p>这道题我们需要设计一个识别 1010 的状态机。要确定它的状态数量，我们可能直觉认为要设置5种状态，分别处理读入了 ∅,1,10,101,1010 五种情况。这种想法是可行的，我们先根据这个直观的理解画出部分状态转换图，其中 state=0,1,2,3,4 分别对应“读入了∅,1,10,101,1010”。</p>
+<p><img src="/.com//p1.0.5.2.png" srcset="/img/loading.gif" lazyload alt="p1.0.5.2"></p>
+<p>显然，如果从零时刻开始，串行输入 1010 ，状态机会按照 state=0-&gt;1-&gt;2-&gt;3-&gt;4 的顺序转移，假如我们规定 out=1 当且仅当 state=4 ，那么状态机可以正确识别 1010 的串。问题是，当匹配到 101 时，如果读入了一个1，得到了 1011 ，我们该如何正确选择应该转移到哪个状态？为此，我们要用一种啰嗦的方式严格定义状态 statei 的意义。我们看到，所谓“读入了 ∅,1,10,101,1010”是一种很模糊的说法，它有歧义。例如字符流是 1010 ，我们该说“读入了10”，还是“读入了1010”呢？因此，原来的说法不是良好的定义，因为它不能单单根据字符流来确定究竟是哪个状态。</p>
+<p><strong>定义</strong>：设目标字符串 1010 为 str；状态机处于 statei 当且仅当：i&gt;0, 设所有 1&lt;=j&lt;=4, str[1:j] 能匹配的输入字符流的后缀为 <strong>S</strong>，str[1:i] 匹配的输入字符流的后缀在 <strong>S</strong> 中最长; i=0, 当且仅当所有 1&lt;=j&lt;=4, str[1:j] 都不能匹配输入字符流的任何一个后缀。</p>
+<p>str[1:i] 的意义是 str 第 1 个字符到第 i 个字符的部分，比如 str[1:4] 就是 <strong>1010</strong>。通过这个定义，我们就可以很好地直接根据字符流确定是哪个状态。例如读入了 1010 时，显然 str[1:2], str[1:4] 都可以匹配 1010 的后缀，前者对应 state2，后者对应 state4，然而后者匹配的后缀长度最长，因此我们确定这时应该是 state=state4。</p>
+<p>这样的定义是有好处的，有了它，我们就可以根据字符流判断是哪个状态。当然，这种状态的正确性的维护有赖于状态转移函数的选择。如果状态转移函数胡乱规定，我们就无法确定状态的正确性。</p>
+<p><img src="/.com//p1.0.5.2.png" srcset="/img/loading.gif" lazyload alt="p1.0.5.2"></p>
+<p>在这里，我们采用类似于动态规划的思路规划状态转移函数。思路是：每在状态之间加入一条或几条表示状态转移的边，都要保证这样的操作能维持一个<strong>性质</strong>——在外界输入保证变换只涉及当前已经加入的边的条件下，涉及到的状态不违背我们事先约定的定义。</p>
+<p>现在我们有四条边，我们考虑在这四条边上进行状态转移的情况。初始状态为 state=0。显然要走到 4，只有一条路径 0-&gt;1-&gt;2-&gt;3-&gt;4，对应输入 1010。state=0 时，我们回顾<strong>定义</strong>，输入的字符流是 ∅，这时谁也匹配不了，我们保持了状态定义的正确性；state=1，输入的字符流是 1，str[1:i], i=1 能匹配最长的后缀，而别的 str[1:j] 都不能匹配，我们再次保持了状态定义的正确性……接下来你可以自己推导，我们初步的状态转移设置确实维护了<strong>定义的正确性</strong>。</p>
+<p>接下来，我们要补全状态转换图。当前的状态转换图是不完整的，我们在维持定义正确性的前提下补全每个状态下 0,1 两种输入对应的状态转移后，就得到了完整的正确的状态转换图。</p>
+<p>首先从 state=0 开始考虑，我们欠缺了输入为 0 的情况。我们尝试加入一条边，再验证它的正确性。</p>
+<p><img src="/.com//p1.0.5.3.png" srcset="/img/loading.gif" lazyload alt="p1.0.5.3"></p>
+<p>首先，我们根据前面的分析，知道假如状态转移只走之前加过的边，状态的定义是被保持的。现在我们考虑经过新加边的情况。当 state=0，对任意 1&lt;=j&lt;=4，输入字符流的末尾没有一个符合 str[1:j]，新加边表示我们又读入了一个 0，显然还是没有 statej 来匹配输入字符流的后缀。因此新加边没有影响定义的正确性。</p>
+<p>接着我们看 state=1。我们像上面一样，添加一个状态转移边并分析正确性。</p>
+<p><img src="/.com//p1.0.5.4.png" srcset="/img/loading.gif" lazyload alt="p1.0.5.4"></p>
+<p>回顾定义，state=1 时，字符串”1”即 str[1:1] 匹配的输入字符流的后缀在所有状态中最长的。隐含的意思是，我们不需要考虑输入字符流的后缀有什么“101”的情况。这时我们读入了一个字符 1，那么输入字符流的一个后缀是 11，我们扫遍所有的 statej，发现还是 state1 匹配的后缀最长，因此要保持在 state=1。我们再次维护了上述的定义的正确性。</p>
+<p>以此类推，我们容易得到正确的状态转移图：</p>
+<p><img src="/.com//p1.0.5.5.png" srcset="/img/loading.gif" lazyload alt="p1.0.5.5"></p>
+<p>最后，把状态转换图改写成对应的 Verilog 程序，并注意根据 state 维护 out 的值，我们就成功实现了一个能正确识别1010串的 Moore 型有限状态机。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> fsm_1010(<br>     <span class="hljs-keyword">input</span> clk,<br>     <span class="hljs-keyword">input</span> in,<br>     <span class="hljs-keyword">output</span> <span class="hljs-keyword">reg</span> out = <span class="hljs-number">0</span><br>    );<br><br>    <span class="hljs-keyword">reg</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] state = <span class="hljs-number">0</span>;<br>     <span class="hljs-comment">/* state 被期望能够正确表示当前累计读入的 1010 前缀的长度。</span><br><span class="hljs-comment">     比如未读入时 state=0; 读入到 10 时我们期望有 state&lt;=2。*/</span><br><br>     <span class="hljs-keyword">always</span> @(<span class="hljs-keyword">posedge</span> clk) <span class="hljs-keyword">begin</span><br>        <span class="hljs-keyword">case</span> (state)<br>        <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">begin</span><br>                state &lt;= in == <span class="hljs-number">1</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;<br>                out &lt;= <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">end</span><br>        <span class="hljs-number">1</span>:<br>            <span class="hljs-keyword">begin</span><br>                state &lt;= in == <span class="hljs-number">1</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;<br>                out &lt;= <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">end</span><br>        <span class="hljs-number">2</span>:<br>            <span class="hljs-keyword">begin</span><br>                state &lt;= in == <span class="hljs-number">1</span> ? <span class="hljs-number">3</span> : <span class="hljs-number">0</span>;<br>                out &lt;= <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">end</span><br>        <span class="hljs-number">3</span>:<br>            <span class="hljs-keyword">begin</span><br>                state &lt;= in == <span class="hljs-number">1</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">4</span>;<br>                out &lt;= (in == <span class="hljs-number">0</span>);<br>            <span class="hljs-keyword">end</span><br>        <span class="hljs-number">4</span>:<br>            <span class="hljs-keyword">begin</span><br>                state &lt;= in == <span class="hljs-number">1</span> ? <span class="hljs-number">3</span> : <span class="hljs-number">0</span>;<br>                out &lt;= <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">end</span><br>        <span class="hljs-keyword">endcase</span><br>    <span class="hljs-keyword">end</span><br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
+<h4 id="状态机编码风格"><a href="#状态机编码风格" class="headerlink" title="状态机编码风格"></a>状态机编码风格</h4><p>前面我们已经知道了如何使用 Verilog 语言来描述状态机。这里介绍一下状态机的典型状态编码风格，仍然使用前面的例子进行分析。状态机的编码风格有一段式（也称高速状态机）、两段式、三段式等。</p>
+<h5 id="一段式状态机"><a href="#一段式状态机" class="headerlink" title="一段式状态机"></a>一段式状态机</h5><p>一段式状态机将整个状态机编写在<strong>一个</strong> always 模块里，该模块采用同步时序逻辑，全部使用非阻塞赋值。该模块既描述状态转移，又描述状态的输入和输出。上面的例程就是典型的一段式状态机。</p>
+<p>采用一段式状态机在思路上比较容易，书写的用时少，且运行速度快，在上机的时候可以节省编码的用时。但缺点是维护代码和调试比较困难。采用两段式和三段式状态机可以避免以上问题。</p>
+<h5 id="两段式状态机"><a href="#两段式状态机" class="headerlink" title="两段式状态机"></a>两段式状态机</h5><p>两段式状态机使用<strong>两个</strong> always 模块，第一个 always 模块采用同步时序逻辑描述状态转移；第二个 always 模块使用组合逻辑判断状态转移的条件，描述状态转移的规律。</p>
+<p>和一段式状态机相比，采用两段式状态机实现了同步时序列逻辑和组合逻辑的分离，便于阅读、理解和维护，有利于综合工具优化代码，方便用户添加时序约束条件。但缺点是编码环节多，代码量稍大，较为繁琐，因为要将其拆分成两个不同的模块。</p>
+<p>示例代码</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> fsm_1010 (<br>    <span class="hljs-keyword">input</span> clk,<br>    <span class="hljs-keyword">input</span> in,<br>    <span class="hljs-keyword">output</span> <span class="hljs-keyword">reg</span> out<br>);<br><br><span class="hljs-keyword">reg</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] state = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">reg</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] next_state;<br><br><span class="hljs-comment">// 描述状态转移的时序逻辑</span><br><span class="hljs-keyword">always</span> @(<span class="hljs-keyword">posedge</span> clk) <span class="hljs-keyword">begin</span><br>    state &lt;= next_state; <span class="hljs-comment">// 这里还可以视情况添加复位功能</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">// 判断状态转移条件以及产生输出组合逻辑</span><br><span class="hljs-keyword">always</span> @(state, in) <span class="hljs-keyword">begin</span><br>    <span class="hljs-keyword">case</span> (state)<br>        <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">begin</span><br>                next_state = in == <span class="hljs-number">1</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;<br>                out = <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">end</span><br>        <span class="hljs-number">1</span>:<br>            <span class="hljs-keyword">begin</span><br>                next_state = in == <span class="hljs-number">1</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;<br>                out = <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">end</span><br>        <span class="hljs-number">2</span>:<br>            <span class="hljs-keyword">begin</span><br>                next_state = in == <span class="hljs-number">1</span> ? <span class="hljs-number">3</span> : <span class="hljs-number">0</span>;<br>                out = <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">end</span><br>        <span class="hljs-number">3</span>:<br>            <span class="hljs-keyword">begin</span><br>                next_state = in == <span class="hljs-number">1</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">4</span>;<br>                out = <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">end</span><br>        <span class="hljs-number">4</span>:<br>            <span class="hljs-keyword">begin</span><br>                next_state = in == <span class="hljs-number">1</span> ? <span class="hljs-number">3</span> : <span class="hljs-number">0</span>;<br>                out = <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">end</span><br>        <span class="hljs-keyword">default</span>:<br>            <span class="hljs-keyword">begin</span><br>                next_state = <span class="hljs-number">0</span>;<br>                out = <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">end</span><br>    <span class="hljs-keyword">endcase</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-keyword">end</span> <span class="hljs-keyword">module</span><br></code></pre></td></tr></table></figure>
+<h5 id="三段式状态机"><a href="#三段式状态机" class="headerlink" title="三段式状态机"></a>三段式状态机</h5><p>三段式状态机使用<strong>三个</strong> always 模块，第一个 always 模块采用同步时序逻辑描述状态转移；第二个 always 模块采用组合逻辑判断状态转移条件，描述状态转移规律；第三个 always 模块采用组合逻辑或者时序逻辑述每个状态的输出。</p>
+<p>和两段式状态机相比，这样可以减少毛刺的产生（想想这是为什么）。其缺点和两段式状态机相同，编码复杂，消耗的资源也比较多，因为需要初态和次态状态寄存器等。</p>
+<blockquote>
+<p>这是因为三段式状态机将输出分离成独立的组合逻辑，减小了关键路径和时延，所以可以减少毛刺现象。</p>
+</blockquote>
+<p>示例代码</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> fsm_1010 (<br>    <span class="hljs-keyword">input</span> clk,<br>    <span class="hljs-keyword">input</span> in,<br>    <span class="hljs-keyword">output</span> <span class="hljs-keyword">reg</span> out<br>);<br><br><span class="hljs-keyword">reg</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] state = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">reg</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] next_state;<br><br><span class="hljs-comment">// 描述状态转移的时序逻辑</span><br><span class="hljs-keyword">always</span> @(<span class="hljs-keyword">posedge</span> clk) <span class="hljs-keyword">begin</span><br>    state &lt;= next_state;<br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">// 判断状态转移条件的组合逻辑</span><br><span class="hljs-keyword">always</span> @(state, in) <span class="hljs-keyword">begin</span><br>    <span class="hljs-keyword">case</span> (state)<br>        <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">begin</span><br>                next_state = in == <span class="hljs-number">1</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">end</span><br>        <span class="hljs-number">1</span>:<br>            <span class="hljs-keyword">begin</span><br>                next_state = in == <span class="hljs-number">1</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">end</span><br>        <span class="hljs-number">2</span>:<br>            <span class="hljs-keyword">begin</span><br>                next_state = in == <span class="hljs-number">1</span> ? <span class="hljs-number">3</span> : <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">end</span><br>        <span class="hljs-number">3</span>:<br>            <span class="hljs-keyword">begin</span><br>                next_state = in == <span class="hljs-number">1</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">4</span>;<br>            <span class="hljs-keyword">end</span><br>        <span class="hljs-number">4</span>:<br>            <span class="hljs-keyword">begin</span><br>                next_state = in == <span class="hljs-number">1</span> ? <span class="hljs-number">3</span> : <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">end</span><br>        <span class="hljs-keyword">default</span>:<br>            <span class="hljs-keyword">begin</span><br>                next_state = <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">end</span><br>    <span class="hljs-keyword">endcase</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">// 产生输出的组合逻辑</span><br><span class="hljs-keyword">always</span> @(state) <span class="hljs-keyword">begin</span><br>    out = (state == <span class="hljs-number">4</span>) ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;<br><span class="hljs-keyword">end</span><br><br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
+<h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><p>上面的例子是针对 Moore 状态机的，在 Mealy 状态机上也可以尝试使用这三种风格进行状态机的书写，代码框架是相同的。</p>
+<p>同学们可以根据自身情况选用这三种不同风格的状态机，但一定要明白它们的内在区别和其中的设计原理，帮助自己在课下和上机的时候顺利完成各种状态机的书写。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>思考题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Verilog 语言和 Logisim 软件都可以用来对数字电路进行建模，你认为它们各有什么优缺点？</td>
+</tr>
+<tr>
+<td>在使用 Verilog 编写电路时，一般很少使用到循环语句，如<code>for</code>语句等，Verilog 语言中也不包含<code>break</code>、<code>continue</code>这样的关键字。思考这是为什么？</td>
+</tr>
+<tr>
+<td>Verilog 中的<code>generate</code>块在教程正文中并未提及，但有时这种语法可以给我们编写模块带来许多方便之处。请查阅相关资料，了解其作用与相关用法。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Verilog-模块代码样例"><a href="#Verilog-模块代码样例" class="headerlink" title="Verilog 模块代码样例"></a>Verilog 模块代码样例</h3><h4 id="小型通用模板"><a href="#小型通用模板" class="headerlink" title="小型通用模板"></a>小型通用模板</h4><p>这一节主要给出笔者个人对于不同需求的代码样例，供大家参考。</p>
+<ul>
+<li><p>MUX</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> result = (Aluop == <span class="hljs-number">4&#x27;d0</span>) ? (srca + srcb) :<br>                   (Aluop == <span class="hljs-number">4&#x27;d1</span>) ? (srca - srcb) :<br>                   (Aluop == <span class="hljs-number">4&#x27;d2</span>) ? (srca &amp; srcb) :<br>                   (Aluop == <span class="hljs-number">4&#x27;d3</span>) ? (srca | srcb) :<br>                   (Aluop == <span class="hljs-number">4&#x27;d4</span>) ? (srca ^ srcb) :<br>                   (Aluop == <span class="hljs-number">4&#x27;d5</span>) ? (srca &gt; srcb) :<br>                   <span class="hljs-number">32&#x27;d0</span>;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>如果涉及有符号数的运算，不推荐使用三目运算符，推荐使用 always@(<em>) 的方式，一般来说 always@(</em>) 配合 case 写出的类似 MUX 语句在仿真中的行为类似纯组合逻辑，但是 result 在写代码时应写为 reg 型。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">always</span> @(*) <span class="hljs-keyword">begin</span><br>      <span class="hljs-keyword">case</span>(Aluop)<br>        <span class="hljs-number">4&#x27;d0</span>:<span class="hljs-keyword">begin</span><br>            result = srca + srcb;<br>        <span class="hljs-keyword">end</span><br>        <span class="hljs-number">4&#x27;d1</span>:<span class="hljs-keyword">begin</span><br>            result = srca - srcb;<br>        <span class="hljs-keyword">end</span><br>        <span class="hljs-number">4&#x27;d2</span>:<span class="hljs-keyword">begin</span><br>            result = srca &amp; srcb;<br>        <span class="hljs-keyword">end</span><br>        <span class="hljs-number">4&#x27;d3</span>:<span class="hljs-keyword">begin</span><br>            result = srca | srcb;<br>        <span class="hljs-keyword">end</span><br>        <span class="hljs-number">4&#x27;d4</span>:<span class="hljs-keyword">begin</span><br>            result = srca ^ srcb;<br>        <span class="hljs-keyword">end</span><br>        <span class="hljs-number">4&#x27;d5</span>:<span class="hljs-keyword">begin</span><br>            result = srca &gt; srcb;<br>        <span class="hljs-keyword">end</span><br>    <span class="hljs-keyword">endcase</span><br>  <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>流水线寄存器（P5）</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> pipeline_sample(<br>   <span class="hljs-keyword">input</span> clk,<br>   <span class="hljs-keyword">input</span> reset,<br>   <span class="hljs-keyword">input</span> stall,<br>   <span class="hljs-keyword">input</span> flush,<br>   <span class="hljs-keyword">input</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] aluResultAtExe,<br>   <span class="hljs-comment">// 可能还有其他来自前一级的输入</span><br>   <span class="hljs-keyword">output</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] aluResultAtMemory<br>   <span class="hljs-comment">// 可能还有要输出到后一级的</span><br>   <span class="hljs-comment">// 输入输出应配对</span><br>   );<br>   <span class="hljs-comment">// 根据端口定义，可能还要开其他的临时寄存器</span><br>   <span class="hljs-keyword">reg</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] aluResult;<br>   <span class="hljs-comment">// 根据临时寄存器的值，可能还要连其他的线</span><br>   <span class="hljs-keyword">assign</span> aluResultAtMemory = aluResult;<br><br>   <span class="hljs-keyword">always</span> @(<span class="hljs-keyword">posedge</span> clk)<br>   <span class="hljs-comment">// 可能还要处理其他的临时寄存器</span><br>   <span class="hljs-keyword">begin</span><br>       <span class="hljs-comment">// 复位 或者 清除流水线寄存器（阻塞，异常中断处理会用到）</span><br>       <span class="hljs-keyword">if</span>(reset | flush)<br>       <span class="hljs-keyword">begin</span><br>           aluResult &lt;= <span class="hljs-number">32&#x27;d0</span>;<br>       <span class="hljs-keyword">end</span><br>       <span class="hljs-keyword">else</span> <span class="hljs-keyword">begin</span><br>           <span class="hljs-comment">// 判定是否应阻塞该级，不阻塞时才更新为前一级的值</span><br>           <span class="hljs-keyword">if</span>(!stall)<br>           <span class="hljs-keyword">begin</span><br>               aluResult &lt;= aluResultAtExe;<br>           <span class="hljs-keyword">end</span><br>       <span class="hljs-keyword">end</span><br>   <span class="hljs-keyword">end</span><br><br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Verilog-代码规范"><a href="#Verilog-代码规范" class="headerlink" title="Verilog 代码规范"></a>Verilog 代码规范</h3><p>本文档是推荐的 Verilog 编程规范，遵守本规范可以减少你代码中出现的问题，避免在“莫名其妙”的问题上浪费时间。</p>
+<h4 id="VC-001-信号名称采用-snake-case"><a href="#VC-001-信号名称采用-snake-case" class="headerlink" title="VC-001 信号名称采用 snake_case"></a>VC-001 信号名称采用 <code>snake_case</code></h4><p>信号名称通常采用 <code>snake_case</code>，即变量名全小写，单词之间用下划线分隔。</p>
+<h4 id="VC-002-信号极性为低有效用-n-后缀表示"><a href="#VC-002-信号极性为低有效用-n-后缀表示" class="headerlink" title="VC-002 信号极性为低有效用 _n 后缀表示"></a>VC-002 信号极性为低有效用 <code>_n</code> 后缀表示</h4><p>对于复位和使能信号，例如 <code>rst</code> 和 <code>we</code>，如果添加了 <code>_n</code> 后缀，表示值为零时生效（低有效，Active Low），值为一时不生效；如果没有添加 <code>_n</code> 后缀，表示值为一时生效（高有效，Active High），值为零时不生效。详细解释见下面的表格：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">信号名称</th>
+<th style="text-align:left">极性</th>
+<th style="text-align:left">1’b1</th>
+<th style="text-align:left">1’b0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">rst</td>
+<td style="text-align:left">高有效</td>
+<td style="text-align:left">复位</td>
+<td style="text-align:left">不复位</td>
+</tr>
+<tr>
+<td style="text-align:left">rst_n</td>
+<td style="text-align:left">低有效</td>
+<td style="text-align:left">不复位</td>
+<td style="text-align:left">复位</td>
+</tr>
+<tr>
+<td style="text-align:left">we</td>
+<td style="text-align:left">高有效</td>
+<td style="text-align:left">写入</td>
+<td style="text-align:left">不写入</td>
+</tr>
+<tr>
+<td style="text-align:left">we_n</td>
+<td style="text-align:left">低有效</td>
+<td style="text-align:left">不写入</td>
+<td style="text-align:left">写入</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>当代码中需要混合使用 <code>rst</code> 和 <code>rst_n</code> 的时候，采用以下的方式来转换：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> test(<br>  <span class="hljs-keyword">input</span> rst_n<br>);<br>  <span class="hljs-keyword">wire</span> rst;<br><br>  <span class="hljs-comment">// GOOD</span><br>  <span class="hljs-keyword">assign</span> rst = ~rst_n;<br><br>  <span class="hljs-comment">// GOOD</span><br>  <span class="hljs-comment">// Verilog</span><br>  <span class="hljs-keyword">always</span> @(*) <span class="hljs-keyword">begin</span><br>    rst = ~rst_n;<br>  <span class="hljs-keyword">end</span><br><br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
+<h4 id="VC-003-信号仅在一个-always-块中赋值"><a href="#VC-003-信号仅在一个-always-块中赋值" class="headerlink" title="VC-003 信号仅在一个 always 块中赋值"></a>VC-003 信号仅在一个 <code>always</code> 块中赋值</h4><p>通常情况下，一个信号只会在一个 <code>always</code> 块中赋值。</p>
+<h4 id="VC-004-组合逻辑采用-always-块或者-assign-编写"><a href="#VC-004-组合逻辑采用-always-块或者-assign-编写" class="headerlink" title="VC-004 组合逻辑采用 always @(*) 块或者 assign 编写"></a>VC-004 组合逻辑采用 <code>always @(*)</code> 块或者 <code>assign</code> 编写</h4><p>组合逻辑的 <code>always</code> 块，使用以下的写法：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-comment">// Verilog</span><br><span class="hljs-keyword">always</span> @(*) <span class="hljs-keyword">begin</span><br>  c = a + b;<br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">// GOOD</span><br><span class="hljs-keyword">assign</span> c = a + b;<br></code></pre></td></tr></table></figure>
+<h4 id="VC-005-组合逻辑-always-块中仅使用阻塞赋值"><a href="#VC-005-组合逻辑-always-块中仅使用阻塞赋值" class="headerlink" title="VC-005 组合逻辑 always 块中仅使用阻塞赋值"></a>VC-005 组合逻辑 <code>always</code> 块中仅使用阻塞赋值</h4><p>表示组合逻辑的 <code>always</code> 块中所有的赋值请使用阻塞赋值（<code>=</code>）。</p>
+<h4 id="VC-006-组合逻辑-always-块中保证每个分支都进行赋值"><a href="#VC-006-组合逻辑-always-块中保证每个分支都进行赋值" class="headerlink" title="VC-006 组合逻辑 always 块中保证每个分支都进行赋值"></a>VC-006 组合逻辑 <code>always</code> 块中保证每个分支都进行赋值</h4><p>如果使用了条件语句 <code>if</code>，需要保证信号在每个可能的分支途径下都进行了赋值。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-comment">// GOOD</span><br><span class="hljs-keyword">always</span> @(*) <span class="hljs-keyword">begin</span><br>  <span class="hljs-keyword">if</span> (reset_n) <span class="hljs-keyword">begin</span><br>    c = a + b;<br>  <span class="hljs-keyword">end</span> <span class="hljs-keyword">else</span> <span class="hljs-keyword">begin</span><br>    c = <span class="hljs-number">1&#x27;b0</span>;<br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">// BAD</span><br><span class="hljs-keyword">always</span> @(*) <span class="hljs-keyword">begin</span><br>  <span class="hljs-keyword">if</span> (reset_n) <span class="hljs-keyword">begin</span><br>    c = a + b;<br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<p>请不要列举敏感信号：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-comment">// BAD</span><br><span class="hljs-keyword">always</span> @ (b, c) <span class="hljs-keyword">begin</span><br>  a = b + c;<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<h4 id="VC-007-时序逻辑在-always-posedge-clock-中实现"><a href="#VC-007-时序逻辑在-always-posedge-clock-中实现" class="headerlink" title="VC-007 时序逻辑在 always @(posedge clock) 中实现"></a>VC-007 时序逻辑在 <code>always @(posedge clock)</code> 中实现</h4><p>当需要表示时序逻辑时，使用以下的写法：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-comment">// Verilog</span><br><span class="hljs-keyword">always</span> @(<span class="hljs-keyword">posedge</span> clock) <span class="hljs-keyword">begin</span><br>  c &lt;= a + b;<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<h4 id="VC-008-时序逻辑-always-块中仅使用非阻塞赋值"><a href="#VC-008-时序逻辑-always-块中仅使用非阻塞赋值" class="headerlink" title="VC-008 时序逻辑 always 块中仅使用非阻塞赋值"></a>VC-008 时序逻辑 <code>always</code> 块中仅使用非阻塞赋值</h4><p>时序逻辑 <code>always</code> 块中，所有的赋值请使用非阻塞赋值（<code>&lt;=</code>）。</p>
+<h4 id="VC-009-不要使用下降沿触发，特殊协议除外"><a href="#VC-009-不要使用下降沿触发，特殊协议除外" class="headerlink" title="VC-009 不要使用下降沿触发，特殊协议除外"></a>VC-009 不要使用下降沿触发，特殊协议除外</h4><p>通常情况下，请不要使用下降沿触发：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-comment">// BAD: do not use negedge</span><br><span class="hljs-keyword">always</span> @ (<span class="hljs-keyword">negedge</span> clock) <span class="hljs-keyword">begin</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<h4 id="VC-010-不要使用非时钟-复位信号的边沿触发"><a href="#VC-010-不要使用非时钟-复位信号的边沿触发" class="headerlink" title="VC-010 不要使用非时钟 / 复位信号的边沿触发"></a>VC-010 不要使用非时钟 / 复位信号的边沿触发</h4><p>通常情况下，不要使用除了时钟和复位以外的信号做边沿触发。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-comment">// BAD: do not use non-clock/reset signals</span><br><span class="hljs-keyword">always</span> @ (<span class="hljs-keyword">posedge</span> signal) <span class="hljs-keyword">begin</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<h4 id="VC-011-时序逻辑中不要使用时钟信号"><a href="#VC-011-时序逻辑中不要使用时钟信号" class="headerlink" title="VC-011 时序逻辑中不要使用时钟信号"></a>VC-011 时序逻辑中不要使用时钟信号</h4><p>在时序逻辑中，请不要在敏感列表以外的地方使用时钟信号：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-comment">// BAD</span><br><span class="hljs-keyword">always</span> @ (<span class="hljs-keyword">posedge</span> clock) <span class="hljs-keyword">begin</span><br>  <span class="hljs-keyword">if</span> (clock) <span class="hljs-keyword">begin</span><br>    a &lt;= <span class="hljs-number">1</span>;<br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<h4 id="VC-012-使用同步复位，而不是异步复位"><a href="#VC-012-使用同步复位，而不是异步复位" class="headerlink" title="VC-012 使用同步复位，而不是异步复位"></a>VC-012 使用同步复位，而不是异步复位</h4><p>对于 FPGA，请使用同步复位：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-comment">// Verilog</span><br><span class="hljs-keyword">always</span> @(<span class="hljs-keyword">posedge</span> clock) <span class="hljs-keyword">begin</span><br>  <span class="hljs-keyword">if</span> (reset) <span class="hljs-keyword">begin</span><br>    c &lt;= <span class="hljs-number">1&#x27;b0</span>;<br>  <span class="hljs-keyword">end</span> <span class="hljs-keyword">else</span> <span class="hljs-keyword">begin</span><br>    c &lt;= a + b;<br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<h4 id="VC-013-不要在内部模块中使用-inout"><a href="#VC-013-不要在内部模块中使用-inout" class="headerlink" title="VC-013 不要在内部模块中使用 inout"></a>VC-013 不要在内部模块中使用 <code>inout</code></h4><p>FPGA 内部的模块之间请不要使用 <code>inout</code>，仿真环境除外。</p>
+<h4 id="VC-014-用-localparam-命名状态机的各个状态"><a href="#VC-014-用-localparam-命名状态机的各个状态" class="headerlink" title="VC-014 用 localparam 命名状态机的各个状态"></a>VC-014 用 localparam 命名状态机的各个状态</h4><p>编写状态机的时候，用 <code>localparam</code> 命名各个状态：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-comment">// GOOD</span><br><span class="hljs-keyword">localparam</span> sInit = <span class="hljs-number">2&#x27;d0</span>;<br><span class="hljs-keyword">localparam</span> sIdle = <span class="hljs-number">2&#x27;d1</span>;<br><span class="hljs-keyword">localparam</span> sWork = <span class="hljs-number">2&#x27;d2</span>;<br><span class="hljs-keyword">localparam</span> sDone = <span class="hljs-number">2&#x27;d3</span>;<br><br><span class="hljs-keyword">reg</span> [<span class="hljs-number">1</span>:<span class="hljs-number">0</span>] state;<br></code></pre></td></tr></table></figure>
+<p>如果仿真工具不支持在波形中显示为对应的状态名称，可以采用以下的方法：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-meta">`<span class="hljs-keyword">ifndef</span> SYNTHESIS</span><br>  <span class="hljs-keyword">reg</span> [<span class="hljs-number">39</span>:<span class="hljs-number">0</span>] state_string; <span class="hljs-comment">// 40 bits = 5 byte</span><br><br>  <span class="hljs-keyword">always</span> @ (*) <span class="hljs-keyword">begin</span><br>    <span class="hljs-keyword">case</span>(state)<br>      sInit: state_string = <span class="hljs-string">&quot;sInit&quot;</span>;<br>      sIdle: state_string = <span class="hljs-string">&quot;sIdle&quot;</span>;<br>      sWork: state_string = <span class="hljs-string">&quot;sWork&quot;</span>;<br>      sDone: state_string = <span class="hljs-string">&quot;sDone&quot;</span>;<br>      <span class="hljs-keyword">default</span>: state_string = <span class="hljs-string">&quot;?????&quot;</span>;<br>    <span class="hljs-keyword">endcase</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-meta">`<span class="hljs-keyword">endif</span></span><br></code></pre></td></tr></table></figure>
+<p>此时在仿真波形中，<code>state_string</code> 信号就可以看到状态的名称了。</p>
+<h3 id="其他可参考的-Verilog-编程规范"><a href="#其他可参考的-Verilog-编程规范" class="headerlink" title="其他可参考的 Verilog 编程规范"></a>其他可参考的 Verilog 编程规范</h3><ul>
+<li>本规范修改自 <a target="_blank" rel="noopener" href="https://github.com/thu-cs-lab/verilog-coding-standard">thu-cs-lab/verilog-coding-standard</a></li>
+<li><a target="_blank" rel="noopener" href="http://fpgacpu.ca/fpga/verilog.html">Verilog Coding Standard</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lowRISC/style-guides/blob/master/VerilogCodingStyle.md">lowRISC Verilog Coding Style</a></li>
+</ul>
+<h2 id="P1课下题面"><a href="#P1课下题面" class="headerlink" title="P1课下题面"></a>P1课下题面</h2><h3 id="P1-L0-splitter-Verilog部件设计-P1-Q1"><a href="#P1-L0-splitter-Verilog部件设计-P1-Q1" class="headerlink" title="P1_L0_splitter-Verilog部件设计(P1.Q1)"></a>P1_L0_splitter-Verilog部件设计(P1.Q1)</h3><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在这个部分中，我们的目标是完成Splitter、ALU和EXT的搭建。相信经过之前的学习，大家对这三个组合逻辑部件已经有了一定的了解。在组合逻辑电路中，这是相当简单的例子。我们也希望大家能够从这些简单的例子中，复习使用 Verilog 进行电路设计的一般流程，并且学会如何测试自己所搭建电路的正确性。在本门课程中，Debug 和测试将会是非常重要的技能，希望大家能在课下努力锻炼这种能力。</p>
+<h3 id="1、Verilog-实现-Splitter"><a href="#1、Verilog-实现-Splitter" class="headerlink" title="1、Verilog 实现 Splitter"></a>1、Verilog 实现 Splitter</h3><p>使用 Verilog 搭建一个32位 Splitter , 给定一个32位的二进制数作为输入，将其划分为四个8位的二进制数作为输出。</p>
+<p><img src="/.com//p1.0.1.1.png" srcset="/img/loading.gif" lazyload alt="p1.0.1.1.png"></p>
+<h3 id="要求："><a href="#要求：" class="headerlink" title="要求："></a>要求：</h3><ul>
+<li>必须严格按照模块的端口定义</li>
+<li>文件内模块名: splitter</li>
+</ul>
+<h3 id="P1-L0-ALU-Verilog部件设计-P1-Q2"><a href="#P1-L0-ALU-Verilog部件设计-P1-Q2" class="headerlink" title="P1_L0_ALU-Verilog部件设计(P1.Q2)"></a>P1_L0_ALU-Verilog部件设计(P1.Q2)</h3><h3 id="2、Verilog-实现-ALU"><a href="#2、Verilog-实现-ALU" class="headerlink" title="2、Verilog 实现 ALU"></a>2、Verilog 实现 ALU</h3><p>使用 Verilog 搭建一个 32 位六运算 ALU 并提交。具体模块端口定义如下：</p>
+<p><img src="/.com//p1.0.2.1.png" srcset="/img/loading.gif" lazyload alt="p1.0.2.1.png"></p>
+<p>模块功能定义如下：</p>
+<p><img src="/.com//p1.0.2.2.png" srcset="/img/loading.gif" lazyload alt="p1.0.2.2.png"></p>
+<h3 id="知识复习："><a href="#知识复习：" class="headerlink" title="知识复习："></a>知识复习：</h3><p>在这里我们需要复习逻辑右移和算术右移的区别：</p>
+<p>逻辑右移不考虑符号位，右移一位，左边补零即可。</p>
+<p>算术右移需要考虑符号位，右移一位，若符号位为 1 ，在左边补 1 ；否则，补 0 。</p>
+<p>例如，8 位二进制数 10111101 分别右移2位。</p>
+<ul>
+<li>逻辑右移结果为<strong>00</strong>101111</li>
+<li>算术右移结果为<strong>11</strong>101111</li>
+</ul>
+<h3 id="提示："><a href="#提示：" class="headerlink" title="提示："></a>提示：</h3><p>在进行有符号数的相关操作时，应注意 <strong>$signed()</strong> 的使用。若有必要，请参照Verilog教程的语法部分中的相关介绍进行复习。</p>
+<h3 id="要求：-1"><a href="#要求：-1" class="headerlink" title="要求："></a>要求：</h3><ul>
+<li>必须严格按照模块的端口定义</li>
+<li>文件内模块名: alu</li>
+</ul>
+<h3 id="P1-L0-EXT-Verilog部件设计-P1-Q3"><a href="#P1-L0-EXT-Verilog部件设计-P1-Q3" class="headerlink" title="P1_L0_EXT-Verilog部件设计(P1.Q3)"></a>P1_L0_EXT-Verilog部件设计(P1.Q3)</h3><h3 id="3、Verilog-实现-EXT"><a href="#3、Verilog-实现-EXT" class="headerlink" title="3、Verilog 实现 EXT"></a>3、Verilog 实现 EXT</h3><p>EXT为扩展单元，其主要功能是完成将输入到其中的16位数据进行符号扩展、零扩展以及将输入的16位数加载到高位等操作。具体模块端口定义如下：</p>
+<p><img src="/.com//p1.0.3.1.png" srcset="/img/loading.gif" lazyload alt="p1.0.3.1.png"></p>
+<p>模块功能定义如下：</p>
+<p><img src="/.com//p1.0.3.2.png" srcset="/img/loading.gif" lazyload alt="p1.0.3.2.png"></p>
+<h3 id="要求：-2"><a href="#要求：-2" class="headerlink" title="要求："></a>要求：</h3><ul>
+<li>必须严格按照模块的端口定义</li>
+<li>文件内模块名: ext</li>
+</ul>
+<h3 id="P1-L0-gray-Verilog时序逻辑-P1-Q4"><a href="#P1-L0-gray-Verilog时序逻辑-P1-Q4" class="headerlink" title="P1_L0_gray-Verilog时序逻辑(P1.Q4)"></a>P1_L0_gray-Verilog时序逻辑(P1.Q4)</h3><h3 id="提交要求"><a href="#提交要求" class="headerlink" title="提交要求"></a>提交要求</h3><h3 id="1、前言"><a href="#1、前言" class="headerlink" title="1、前言"></a>1、前言</h3><p>在完成了 Verilog 组合逻辑部件设计的三道编程题之后，相信大家对于使用 Verilog 进行设计的一般流程和方法已经再次熟悉。现在，我们将进行下一步的挑战——设计包含<strong>时序逻辑</strong>的 Verilog 部件，这也将是我们从组合逻辑部件到之后的<strong>有限状态机</strong>的重要过渡。 在 Verilog 的教程部分，我们曾设计了一个简易的计数器。而我们现在的任务就是设计一个加强版的计数器——格雷码计数器。 如果你对格雷码的定义和优点等知识有所遗忘，这个链接可以帮到你： <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Gray_code">格雷码-wikipedia</a></p>
+<h3 id="2、模块规格"><a href="#2、模块规格" class="headerlink" title="2、模块规格"></a>2、模块规格</h3><p>我们的格雷码计数器端口定义如下：</p>
+<p><img src="/.com//p1.0.4.1.png" srcset="/img/loading.gif" lazyload alt="p1.0.4.1.png"></p>
+<p>我们要实现的功能如下：</p>
+<h4 id="1、-在任意一个时钟上升沿到来的时候，如果复位信号有效，则将计数器清零；"><a href="#1、-在任意一个时钟上升沿到来的时候，如果复位信号有效，则将计数器清零；" class="headerlink" title="1、 在任意一个时钟上升沿到来的时候，如果复位信号有效，则将计数器清零；"></a>1、 在任意一个时钟上升沿到来的时候，如果复位信号有效，则将计数器清零；</h4><h4 id="2、-每个时钟上升沿到来的时候，如果使能信号有效，计数器的值-1；"><a href="#2、-每个时钟上升沿到来的时候，如果使能信号有效，计数器的值-1；" class="headerlink" title="2、 每个时钟上升沿到来的时候，如果使能信号有效，计数器的值+1；"></a>2、 每个时钟上升沿到来的时候，如果使能信号有效，计数器的值+1；</h4><h4 id="3、-在满足1时，即使2的条件满足，也不必执行2；"><a href="#3、-在满足1时，即使2的条件满足，也不必执行2；" class="headerlink" title="3、 在满足1时，即使2的条件满足，也不必执行2；"></a>3、 在满足1时，即使2的条件满足，也不必执行2；</h4><h4 id="4、-计数器初值为0；"><a href="#4、-计数器初值为0；" class="headerlink" title="4、 计数器初值为0；"></a>4、 计数器初值为0；</h4><h4 id="5、-当计数器的值在-1后出现溢出的情况时，将会回到零，同时从发生溢出的这个时钟上升沿开始，溢出标志位将会持续输出1，直到计数器被清零为止（其余情况下溢出标志位必须为0）。"><a href="#5、-当计数器的值在-1后出现溢出的情况时，将会回到零，同时从发生溢出的这个时钟上升沿开始，溢出标志位将会持续输出1，直到计数器被清零为止（其余情况下溢出标志位必须为0）。" class="headerlink" title="5、 当计数器的值在+1后出现溢出的情况时，将会回到零，同时从发生溢出的这个时钟上升沿开始，溢出标志位将会持续输出1，直到计数器被清零为止（其余情况下溢出标志位必须为0）。"></a>5、 当计数器的值在+1后出现溢出的情况时，将会回到零，同时从发生溢出的这个时钟上升沿开始，溢出标志位将会持续输出1，直到计数器被清零为止（其余情况下溢出标志位必须为0）。</h4><p>示范波形：</p>
+<p><img src="/.com//p1.0.4.2.png" srcset="/img/loading.gif" lazyload alt="p1.0.4.2.png"></p>
+<p>为了方便大家设计，这里附上3位格雷码的计数方式：</p>
+<p><img src="/.com//p1.0.4.3.png" srcset="/img/loading.gif" lazyload alt="p1.0.4.3.png"></p>
+<h3 id="3、要求"><a href="#3、要求" class="headerlink" title="3、要求"></a>3、要求</h3><ul>
+<li>必须严格按照模块的端口定义</li>
+<li>文件内模块名: gray</li>
+</ul>
+<h3 id="P1L0表达式状态机-Verilog表达式状态机-P1-Q5"><a href="#P1L0表达式状态机-Verilog表达式状态机-P1-Q5" class="headerlink" title="P1L0表达式状态机-Verilog表达式状态机(P1.Q5)"></a>P1<em>L0</em>表达式状态机-Verilog表达式状态机(P1.Q5)</h3><h3 id="提交要求-1"><a href="#提交要求-1" class="headerlink" title="提交要求"></a>提交要求</h3><h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><p>计算机经常用于处理关于表达式的问题。现在有这样一类表达式F的字符串需要你来验证它们的合法性：</p>
+<p>1、表达式F中只含有数字0-9，加号+，乘号*。</p>
+<p>2、表达式F可以按如下的规则产生：</p>
+<p>a. 单个数字[0-9]是F； b. 如果<strong>X</strong>是F，<strong>Y</strong>是F，<strong>X+Y</strong>也是F； c. 如果<strong>X</strong>是F，<strong>Y</strong>是F，<strong>X*Y</strong>也是F。</p>
+<p>排除显而易见的所用符号不合法，所有的非法情况总结如下：</p>
+<p><img src="/.com//p1.0.6.1.png" srcset="/img/loading.gif" lazyload alt="p1.0.6.1.png"></p>
+<p>现在，我们需要你用Verilog HDL语言设计一个有限状态机来识别这样的表达式。</p>
+<h3 id="2、模块规格-1"><a href="#2、模块规格-1" class="headerlink" title="2、模块规格"></a>2、模块规格</h3><p>模块名：<strong>expr</strong></p>
+<p><img src="/.com//p1.0.5.1.png" srcset="/img/loading.gif" lazyload alt="p1.0.5.1.png"></p>
+<h3 id="3、功能要求"><a href="#3、功能要求" class="headerlink" title="3、功能要求"></a>3、功能要求</h3><p>每个时钟上升沿，状态机从 in 中读入一个ASCII编码的字符。假设读入的第i个字符为ci，则第n个时钟上升沿时，可以拼出一个字符串:</p>
+<p>s=c1c2….cn</p>
+<p>我们需要你此时判断 s 是否符合表达式F的定义。假如s符合F的定义，那么 out 应输出1，否则输出0。</p>
+<p>另外，每个 clr 上升沿时，请清零状态；如果 clk 的上升沿时 clr 为 1，也需要清零状态。清零后，上面定义的字符串s也应从空串开始计算。如果s当前是空串，out也应输出0。注意，我们不需要你分析表达式的语法和语义，只要判断形式上合法性就可以正确求解。</p>
+<h3 id="4、输入输出样例"><a href="#4、输入输出样例" class="headerlink" title="4、输入输出样例"></a>4、输入输出样例</h3><p>时序规范：总是保证in信号稳定时clk才产生上升沿。</p>
+<p>输入：s = <strong>1+2+3+4</strong> 输出：out = 1</p>
+<p>输入：s = <strong>1+2+3+</strong> 输出：out = 0</p>
+<p>示范波形（输入：s=<strong>1+2*3</strong>, 清零一周期, s’=<strong>1+2*3</strong>。时钟周期10ns）：</p>
+<p><img src="/.com//p1.0.4.3__1_.png" srcset="/img/loading.gif" lazyload alt="p1.0.4.3 1.png"></p>
+<h3 id="5、提交要求"><a href="#5、提交要求" class="headerlink" title="5、提交要求"></a>5、提交要求</h3><ul>
+<li>必须严格按照模块的端口定义。</li>
+<li>文件内模块名: <strong>expr</strong></li>
+<li>注意由于 <code>string</code> 是 SystemVerilog 的保留字，本题模块名改为 <strong>expr</strong>。</li>
+</ul>
+<h3 id="P1-L1-BlockChecker-语句块检查模拟-附加题"><a href="#P1-L1-BlockChecker-语句块检查模拟-附加题" class="headerlink" title="P1_L1_BlockChecker-语句块检查模拟(附加题)"></a>P1_L1_BlockChecker-语句块检查模拟(附加题)</h3><p>本题为附加题，通过与否不计入P1课下通过条件。</p>
+<p>现在需要你用Verilog语言编写一个模拟语句块检查的工具。</p>
+<p>为了简化要求，<strong>输入由ASCII字母和空格组成</strong>。一个或多个连续出现的字母构成一个单词，单词<strong>不区分大小写</strong>，单词之间由一个或多个空格分隔开。检查工具检查<strong>自复位之后的输入中</strong>，begin和end是否能够匹配。</p>
+<p>匹配规则类似括号匹配：一个begin只能匹配一个end，但是一个匹配的begin必须出现在对应的end之前；允许出现嵌套；最后若出现不能按上述规则匹配的begin或end，则匹配失败。</p>
+<p>输入的读取在<strong>时钟上升沿</strong>进行。</p>
+<p>匹配示例：Hello world，begin comPuTer orGANization End。</p>
+<p>不匹配示例：eND，beGin study。</p>
+<p><strong>建议大家认真查看示例波形。</strong></p>
+<p>模块端口定义如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">信号名</th>
+<th style="text-align:left">方向</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">clk</td>
+<td style="text-align:left">I</td>
+<td style="text-align:left">时钟信号</td>
+</tr>
+<tr>
+<td style="text-align:left">reset</td>
+<td style="text-align:left">I</td>
+<td style="text-align:left">异步复位信号（高电平有效，复位时将输入记录清空）</td>
+</tr>
+<tr>
+<td style="text-align:left">in[7:0]</td>
+<td style="text-align:left">I</td>
+<td style="text-align:left">当前输入字符的ASCII码</td>
+</tr>
+<tr>
+<td style="text-align:left">result</td>
+<td style="text-align:left">O</td>
+<td style="text-align:left">当前输入是否能够完成begin和end的匹配</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="提交要求-2"><a href="#提交要求-2" class="headerlink" title="提交要求"></a>提交要求</h3><ul>
+<li>必须严格按照模块的端口定义</li>
+<li>文件内模块名：BlockChecker</li>
+<li><strong>模块内不要包含任何$display语句</strong> ，以防造成误判</li>
+<li>我们保证在使用模块前进行复位</li>
+<li><strong>保证输入的单词数和单词长度均小于2^32</strong></li>
+</ul>
+<h3 id="示例波形"><a href="#示例波形" class="headerlink" title="示例波形"></a>示例波形</h3><p><img src="/.com//example_blockchecker.png" srcset="/img/loading.gif" lazyload alt="example_blockchecker.png"></p>
+<h2 id="思路与题解"><a href="#思路与题解" class="headerlink" title="思路与题解"></a>思路与题解</h2><p>好了那么进入正题，我们依次看每道题目。可以说前三题都是白送，只需要你会一点Verilog的语法即可。时序逻辑两道题稍有新意，BlockChecker相当有难度。</p>
+<h3 id="T1-splitter"><a href="#T1-splitter" class="headerlink" title="T1-splitter"></a>T1-splitter</h3><p>四行代码搞定，依次<code>assign</code>为输入中对应的八位即可，不多解释。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> splitter(<br>    <span class="hljs-keyword">input</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] A,<br>    <span class="hljs-keyword">output</span> [<span class="hljs-number">8</span>:<span class="hljs-number">0</span>] O1,<br>    <span class="hljs-keyword">output</span> [<span class="hljs-number">8</span>:<span class="hljs-number">0</span>] O2,<br>    <span class="hljs-keyword">output</span> [<span class="hljs-number">8</span>:<span class="hljs-number">0</span>] O3,<br>    <span class="hljs-keyword">output</span> [<span class="hljs-number">8</span>:<span class="hljs-number">0</span>] O4<br>    );<br><span class="hljs-keyword">assign</span> O1=A[<span class="hljs-number">31</span>:<span class="hljs-number">24</span>];<br><span class="hljs-keyword">assign</span> O2=A[<span class="hljs-number">23</span>:<span class="hljs-number">16</span>];<br><span class="hljs-keyword">assign</span> O3=A[<span class="hljs-number">15</span>:<span class="hljs-number">8</span>];<br><span class="hljs-keyword">assign</span> O4=A[<span class="hljs-number">7</span>:<span class="hljs-number">0</span>];<br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
+<p>如果你是初学者<del>（虽然不应该，pre都学过语法了）</del>，注意一下是从大往小写<code>[7:0]</code>而非<code>[0:7]</code>就行。</p>
+<h3 id="T2-ALU"><a href="#T2-ALU" class="headerlink" title="T2-ALU"></a>T2-ALU</h3><p>没错，这个模块将会在将来的P4中遇到，还是很重要的。只要学会使用<code>switch-case</code>语句就行了（当然你就<code>if-else if</code>也不是不行），仍然是组合逻辑，可以选择<code>assign</code>和三目运算符直接解决，或者<code>always @(*)</code>里面使用条件语句。因为情况较多，而且后者好加语句和后续维护，我倾向于使用后者。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">always</span> @(*) <span class="hljs-keyword">begin</span><br>	<span class="hljs-keyword">case</span> (ALUOp)<br>		<span class="hljs-number">3&#x27;b000</span>:<br>			C=A+B;<br>		<span class="hljs-number">3&#x27;b001</span>:<br>			C=A-B;<br>		<span class="hljs-number">3&#x27;b010</span>:<br>			C=A&amp;B;<br>		<span class="hljs-number">3&#x27;b011</span>:<br>			C=A|B;<br>		<span class="hljs-number">3&#x27;b100</span>:<br>			C=A&gt;&gt;B;<br>		<span class="hljs-number">3&#x27;b101</span>:<br>			C=<span class="hljs-built_in">$signed</span>(A)&gt;&gt;&gt;(&#123;<span class="hljs-number">1&#x27;b0</span>,B[<span class="hljs-number">30</span>:<span class="hljs-number">0</span>]&#125;);<br>		<span class="hljs-keyword">default</span> C=<span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">endcase</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><p>1.这里算数右移需要考虑符号，使用<code>$signed(A)</code>将其转换为有符号形式。其实这里比较意义不明，因为字节是$32$位的，两个右移最多$5$位有效，否则相当于在循环移。在搭建单周期$CPU$时这里会有改动。</p>
+<p>2.建议所有条件语句都加上<code>default</code>或者<code>else</code>，以免产生锁存器，增强鲁棒性。</p>
+<h3 id="T3-EXT"><a href="#T3-EXT" class="headerlink" title="T3-EXT"></a>T3-EXT</h3><p>这题很简单，就是一个条件语句+信号位拼接的题，但我甚至卡在了编译那块，不知道为什么报语法错误。实际上还是我对拼接的语法理解模糊，少套了一层大括号。变量信号<code>x[y:z]</code>是不用加一层大括号的，但是若干个常数和信号就要了，比如<code>{16{1&#39;b0}}</code>，会显得大括号很多。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> ext(<br>    <span class="hljs-keyword">input</span> [<span class="hljs-number">15</span>:<span class="hljs-number">0</span>] imm,<br>    <span class="hljs-keyword">input</span> [<span class="hljs-number">1</span>:<span class="hljs-number">0</span>] EOp,<br>    <span class="hljs-keyword">output</span> <span class="hljs-keyword">reg</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] ext<br>    );<br><span class="hljs-keyword">always</span> @(*) <span class="hljs-keyword">begin</span><br>	<span class="hljs-keyword">case</span> (EOp)<br>		<span class="hljs-number">2&#x27;b00</span>:<br>			ext=&#123;&#123;<span class="hljs-number">16</span>&#123;imm[<span class="hljs-number">15</span>]&#125;&#125;,imm&#125;;<br>		<span class="hljs-number">2&#x27;b01</span>:<br>			ext=&#123;&#123;<span class="hljs-number">16</span>&#123;<span class="hljs-number">1&#x27;b0</span>&#125;&#125;,imm&#125;;<br>		<span class="hljs-number">2&#x27;b10</span>:<br>			ext=&#123;imm,&#123;<span class="hljs-number">16</span>&#123;<span class="hljs-number">1&#x27;b0</span>&#125;&#125;&#125;;<br>		<span class="hljs-number">2&#x27;b11</span>:<br>			ext=&#123;&#123;<span class="hljs-number">14</span>&#123;imm[<span class="hljs-number">15</span>]&#125;&#125;,imm,<span class="hljs-number">2&#x27;b00</span>&#125;;<br>		<span class="hljs-keyword">default</span>: ext=<span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">endcase</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
+<h3 id="T4-gray"><a href="#T4-gray" class="headerlink" title="T4-gray"></a>T4-gray</h3><p>其实只是计时器，把数字$0-7$重新”编码“了一下而已。最开始写着写着忘了这事。后来我在想怎么把格雷码和$cnt$一一对应上呢？我便去百度了一下，查到：</p>
+<script type="math/tex; mode=display">
+G_i=B_i ~\oplus ~ B_{i+1}~~ (0\leq i\leq n-1)</script><p>$G_i$为格雷码的每一位，$B_i$是二进制码的每一位，约定$B_n=0$。这样我们很快就能做出来。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> gray(<br>    <span class="hljs-keyword">input</span> Clk,<br>    <span class="hljs-keyword">input</span> Reset,<br>    <span class="hljs-keyword">input</span> En,<br>    <span class="hljs-keyword">output</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] Output,<br>    <span class="hljs-keyword">output</span> <span class="hljs-keyword">reg</span> Overflow<br>    );<br><span class="hljs-keyword">reg</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] cnt;<br><span class="hljs-keyword">always</span> @(<span class="hljs-keyword">posedge</span> Clk) <span class="hljs-keyword">begin</span><br>	<span class="hljs-keyword">if</span>(Reset) <span class="hljs-keyword">begin</span><br>		Overflow&lt;=<span class="hljs-number">0</span>;<br>		cnt&lt;=<span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">end</span><br>	<span class="hljs-keyword">else</span> <span class="hljs-keyword">begin</span><br>		<span class="hljs-keyword">if</span>(cnt==<span class="hljs-number">3&#x27;b111</span> &amp;&amp; En==<span class="hljs-number">1</span>) <span class="hljs-keyword">begin</span><br>			cnt&lt;=<span class="hljs-number">0</span>;<br>			Overflow&lt;=<span class="hljs-number">1</span>;<br>		<span class="hljs-keyword">end</span><br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">begin</span><br>			cnt&lt;=cnt+En;<br>		<span class="hljs-keyword">end</span><br>	<span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><span class="hljs-keyword">assign</span> Output=&#123;cnt[<span class="hljs-number">2</span>],&#123;cnt[<span class="hljs-number">2</span>]^cnt[<span class="hljs-number">1</span>]&#125;,&#123;cnt[<span class="hljs-number">0</span>]^cnt[<span class="hljs-number">1</span>]&#125;&#125;;<br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
+<h3 id="T5-expr"><a href="#T5-expr" class="headerlink" title="T5- expr"></a>T5- expr</h3><p>一个状态转移图略显奇怪的有限状态机，实际上只需要三个状态就行了。初始$S_0$，符号结尾$S_1$，数字结尾（合法序列）$S_2$，已经非法了的状态$S_3$。</p>
+<p><img src="/.com//FSM.jpg" srcset="/img/loading.gif" lazyload alt="FSM"></p>
+<p>或者从另一种角度来看，$S_1$是暂时非法的状态，$S_2$是暂时合法，$S_3$是永久非法，除非$reset$否则无法跳出。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> expr(<br>    <span class="hljs-keyword">input</span> clk,<br>    <span class="hljs-keyword">input</span> clr,<br>    <span class="hljs-keyword">input</span> [<span class="hljs-number">7</span>:<span class="hljs-number">0</span>] in,<br>    <span class="hljs-keyword">output</span> out<br>    );<br><span class="hljs-keyword">reg</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] status;<br><span class="hljs-keyword">always</span> @(<span class="hljs-keyword">posedge</span> clk <span class="hljs-keyword">or</span> <span class="hljs-keyword">posedge</span> clr) <span class="hljs-keyword">begin</span><br>	<span class="hljs-keyword">if</span>(clr) <span class="hljs-keyword">begin</span><br>		status&lt;=<span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">end</span><br>	<span class="hljs-keyword">else</span> <span class="hljs-keyword">begin</span><br>		<span class="hljs-keyword">case</span> (status)<br>		<span class="hljs-number">0</span>:<br>			<span class="hljs-keyword">if</span>(in==<span class="hljs-number">8&#x27;d42</span> || in==<span class="hljs-number">8&#x27;d43</span>) status&lt;=<span class="hljs-number">3</span>;<br>			<span class="hljs-keyword">else</span> status&lt;=<span class="hljs-number">2</span>;<br>		<span class="hljs-number">1</span>:<br>			<span class="hljs-keyword">if</span>(in==<span class="hljs-number">8&#x27;d42</span> || in==<span class="hljs-number">8&#x27;d43</span>) status&lt;=<span class="hljs-number">3</span>;<br>			<span class="hljs-keyword">else</span> status&lt;=<span class="hljs-number">2</span>;<br>		<span class="hljs-number">2</span>:<br>			<span class="hljs-keyword">if</span>(in==<span class="hljs-number">8&#x27;d42</span> || in==<span class="hljs-number">8&#x27;d43</span>) status&lt;=<span class="hljs-number">1</span>;<br>			<span class="hljs-keyword">else</span> status&lt;=<span class="hljs-number">3</span>;<br>		<span class="hljs-number">3</span>:<br>			status&lt;=<span class="hljs-number">3</span>;<br>		<span class="hljs-keyword">default</span>: status&lt;=<span class="hljs-number">0</span>;<br>		<span class="hljs-keyword">endcase</span><br>	<span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><span class="hljs-keyword">assign</span> out=(status==<span class="hljs-number">2</span>)?<span class="hljs-number">1</span>:<span class="hljs-number">0</span>;<br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
+<h4 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h4><ol>
+<li>字符可以用双引号引起来使用，免得像我这里一样查<code>ascii</code>表。</li>
+<li>可以看出其实是$Moore$型有限状态机，虽然题目没有明说，做的时候我也没有考虑这些。</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CO%E8%AF%BE%E4%B8%8B/" class="category-chain-item">CO课下</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CO/" class="print-no-link">#CO</a>
+      
+        <a href="/tags/CO%E8%AF%BE%E4%B8%8B/" class="print-no-link">#CO课下</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>P1课下-总结反思</div>
+      <div>http://example.com/2026/01/16/P1课下-总结反思/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 16, 2026</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/16/P0%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E6%96%87%E6%A1%A3/" title="P0课下-总结反思文档">
+                        <span class="hidden-mobile">P0课下-总结反思文档</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

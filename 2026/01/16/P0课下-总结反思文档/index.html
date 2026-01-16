@@ -1,0 +1,1128 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="P0课下-总结反思文档本次课的实验教程相当完善，按部就班走就没有大问题，会有一些细节理解上的偏差和纠结。我们先把教程上知识点及引导部分放上来。 1.如何设计电路模块概览相信通过之前数个教程的学习，你已经对我们将要使用的工具——Logisim 与 ISE 已经比较熟悉。从这个 Project 开始，我们将要使用这两个工具来进行数字电路元件的设计。在我们这个 Project 中我们将主要关注 Logi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="P0课下-总结反思文档">
+<meta property="og:url" content="http://example.com/2026/01/16/P0%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E6%96%87%E6%A1%A3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="P0课下-总结反思文档本次课的实验教程相当完善，按部就班走就没有大问题，会有一些细节理解上的偏差和纠结。我们先把教程上知识点及引导部分放上来。 1.如何设计电路模块概览相信通过之前数个教程的学习，你已经对我们将要使用的工具——Logisim 与 ISE 已经比较熟悉。从这个 Project 开始，我们将要使用这两个工具来进行数字电路元件的设计。在我们这个 Project 中我们将主要关注 Logi">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/.com//P0-1-1.png">
+<meta property="og:image" content="http://example.com/.com//P0-1-2.png">
+<meta property="og:image" content="http://example.com/.com//P0-1-3.png">
+<meta property="og:image" content="http://example.com/.com//P0-1-4.png">
+<meta property="og:image" content="http://example.com/.com//P0-1-5.png">
+<meta property="og:image" content="http://example.com/.com//P0-3-1.png">
+<meta property="og:image" content="http://example.com/.com//P0-3-2.png">
+<meta property="og:image" content="http://example.com/.com//P0-3-3.png">
+<meta property="og:image" content="http://example.com/.com//P0-3-4.png">
+<meta property="og:image" content="http://example.com/.com//P0-3-5.png">
+<meta property="og:image" content="http://example.com/.com//P0-9-1.svg">
+<meta property="og:image" content="http://example.com/.com//P0-9-2.svg">
+<meta property="og:image" content="http://example.com/.com//499-1.png">
+<meta property="og:image" content="http://example.com/.com//499-2.png">
+<meta property="og:image" content="http://example.com/.com//499-3.png">
+<meta property="og:image" content="http://example.com/.com//499-4.png">
+<meta property="og:image" content="http://example.com/.com//269-1.png">
+<meta property="og:image" content="http://example.com/.com//269-2.png">
+<meta property="og:image" content="http://example.com/.com//269-3.png">
+<meta property="og:image" content="http://example.com/.com//499-3.png">
+<meta property="og:image" content="http://example.com/.com//269-5.png">
+<meta property="og:image" content="http://example.com/.com//393-1.png">
+<meta property="og:image" content="http://example.com/.com//393-3.png">
+<meta property="og:image" content="http://example.com/.com//499-3.png">
+<meta property="og:image" content="http://example.com/.com//393-2.png">
+<meta property="og:image" content="http://example.com/.com//9-2.png">
+<meta property="og:image" content="http://example.com/.com//9-3.png">
+<meta property="og:image" content="http://example.com/.com//499-3.png">
+<meta property="og:image" content="http://example.com/.com//9-5.png">
+<meta property="og:image" content="http://example.com/.com//319-1.png">
+<meta property="og:image" content="http://example.com/.com//319-2.png">
+<meta property="og:image" content="http://example.com/.com//319-3.png">
+<meta property="og:image" content="http://example.com/.com//319-4.png">
+<meta property="og:image" content="http://example.com/.com//499-3.png">
+<meta property="og:image" content="http://example.com/.com//319-6.png">
+<meta property="og:image" content="http://example.com/.com//image-20251012201301017.png">
+<meta property="og:image" content="http://example.com/.com//image-20251012201317373.png">
+<meta property="og:image" content="http://example.com/.com//image-20251013142829715.png">
+<meta property="og:image" content="http://example.com/.com//image-20251013142901730.png">
+<meta property="og:image" content="http://example.com/.com//image-20251013145400358.png">
+<meta property="og:image" content="http://example.com/.com//image-20251013170526900.png">
+<meta property="og:image" content="http://example.com/.com//image-20251013180659668.png">
+<meta property="og:image" content="http://example.com/.com//image-20251013180713158.png">
+<meta property="article:published_time" content="2026-01-16T10:38:36.000Z">
+<meta property="article:modified_time" content="2026-01-16T11:06:34.079Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="CO">
+<meta property="article:tag" content="CO课下">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/.com//P0-1-1.png">
+  
+  
+  
+  <title>P0课下-总结反思文档 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="P0课下-总结反思文档"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-16 18:38" pubdate>
+          January 16, 2026 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.7k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          81 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">P0课下-总结反思文档</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="P0课下-总结反思文档"><a href="#P0课下-总结反思文档" class="headerlink" title="P0课下-总结反思文档"></a>P0课下-总结反思文档</h1><p>本次课的实验教程相当完善，按部就班走就没有大问题，会有一些细节理解上的偏差和纠结。我们先把教程上知识点及引导部分放上来。</p>
+<h2 id="1-如何设计电路模块"><a href="#1-如何设计电路模块" class="headerlink" title="1.如何设计电路模块"></a>1.如何设计电路模块</h2><h3 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h3><p>相信通过之前数个教程的学习，你已经对我们将要使用的工具——Logisim 与 ISE 已经比较熟悉。从这个 Project 开始，我们将要使用这两个工具来进行数字电路元件的设计。在我们这个 Project 中我们将主要关注 Logisim 组合电路和时序电路的设计。</p>
+<h3 id="电路设计的目标"><a href="#电路设计的目标" class="headerlink" title="电路设计的目标"></a>电路设计的目标</h3><p>电路设计需要有一个“需求”——电路的功能与特性，这是我们电路设计的目标。如果我们从某个电路的用户角度看，我们实际上也是把电路本身作为一个“<strong>黑箱</strong>”，不关心其中的实现。因此我们自己在设计电路时，比起具体的实现，我们最先需要关心的就是电路的功能与特性。所谓磨刀不误砍柴功，通过对电路功能的深度理解和详细设计，我们往往能够在设计中节省很多精力，下面就给大家介绍一种规范需求的方法——端口定义表。</p>
+<p><img src="/.com//P0-1-1.png" srcset="/img/loading.gif" lazyload alt="P0-1-1"></p>
+<p>上图是一个 8 位加法器最为简单的定义表，定义了它有 5 个信号，8 位信号 A、B、SUM，1 位信号 C0 和 Overflow。方向中用 I 代表 Input 输入，用 O 代表 Output 输出。描述一栏用汉语对加法器进行了简单的描述。信号的语法遵循了类似 Verilog HDL 中的写法，如此，通过这个简单的端口定义表，我们就能够知晓我们这个 8 位加法器应该做什么。</p>
+<p>对于更复杂的电路，我们会使用两张表。</p>
+<p><img src="/.com//P0-1-2.png" srcset="/img/loading.gif" lazyload alt="P0-1-2"></p>
+<p>一张模块接口定义表与一张功能定义表，原因是对于这些复杂电路来说，简单的端口定义已经无法识别其功能，或者该模块在不同的情况与输入下有不同的功能，这种时候我们需要使用功能定义表来对模块的功能进行约定。</p>
+<p>在对我们设计的电路有了如此合理，无歧义的设计目标后，我们才能去动手实现真正的电路。我们需要把设计与实现这两项工作分开来保证我们在工程中较高的完成率。<strong>因此，建议，或者说要求，大家在之后我们的电路设计作业中，先要对模块的端口和功能进行书面化的定义，可以不拘泥于具体形式，但是一定要是可供他人阅读，立马明白模块功能的，</strong>再去进行实际的设计，我们不希望看到最终你设计的电路出问题是从功能定义上就出了毛病。我们之后的练习题部分也将会给出定义表供大家参照。</p>
+<h3 id="分析目标并划分层次"><a href="#分析目标并划分层次" class="headerlink" title="分析目标并划分层次"></a>分析目标并划分层次</h3><p>在定义清楚设计的目标之后，我们需要对我们的实现目标进行分析——这是一个时序电路？还是一个无状态的纯组合电路？它需要同时有多个功能吗？需要分层化设计吗？需要模块化设计么？——解决这些问题的过程，其实就是完成实现的过程。而这些问题往往也与实际的模块要求有关系，之后我们将用具体的实例来进行说明。</p>
+<p>模块设计相信大家在理论课以及前面的指导中已经有所耳闻，在这里需要提的一点是<strong>分层</strong>的设计思想，在计算机科学中领域中有一句名言，<strong>“在计算机科学中的任何问题都可以通过增加一个间接层来解决”（Any problem in computer science can be solved with another layer of indirection. ）。</strong>这句话即使是在电路设计这个偏硬的领域下也是有效的，以 32 位加法器为例，初拿到手，可能会觉得无所适从，输入是两个 32 位数，输出是一个 32 位数，关系虽然抽象上简单，但是并不能简单地用门电路概括。但是如果我们添加一个“一位加法器”的间接层。使用 1 位加法器拼出一个 32 位加法器比较简单，单独拼出一个 1 位加法器也很简单。如此，问题就解决了！可见分层的威力，希望大家在设计时也要重视这种思想，当然，<strong>分层</strong>的思想在后续课程中可能会和大家一次又一次的见面，记得和熟人打个招呼！</p>
+<h3 id="电路搭建与注意事项"><a href="#电路搭建与注意事项" class="headerlink" title="电路搭建与注意事项"></a>电路搭建与注意事项</h3><p>在完成设计阶段后，具体的实现比起来可能只是一些小 case，通过我们关于工具的知识，可以把我们的设计变为具体的元件组合，这一点我们将在之后的示例里看的更加清楚。具体到工具上，在 Logisim 中，需要注意布线、器件设置等，在 Verilog 中，需要注意位宽一致、命名正确等。这里就是要考察大家的基本功啦！</p>
+<p>在搭建功能较为复杂，重复性部件较多的电路（如通用寄存器堆）时，如果全部使用手工搭建会消耗较多时间，过程中也容易产生接线错误等问题。我们可以尝试采用代码生成 XML 文本等<a target="_blank" rel="noopener" href="https://d.buaa.edu.cn/http/77726476706e69737468656265737421f3e44293353526526b0988e29d51367b9787/tutorial/logisim/logisim-6/logisim-6-4/">自动化方法</a>来辅助进行模块搭建。无论是手工搭建还是自动生成，建议同学们在完成 Logisim 电路后仔细检查模块外观、布线与接线、功能等是否正常，避免产生不必要的麻烦。</p>
+<p>当然，我们也在此给出一些具体实现中常常遇到的一些问题，便于大家早点发现问题进行排除：</p>
+<h4 id="多驱动"><a href="#多驱动" class="headerlink" title="多驱动"></a>多驱动</h4><p>这是指一个变量有两个以上的赋值源。这一般是由于对于某一输出源，存在多个路径向其提供输出值，对于这种情况，Logisim 也会识别并将相关线路标红。</p>
+<p>具体而言，这可能是<strong>一个输入源经过不同的运算对其输出不同的值引起的：</strong></p>
+<p><img src="/.com//P0-1-3.png" srcset="/img/loading.gif" lazyload alt="P0-1-3"></p>
+<p>上述例子中，同一输入存在两条不同的路径到达输出，导致了多驱动。</p>
+<p>也可能是由于<strong>多个输入源对其输出不同值引起的：</strong></p>
+<p><img src="/.com//P0-1-4.png" srcset="/img/loading.gif" lazyload alt="P0-1-4"></p>
+<p>上述例子中，多个输入源同时驱动输出，导致了多驱动</p>
+<p>在 Verilog 中，也同样存在着这样的情况：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> signal_1 = a ? <span class="hljs-number">1&#x27;b1</span> : <span class="hljs-number">1&#x27;b0</span><br><span class="hljs-keyword">assign</span> signal_1 = b ? <span class="hljs-number">1&#x27;b1</span> : <span class="hljs-number">1&#x27;b0</span><br></code></pre></td></tr></table></figure>
+<h4 id="组合逻辑环路"><a href="#组合逻辑环路" class="headerlink" title="组合逻辑环路"></a>组合逻辑环路</h4><p>这是指不经过任何时序逻辑（寄存器等），而直接将组合逻辑电路的输出信号反馈到其输入节点而形成的环路。这一般是由于<strong>电路中存在输出直接作为该输出的输入而导致的：</strong></p>
+<p><img src="/.com//P0-1-5.png" srcset="/img/loading.gif" lazyload alt="P0-1-5"></p>
+<p>上述例子中，输出又直接作为了输入的一部分（MUX 选择条件）接入到了输入中，导致电路发生震荡。Logisim 识别并将相关线路标注为蓝色。</p>
+<p>同样，在 Verilog 中，也同样存在着这样的情况：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">assign <span class="hljs-keyword">BHR_Violent </span>= (Delay_BHR_Hash_Write_PC == <span class="hljs-keyword">BHR_Hash_Read_PC);</span><br><span class="hljs-keyword"></span>assign <span class="hljs-keyword">BHR_Hash_Read_PC </span>= <span class="hljs-keyword">BHR_Violent </span>? hash_10(Now_PC) + <span class="hljs-number">1</span> : hash_10(Now_PC);<br></code></pre></td></tr></table></figure>
+<p>上述例子中，BHR_Violent 的计算需要 BHR_Hash_Read_PC 的值，但是 BHR_Hash_Read_PC 的计算同样需要 BHR_Violent 的值，这样导致了一个组合逻辑上的回路。</p>
+<p><strong>当然，Logisim 线路颜色表达的含义不局限于以上的几种情况，希望大家在电路搭建时不要盲目依赖 Logisim 或者 ISE 给出的线路颜色或者错误信息，而应该在参考的基础上仔细思考搭建时产生的问题。</strong></p>
+<h3 id="电路搭建与测试"><a href="#电路搭建与测试" class="headerlink" title="电路搭建与测试"></a>电路搭建与测试</h3><p>在完成了搭建后，测试是个必不可少的环节，尽管这次我们搭建了自动测试平台，所有的文件可以自动测试，但是在实际环境中，测试这项工作更多也需要设计者来进行一定的自我测试，来避免一些显而易见的错误。而测试的基本原则就是根据我们的端口定义和功能定义表，对各种可能的输入情况进行排查，观察是否有与定义违背的情况，或者在输入未定义信号的时候会不会产生一些非常危险的行为。</p>
+<h4 id="测试样例设计"><a href="#测试样例设计" class="headerlink" title="测试样例设计"></a>测试样例设计</h4><p>有限的输入可能性可以穷举，但是需要消耗大量时间；无限的输入可能性无法穷举；无论是什么情况，我们都不可能枚举所有输入以求测试的覆盖性，因此最好的方法是使用有代表性的，有“价值”的测试数据进行测试，而测试数据的价值可以体现在很多方面，不同情境下我们对“价值”的定义不同。在这里我们给出几种样例生成的参考方向，以供大家在实践中使用，但是如何设计更多潜在有价值的测试数据，还需要同学们靠不断的练习来摸索并积累经验！</p>
+<ul>
+<li>覆盖所有测试功能正常进行的样例</li>
+<li>极端情况的样例</li>
+<li>异常情况的样例</li>
+</ul>
+<h4 id="测试方法"><a href="#测试方法" class="headerlink" title="测试方法"></a>测试方法</h4><p>为了提高测试效率，我们可以使用 Pre 提到的 <a target="_blank" rel="noopener" href="https://d.buaa.edu.cn/http/77726476706e69737468656265737421f3e44293353526526b0988e29d51367b9787/tutorial/logisim/logisim-6/logisim-6-5/">自动化测试</a> 方法！</p>
+<p>大家看完上面的设计和测试方法可能还一头雾水，不过不用担心，下面我们将通过 CRC 校验码的例子来带大家深入体会整个流程！</p>
+<blockquote>
+<p>笔者的话：其实，我个人并不认为“具体的实现比起来可能只是一些小 case”，往往问题就出现在搭建过程中，感觉这需要一定的积累。自动化方法我至今都不会，我不知道学起来会不会太费时，毕竟只有P0，P3需要用Logisim。本篇中端口定义表是极其重要的，它将贯穿整个CO。</p>
+</blockquote>
+<h2 id="2-CRC-校验码计算电路的设计与测试"><a href="#2-CRC-校验码计算电路的设计与测试" class="headerlink" title="2.CRC 校验码计算电路的设计与测试"></a>2.CRC 校验码计算电路的设计与测试</h2><p>在这个部分中，你将从需求开始一步一步搭建我们所要求的 ８ 位 CRC 校验码计算电路。我们希望在这个简单的例子中，你能体会到方法性的东西，并应用到之后的设计中去。这对之后的学习和<strong>课上测试</strong>都是很有帮助的，请各位谨记。</p>
+<h3 id="CRC-校验码简介"><a href="#CRC-校验码简介" class="headerlink" title="CRC 校验码简介"></a>CRC 校验码简介</h3><p>CRC 校验是数据通信领域中最常用的一种查错校验方式，它对数据进行多项式计算，并将得到的结果附在帧的后面，接收设备也执行类似的算法，以保证数据传输的正确性和完整性。（“帧” 在本章指的是数据的二进制码）</p>
+<p>在了解这种校验码怎么计算之前，我们需要先了解一种特殊的除法:“模二除法”。它与算术除法类似，但在做减法时既不向上借位，也不比较除数和被除数相同位数值的大小；它的运算法则为 <code>1-1=0</code>，<code>0-1=1</code>，<code>1-0=1</code>，<code>0-0=0</code>，例如 <code>1100-1001=0101</code>。对于模二除法，我们以被除数为 1011，除数为 10 为例，运算过程如下：</p>
+<p><img src="/.com//P0-3-1.png" srcset="/img/loading.gif" lazyload alt="P0-3-1"></p>
+<p>如果细心的话，你会发现，模二除法中的减法和异或的效果是相同的，所以模二除法可以用异或来完成。</p>
+<p>知道了模二除法的计算过程，CRC 校验码的计算就很简单了。我们只需要将原帧补上（除数位数 - 1）个 0 作为被除数，然后进行模二除法即可。举个例子，我们要发送的帧 A 为 10011，发送端和接收端共同选定的除数 B 为 1110。因为 B 是 4 位二进制数，我们需要在 A 的后面补上 3 个 0，从而得到 A’=10011000。我们将 A’ 作被除数，B 作除数，进行“模二除法”。如下图：</p>
+<p><img src="/.com//P0-3-2.png" srcset="/img/loading.gif" lazyload alt="P0-3-2"></p>
+<p>最后得到的余数是一个三位数（注意如果不是三位，也要在前面补零来凑齐三位），这就是要求的校验码。我们将得到的校验码 110 拼接在原数据帧的后面，就得到了要发送的新帧 A’’=10011110。这样就完成了 CRC 校验码的生成。</p>
+<h3 id="CRC-校验码计算电路的定义"><a href="#CRC-校验码计算电路的定义" class="headerlink" title="CRC 校验码计算电路的定义"></a>CRC 校验码计算电路的定义</h3><p>在普通的设计流程中，一般都是用汉语描述电路的功能，需要我们自己来进行形式化的定义，不过由于我们这个例子相对简单，因此直接给出我们 ８ 位 CRC 校验码计算电路的端口定义。</p>
+<p><img src="/.com//P0-3-3.png" srcset="/img/loading.gif" lazyload alt="P0-3-3"></p>
+<h3 id="分析目标并层次化"><a href="#分析目标并层次化" class="headerlink" title="分析目标并层次化"></a>分析目标并层次化</h3><p>初拿到如上表的需求，可以发现这是一个没有状态的部件，自身内部不存储信息，单纯的输入就决定了输出，因此有一种相当暴力的思路就是直接画出真值表，输入总共 11 位 2 进制码（考虑到除数的最高位一定为 1），输出 11 位二进制码，我们需要动 2048 下手指才可以把真值表画出来——似乎繁琐了点？我们需要更加简单的方法。但是希望大家明白真值表法永不过时，在输入输出比较小时是非常实用的方法，并且可以使用相关工具自动生成电路。</p>
+<p>我们仔细分析一下，其实类似除法的计算方法，我们可以把这个计算过程分解为多次进行被除数为 4 位的除法计算。因此我们引入“4 位模二除法器”这个间接层，这样问题就变成了两个部分:</p>
+<ul>
+<li>设计四位模二除法器</li>
+<li>使用四位模二除法器搭建 8 位 CRC 校验码计算电路</li>
+</ul>
+<p>为了方便理解，我们的给出了一种四位模二除法器的端口定义（这只是为了讲解时参考，你在设计时不一定要遵循这个定义）</p>
+<p><img src="/.com//P0-3-4.png" srcset="/img/loading.gif" lazyload alt="P0-3-4"></p>
+<p>我们知道，模二除法和异或运算是等价的，所以对于一个四位除四位的模二除法器，如果被除数的最高位是 1，则商 1，余数使用异或门来将四位被除数和四位除数异或即可。当然，如果被除数的最高位是 0，则商为 0，余数直接等于被除数了。</p>
+<p>这个电路搭建很简单，我们只需要判断下被除数的最高位，然后分情况输出即可。</p>
+<p>搭建完四位的除法器，我们再来看看怎么使用这个简单的电路来搭建我们所需要的复杂电路。类似于普通除法的过程，我们计算模二除法时也是每次从被除数中取出一定的位数（对于该问题来说是四位）来和除数相除，除得的余数再补上一位被除数后继续与除数相除。如此，计算过程就相当于进行多次四位的模二除法了。我们要做的就是将上一个四位模二除法器的余数输出，拼接一位被除数作为下一个四位模二除法器的被除数输入(除数始终是同一个数),如此反复直到被除数所有的位都被使用。</p>
+<h3 id="具体搭建（-LOGISIM-）"><a href="#具体搭建（-LOGISIM-）" class="headerlink" title="具体搭建（ LOGISIM ）"></a>具体搭建（ LOGISIM ）</h3><p>在 Logisim 搭建上述电路时还需注意：</p>
+<ul>
+<li>可以使用 <a target="_blank" rel="noopener" href="https://d.buaa.edu.cn/http/77726476706e69737468656265737421f3e44293353526526b0988e29d51367b9787/tutorial/logisim/logisim-2/logisim-2-3/">Tunnel</a> 来表示中间变量简化布线</li>
+<li>可以改变门电路输入数简化电路</li>
+<li>这个电路并不是最简的，可以使用逻辑方法优化</li>
+</ul>
+<p>综上，我们可以在完成了设计工作的基础上使用 Logisim 进行电路搭建啦！</p>
+<h3 id="测试与验证"><a href="#测试与验证" class="headerlink" title="测试与验证"></a>测试与验证</h3><h4 id="测试样例设计-1"><a href="#测试样例设计-1" class="headerlink" title="测试样例设计"></a>测试样例设计</h4><p>正如前文所述，开发者的自我测试在开发过程中是十分重要，这里我们就以刚搭建的 8 位 CRC 校验码计算电路为例来说明如何进行测试样例的设计。对于我们这里的组合电路，测试样例要覆盖所有的输入。因此最简单直接的想法就是将所有的二进制输入依次尝试一遍。在我们的电路中，共需尝试 2048 组输入。这种方法的好处就是保证彻底的覆盖性，缺点也很明显，需要过多的操作。在面对更复杂电路时，我们需要更加合理的样例。一种比较合理的方法是根据功能来设计相关的样例：</p>
+<ul>
+<li>覆盖所有测试功能正常进行的样例（如 A:11001010 B:1011, A:01001110 B:1100）</li>
+<li>极端情况的样例（如：A:00000000 B:1000）</li>
+<li>异常情况的样例（如：A:110X010X B:XXXX，这个 X 的输入在 Logisim 也是支持的）</li>
+</ul>
+<p>在设计出相应的测试样例后，需进行相关的输入观测现象，为了使测试电路更加简洁，我们将使用已经设计好的子电路进行测试，下面介绍子电路。</p>
+<h4 id="子电路"><a href="#子电路" class="headerlink" title="子电路"></a>子电路</h4><p>我们在 Pre 中学习了子电路的使用，不知道同学是否有尝试过。在 P0 中，随着电路<strong>逐渐复杂化</strong>，我们需要子电路的帮助来完成整体电路。</p>
+<p>其实子电路和<strong>子函数</strong>有一定的相似性。我们可以把合作完成同一功能的电路封装为一个子电路，再像 main 中调用子函数那样多处进行引用，减少重复且不必要的电路搭建，一定程度上减少我们的工作量。同时，由于 Logisim 是在画布上完成我们的任务，利用子电路也可以让我们整个画布更加<strong>简洁清楚</strong>。</p>
+<p>同时，也可以把一部分相互依赖性高且线路连接复杂的电路封装成一个子电路，虽然可能不会有其他地方也利用这个子电路，但是由于 Logisim 没有很好的 debug 的方式，利用这个方式可以通过测试<strong>保证每个子电路的正确性</strong>，进而确定我们提交电路的正确性。</p>
+<h5 id="如何使用子电路"><a href="#如何使用子电路" class="headerlink" title="如何使用子电路"></a>如何使用子电路</h5><p>为了提高使用子电路的效率，我们可以通过外观编辑界面以更改电路外观的形状及端口位置；通过更改 layout 为子电路及其相应端口设置 Label ，进而区分相同子电路的不同引用，并对子电路的输入输出进行命名（在引用时鼠标悬停即可查看其自定义名称），在引用子电路的同时可以更清楚其信息。</p>
+<p>同时，在进行电路测试的时候，应该也测试每个子电路的功能，之后再对整个电路进行测试。如此可以减轻工作量，更快地完成测试工作。</p>
+<p>在之后的题目中，虽然不用子电路也可以完成任务，但希望同学们可以尝试着使用子电路。</p>
+<p>这里给出测试电路示例：(“CRC” 为你需要搭建的电路)</p>
+<p>我们将设计好的 CRC 电路进行封装，并命名为 “CRC”，在测试电路中，A、B 为输入观测值，C 为输出观测值，“CRC” 以子电路的形式出现。</p>
+<p><img src="/.com//P0-3-5.png" srcset="/img/loading.gif" lazyload alt="P0-3-5"></p>
+<h2 id="3-Logisim-中的有限状态机"><a href="#3-Logisim-中的有限状态机" class="headerlink" title="3.Logisim 中的有限状态机"></a>3.Logisim 中的有限状态机</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>经过理论课程和之前 Logisim 教程部分的学习，相信大家对有限状态机的基本知识已经有了充分的了解，也已经掌握了使用 Logisim 设计简单状态机的方法技巧。现在，我们帮助大家简单的回顾一下使用 Logisim 设计有限状态机的基本步骤，以帮助大家更快的适应 P0。</p>
+<h3 id="使用-Logisim-设计有限状态机的基本步骤"><a href="#使用-Logisim-设计有限状态机的基本步骤" class="headerlink" title="使用 Logisim 设计有限状态机的基本步骤"></a>使用 Logisim 设计有限状态机的基本步骤</h3><p>使用 Logisim 设计有限状态机的过程基本上可以分为三个步骤： - 设计实现状态存储模块 - 设计实现状态转移模块 - 设计实现输出模块</p>
+<p>以上三个模块是对有限状态机进行抽象后的三个主要方面。其中，状态转移模块和输出模块内是纯组合逻辑，不涉及时序逻辑。而状态存储模块则需要存储每个周期有限状态机的具体状态。它们之间的关系是，状态转移模块根据当前有限状态机的状态(即状态存储模块所存储的值)和当前的输入计算出有限状态机的下一状态值，当时钟上升沿到来时，这个新的状态值被存入状态存储模块中。输出模块的逻辑分为两种，根据输出逻辑的不同，有限状态机又被分为 Moore 型状态机和 Mealy 型状态机。它们之间具体的差别是，Moore 型状态机的输出逻辑仅与有限状态机当前状态值有关；而 Mealy 型状态机的输出逻辑则与有限状态机的当前状态和当前输入有关。</p>
+<p>Moore 型状态机示例图</p>
+<p><img src="/.com//P0-9-1.svg" srcset="/img/loading.gif" lazyload alt="P0-9-1"></p>
+<p>Mealy 型状态机示例图</p>
+<p><img src="/.com//P0-9-2.svg" srcset="/img/loading.gif" lazyload alt="P0-9-2"></p>
+<p>（注：上图模块从左至右分别是：状态转移，状态存储，输出）</p>
+<h3 id="设计建议"><a href="#设计建议" class="headerlink" title="设计建议"></a>设计建议</h3><ol>
+<li>分析具体问题，画出状态转移图</li>
+<li>对状态进行合适的编码</li>
+<li>画出状态转移和输出逻辑的真值表</li>
+<li>在 Logisim 中实现状态转移和输出逻辑，并采用合适的存储器存储具体状态值</li>
+</ol>
+<hr>
+<p>同学们可以重新回顾一下 pre 部分中 Logisim 的部分内容，我们可以通过通过 analyze circuit 的功能来完成状态机状态转移部分的内容。（在 project-analyze circuit 可以选择此功能）</p>
+<p>这个功能让我们可以通过打表的方式表示 input 和 output 的关系。当然同学们可以选择自己搭建电路，或者通过更好地设计状态机来简化其状态转移的过程。</p>
+<h3 id="有限状态机测试"><a href="#有限状态机测试" class="headerlink" title="有限状态机测试"></a>有限状态机测试</h3><p>在完成了对有限状态机的设计之后，我们还需要进行有限状态机的<strong>测试</strong>，正如我们在教程中学到的，测试一直是电路设计中一个非常重要的环节。但是由于 FSM 相比之前简单的组合电路更加复杂，因此其测试也会包含更多内容，可以概括为两个主要的部分——<strong>输出电路</strong>测试与<strong>状态转移</strong>电路测试。</p>
+<p>如果我们仍采用在组合电路中采用的<strong>黑箱测试</strong>办法，直接将输入与输出联系起来 ，那么我们将会需要非常大数量的样例序列来进行测试，这种做法既不经济也不实用，因此我们不予采用。我们需要做的是，将<strong>输出电路</strong>测试与<strong>状态转移</strong>电路测试分开进行，记录状态信息。</p>
+<p>如果我们将这两者分开，那么对于这两者来说，它们都是普通的组合电路，只需要使用我们之前的方法就可以完成相关测试，测试上的问题也就迎刃而解了。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>思考题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>状态存储器的复位方式包括<strong>异步复位</strong>和<strong>同步复位</strong>，二者的定义分别是什么？两种复位方式在 Verilog 中可以通过什么语句句式实现？在 Logisim 中又可以通过什么样的电路框架实现？</td>
+</tr>
+<tr>
+<td>在 Verilog 中我们可以通过<code>initial</code>块对状态存储器的初值进行定义，在 Logisim 中我们可以通过哪些电路框架实现赋初值的功能？</td>
+</tr>
+<tr>
+<td>一个大型的 Logisim 电路设计可能会具有非常复杂的电路结构，你有哪些可以降低这种复杂性的设计方法？</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>那么，教程部分结束，下面是题面及我的解答。</p>
+<h2 id="4-P0题面"><a href="#4-P0题面" class="headerlink" title="4.P0题面"></a>4.P0题面</h2><h3 id="1-P0-L0-CRC-CRC校验-P0-Q1"><a href="#1-P0-L0-CRC-CRC校验-P0-Q1" class="headerlink" title="1.P0_L0_CRC:CRC校验(P0.Q1)"></a>1.P0_L0_CRC:CRC校验(P0.Q1)</h3><h4 id="提交要求"><a href="#提交要求" class="headerlink" title="提交要求"></a>提交要求</h4><p>使用Logisim搭建一个除数为四位，原数据帧为8位的CRC校验码计算电路。具体模块端口定义如下：</p>
+<p><img src="/.com//499-1.png" srcset="/img/loading.gif" lazyload alt="499-1"></p>
+<ul>
+<li>必须严格按照模块的端口定义</li>
+<li>文件内模块名: <strong>CRC</strong></li>
+<li>我们规定除数的最高位一定为1,不需要考虑最高位非1的情况</li>
+<li><strong>注意:由于信号原帧位数为8位，进行除法运算时被除数应为8+3=11位</strong></li>
+<li>测试电路：(CRC为你需要搭建的电路)</li>
+</ul>
+<p><img src="/.com//499-2.png" srcset="/img/loading.gif" lazyload alt="499-2"></p>
+<ul>
+<li><strong>注意:请保证模块的appearance与下图完全一致，否则有可能造成评测错误</strong>(查看模块appearance方法:在Logisim中打开相应模块后点击左上角<img src="/.com//499-3.png" srcset="/img/loading.gif" lazyload alt="499-3">按钮)</li>
+</ul>
+<p><img src="/.com//499-4.png" srcset="/img/loading.gif" lazyload alt="499-4"></p>
+<h3 id="2-P0-L0-GRF-实现GRF-P0-Q2"><a href="#2-P0-L0-GRF-实现GRF-P0-Q2" class="headerlink" title="2.P0_L0_GRF:实现GRF(P0.Q2)"></a>2.P0_L0_GRF:实现GRF(P0.Q2)</h3><h4 id="提交要求-1"><a href="#提交要求-1" class="headerlink" title="提交要求"></a>提交要求</h4><p>使用Logisim搭建一个GRF。</p>
+<p>GRF中包含32个32位寄存器，分别对应0~31号寄存器，其中0号寄存器读取的结果恒为0。具体模块端口定义如下：</p>
+<p><img src="/.com//269-1.png" srcset="/img/loading.gif" lazyload alt="269-1"></p>
+<p>模块功能定义如下：</p>
+<p><img src="/.com//269-2.png" srcset="/img/loading.gif" lazyload alt="269-2"></p>
+<ul>
+<li>必须严格按照模块的端口定义</li>
+<li><strong>0号寄存器读出的数据在任何时刻都为0</strong></li>
+<li><strong>请使用寄存器部件来实现GRF中的32个寄存器</strong></li>
+<li>文件内模块名: grf</li>
+<li>测试电路：(grf为你需要搭建的电路)</li>
+</ul>
+<p><img src="/.com//269-3.png" srcset="/img/loading.gif" lazyload alt="269-3"></p>
+<ul>
+<li><strong>注意:请保证模块的appearance与下图完全一致，否则有可能造成评测错误</strong>(查看模块appearance方法:在Logisim中打开相应模块后点击左上角<img src="/.com//499-3.png" srcset="/img/loading.gif" lazyload alt="499-3">按钮)</li>
+</ul>
+<p><img src="/.com//269-5.png" srcset="/img/loading.gif" lazyload alt="269-5"></p>
+<h3 id="3-P0-L1-navigation-2020：Logisim导航-P0-Q3"><a href="#3-P0-L1-navigation-2020：Logisim导航-P0-Q3" class="headerlink" title="3.P0_L1_navigation_2020：Logisim导航(P0.Q3)"></a>3.P0_L1_navigation_2020：Logisim导航(P0.Q3)</h3><h4 id="提交要求-2"><a href="#提交要求-2" class="headerlink" title="提交要求"></a>提交要求</h4><p>计小组要去机房上机考试，需要去B机房，但是目前他在A机房。他现在的时间很充裕，就决定生成一串随机序列，告诉他下一步行走的方向，直到走到B机房。他希望用Logisim搭建一个可以导航的Moore型有限状态机，来通过序列告诉他是否到达B机房。</p>
+<p><img src="/.com//393-1.png" srcset="/img/loading.gif" lazyload alt="393-1"></p>
+<p>题目要求：</p>
+<p>计小组只能往东南西北四个方向行走，且若能行走，则每次<strong>只能行走一格</strong>。若下一步不存在机房让计小组行走，那么计小组会撞到墙壁并且<strong>hit置高一周期</strong>，此时计小组仍<strong>保持原地</strong>不会移动，等待下一周期再进行运动。（如果下一步依旧撞墙， 则hit仍然置高；若下一步不会撞墙，则计小组将会继续行进，hit在此周期置0）</p>
+<p>计小组走到B机房后，<strong>“到达”信号需要置位</strong>，<strong>并保持一周期</strong>。到达B机房后计小组将会在下一周期回到原点，（下一周期的输入将被忽略掉）等待下下周期的输入，继续测试他的序列。</p>
+<p>计小组遵循上北下南左西右东的方向完成操作。</p>
+<p>计小组在时钟上升沿的时候就已经知道自己下一步的方向并且瞬移过去，并且立即做出判断。</p>
+<p>端口定义：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">信号名</th>
+<th style="text-align:left">方向</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">dir[1:0]</td>
+<td style="text-align:left">I</td>
+<td style="text-align:left">表示行走的方向：00：向北走 01：向东走 10：向南走 11：向西走</td>
+</tr>
+<tr>
+<td style="text-align:left">clk</td>
+<td style="text-align:left">I</td>
+<td style="text-align:left">时钟信号</td>
+</tr>
+<tr>
+<td style="text-align:left">reset</td>
+<td style="text-align:left">I</td>
+<td style="text-align:left">异步复位信号</td>
+</tr>
+<tr>
+<td style="text-align:left">arrive</td>
+<td style="text-align:left">O</td>
+<td style="text-align:left">是否到达</td>
+</tr>
+<tr>
+<td style="text-align:left">hit</td>
+<td style="text-align:left">O</td>
+<td style="text-align:left">是否撞上墙壁</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>模块名</strong>：navigation</p>
+<p><strong>必须严格按照模块的端口定义</strong></p>
+<p><strong>测试电路</strong>：</p>
+<p><img src="/.com//393-3.png" srcset="/img/loading.gif" lazyload alt="393-3"></p>
+<p><strong>注意:请保证模块的appearance与下图完全一致，否则有可能造成评测错误</strong>(查看模块appearance方法:在Logisim中打开相应模块后点击左上角<img src="/.com//499-3.png" srcset="/img/loading.gif" lazyload alt="499-3">按钮)</p>
+<p><img src="/.com//393-2.png" srcset="/img/loading.gif" lazyload alt="3932.png"></p>
+<h3 id="P0-L0-FSM：Logisim中的FSM-P0-Q4"><a href="#P0-L0-FSM：Logisim中的FSM-P0-Q4" class="headerlink" title="P0_L0_FSM：Logisim中的FSM(P0.Q4)"></a>P0_L0_FSM：Logisim中的FSM(P0.Q4)</h3><h4 id="正则表达式匹配"><a href="#正则表达式匹配" class="headerlink" title="正则表达式匹配"></a>正则表达式匹配</h4><p>正则表达式是对字符串操作的一种逻辑公式，它通常被用来检索、替换符合某个模式的文本。它的规则比较复杂，我们现在只讲解其中比较简单的几种规则。</p>
+<ul>
+<li>[…]是指要匹配中括号中的字符(注意是字符不是字符串),比如[xyz]就是要匹配x y z这三个字符中的任意一个。</li>
+<li>{…}是指要求匹配”{“前的那个字符几次，比如a{2}是指要匹配a两次，a{2,4}是指要匹配a 2至4次,a{,4}指要匹配a 0至4次，a{2,}指要匹配a 2至无穷次。所以[cd]{1,2}就是要求匹配(c或d)一次或两次,即cc、dd、cd、dc、c、d都是能匹配的。</li>
+<li>(…)是指将()内的字符串视为一个整体，比如(ab){1,2}对应的就是ab或abab。</li>
+<li>我们也可以将多条表达式组合起来，如a{2}b{2}就是指匹配a两次后再匹配b两次,即匹配aabb。</li>
+</ul>
+<h4 id="提交要求-3"><a href="#提交要求-3" class="headerlink" title="提交要求"></a>提交要求</h4><p>使用Logisim搭建一个Mealy型有限状态机 检测串行输入字符串中的能匹配正则表达式b{1,2}[ac]{2}的子串并输出。具体模块端口定义如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>信号名</th>
+<th>方向</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>In[1:0]</td>
+<td>I</td>
+<td>串行方式输入字符串。 为简化电路，我们规定 00 表示 ‘a’，01 表示 ‘b’，10 表示 ‘c’，11 表示其他字符。</td>
+</tr>
+<tr>
+<td>CLR</td>
+<td>I</td>
+<td>清除置位信号</td>
+</tr>
+<tr>
+<td>Z</td>
+<td>O</td>
+<td>输出是否检测到了与表达式匹配的子串 1：检测到了 0：未检测到</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>模块功能定义如下：</p>
+<p><img src="/.com//9-2.png" srcset="/img/loading.gif" lazyload alt="9-2"></p>
+<ul>
+<li>必须严格按照模块的端口定义</li>
+<li>文件内模块名: fsm</li>
+<li><strong>注意: 每当匹配到一个子串时，需要输出一次1。例如对字符串bacbacac,模块应当在第1个c输入和第2个c输入时输出1,而在其他时刻保持输出为0。</strong></li>
+<li><strong>注意：有限状态机的设计是Mealy型有限状态机。</strong></li>
+<li>测试电路如下：(code部分是你需要搭建的电路)</li>
+</ul>
+<p><img src="/.com//9-3.png" srcset="/img/loading.gif" lazyload alt="9-3"></p>
+<ul>
+<li><strong>注意:请保证模块的appearance与下图完全一致，否则有可能造成评测错误</strong>(查看模块appearance方法:在Logisim中打开相应模块后点击左上角<img src="/.com//499-3.png" srcset="/img/loading.gif" lazyload alt="499-3">按钮)</li>
+</ul>
+<p><img src="/.com//9-5.png" srcset="/img/loading.gif" lazyload alt="95.png"></p>
+<h3 id="P0-L1-ftoi：ftoi-附加题"><a href="#P0-L1-ftoi：ftoi-附加题" class="headerlink" title="P0_L1_ftoi：ftoi(附加题)"></a>P0_L1_ftoi：ftoi(附加题)</h3><p>本题为附加题，通过与否不计入P0课下通过条件。</p>
+<h4 id="提交要求-4"><a href="#提交要求-4" class="headerlink" title="提交要求"></a>提交要求</h4><p>使用Logisim进行组合逻辑设计，要求输入一个16位的单精度浮点数（符合IEEE-754标准），输出该浮点数的整数部分(包含符号)，用32位二进制符号数表示。具体说明如下：</p>
+<p>IEEE-754 标准中一个半精度16位浮点数的表示方法:</p>
+<script type="math/tex; mode=display">
+V_{float}=(-1)^S \times M \times 2^E</script><p>利用这种浮点数表示方法进行编码后的值可以分为4类，如下图所示</p>
+<p><img src="/.com//319-1.png" srcset="/img/loading.gif" lazyload alt="319-1"></p>
+<ul>
+<li><p>S代表最高位符号位，由sign[15]位编码，规定$S=sign$；</p>
+</li>
+<li><p>E代表指数，由图中exponent[14:10]域编码，规定<strong>补码</strong>$E=exponent-01111_2$</p>
+</li>
+<li><p>M代表小数点后的二进制小数位，由图中frac[9:0]域编码，Normalized的情况$M$永远有一位前导1，因此不占位，相当于$1 + frac$；而Denormalized的情况$frac$前面是$0$，$M$默认就是$frac$，即规定</p>
+<script type="math/tex; mode=display">
+M = 
+\begin{cases}
+1+frac, & exponent \neq 0 \\
+frac, & exponent = 0
+\end{cases}</script></li>
+</ul>
+<p>Normalized例子：</p>
+<p><img src="/.com//319-2.png" srcset="/img/loading.gif" lazyload alt="319-2"></p>
+<p>Denormalized例子：</p>
+<p><img src="/.com//319-3.png" srcset="/img/loading.gif" lazyload alt="319-3"></p>
+<p>模块端口定义如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">信号名</th>
+<th style="text-align:center">方向</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">float[15:0]</td>
+<td style="text-align:center">I</td>
+<td style="text-align:center">16位半精度浮点数（IEEE-754标准）</td>
+</tr>
+<tr>
+<td style="text-align:center">int[31:0]</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">该浮点数的整数部分（带符号），用32位符号数的补码来表示，超出表示范围则取低32位。 <strong>第3类Infinity和第4类NaN为了简化直接输出0即可</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>必须严格按照模块的端口定义</li>
+<li>文件内模块名: <strong>ftoi</strong></li>
+<li>测试电路：</li>
+</ul>
+<p><img src="/.com//319-4.png" srcset="/img/loading.gif" lazyload alt="319-4"></p>
+<ul>
+<li><strong>注意:请保证模块的appearance与下图完全一致，否则有可能造成评测错误</strong>(查看模块appearance方法:在Logisim中打开相应模块后点击左上角<img src="/.com//499-3.png" srcset="/img/loading.gif" lazyload alt="499-3">按钮)</li>
+</ul>
+<p><img src="/.com//319-6.png" srcset="/img/loading.gif" lazyload alt="3196.png"></p>
+<h2 id="5-个人解答-思路总结"><a href="#5-个人解答-思路总结" class="headerlink" title="5.个人解答-思路总结"></a>5.个人解答-思路总结</h2><h3 id="T1-CRC"><a href="#T1-CRC" class="headerlink" title="T1.CRC"></a>T1.CRC</h3><p>本题给了详细的思路引导，只要实现教程上说的就行，注意细节和仔细读题就行。搭建过程中有不少重复模块，也并非一道很简单的题。</p>
+<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><ol>
+<li>先设计四位模二除法器，如果$A$最高位为$0$，输出的商为$0$，余数为$A$本身；否则商为$1$，余数为$A\oplus B$。这里涉及到选择语句，我们需要把可能的情况均算出来接到$MUX$上，商和除数前各一个$MUX$，选择端为$A[3]$。</li>
+<li>再设计顶层模块，将八位后面部三个$0$，进行类似于除法竖式的操作，每次余数三位再把后面一位取下来，一共需要进行$8$次，调用$8$次$4div4$模块。商对我们没有用处，只需将三位余数和被除数的下一位用分线器合在一起引入下一$4div4$层即可。</li>
+</ol>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><p>1.记得补三个$0$！否则测评数据点会恰好错一个位。体现了读题的重要性。往往开始做题又会忘掉一些细节。</p>
+<p>2.用好Tunnel，但不要过多。不要一眼望过去全是Tunnel，尽量“线比隧道多”。</p>
+<h4 id="Logisim源文件与连线截图"><a href="#Logisim源文件与连线截图" class="headerlink" title="Logisim源文件与连线截图"></a>Logisim源文件与连线截图</h4><p><a target="_blank" rel="noopener" href="https://github.com/pppphop/pppphop.github.io/blob/main/blog files/crc.circ">crc.circ</a></p>
+<p><img src="/.com//image-20251012201301017.png" srcset="/img/loading.gif" lazyload alt="image-20251012201301017"></p>
+<p><img src="/.com//image-20251012201317373.png" srcset="/img/loading.gif" lazyload alt="image-20251012201317373"></p>
+<h3 id="T2-GRF"><a href="#T2-GRF" class="headerlink" title="T2.GRF"></a>T2.GRF</h3><p>乍一看本题让人非常为难、难以下手：什么？要我摆32个寄存器？还要选择输入输出，还有使能信号？不禁让人皱起眉头。事实上，我们理清思路，或者“先做好一定要做的”，一步步来不要畏惧，会发现这是一道很简单的题。</p>
+<h4 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h4><ol>
+<li>摆上32个寄存器，因为元件多，所以我们一点要注重外观的整齐，不会到后面一团乱麻，建议$8\times4$排列。</li>
+<li>然后我们处理输出，这个不存在使能，有$A1$，$A2$就有$RD1$，$RD2$输出。那么“指定输出低$i$个寄存器里的值”，即输出序号为$i$的寄存器里的值，要怎么实现？我们要将$32$个寄存器的输出端均接到一个$MUX$上，$A1$信号作为选择断即可。$A2$和$RD2$同理。只是连线确实多，需要一点耐心。</li>
+<li>输入的使能和选择怎么办？我们用好寄存器的使能端。这应该是迄今为止第一次用上寄存器使能端。有很多种方法，比如在每个寄存器使能端前面放个比较器，结果和$WE$与起来连上去，是可行的，但是繁琐复杂凌乱。我们选择使用与$MUX$对应的$DEMUX$，把$WE$接输入$A3$接选择端就行。</li>
+</ol>
+<h4 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h4><ol>
+<li>善用Tunnel，本题Tunnel不怕多，不可能把32条线全部引出来连在$MUX$上；</li>
+<li>$0$号寄存器始终为$0$，也就是$WD$不接入$0$号寄存器的D端，而是接入<code>32&#39;b0</code>；</li>
+<li>巧用Ctrl C+V，可以将寄存器设置好后，$1\rightarrow 2 \rightarrow 4 \rightarrow 8 \rightarrow 16 \rightarrow 32$，就能迅速搞定这32个寄存器。Tunnel也可以复制粘贴，每次改一下标签。</li>
+</ol>
+<h4 id="Logisim源文件与连线截图-1"><a href="#Logisim源文件与连线截图-1" class="headerlink" title="Logisim源文件与连线截图"></a>Logisim源文件与连线截图</h4><p><a target="_blank" rel="noopener" href="https://github.com/pppphop/pppphop.github.io/blob/main/blog files/grf.circ">grf.circ</a></p>
+<p><img src="/.com//image-20251013142829715.png" srcset="/img/loading.gif" lazyload alt="image-20251013142829715"></p>
+<p><img src="/.com//image-20251013142901730.png" srcset="/img/loading.gif" lazyload alt="image-20251013142901730"></p>
+<h3 id="T3-Navigation"><a href="#T3-Navigation" class="headerlink" title="T3.Navigation"></a>T3.Navigation</h3><p>本题是最常规的一道题，就是普通的Moore型有限状态机，真值表生成状态转移电路。</p>
+<h4 id="解题思路-2"><a href="#解题思路-2" class="headerlink" title="解题思路"></a>解题思路</h4><ol>
+<li>真值表生成$status_{next}$和$hit$；</li>
+<li>$3$位寄存器存$status_{now}$，初值为$0$故无需赋初值；</li>
+<li>分线器将输入的$dir$和$status<em>{now}$传入状态转移模块，得到$status</em>{next}$和$hit$；</li>
+<li>因为$hit$需要保持一拍，所以传入一个寄存器再输出。</li>
+</ol>
+<h4 id="注意事项-2"><a href="#注意事项-2" class="headerlink" title="注意事项"></a>注意事项</h4><ol>
+<li>状态转移模块的$hit$应该是“如果走下一拍是不是在墙里面”，这样通过寄存器缓一拍是刚好的。</li>
+<li>当前寄存器的值为$4$时输出$arrival=1$，其余时候保持$0$。</li>
+<li>仔细读题，“到达B机房后计小组将会在下一周期回到原点，（下一周期的输入将被忽略掉）”所以我们这么做是没有问题的，相当于他在$B$还是停留了一拍，这一拍用来输出$arrival=1$，也体现了这是个Moore型有限状态机</li>
+</ol>
+<h4 id="Logisim源文件与连线截图-2"><a href="#Logisim源文件与连线截图-2" class="headerlink" title="Logisim源文件与连线截图"></a>Logisim源文件与连线截图</h4><p><a target="_blank" rel="noopener" href="https://github.com/pppphop/pppphop.github.io/blob/main/blog files/navigation.circ">navigation.circ</a></p>
+<p><img src="/.com//image-20251013145400358.png" srcset="/img/loading.gif" lazyload alt="image-20251013145400358"></p>
+<h3 id="T4-FSM"><a href="#T4-FSM" class="headerlink" title="T4.FSM"></a>T4.FSM</h3><p>这是很常见的Mealy型状态机，但是想要一次搭对并不简单，难点和易错点其实在同步复位。</p>
+<h4 id="解题思路-3"><a href="#解题思路-3" class="headerlink" title="解题思路"></a>解题思路</h4><ol>
+<li>真值表生成状态转移电路；</li>
+<li>状态仅$0$，$1$，$2$，三种，当$status_{now}=2$且$in=0或2$时输出$Z=1$，这体现了本题是Mealy型状态机，与输入有关</li>
+<li>接入同步复位，具体步骤见注意事项。</li>
+</ol>
+<h4 id="注意事项-3"><a href="#注意事项-3" class="headerlink" title="注意事项"></a>注意事项</h4><ol>
+<li>同步复位不能！直接将$clk$和$reset$与起来接到寄存器的$reset$端！不信可以自己试验一下。正确步骤是，将$reset$取反（默认高电平时复位），再进行符号扩展，与正常要输入到寄存器的内容与起来再连到D端；</li>
+<li>$reset$取反后扩展的位数和寄存器位数保持一致</li>
+<li>本题刚开始连的时候你会感到奇怪，怎么没有输入$clk$信号？那么就是我们从组件中直接拿出$Clock$就行了。</li>
+</ol>
+<h4 id="Logisim源文件与连线截图-3"><a href="#Logisim源文件与连线截图-3" class="headerlink" title="Logisim源文件与连线截图"></a>Logisim源文件与连线截图</h4><p><a target="_blank" rel="noopener" href="https://github.com/pppphop/pppphop.github.io/blob/main/blog files/fsm.circ">fsm.circ</a></p>
+<p><img src="/.com//image-20251013170526900.png" srcset="/img/loading.gif" lazyload alt="image-20251013170526900"></p>
+<h3 id="T5-ftoi"><a href="#T5-ftoi" class="headerlink" title="T5.ftoi"></a>T5.ftoi</h3><p>一道组合逻辑，难！不愧是附加题，对于我这种比较蠢的，相当于跳出了我的“舒适圈”，看到题就无处下手了。放在高中，这算是一道“新定义”题。个人觉得题目其实挺难读懂的，比如取整数是个什么取法。但我朋友都说还好。</p>
+<h4 id="解题思路-4"><a href="#解题思路-4" class="headerlink" title="解题思路"></a>解题思路</h4><ol>
+<li>一步步来，先将输入的$float$拆成三部分，$sign$，$exp$，$frac$；</li>
+<li>我们判断他是$Normal$，$Denormal$，$Inf$，还是$NaN$。我这里用两个$MUX$来判断，选择端是比较器的结果，输入端是常数$0$，$1$，$2$，得到判断类型的$fl$；</li>
+<li>Normalized要在$frac$开头拼接$1$，Denormalized则不需要。因为后续要接入$MUX$，所以两种都要写（后者其实没动，实际上不用写）；</li>
+<li>把$E=exp-01111_2$算出，$E$的最高位代表$2$的幂次是正是负，设为$neg$；</li>
+<li>如果$neg=1$，$E$在有符号意义下为负，则应该右移，否则左移，我们用移位器完成这两个板块，并接到一个$MUX$上，选择端是$neg$；</li>
+<li>将这时候两种情况的都右移$10$位，实现取整的功能；</li>
+<li>根据$sign$决定是否要取负数就行了。我这一步做的比较复杂，用的取反加一，其实可以直接使用Negator。</li>
+</ol>
+<h4 id="注意事项-4"><a href="#注意事项-4" class="headerlink" title="注意事项"></a>注意事项</h4><ol>
+<li>取整数不是取整，-0.0028取整数部分就是0，0.625取整数也是0，不要搞复杂了。</li>
+<li>左移右移需将$frac$扩展至$32$位</li>
+</ol>
+<h4 id="Logisim源文件与连线截图-4"><a href="#Logisim源文件与连线截图-4" class="headerlink" title="Logisim源文件与连线截图"></a>Logisim源文件与连线截图</h4><p><a target="_blank" rel="noopener" href="https://github.com/pppphop/pppphop.github.io/blob/main/blog files/ftoi.circ">ftoi.circ</a></p>
+<p><img src="/.com//image-20251013180659668.png" srcset="/img/loading.gif" lazyload alt="image-20251013180659668"></p>
+<p><img src="/.com//image-20251013180713158.png" srcset="/img/loading.gif" lazyload alt="image-20251013180713158"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CO%E8%AF%BE%E4%B8%8B/" class="category-chain-item">CO课下</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CO/" class="print-no-link">#CO</a>
+      
+        <a href="/tags/CO%E8%AF%BE%E4%B8%8B/" class="print-no-link">#CO课下</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>P0课下-总结反思文档</div>
+      <div>http://example.com/2026/01/16/P0课下-总结反思文档/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 16, 2026</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/01/16/P1%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D/" title="P1课下-总结反思">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">P1课下-总结反思</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/16/hello-world/" title="Hello World">
+                        <span class="hidden-mobile">Hello World</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
