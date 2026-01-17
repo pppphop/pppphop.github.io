@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=auto>
+<html lang="zh-CN" data-default-color-scheme=light>
 
 
 
@@ -16,16 +16,16 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="pppphop">
   <meta name="keywords" content="">
   
     <meta name="description" content="这次可能是最简单的一次课下了？只有附加题较难。当然这并不是好事，可能会导致上机难度陡然上升而我们在课下没有得到充分练习的情况。还是与往常一样，分为教程复现，题面，思路与题解三部分。 教程Verilog FSM 设计流程设计流程对于状态机的概念和用法在理论课和前面部分的学习中接触到了很多，所以在此不再过多叙述。 在 Verilog HDL 中可以用许多种方法来描述有限状态机，最常用的方法是用 alw">
 <meta property="og:type" content="article">
 <meta property="og:title" content="P1课下-总结反思">
 <meta property="og:url" content="http://example.com/posts/P1%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="zhp的博客">
 <meta property="og:description" content="这次可能是最简单的一次课下了？只有附加题较难。当然这并不是好事，可能会导致上机难度陡然上升而我们在课下没有得到充分练习的情况。还是与往常一样，分为教程复现，题面，思路与题解三部分。 教程Verilog FSM 设计流程设计流程对于状态机的概念和用法在理论课和前面部分的学习中接触到了很多，所以在此不再过多叙述。 在 Verilog HDL 中可以用许多种方法来描述有限状态机，最常用的方法是用 alw">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/posts/P1%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D/p1.0.5.2.png">
 <meta property="og:image" content="http://example.com/posts/P1%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D/p1.0.5.2.png">
 <meta property="og:image" content="http://example.com/posts/P1%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D/p1.0.5.3.png">
@@ -46,7 +46,7 @@
 <meta property="og:image" content="http://example.com/posts/P1%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D/FSM.jpg">
 <meta property="article:published_time" content="2025-10-01T01:08:29.000Z">
 <meta property="article:modified_time" content="2026-01-16T12:15:23.256Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="pppphop">
 <meta property="article:tag" content="CO">
 <meta property="article:tag" content="CO课下">
 <meta name="twitter:card" content="summary_large_image">
@@ -54,7 +54,7 @@
   
   
   
-  <title>P1课下-总结反思 - Hexo</title>
+  <title>P1课下-总结反思 - zhp的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -118,7 +118,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>Fluid</strong>
+      <strong>zhp的博客</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -138,7 +138,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                <span>Home</span>
+                <span>首页</span>
               </a>
             </li>
           
@@ -150,7 +150,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                <span>Archives</span>
+                <span>归档</span>
               </a>
             </li>
           
@@ -162,7 +162,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>Categories</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -174,7 +174,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                <span>Tags</span>
+                <span>标签</span>
               </a>
             </li>
           
@@ -184,9 +184,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>About</span>
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
               </a>
             </li>
           
@@ -232,7 +232,7 @@
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
         <time datetime="2025-10-01 09:08" pubdate>
-          October 1, 2025 am
+          2025年10月1日 上午
         </time>
       </span>
     
@@ -243,7 +243,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.7k words
+          7.7k 字
         
       </span>
     
@@ -254,7 +254,7 @@
         
         
         
-          65 mins
+          65 分钟
         
       </span>
     
@@ -671,26 +671,26 @@ G_i=B_i ~\oplus ~ B_{i+1}~~ (0\leq i\leq n-1)</script><p>$G_i$为格雷码的每
     <div class="license-meta">
       
         <div class="license-meta-item">
-          <div>Author</div>
-          <div>John Doe</div>
+          <div>作者</div>
+          <div>pppphop</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
-          <div>Posted on</div>
-          <div>October 1, 2025</div>
+          <div>发布于</div>
+          <div>2025年10月1日</div>
         </div>
       
       
       
         <div class="license-meta-item">
-          <div>Licensed under</div>
+          <div>许可协议</div>
           <div>
             
               
               
                 <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
                   </span>
                 </a>
@@ -713,7 +713,7 @@ G_i=B_i ~\oplus ~ B_{i+1}~~ (0\leq i\leq n-1)</script><p>$G_i$为格雷码的每
                       <a href="/posts/2025-2026%E8%AE%A1%E7%BB%84%E6%9C%9F%E6%9C%AB%E8%AF%95%E5%8D%B7/" title="2025-2026计组期末试卷">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">2025-2026计组期末试卷</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
@@ -722,7 +722,7 @@ G_i=B_i ~\oplus ~ B_{i+1}~~ (0\leq i\leq n-1)</script><p>$G_i$为格雷码的每
                     
                       <a href="/posts/P0%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E6%96%87%E6%A1%A3/" title="P0课下-总结反思文档">
                         <span class="hidden-mobile">P0课下-总结反思文档</span>
-                        <span class="visible-mobile">Next</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -743,7 +743,7 @@ G_i=B_i ~\oplus ~ B_{i+1}~~ (0\leq i\leq n-1)</script><p>$G_i$为格雷码的每
     <div id="toc">
   <p class="toc-header">
     <i class="iconfont icon-list"></i>
-    <span>Table of Contents</span>
+    <span>目录</span>
   </p>
   <div class="toc-body" id="toc-body"></div>
 </div>
@@ -805,7 +805,7 @@ G_i=B_i ~\oplus ~ B_{i+1}~~ (0\leq i\leq n-1)</script><p>$G_i$为格雷码的每
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -813,7 +813,7 @@ G_i=B_i ~\oplus ~ B_{i+1}~~ (0\leq i\leq n-1)</script><p>$G_i$为格雷码的每
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
@@ -1034,7 +1034,7 @@ G_i=B_i ~\oplus ~ B_{i+1}~~ (0\leq i\leq n-1)</script><p>$G_i$为格雷码的每
   
 
   <noscript>
-    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
 </body>
 </html>
