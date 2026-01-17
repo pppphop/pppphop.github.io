@@ -1,0 +1,935 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pppphop">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="P2-课下题目汇总与反思解答课下作业说明作业说明： 学习基于 MIPS 指令集的汇编语言，并在 Mars 环境下独立编写和调试以下程序：矩阵乘法、回文串判断、卷积运算，全排列。 高精度阶乘、01 迷宫两道题为挑战题，不作为参与 P2 课上测试的条件。 所有程序的初始地址设置都是 Compact,Data at Address 0 测试平台是使用命令行运行汇编程序，命令行中有 CompactData">
+<meta property="og:type" content="article">
+<meta property="og:title" content="P2-课下题目汇总与反思解答">
+<meta property="og:url" content="http://example.com/posts/P2-%E8%AF%BE%E4%B8%8B%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%E4%B8%8E%E5%8F%8D%E6%80%9D%E8%A7%A3%E7%AD%94/index.html">
+<meta property="og:site_name" content="zhp的博客">
+<meta property="og:description" content="P2-课下题目汇总与反思解答课下作业说明作业说明： 学习基于 MIPS 指令集的汇编语言，并在 Mars 环境下独立编写和调试以下程序：矩阵乘法、回文串判断、卷积运算，全排列。 高精度阶乘、01 迷宫两道题为挑战题，不作为参与 P2 课上测试的条件。 所有程序的初始地址设置都是 Compact,Data at Address 0 测试平台是使用命令行运行汇编程序，命令行中有 CompactData">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/posts/P2-%E8%AF%BE%E4%B8%8B%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%E4%B8%8E%E5%8F%8D%E6%80%9D%E8%A7%A3%E7%AD%94/ff2f668fa5897d44b22ad64c79f0e606.png">
+<meta property="og:image" content="http://example.com/posts/P2-%E8%AF%BE%E4%B8%8B%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%E4%B8%8E%E5%8F%8D%E6%80%9D%E8%A7%A3%E7%AD%94/38054fccf198fd20798d7944101ab78f.png">
+<meta property="og:image" content="http://example.com/posts/P2-%E8%AF%BE%E4%B8%8B%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%E4%B8%8E%E5%8F%8D%E6%80%9D%E8%A7%A3%E7%AD%94/615877cee96354be21fc260092c44252.png">
+<meta property="og:image" content="http://example.com/posts/P2-%E8%AF%BE%E4%B8%8B%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%E4%B8%8E%E5%8F%8D%E6%80%9D%E8%A7%A3%E7%AD%94/fa70e970f8c622d03bf08cbd4e2b77b3.png">
+<meta property="og:image" content="http://example.com/posts/P2-%E8%AF%BE%E4%B8%8B%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%E4%B8%8E%E5%8F%8D%E6%80%9D%E8%A7%A3%E7%AD%94/b0af7199a734f248b1a7a45950f7e10f.png">
+<meta property="article:published_time" content="2025-10-12T14:54:47.000Z">
+<meta property="article:modified_time" content="2026-01-17T14:56:40.127Z">
+<meta property="article:author" content="pppphop">
+<meta property="article:tag" content="-CO -CO课下">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/posts/P2-%E8%AF%BE%E4%B8%8B%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%E4%B8%8E%E5%8F%8D%E6%80%9D%E8%A7%A3%E7%AD%94/ff2f668fa5897d44b22ad64c79f0e606.png">
+  
+  
+  
+  <title>P2-课下题目汇总与反思解答 - zhp的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zhp的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="P2-课下题目汇总与反思解答"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-10-12 22:54" pubdate>
+          2025年10月12日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          39 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">P2-课下题目汇总与反思解答</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="P2-课下题目汇总与反思解答"><a href="#P2-课下题目汇总与反思解答" class="headerlink" title="P2-课下题目汇总与反思解答"></a>P2-课下题目汇总与反思解答</h1><h2 id="课下作业说明"><a href="#课下作业说明" class="headerlink" title="课下作业说明"></a>课下作业说明</h2><h3 id="作业说明："><a href="#作业说明：" class="headerlink" title="作业说明："></a>作业说明：</h3><ul>
+<li>学习基于 MIPS 指令集的汇编语言，并在 Mars 环境下独立编写和调试以下程序：矩阵乘法、回文串判断、卷积运算，全排列。</li>
+<li>高精度阶乘、01 迷宫两道题为挑战题，不作为参与 P2 课上测试的条件。</li>
+<li>所有程序的初始地址设置都是 <strong>Compact,Data at Address 0</strong></li>
+<li>测试平台是使用命令行运行汇编程序，命令行中有 CompactDataAtZero 这个参数，如果<strong>初始地址的设置不按照要求或者 .data 指令后面带有参数，程序会编译错误</strong>。</li>
+<li>P2 中所有的题目，如果没有特殊声明，都<strong>不考虑延迟槽</strong>的存在。</li>
+<li>P2 中所有的题目，在程序运行完成后，需要<strong>使用 syscall 结束程序</strong>，否则评测机可能会误认为程序运行时间超出限制从而报错。</li>
+<li>P2 中所有的题目，请大家本地充分测试后提交，请勿滥用评测机，每道题将设置 5 分钟提交间隔。</li>
+</ul>
+<h2 id="内存操作"><a href="#内存操作" class="headerlink" title="内存操作"></a>内存操作</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>在高级语言中，我们可以使用多维数组对内存进行多维操作，但实际上，一般这些多维数组在内存中也只是按照一维的形式连续存储的。比如二维数组 arr[2][2]，他在内存中会占用 4 个单位的连续空间，分别保存 arr[0][0]、arr[0][1]、arr[1][0]、arr[1][1]。</p>
+<p>作为低级语言，汇编语言对内存只能进行一维操作。而为了实现多维操作，我们就需要使用一些技巧了，下面会进行举例分析。</p>
+<h3 id="样例分析"><a href="#样例分析" class="headerlink" title="样例分析"></a>样例分析</h3><p>比如我们要将 0~255 依次赋给一个 16*16 的矩阵，填充方式如下图 4*4 矩阵的例子。</p>
+<img src="/posts/P2-%E8%AF%BE%E4%B8%8B%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%E4%B8%8E%E5%8F%8D%E6%80%9D%E8%A7%A3%E7%AD%94/ff2f668fa5897d44b22ad64c79f0e606.png" srcset="/img/loading.gif" lazyload class="" title="ff2f668fa5897d44b22ad64c79f0e606">
+<p>使用高级语言的话只需要两个 for 循环嵌套，如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">int</span> value = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">int</span> arr[<span class="hljs-number">16</span>][<span class="hljs-number">16</span>];<br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">16</span>; i++) &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">16</span>; j++) &#123;<br>        arr[i][j] = value++;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>使用汇编语言的话，就需要分为三步：</p>
+<ul>
+<li>初始化数据</li>
+</ul>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-meta">.data</span><br><span class="hljs-symbol">    data:</span> <span class="hljs-meta">.word</span> <span class="hljs-number">0</span> : <span class="hljs-number">256</span>       <span class="hljs-comment"># storage for 16x16 matrix of words</span><br><br><span class="hljs-meta">.text</span><br>    li $<span class="hljs-built_in">t0</span>, <span class="hljs-number">16</span>         <span class="hljs-comment"># $t0 = number of rows</span><br>    li $<span class="hljs-built_in">t1</span>, <span class="hljs-number">16</span>         <span class="hljs-comment"># $t1 = number of columns</span><br>    <span class="hljs-keyword">move </span>$<span class="hljs-built_in">s0</span>, $<span class="hljs-built_in">zero</span>    <span class="hljs-comment"># $s0 = row counter</span><br>    <span class="hljs-keyword">move </span>$<span class="hljs-built_in">s1</span>, $<span class="hljs-built_in">zero</span>    <span class="hljs-comment"># $s1 = column counter</span><br>    <span class="hljs-keyword">move </span>$<span class="hljs-built_in">t2</span>, $<span class="hljs-built_in">zero</span>    <span class="hljs-comment"># $t2 = the value to be stored</span><br></code></pre></td></tr></table></figure>
+<p> <code>$t0</code> 和 <code>$t1</code> 是总的行列数，<code>$s0</code> 和 <code>$s1</code> 是当前赋值的行列数，<code>$t2</code> 就是要赋的值。</p>
+<ul>
+<li>为一行矩阵赋值</li>
+</ul>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-comment">#________ tag1 _______</span><br><span class="hljs-symbol">loop:</span><br>    <span class="hljs-keyword">mult </span>$<span class="hljs-built_in">s0</span>, $<span class="hljs-built_in">t1</span>      <span class="hljs-comment"># $s2 = row * #cols (two-instruction sequence)</span><br>    <span class="hljs-keyword">mflo </span>$<span class="hljs-built_in">s2</span>           <span class="hljs-comment"># move multiply result from lo register to $s2</span><br>    <span class="hljs-keyword">add </span>$<span class="hljs-built_in">s2</span>, $<span class="hljs-built_in">s2</span>, $<span class="hljs-built_in">s1</span>  <span class="hljs-comment"># $s2 += column counter</span><br>    <span class="hljs-keyword">sll </span>$<span class="hljs-built_in">s2</span>, $<span class="hljs-built_in">s2</span>, <span class="hljs-number">2</span>    <span class="hljs-comment"># $s2 *= 4 (shift left 2 bits) for byte offset</span><br>    <span class="hljs-keyword">sw </span>$<span class="hljs-built_in">t2</span>, data($<span class="hljs-built_in">s2</span>)  <span class="hljs-comment"># store the value in matrix element</span><br><span class="hljs-comment">#---------------------  </span><br><br><span class="hljs-comment">#________ tag2 _______</span><br>    <span class="hljs-keyword">addi </span>$<span class="hljs-built_in">t2</span>, $<span class="hljs-built_in">t2</span>, <span class="hljs-number">1</span>   <span class="hljs-comment"># increment value to be stored</span><br><span class="hljs-comment">#---------------------  </span><br><br><span class="hljs-comment"># Loop control: If we increment past last column, reset colume counter and increment row counter</span><br><span class="hljs-comment">#               If we increment past last row,we&#x27;re finished.</span><br><br><span class="hljs-comment">#________ tag3 _______</span><br>    <span class="hljs-keyword">addi </span>$<span class="hljs-built_in">s1</span>, $<span class="hljs-built_in">s1</span>, <span class="hljs-number">1</span>   <span class="hljs-comment"># increment coumn counter</span><br><span class="hljs-comment">#---------------------  </span><br><br>    <span class="hljs-keyword">bne </span>$<span class="hljs-built_in">s1</span>, $<span class="hljs-built_in">t1</span>, loop <span class="hljs-comment"># not at end of row so loop back</span><br></code></pre></td></tr></table></figure>
+<p>tag1 代码段为当前矩阵元素对应的内存赋值，tag2 和 tag3 代码段更新数据，最后一行判断这一行矩阵是否已完全赋值。</p>
+<ul>
+<li>准备为下一行矩阵赋值</li>
+</ul>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">    <span class="hljs-keyword">move </span>$<span class="hljs-built_in">s1</span>, $<span class="hljs-built_in">zero</span>    <span class="hljs-comment"># reset column counter</span><br>    <span class="hljs-keyword">addi </span>$<span class="hljs-built_in">s0</span>, $<span class="hljs-built_in">s0</span>, <span class="hljs-number">1</span>   <span class="hljs-comment"># increment row counter</span><br>    <span class="hljs-keyword">bne </span>$<span class="hljs-built_in">s0</span>, $<span class="hljs-built_in">t0</span>, loop <span class="hljs-comment"># not at end of matrix so loop back</span><br><span class="hljs-comment"># We&#x27;re finished traversing the matrix</span><br>    li $<span class="hljs-built_in">v0</span>, <span class="hljs-number">10</span>         <span class="hljs-comment"># system service 10 is exit</span><br>    <span class="hljs-keyword">syscall </span>           <span class="hljs-comment"># we are outta here</span><br></code></pre></td></tr></table></figure>
+<p>当一行矩阵已赋完值后，更新数据，然后重新跳回到 loop 处为下一行矩阵赋值，直到整个矩阵都赋完值。</p>
+<h3 id="补充：利用Macros简化二维数组的计算"><a href="#补充：利用Macros简化二维数组的计算" class="headerlink" title="补充：利用Macros简化二维数组的计算"></a>补充：利用Macros简化二维数组的计算</h3><p>在 MIPS 教程部分，我们学习了如何使用 macro 宏定义一些操作来简化我们的 MIPS 程序，对于二维数组的相关计算，我们可以发现，计算数组中元素的地址是一个重复且固定的算法，因此，我们计划创建一个 macro 来代替这些语句，从而减少代码行数，增加可读性，以便出错后更好的调试代码。</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs perl">.macro calc_addr(<span class="hljs-variable">%dst</span>, <span class="hljs-variable">%row</span>, <span class="hljs-variable">%column</span>, <span class="hljs-variable">%rank</span>)<br>    <span class="hljs-comment"># dts: the register to save the calculated address</span><br>    <span class="hljs-comment"># row: the row that element is in</span><br>    <span class="hljs-comment"># column: the column that element is in</span><br>    <span class="hljs-comment"># rank: the number of columns in the matrix</span><br>    multu <span class="hljs-variable">%row</span>, <span class="hljs-variable">%rank</span><br>    mflo <span class="hljs-variable">%dst</span><br>    addu <span class="hljs-variable">%dst</span>, <span class="hljs-variable">%dst</span>, <span class="hljs-variable">%column</span><br>    sll <span class="hljs-variable">%dst</span>, <span class="hljs-variable">%dst</span>, <span class="hljs-number">2</span><br>.end_macro<br></code></pre></td></tr></table></figure>
+<p>上图就是我们关于计算地址的 macro 了，我们精心的设计保证了运算中只改变 <code>%dst</code> 所代表的寄存器，避免了 macro 内部不可见的修改其他寄存器的情况的发生。这种复用代码的思想类似于函数，但是一定注意 macro 的运用中易出现的如上所述的问题，希望同学们能够熟练运用，写出易懂的汇编代码来。</p>
+<h2 id="P2-L0-matrix-任务"><a href="#P2-L0-matrix-任务" class="headerlink" title="P2_L0_matrix-任务"></a>P2_L0_matrix-<strong>任务</strong></h2><p>使用MIPS汇编语言编写一个具有矩阵相乘功能的汇编程序(不考虑延迟槽)。</p>
+<h2 id="具体要求"><a href="#具体要求" class="headerlink" title="具体要求"></a><strong>具体要求</strong></h2><ul>
+<li><p>首先读取方形矩阵的阶数n，然后再依次读取第一个矩阵（n行n列）和第二个矩阵（n行n列）中的元素。</p>
+</li>
+<li><p>两个矩阵的阶数相同，我们提供的测试数据中0&lt;n≤8,每个矩阵元素是小于10的整数。</p>
+</li>
+<li><p>最终将计算出的结果输出，每行n个数据，每个数据间用空格分开。评测机会自动过滤掉行尾空格以及最后的回车。</p>
+</li>
+<li><p>请使用syscall结束程序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs none">li $v0,10<br>syscall<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="样例"><a href="#样例" class="headerlink" title="样例"></a><strong>样例</strong></h2><img src="/posts/P2-%E8%AF%BE%E4%B8%8B%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%E4%B8%8E%E5%8F%8D%E6%80%9D%E8%A7%A3%E7%AD%94/38054fccf198fd20798d7944101ab78f.png" srcset="/img/loading.gif" lazyload class="" title="38054fccf198fd20798d7944101ab78f">
+<p>比如我们想要计算上面这两个矩阵相乘的结果，我们会给出以下输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs none">2<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br></code></pre></td></tr></table></figure>
+<p>正确的输出应该是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs none">19 22<br>43 50<br></code></pre></td></tr></table></figure>
+<h2 id="提交要求"><a href="#提交要求" class="headerlink" title="提交要求"></a><strong>提交要求</strong></h2><ul>
+<li>请勿使用<code>.globl main</code>。</li>
+<li>不考虑延迟槽。</li>
+<li>只需要提交.asm文件。</li>
+<li>程序的初始地址设置（Mars-&gt;Settings-&gt;Memory Configuration）为<strong>Compact,Data at Address 0</strong>。</li>
+</ul>
+<h2 id="P2-L0-judge-回文串判断"><a href="#P2-L0-judge-回文串判断" class="headerlink" title="P2_L0_judge-回文串判断"></a>P2_L0_judge-回文串判断</h2><p>实现满足下面功能的汇编程序：</p>
+<ol>
+<li><p>判断输入的字符串是不是回文串。</p>
+</li>
+<li><p>输出一个字符，是回文串输出1，否则输出0</p>
+</li>
+<li><p>每组数据最多执行100,000条指令。</p>
+</li>
+<li><p>请使用syscall结束程序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs none">li $v0,10<br>syscall<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>第一行为一个整数n，代表字符串的长度。第二行开始的n行：每行一个字符(小写字母)，连起来为输入的字符串。<strong>(0&lt;n&lt;=20)</strong></p>
+<h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>输出为一行，输出一个字符，是回文串输出1，否则输出0。</p>
+<h2 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a>输入样例</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-number">5</span><br><span class="hljs-selector-tag">a</span><br><span class="hljs-selector-tag">b</span><br><span class="hljs-selector-tag">b</span><br>d<br>l<br></code></pre></td></tr></table></figure>
+<h2 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a>输出样例</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">0<br></code></pre></td></tr></table></figure>
+<h2 id="提交要求-1"><a href="#提交要求-1" class="headerlink" title="提交要求"></a>提交要求</h2><ol>
+<li><strong>请勿使用</strong> <code>.globl main</code></li>
+<li>不考虑延迟槽</li>
+<li>只需要提交.asm文件。</li>
+<li>程序的初始地址设置为<strong>Compact,Data at Address 0</strong>。</li>
+</ol>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
+<li>注意!因为评测机的行为和MARS有一些区别，你需要注意以下事项。</li>
+<li>如果你采取每次读入一个字符的系统调用（<code>\$v0=12</code>）来读入数据,那么我们保证你不会读入到任何换行符。如果你采取这种方式输入，那么对于样例，你可以在MARS中首先手动输入5，打回车，然后手动在一行之中输入$abbdl$。</li>
+<li>如果你采取一次读一行的系统调用（<code>$v0=8</code>），那么你读入的每行有一个小写字母以及行尾的一个换行符。</li>
+<li>如果你的程序长时间等不到应有的输入，则有可能提示超时或运行错误。</li>
+<li>在你处理字符的时候，你需要考虑到上述情况。</li>
+</ol>
+<h2 id="P2-L0-conv-矩阵卷积"><a href="#P2-L0-conv-矩阵卷积" class="headerlink" title="P2_L0_conv-矩阵卷积"></a>P2_L0_conv-矩阵卷积</h2><p>使用MIPS汇编语言编写一个进行卷积运算的汇编程序(不考虑延迟槽)。</p>
+<h2 id="具体要求-1"><a href="#具体要求-1" class="headerlink" title="具体要求"></a>具体要求</h2><ul>
+<li><p>首先读取待卷积矩阵的行数$m_1$和列数$n_1$，然后读取卷积核的行数$m_2$和列数$n_2$。</p>
+</li>
+<li><p>然后再依次读取待卷积矩阵($m_1$行$n_1$列)和卷积核($m_2$行$n_2$列)中的元素。</p>
+</li>
+<li><p>卷积核的行列数分别严格小于待卷积矩阵的行列数.</p>
+</li>
+<li><p>测试数据中$0&lt;m_1, n_1, m_2, n_2 &lt;11$</p>
+</li>
+<li><p>输入的每个数的绝对值不超过$2^{10}$.</p>
+</li>
+<li><p>最终输出进行卷积后的结果</p>
+</li>
+<li><p>输出中，有$m_1-m_2+1$行，每行有$n_1-n_2+1$个数据，每个数据用空格分开。</p>
+</li>
+<li><p>卷积运算的定义:</p>
+<img src="/posts/P2-%E8%AF%BE%E4%B8%8B%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%E4%B8%8E%E5%8F%8D%E6%80%9D%E8%A7%A3%E7%AD%94/615877cee96354be21fc260092c44252.png" srcset="/img/loading.gif" lazyload class="" title="615877cee96354be21fc260092c44252">
+<p>其中f为待卷积矩阵，h为卷积核，g即为输出矩阵，k与l的终值分别为卷积核h的行大小、列大小。计算中不考虑边缘效应。</p>
+</li>
+<li><p>请使用<code>syscall</code>结束程序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs none">li $v0, 10<br>syscall<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="特别的"><a href="#特别的" class="headerlink" title="特别的"></a>特别的</h2><ul>
+<li>卷积窗口的移动步长为$1$，且不采用填充。</li>
+</ul>
+<h2 id="样例-1"><a href="#样例-1" class="headerlink" title="样例"></a>样例</h2><p>给出以下输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs none">4<br>3<br>2<br>2<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>0<br>1<br>2<br>3<br></code></pre></td></tr></table></figure>
+<p>正确的输出应该是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs none">25 31 <br>43 49 <br>61 67 <br></code></pre></td></tr></table></figure>
+<h2 id="提交要求-2"><a href="#提交要求-2" class="headerlink" title="提交要求"></a>提交要求</h2><ul>
+<li>请勿使用<code>.globl main</code>。</li>
+<li>不考虑延迟槽。</li>
+<li>只需要提交.asm文件。</li>
+<li>程序的初始地址设置（Mars-&gt;Settings-&gt;Memory Configuration）为<strong>Compact,Data at Address 0</strong>。</li>
+</ul>
+<h2 id="P2-L0-full-1-全排列生成"><a href="#P2-L0-full-1-全排列生成" class="headerlink" title="P2_L0_full_1-全排列生成"></a>P2_L0_full_1-全排列生成</h2><p>实现满足下面功能的汇编程序：</p>
+<ol>
+<li><p>使用mips实现全排列生成算法。</p>
+</li>
+<li><p>以0x00000000为数据段起始地址。</p>
+</li>
+<li><p>输入一个小于等于6的正整数，求出n的全排列，并按照字典序输出。</p>
+</li>
+<li><p>每组数据最多执行500,000条指令。</p>
+</li>
+<li><p>请使用syscall结束程序：</p>
+</li>
+<li><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs none">li $v0,10<br>syscall<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="输入格式-1"><a href="#输入格式-1" class="headerlink" title="输入格式"></a>输入格式</h2><p>只输入一行，输入一个整数$n (0&lt;n&lt;=6)$</p>
+<h2 id="输出格式-1"><a href="#输出格式-1" class="headerlink" title="输出格式"></a>输出格式</h2><p>按照字典序输出$n!$行数组，每行输出$n$个数字，数字之间以空格隔开，每行最后一个数字后可以有空格。</p>
+<h2 id="C代码提示"><a href="#C代码提示" class="headerlink" title="C代码提示"></a>C代码提示</h2><img src="/posts/P2-%E8%AF%BE%E4%B8%8B%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%E4%B8%8E%E5%8F%8D%E6%80%9D%E8%A7%A3%E7%AD%94/fa70e970f8c622d03bf08cbd4e2b77b3.png" srcset="/img/loading.gif" lazyload class="" title="fa70e970f8c622d03bf08cbd4e2b77b3">
+<h2 id="输入样例-1"><a href="#输入样例-1" class="headerlink" title="输入样例"></a>输入样例</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">4<br></code></pre></td></tr></table></figure>
+<h2 id="输出样例-1"><a href="#输出样例-1" class="headerlink" title="输出样例"></a>输出样例</h2><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span><span class="hljs-number">2</span> <span class="hljs-number">3</span> <span class="hljs-number">4</span><br><span class="hljs-symbol">1 </span><span class="hljs-number">2</span> <span class="hljs-number">4</span> <span class="hljs-number">3</span><br><span class="hljs-symbol">1 </span><span class="hljs-number">3</span> <span class="hljs-number">2</span> <span class="hljs-number">4</span><br><span class="hljs-symbol">1 </span><span class="hljs-number">3</span> <span class="hljs-number">4</span> <span class="hljs-number">2</span><br><span class="hljs-symbol">1 </span><span class="hljs-number">4</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span><br><span class="hljs-symbol">1 </span><span class="hljs-number">4</span> <span class="hljs-number">3</span> <span class="hljs-number">2</span><br><span class="hljs-symbol">2 </span><span class="hljs-number">1</span> <span class="hljs-number">3</span> <span class="hljs-number">4</span><br><span class="hljs-symbol">2 </span><span class="hljs-number">1</span> <span class="hljs-number">4</span> <span class="hljs-number">3</span><br><span class="hljs-symbol">2 </span><span class="hljs-number">3</span> <span class="hljs-number">1</span> <span class="hljs-number">4</span><br><span class="hljs-symbol">2 </span><span class="hljs-number">3</span> <span class="hljs-number">4</span> <span class="hljs-number">1</span><br><span class="hljs-symbol">2 </span><span class="hljs-number">4</span> <span class="hljs-number">1</span> <span class="hljs-number">3</span><br><span class="hljs-symbol">2 </span><span class="hljs-number">4</span> <span class="hljs-number">3</span> <span class="hljs-number">1</span><br><span class="hljs-symbol">3 </span><span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">4</span><br><span class="hljs-symbol">3 </span><span class="hljs-number">1</span> <span class="hljs-number">4</span> <span class="hljs-number">2</span><br><span class="hljs-symbol">3 </span><span class="hljs-number">2</span> <span class="hljs-number">1</span> <span class="hljs-number">4</span><br><span class="hljs-symbol">3 </span><span class="hljs-number">2</span> <span class="hljs-number">4</span> <span class="hljs-number">1</span><br><span class="hljs-symbol">3 </span><span class="hljs-number">4</span> <span class="hljs-number">1</span> <span class="hljs-number">2</span><br><span class="hljs-symbol">3 </span><span class="hljs-number">4</span> <span class="hljs-number">2</span> <span class="hljs-number">1</span><br><span class="hljs-symbol">4 </span><span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span><br><span class="hljs-symbol">4 </span><span class="hljs-number">1</span> <span class="hljs-number">3</span> <span class="hljs-number">2</span><br><span class="hljs-symbol">4 </span><span class="hljs-number">2</span> <span class="hljs-number">1</span> <span class="hljs-number">3</span><br><span class="hljs-symbol">4 </span><span class="hljs-number">2</span> <span class="hljs-number">3</span> <span class="hljs-number">1</span><br><span class="hljs-symbol">4 </span><span class="hljs-number">3</span> <span class="hljs-number">1</span> <span class="hljs-number">2</span><br><span class="hljs-symbol">4 </span><span class="hljs-number">3</span> <span class="hljs-number">2</span> <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<h2 id="提交要求-3"><a href="#提交要求-3" class="headerlink" title="提交要求"></a>提交要求</h2><ol>
+<li><strong>请勿使用</strong> <code>.globl main</code></li>
+<li>不考虑延迟槽</li>
+<li>只需要提交.asm文件。</li>
+<li>程序的初始地址设置为<strong>Compact,Data at Address 0</strong>。</li>
+</ol>
+<h2 id="P2-L1-puzzle-01迷宫"><a href="#P2-L1-puzzle-01迷宫" class="headerlink" title="P2_L1_puzzle-01迷宫"></a>P2_L1_puzzle-01迷宫</h2><ol>
+<li>在mips教程部分我们出了一道挑战题留给大家探索——哈密顿回路，哈密顿回路问题是一道npc的问题，需要使用深度优先探索算法进行求解。而我们今天课下测试也准备了一道挑战性测试题：使用深度优先探索算法求解01迷宫的逃离路线个数（这道题通过与否不作为是否能参加P2课上的条件）。</li>
+</ol>
+<h2 id="逃跑路线"><a href="#逃跑路线" class="headerlink" title="逃跑路线"></a>逃跑路线</h2><img src="/posts/P2-%E8%AF%BE%E4%B8%8B%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%E4%B8%8E%E5%8F%8D%E6%80%9D%E8%A7%A3%E7%AD%94/b0af7199a734f248b1a7a45950f7e10f.png" srcset="/img/loading.gif" lazyload class="" title="b0af7199a734f248b1a7a45950f7e10f">
+<ol>
+<li>左图表示的是一个4*5的01矩阵，这个矩阵就是一个01迷宫。</li>
+<li>如左图，以红色0作为起点，绿色0作为终点，每一次行进只能选择上下左右中值为0且未走过的位置，满足上述条件的路线，即为一条迷宫逃跑路线。如右图中，蓝色的路线即为一条逃跑路线。</li>
+</ol>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><ol>
+<li>使用mips实现01迷宫路线数目计算。</li>
+<li>以0x00000000为数据段起始地址。</li>
+<li>输入一个n*m的01矩阵作为01迷宫，并给定他的起点与终点，求出他不同逃跑路线的数目（不同逃跑路线中可以有相同的部分，但是不能完全相同）。</li>
+<li>每组数据最多执行5,000,000条指令。</li>
+</ol>
+<h2 id="输入格式-2"><a href="#输入格式-2" class="headerlink" title="输入格式"></a>输入格式</h2><p>前两行输入两个整数n和m（n、m均为正整数并且小于等于7），分别代表01矩阵行数和列数。接下来的n*m行，每行输入1个整数（0或1），对应着01矩阵各个元素值(第i*m+j个整数为矩阵的第（i+1）行第j个元素，即一行一行输入)。接下来的四行分别代表迷宫的起点和终点，每行一个整数，分别代表起点与终点行数和列数。</p>
+<h2 id="输出格式-2"><a href="#输出格式-2" class="headerlink" title="输出格式"></a>输出格式</h2><p>只输出一个整数，代表逃跑路线的数目。</p>
+<h2 id="输入样例-2"><a href="#输入样例-2" class="headerlink" title="输入样例"></a>输入样例</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs">4<br>5<br>0<br>0<br>1<br>0<br>0<br>1<br>0<br>0<br>0<br>1<br>1<br>0<br>1<br>0<br>1<br>1<br>0<br>0<br>0<br>0<br>1<br>1<br>4<br>5<br></code></pre></td></tr></table></figure>
+<h2 id="输出样例-2"><a href="#输出样例-2" class="headerlink" title="输出样例"></a>输出样例</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">2<br></code></pre></td></tr></table></figure>
+<h2 id="提交要求-4"><a href="#提交要求-4" class="headerlink" title="提交要求"></a>提交要求</h2><ol>
+<li><strong>请勿使用</strong><code>.globl main</code></li>
+<li>不考虑延迟槽</li>
+<li>只需要提交.asm文件。</li>
+<li>程序的初始地址设置为<strong>Compact,Data at Address 0</strong>。</li>
+</ol>
+<h2 id="P2-L1-factorial-高精度阶乘的计算"><a href="#P2-L1-factorial-高精度阶乘的计算" class="headerlink" title="P2_L1_factorial-高精度阶乘的计算"></a>P2_L1_factorial-高精度阶乘的计算</h2><p>（这道题通过与否不作为是否能参加P2课上的条件）</p>
+<h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><ul>
+<li>使用MIPS汇编语言编写一个求n的阶乘的汇编程序(不考虑延迟槽)。</li>
+</ul>
+<h3 id="具体要求-2"><a href="#具体要求-2" class="headerlink" title="具体要求"></a>具体要求</h3><ul>
+<li><p>第一行读取n</p>
+</li>
+<li><p>计算并输出n的阶乘，输出字符串长度小于等于1000</p>
+</li>
+<li><p>步数限制为200,000</p>
+</li>
+<li><p>请使用syscall结束程序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">li $v0, 10<br>syscall<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="样例1"><a href="#样例1" class="headerlink" title="样例1"></a>样例1</h3><ul>
+<li><p>给出以下输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs none">24<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>期望的输出为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs none">620448401733239439360000<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="提交要求-5"><a href="#提交要求-5" class="headerlink" title="提交要求"></a>提交要求</h2><ul>
+<li>请勿使用<code>.globl main</code>。</li>
+<li>不考虑延迟槽。</li>
+<li>只需要提交.asm文件。</li>
+<li>程序的初始地址设置（Mars-&gt;Settings-&gt;Memory Configuration）为<strong>Compact,Data at Address 0</strong>。</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>思考题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>结合一般程序的执行流，解释为什么<code>MIPS</code>指令中 link 类指令（如<code>jal</code>指令等），在不考虑延迟槽的情况下，将<strong>当前指令地址 +4</strong> 的值写入一个寄存器而不是写入<strong>当前指令地址</strong>或<strong>当前指令地址 -4</strong> 的值。</td>
+</tr>
+<tr>
+<td>根据你编写过的汇编程序，总结程序中常见的<strong>条件分支</strong>、<strong>循环与循环控制</strong>、<strong>函数调用</strong>、<strong>多维变量访问</strong>、<strong>格式化输入输出</strong>等逻辑在汇编语言下的通用表达方式。</td>
+</tr>
+<tr>
+<td>我们现在正在使用的计算机设备几乎全部都基于<code>x86-64</code>或<code>ARM</code>指令集，MARS 也运行在我们的电脑上，为什么其可以运行<code>MIPS</code>指令？结合相关资料解释原因。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h2><h3 id="P2-L0-matrix-任务-1"><a href="#P2-L0-matrix-任务-1" class="headerlink" title="P2_L0_matrix-任务"></a>P2_L0_matrix-<strong>任务</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><code class="hljs assembly">.data<br>	a: .space 1024<br>	b: .space 1024<br>	space: .asciiz &quot; &quot;<br>	nextline: .asciiz &quot;\n&quot;<br><br>.macro calc_addr(%dst,%row,%column,%rank)<br>	multu %row,%rank<br>	mflo %dst<br>	addu %dst,%dst,%column<br>	sll %dst,%dst,2<br>	# dts: the register to save the calculated address<br>    	# row: the row that element is in<br>   	# column: the column that element is in<br>   	# rank: the number of columns in the matrix<br>.end_macro<br><br>.text<br><br>li $t0,0			#i=0<br>li $t1,0			#j=0<br><br>li $v0,5<br>syscall				#read n<br>move $s0,$v0<br><br>loop_init_i:<br>	beq $t0,$s0,loop_init_end<br>	li $t1,0<br>	loop_init_j:<br>		beq $t1,$s0,loop_init_j_end<br>		li $v0,5<br>		syscall<br>		move $t3,$v0<br>		calc_addr($t2,$t0,$t1,$s0)<br>		sw $t3,a($t2)<br>		addi $t1,$t1,1<br>		j loop_init_j<br>	loop_init_j_end:<br>	addi $t0,$t0,1<br>	j loop_init_i<br>loop_init_end:<br>li $t0,0			#i=0<br>li $t1,0			#j=0<br><br>loop_init_i2:<br>	beq $t0,$s0,loop_init_end2<br>	li $t1,0<br>	loop_init_j2:<br>		beq $t1,$s0,loop_init_j_end2<br>		li $v0,5<br>		syscall<br>		move $t3,$v0<br>		calc_addr($t2,$t0,$t1,$s0)<br>		sw $t3,b($t2)<br>		addi $t1,$t1,1<br>		j loop_init_j2<br>	loop_init_j_end2:<br>	addi $t0,$t0,1<br>	j loop_init_i2<br>loop_init_end2:<br>li $t0,0			#i=0<br>li $t1,0			#j=0<br>li $t2,0			#k=0<br><br><br>loop_i:<br>	beq $t0,$s0,loop_end<br>	li $t1,0<br>	loop_j:<br>		beq $t1,$s0,loop_j_end<br>		li $t2,0<br>		li $s1,0<br>		loop_k:<br>			beq $t2,$s0,loop_k_end<br>			calc_addr($t3,$t0,$t2,$s0)<br>			lw $t4,a($t3)<br>			calc_addr($t5,$t2,$t1,$s0)<br>			lw $t6,b($t5)<br>			mult $t4,$t6<br>			mflo $t7<br>			add $s1,$s1,$t7<br>			addi $t2,$t2,1<br>			j loop_k<br>		loop_k_end:<br>		li $v0,1<br>		move $a0,$s1<br>		syscall<br>		li $v0,4<br>		la $a0,space<br>		syscall<br>		addi $t1,$t1,1<br>		j loop_j<br>	loop_j_end:<br>	li $v0,4<br>	la $a0,nextline<br>	syscall<br>	addi $t0,$t0,1<br>	j loop_i<br>loop_end:<br>	li $v0,10<br>	syscall<br></code></pre></td></tr></table></figure>
+<h3 id="P2-L0-judge-回文串判断-1"><a href="#P2-L0-judge-回文串判断-1" class="headerlink" title="P2_L0_judge-回文串判断"></a>P2_L0_judge-回文串判断</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs assembly">.data<br>	a: .space 100<br>	<br>.text<br><br>li $v0,5<br>syscall<br>move $s0,$v0<br><br>li $t0,0<br>loop_in:<br>	beq $t0,$s0,in_end<br>	li $v0,12<br>	syscall<br>	move $t1,$v0<br>	sll $t2,$t0,2<br>	sw $t1,a($t2)<br>	addi $t0,$t0,1<br>	j loop_in<br>in_end:<br>li $t0,0<br><br>loop_check:<br>	beq $t0,$s0,end1<br>	sub $t1,$s0,$t0<br>	subi $t1,$t1,1<br>	sll $t2,$t0,2<br>	lw $t3,a($t2)<br>	sll $t2,$t1,2<br>	lw $t4,a($t2)<br>	bne $t3,$t4,end0<br>	addi $t0,$t0,1<br>	j loop_check<br>	<br>end1:<br>	li $v0,1<br>	li $a0,1<br>	syscall<br>	li $v0,10<br>	syscall<br><br>end0:<br>	li $v0,1<br>	li $a0,0<br>	syscall<br>	li $v0,10<br>	syscall	<br></code></pre></td></tr></table></figure>
+<h3 id="P2-L0-conv-矩阵卷积-1"><a href="#P2-L0-conv-矩阵卷积-1" class="headerlink" title="P2_L0_conv-矩阵卷积"></a>P2_L0_conv-矩阵卷积</h3><p>四重循环</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><code class="hljs assembly">.data<br>	a: .space 2048<br>	b: .space 2048<br>	ans: .space 2048<br>	space: .asciiz &quot; &quot;<br>	line: .asciiz &quot;\n&quot;<br>	<br>.macro calc_addr(%dst,%row,%col,%rank)<br>	multu %row,%rank<br>	mflo %dst<br>	add %dst,%dst,%col<br>	sll %dst,%dst,2<br>.end_macro <br><br>.text <br>li $v0,5<br>syscall <br>move $s0,$v0			#s0=m1<br><br>li $v0,5<br>syscall <br>move $s1,$v0			#s1=n1<br><br>li $v0,5<br>syscall <br>move $s2,$v0			#s2=m2<br><br>li $v0,5<br>syscall <br>move $s3,$v0			#s3=n2<br><br>li $t0,0<br>loop_in_i_1:<br>	beq $t0,$s0,loop_in_1_end<br>	li $t1,0<br>	loop_in_j_1:<br>		beq $t1,$s1,loop_in_j1_end<br>		li $v0,5<br>		syscall<br>		move $t3,$v0<br>		calc_addr($t2,$t0,$t1,$s1)<br>		sw $t3,a($t2)<br>		addi $t1,$t1,1<br>		j loop_in_j_1<br>	loop_in_j1_end:<br>	addi $t0,$t0,1<br>	j loop_in_i_1<br>loop_in_1_end:<br>li $t0,0<br>loop_in_i_2:<br>	beq $t0,$s2,loop_in_2_end<br>	li $t1,0<br>	loop_in_j_2:<br>		beq $t1,$s3,loop_in_j2_end<br>		li $v0,5<br>		syscall<br>		move $t3,$v0<br>		calc_addr($t2,$t0,$t1,$s3)<br>		sw $t3,b($t2)<br>		addi $t1,$t1,1<br>		j loop_in_j_2<br>	loop_in_j2_end:<br>	addi $t0,$t0,1<br>	j loop_in_i_2<br>loop_in_2_end:<br>sub $s5,$s0,$s2<br>addi $s5,$s5,1<br>sub $s6,$s1,$s3<br>addi $s6,$s6,1<br><br>li $t0,0<br>loop_calc_i:<br>	beq $t0,$s5,calc_end<br>	li $t1,0<br>	loop_calc_j:<br>		beq $t1,$s6,calc_j_end<br>		move $t2,$zero<br>		li $s4,0<br>		loop_calc_k:<br>			beq $t2,$s2,calc_k_end<br>			li $t3,0<br>			loop_calc_l:<br>				beq $t3,$s3,calc_l_end<br>				addu $t4,$t2,$t0<br>				addu $t5,$t3,$t1<br>				calc_addr($t6,$t4,$t5,$s1)<br>				lw $t7,a($t6)<br>				calc_addr($t6,$t2,$t3,$s3)<br>				lw $t8,b($t6)<br>				multu $t7,$t8<br>				mflo $t7<br>				addu $s4,$s4,$t7<br>				addi $t3,$t3,1<br>				j loop_calc_l<br>			calc_l_end:<br>			addi $t2,$t2,1<br>			j loop_calc_k<br>		calc_k_end:<br>		calc_addr($t2,$t0,$t1,$s6)<br>		sw $s4,ans($t2)<br>		addi $t1,$t1,1<br>		j loop_calc_j<br>	calc_j_end:<br>	addi $t0,$t0,1<br>	j loop_calc_i<br>calc_end:	<br><br>li $t0,0<br>loop_out_i:<br>	beq $t0,$s5,end<br>	li $t1,0<br>	loop_out_j:<br>		beq $t1,$s6,j_end<br>		calc_addr($t2,$t0,$t1,$s6)<br>		lw $t3,ans($t2)<br>		move $a0,$t3<br>		li $v0,1<br>		syscall<br>		la $a0,space<br>		li $v0,4<br>		syscall<br>		addi $t1,$t1,1<br>		j loop_out_j<br>	j_end:<br>	la $a0,line<br>	li $v0,4<br>	syscall<br>	addi $t0,$t0,1<br>	j loop_out_i<br>end:<br>	li $v0,10<br>	syscall<br></code></pre></td></tr></table></figure>
+<h3 id="P2-L0-full-1-全排列生成-1"><a href="#P2-L0-full-1-全排列生成-1" class="headerlink" title="P2_L0_full_1-全排列生成"></a>P2_L0_full_1-全排列生成</h3><p>C语言代码已经给出，翻译即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><code class="hljs assembly">.data<br>	a: .space 100<br>	fl: .space 100<br>	space: .asciiz &quot; &quot;<br>	line: .asciiz &quot;\n&quot;<br><br>.macro push(%src)<br>	addi $sp,$sp,-4<br>	sw %src,0($sp)<br>.end_macro<br><br>.macro pop(%src)<br>	lw %src,0($sp)<br>	addi $sp,$sp,4<br>.end_macro<br><br>.macro printInt(%src)<br>	move $a0,%src<br>	li $v0,1<br>	syscall<br>.end_macro<br><br>.macro printSpace()<br>	la $a0,space<br>	li $v0,4<br>	syscall<br>.end_macro<br><br>.macro printLine()<br>	la $a0,line<br>	li $v0,4<br>	syscall<br>.end_macro<br><br>.text<br><br>main:<br>li $v0,5<br>syscall<br>move $s0,$v0<br>li $a0,1<br>jal dfs<br>li $v0,10<br>syscall<br><br>dfs:<br>	push($ra)<br>	push($s1)<br>	push($t0)<br>	push($t1)<br>	push($t2)<br>	push($t3)<br>	<br>	move $s1,$a0<br>	ble $s1,$s0,else<br>	if:<br>		li $t0,1<br>		loop_out:<br>			bgt $t0,$s0,out_end<br>			sll $t2,$t0,2<br>			lw $t1,a($t2)<br>			printInt($t1)<br>			printSpace()<br>			addi $t0,$t0,1<br>			j loop_out<br>		out_end:<br>		printLine()<br>		j return<br>	else:<br>		li $t0,1<br>		loop_deep:<br>			bgt $t0,$s0,deep_end<br>			sll $t2,$t0,2<br>			lw $t1,fl($t2)<br>			li $t3,1<br>			beq $t1,$t3,next<br>			sw $t3,fl($t2)<br>			sll $t2,$s1,2<br>			sw $t0,a($t2)<br>			add $a0,$s1,1<br>			jal dfs<br>			sll $t2,$t0,2<br>			sw $zero,fl($t2)<br>			next:<br>			addi $t0,$t0,1<br>			j loop_deep<br>		deep_end:<br>		j return<br>	return:<br>		pop($t3)<br>		pop($t2)<br>		pop($t1)<br>		pop($t0)<br>		pop($s1)<br>		pop($ra)<br>		jr $ra<br></code></pre></td></tr></table></figure>
+<h3 id="P2-L1-puzzle-01迷宫-1"><a href="#P2-L1-puzzle-01迷宫-1" class="headerlink" title="P2_L1_puzzle-01迷宫"></a>P2_L1_puzzle-01迷宫</h3><p>标准的DFS</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br></pre></td><td class="code"><pre><code class="hljs assembly">.data<br>	a: .space 1024<br>	fl: .space 1024<br>	<br>.macro push(%src)<br>	addi $sp,$sp,-4<br>	sw %src,0($sp)<br>.end_macro <br><br>.macro pop(%src)<br>	lw %src 0($sp)<br>	addi $sp,$sp,4<br>.end_macro <br><br>.macro getInt(%dst)<br>	li $v0,5<br>	syscall<br>	move %dst,$v0<br>.end_macro <br><br>.macro printInt(%src)<br>	move $a0,%src<br>	li $v0,1<br>	syscall <br>.end_macro <br><br>.macro calc_addr(%dst,%row,%col,%rank)<br>	multu %row,%rank<br>	mflo %dst<br>	add %dst,%dst,%col<br>	sll %dst,%dst,2<br>.end_macro <br>.text<br>main:<br>getInt($s0)<br>getInt($s1)<br><br>li $t0,1<br>loop_in_i:<br>	bgt $t0,$s0,in_end<br>	li $t1,1<br>	loop_in_j:<br>		bgt $t1,$s1,in_j_end<br>		getInt($t3)<br>		calc_addr($t2,$t0,$t1,$s1)<br>		sw $t3,a($t2)<br>		addi $t1,$t1,1<br>		j loop_in_j<br>	in_j_end:<br>	addi $t0,$t0,1<br>	j loop_in_i<br>in_end:<br><br>getInt($s2)<br>getInt($s3)<br>getInt($s4)<br>getInt($s5)<br><br>move $a0,$s2<br>move $a1,$s3<br><br>jal dfs<br><br>li $v0,1<br>syscall<br><br>li $v0,10<br>syscall<br><br>dfs:<br>	push($ra)<br>	push($t0)<br>	push($t1)<br>	push($t2)<br>	push($t3)<br>	push($t4)<br>	push($s2)<br>	push($s3)<br>	<br>	move $s2,$a0<br>	move $s3,$a1<br>	blez $s2,return0<br>	blez $s3,return0<br>	bgt $s2,$s0,return0<br>	bgt $s3,$s1,return0<br>	<br>	bne $s2,$s4,else<br>	bne $s3,$s5,else<br>	li $a0,1<br>	j return<br>	<br>	else:<br>	li $t0,0<br>	calc_addr($t2,$s2,$s3,$s1)<br>	li $t1,1<br>	sw $t1,fl($t2)<br>	<br>	sub $t1,$s2,1<br>	calc_addr($t2,$t1,$s3,$s1)<br>	lw $t1,fl($t2)<br>	lw $t3,a($t2)<br>	<br>	bnez $t1,skip1<br>	bnez $t3,skip1<br>	<br>		sub $a0,$s2,1<br>		move $a1,$s3<br>	<br>		jal dfs<br>		add $t0,$t0,$a0<br>	<br>	skip1:<br>	add $t1,$s2,1<br>	calc_addr($t2,$t1,$s3,$s1)<br>	lw $t1,fl($t2)<br>	lw $t3,a($t2)<br>		<br>	bnez $t1,skip2<br>	bnez $t3,skip2<br>	<br>		add $a0,$s2,1<br>		move $a1,$s3<br>	<br>		jal dfs<br>		add $t0,$t0,$a0				<br>	<br>	skip2:<br>	sub $t1,$s3,1<br>	calc_addr($t2,$s2,$t1,$s1)<br>	lw $t1,fl($t2)<br>	lw $t3,a($t2)<br>		<br>	bnez $t1,skip3<br>	bnez $t3,skip3<br>	<br>		sub $a1,$s3,1<br>		move $a0,$s2<br>	<br>		jal dfs<br>		add $t0,$t0,$a0		<br><br>	skip3:<br>	add $t1,$s3,1<br>	calc_addr($t2,$s2,$t1,$s1)<br>	lw $t1,fl($t2)<br>	lw $t3,a($t2)<br>		<br>	bnez $t1,skip4<br>	bnez $t3,skip4<br>	<br>		add $a1,$s3,1<br>		move $a0,$s2<br>	<br>		jal dfs<br>		add $t0,$t0,$a0	<br><br>	skip4:<br>	calc_addr($t2,$s2,$s3,$s1)<br>	sw $zero,fl($t2)<br>	<br>	move $a0,$t0<br>	j return<br>	<br>	return0:<br>		li $a0,0<br>		j return<br>	<br>	return:<br>		pop($s3)<br>		pop($s2)<br>		pop($t4)<br>		pop($t3)<br>		pop($t2)<br>		pop($t1)<br>		pop($t0)<br>		pop($ra)<br>		jr $ra<br></code></pre></td></tr></table></figure>
+<h3 id="P2-L1-factorial-高精度阶乘的计算-1"><a href="#P2-L1-factorial-高精度阶乘的计算-1" class="headerlink" title="P2_L1_factorial-高精度阶乘的计算"></a>P2_L1_factorial-高精度阶乘的计算</h3><p>由于阶乘结果超出常规寄存器范围，利用数组模拟高精度整数，数组的每一位存储大数的一位数字。初始化数组为 $1$，随后使用循环从 $2$ 乘到 $n$。在每次乘法运算中，遍历数组的每一位与当前的乘数相乘，并加上前一位的进位，将运算结果的个位数存回当前位置，剩余部分作为新的进位传递给下一位。运算结束后，由于数组是从低位到高位存储的，需要倒序遍历数组输出非零的高位及其后的所有数字，即为最终的阶乘结果。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><code class="hljs assembly">.data<br>	a: .space 12000<br>	<br>.macro push(%src)<br>	addi $sp,$sp,-4<br>	sw %src,0($sp)<br>.end_macro <br><br>.macro  pop(%dst)<br>	lw %dst,0($sp)<br>	addi $sp,$sp,4<br>.end_macro <br><br>.macro getInt(%dst)<br>	li $v0,5<br>	syscall<br>	move %dst,$v0<br>.end_macro <br><br>.macro printInt(%src)<br>	move $a0,%src<br>	li $v0,1<br>	syscall <br>.end_macro <br><br>.text:<br>main:<br><br>li $t0,1<br>sw $t0,a($zero)<br>getInt($s0)<br>li $s1,1			#s1为长度l<br>li $t0,2<br>loop_calc:<br>	bgt,$t0,$s0,calc_end<br>	move $a0,$t0<br>	jal multi<br>	addi $t0,$t0,1<br>	j loop_calc<br>calc_end:<br>subi $t0,$s1,1<br>loop_out:<br>	bltz $t0,end<br>	sll $t2,$t0,2<br>	lw $t1,a($t2)<br>	printInt($t1)<br>	subi $t0,$t0,1<br>	j loop_out<br>end:<br>	li $v0,10<br>	syscall <br><br><br>multi:<br>	push($ra)<br>	push($t0)<br>	push($t1)<br>	push($t2)<br>	push($t3)<br>	push($t4)<br>	push($s2)<br>	move $t1,$a0<br>	li $t0,0<br>	li $s2,0<br>	loop1:<br>		beq $t0,$s1,loop1_end<br>		sll $t2,$t0,2<br>		lw $t3,a($t2)<br>		mult $t3,$t1<br>		mflo $t4<br>		add $t3,$t4,$s2<br>		li $t4,10<br>		div $t3,$t4<br>		mflo $s2			#c<br>		mfhi $t3			#temp<br>		sll $t2,$t0,2<br>		sw $t3,a($t2)	<br>		addi $t0,$t0,1<br>		j loop1<br>	loop1_end:<br>	loop2:<br>		beqz $s2,loop2_end<br>		li $t4,10<br>		div $s2,$t4<br>		mfhi $t1<br>		sll $t2,$s1,2<br>		sw $t1,a($t2)<br>		mflo $s2<br>		addi $s1,$s1,1<br>		j loop2<br>	loop2_end:<br>		pop($s2)<br>		pop($t4)<br>		pop($t3)<br>		pop($t2)<br>		pop($t1)<br>		pop($t0)<br>		pop($ra)<br>		jr $ra<br></code></pre></td></tr></table></figure>
+<h2 id="笔者的话"><a href="#笔者的话" class="headerlink" title="笔者的话"></a>笔者的话</h2><p>很可惜，从P2开始，迫于课业压力等原因，博客的完整程度会略有下降，但在此保证每次的上机题目均会提供。而课下题目题面和解答可能都有所缺失，<del>当本人放寒假时再来看已经不会做了</del>。不过现在ai如此发达，相信给出题面大家便能找到满意的解答。祝大家co上机顺利！</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CO%E8%AF%BE%E4%B8%8B/" class="category-chain-item">CO课下</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CO-CO%E8%AF%BE%E4%B8%8B/" class="print-no-link">#-CO -CO课下</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>P2-课下题目汇总与反思解答</div>
+      <div>http://example.com/posts/P2-课下题目汇总与反思解答/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>pppphop</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年10月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/2025-2026%E8%AE%A1%E7%BB%84%E6%9C%9F%E6%9C%AB%E8%AF%95%E5%8D%B7/" title="2025-2026计组期末试卷">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2025-2026计组期末试卷</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/P1%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D/" title="P1课下-总结反思">
+                        <span class="hidden-mobile">P1课下-总结反思</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
