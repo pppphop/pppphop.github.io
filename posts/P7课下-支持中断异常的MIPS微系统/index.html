@@ -1,0 +1,2334 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pppphop">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="CO设计文档—支持中断异常的MIPS微系统恭喜你，挑战者，你迎来了最终boss，你是否已经热泪盈眶百感交集？ 总体设计概述要求实现的指令集为： 123456add, sub, and, or, slt, sltu, luiaddi, andi, orilb, lh, lw, sb, sh, swmult, multu, div, divu, mfhi, mflo, mthi, mtlobeq, b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="P7课下-支持中断异常的MIPS微系统">
+<meta property="og:url" content="http://example.com/posts/P7%E8%AF%BE%E4%B8%8B-%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%AD%E5%BC%82%E5%B8%B8%E7%9A%84MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="zhp的博客">
+<meta property="og:description" content="CO设计文档—支持中断异常的MIPS微系统恭喜你，挑战者，你迎来了最终boss，你是否已经热泪盈眶百感交集？ 总体设计概述要求实现的指令集为： 123456add, sub, and, or, slt, sltu, luiaddi, andi, orilb, lh, lw, sb, sh, swmult, multu, div, divu, mfhi, mflo, mthi, mtlobeq, b">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/posts/P7%E8%AF%BE%E4%B8%8B-%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%AD%E5%BC%82%E5%B8%B8%E7%9A%84MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F/P7-cpu%E7%A4%BA%E6%84%8F%E5%9B%BE.png">
+<meta property="og:image" content="http://example.com/posts/P7%E8%AF%BE%E4%B8%8B-%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%AD%E5%BC%82%E5%B8%B8%E7%9A%84MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F/b78cca4748ec39cb585be2a285fc4964.png">
+<meta property="og:image" content="http://example.com/posts/P7%E8%AF%BE%E4%B8%8B-%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%AD%E5%BC%82%E5%B8%B8%E7%9A%84MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F/e27b5c863cead7f2912b8885e7d38375.png">
+<meta property="og:image" content="http://example.com/posts/P7%E8%AF%BE%E4%B8%8B-%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%AD%E5%BC%82%E5%B8%B8%E7%9A%84MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F/d722038c84b1b2f3eabc92416978bb1b.png">
+<meta property="og:image" content="http://example.com/posts/P7%E8%AF%BE%E4%B8%8B-%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%AD%E5%BC%82%E5%B8%B8%E7%9A%84MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F/2de8ca541ec5476a8cca234aaaca7200.png">
+<meta property="og:image" content="http://example.com/posts/P7%E8%AF%BE%E4%B8%8B-%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%AD%E5%BC%82%E5%B8%B8%E7%9A%84MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F/%E5%9B%BE6.4.1%EF%BC%9ATimer%E6%A8%A1%E5%9D%97Mode0.png">
+<meta property="og:image" content="http://example.com/posts/P7%E8%AF%BE%E4%B8%8B-%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%AD%E5%BC%82%E5%B8%B8%E7%9A%84MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F/%E5%9B%BE6.4.2%EF%BC%9ATimer%E6%A8%A1%E5%9D%97Mode1.png">
+<meta property="article:published_time" content="2025-11-30T23:09:17.000Z">
+<meta property="article:modified_time" content="2026-01-21T09:12:04.257Z">
+<meta property="article:author" content="pppphop">
+<meta property="article:tag" content="CO">
+<meta property="article:tag" content="CO课下">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/posts/P7%E8%AF%BE%E4%B8%8B-%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%AD%E5%BC%82%E5%B8%B8%E7%9A%84MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F/P7-cpu%E7%A4%BA%E6%84%8F%E5%9B%BE.png">
+  
+  
+  
+  <title>P7课下-支持中断异常的MIPS微系统 - zhp的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zhp的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="P7课下-支持中断异常的MIPS微系统"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-12-01 07:09" pubdate>
+          2025年12月1日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          10k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          86 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">P7课下-支持中断异常的MIPS微系统</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="CO设计文档—支持中断异常的MIPS微系统"><a href="#CO设计文档—支持中断异常的MIPS微系统" class="headerlink" title="CO设计文档—支持中断异常的MIPS微系统"></a>CO设计文档—支持中断异常的MIPS微系统</h1><p>恭喜你，挑战者，你迎来了最终boss，你是否已经热泪盈眶百感交集？</p>
+<h2 id="总体设计概述"><a href="#总体设计概述" class="headerlink" title="总体设计概述"></a>总体设计概述</h2><p>要求实现的指令集为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs assembly">add, sub, and, or, slt, sltu, lui<br>addi, andi, ori<br>lb, lh, lw, sb, sh, sw<br>mult, multu, div, divu, mfhi, mflo, mthi, mtlo<br>beq, bne, jal, jr<br>mfc0, mtc0, eret, syscall<br></code></pre></td></tr></table></figure>
+<p><strong>支持延迟槽</strong>。</p>
+<p>整体结构如下图所示：</p>
+<img src="/posts/P7%E8%AF%BE%E4%B8%8B-%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%AD%E5%BC%82%E5%B8%B8%E7%9A%84MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F/P7-cpu%E7%A4%BA%E6%84%8F%E5%9B%BE.png" srcset="/img/loading.gif" lazyload class="" title="P7-CPU示意图">
+<img src="/posts/P7%E8%AF%BE%E4%B8%8B-%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%AD%E5%BC%82%E5%B8%B8%E7%9A%84MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F/b78cca4748ec39cb585be2a285fc4964.png" srcset="/img/loading.gif" lazyload class="" title="b78cca4748ec39cb585be2a285fc4964">
+<h3 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h3><ul>
+<li>对于元件的文件命名，均为<code>元件英文简称</code>，例如<code>GRF.v</code>，<code>ALU.v</code>等，实例化时命名为<code>_小写英文名</code>，例如<code>_alu</code>，<code>_grf</code>等</li>
+<li>对于流水线寄存器文件命名为<code>两边的流水线层级reg</code>，例如<code>FDreg.v</code>，<code>DEreg.v</code>，实例化时命名相同。</li>
+<li>每一级的控制信号和临时的<code>wire</code>均以本级的名称开头，如<code>E_ALUOp</code>，<code>M_DMwr</code>等</li>
+<li>在流水线中参与流水的信息遵从以下约定（以D级为例）<ul>
+<li><code>PC</code>和<code>Instr</code>命名以流水线层级开头，如<code>D_PC</code>，<code>D_Instr</code></li>
+<li>寄存器地址分别为<code>D_A1</code>，<code>D_A3</code>，读出数据为<code>D_RD1</code>，<code>D_RD2</code></li>
+<li>转发后得到的修复的寄存器数据（直接读取也视为一种转发）记作<code>D_fixedRD1</code>，<code>D_fixedRD2</code></li>
+<li>即将写入的寄存器地址为<code>W_A3</code>，即将写入的数据记作<code>W_WD</code>，选择信号为<code>W_WDSel</code></li>
+</ul>
+</li>
+</ul>
+<p>下面将按照流水线层级逐一分析各个单元CPU</p>
+<p>CPU部分与P6相比添加了重要模块CP0协处理器，其余的端口定义和转发、阻塞规则与P6相同，详见附带的P6设计文档，在此处不再赘述</p>
+<p>考虑到宏观PC的处理，我把CP0协处理器放置在了M级</p>
+<h4 id="CP0协处理器"><a href="#CP0协处理器" class="headerlink" title="CP0协处理器"></a>CP0协处理器</h4><p><strong>介绍</strong></p>
+<p>协处理器 0，包含 4 个 32 位寄存器，用于支持中断和异常。</p>
+<p><strong>端口定义</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>输入/输出</th>
+<th>位宽</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addr</code></td>
+<td>I</td>
+<td>5</td>
+<td>指定 4 个寄存器中的一个，作为写入的目标寄存器</td>
+</tr>
+<tr>
+<td><code>WD</code></td>
+<td>I</td>
+<td>32</td>
+<td>写入寄存器的数据信号</td>
+</tr>
+<tr>
+<td><code>VPC</code></td>
+<td>I</td>
+<td>32</td>
+<td>目前传入的下一个 EPC 值</td>
+</tr>
+<tr>
+<td><code>ExcCode</code></td>
+<td>I</td>
+<td>5</td>
+<td>目前传入的下一个 ExcCode 值</td>
+</tr>
+<tr>
+<td><code>BD</code></td>
+<td>I</td>
+<td>32</td>
+<td>目前传入的下一个 BD 值</td>
+</tr>
+<tr>
+<td><code>HWInt</code></td>
+<td>I</td>
+<td>6</td>
+<td>外部硬件中断信号</td>
+</tr>
+<tr>
+<td><code>WE</code></td>
+<td>I</td>
+<td>1</td>
+<td>写使能信号，高电平有效</td>
+</tr>
+<tr>
+<td><code>EXLclr</code></td>
+<td>I</td>
+<td>1</td>
+<td>传入 eret 指令时将 SR 的 EXL 位置 0 ，高电平有效</td>
+</tr>
+<tr>
+<td><code>clk</code></td>
+<td>I</td>
+<td>1</td>
+<td>时钟信号</td>
+</tr>
+<tr>
+<td><code>reset</code></td>
+<td>I</td>
+<td>1</td>
+<td>同步复位信号</td>
+</tr>
+<tr>
+<td><code>Req</code></td>
+<td>O</td>
+<td>1</td>
+<td>输出当前的中断请求</td>
+</tr>
+<tr>
+<td><code>EPCout</code></td>
+<td>O</td>
+<td>32</td>
+<td>输出当前 EPC 寄存器中的值</td>
+</tr>
+<tr>
+<td><code>data</code></td>
+<td>O</td>
+<td>32</td>
+<td>输出 A 指定的寄存器中的数据</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>功能定义</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>功能名称</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>同步复位</td>
+<td>当时钟上升沿到来且同步复位信号有效时，将所有寄存器的值设置为 0x00000000。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>读数据</td>
+<td>读出 <code>addr</code> 地址对应寄存器中存储的数据到 data；当 WE 有效时会将 WD 的值会实时反馈到对应的data，当 ERET 有效时会将 EXL 置 0，即内部转发。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>写数据</td>
+<td>当 WE 有效且时钟上升沿到来时，将 WD 的数据写入 <code>addr</code> 对应的寄存器中。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>中断处理</td>
+<td>根据各种传入信号和寄存器的值判断当前是否要进行中断，将结果输出到 <code>Req</code>。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>处理异常的流程如下图：</p>
+<p>将异常码<code>ExcCode</code>、是否处于延迟槽中的判断信号<code>BD</code>和当前<code>PC</code>（如果时取指地址异常则传递错误的PC值）一直跟着流水线到达M级直至提交至CP0，由CP0综合判断分析是否响应该异常</p>
+<p>如果需要响应该异常，则CP0输出Req信号置为1，此时FD、DE、DM、MW寄存器响应Req信号，清空<code>Instr</code>，将PC值设为0x4180，然后输入F级的NPC也被置为0x4180，下一条指令从0x4180开始执行</p>
+<p>当外设和系统外部输入中断信号时，CP0同样也会确认是否响应该中断，然后把Req置为1，执行相同的操作</p>
+<h3 id="F级-Fetch-取指令"><a href="#F级-Fetch-取指令" class="headerlink" title="F级(Fetch/取指令)"></a>F级(Fetch/取指令)</h3><ul>
+<li>本级没有转发，阻塞时需要取消<code>PC</code>写使能</li>
+<li>本级的输入有来自D级的<code>NPC</code>，本级的输出是<code>F_PC</code>和<code>F_Instr</code>，两者需要参与流水线流水</li>
+</ul>
+<h4 id="IFU（取指单元）"><a href="#IFU（取指单元）" class="headerlink" title="IFU（取指单元）"></a>IFU（取指单元）</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>信号名称</th>
+<th>方向</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NPC[31:0]</td>
+<td>输入</td>
+<td>待写入PC的指令地址</td>
+</tr>
+<tr>
+<td>clk</td>
+<td>输入</td>
+<td>时钟信号</td>
+</tr>
+<tr>
+<td>reset</td>
+<td>输入</td>
+<td>同步复位信号</td>
+</tr>
+<tr>
+<td>PC_en</td>
+<td>输入</td>
+<td>PC的写使能</td>
+</tr>
+<tr>
+<td>PC[31:0]</td>
+<td>输出</td>
+<td>当前指令地址</td>
+</tr>
+<tr>
+<td>Instr[31:0]</td>
+<td>输出</td>
+<td>32位的指令值</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>然后与<code>mips_txt.v</code>交互获得当前指令</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs verilog">PC _pc (<span class="hljs-variable">.clk</span>(clk),<br>		  <span class="hljs-variable">.reset</span>(reset),<br>		  <span class="hljs-variable">.PC_en</span>(PC_en),<br>		  <span class="hljs-variable">.PC</span>(F_PC),<br>		  <span class="hljs-variable">.NPC</span>(F_NPC)<br>		  );<br><br><span class="hljs-keyword">assign</span> i_inst_addr = F_PC;<br><span class="hljs-keyword">assign</span> F_Instr = i_inst_rdata;<br></code></pre></td></tr></table></figure>
+<h4 id="NPC（次地址计算单元）"><a href="#NPC（次地址计算单元）" class="headerlink" title="NPC（次地址计算单元）"></a>NPC（次地址计算单元）</h4><p>把<code>beq</code>是否执行的判断交给了D级的<code>CMP</code>，根据输入信号<code>zero</code>和控制信号<code>NPCop</code>判断是否跳转</p>
+<p>其实<code>NPC</code>横跨了F级和D级两级，我们只输入<code>F_PC</code>即可，因为事实上<code>F_PC=D_PC+4</code>，<code>beq</code>转发的<code>D_PC+4+offset=F_PC+offset</code>。<code>F_PC+8</code>则用于流水<code>PC</code>值，后面<code>jal</code>转发的时候用</p>
+<p>我们一路携带<code>PC+8</code>到各级，便于转发。</p>
+<p>传入中断异常信号Req，当 <code>Req</code> 为 1 时，将输出的 <code>NPC</code> 值设置为内核地址 <code>0x00004180</code>即可。</p>
+<p><strong>端口说明</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>信号名称</th>
+<th>方向</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F_PC[31:0]</td>
+<td>输入</td>
+<td>32位输入当前F级地址</td>
+</tr>
+<tr>
+<td>zero</td>
+<td>输入</td>
+<td>指示b类型指令是否跳转</td>
+</tr>
+<tr>
+<td>NPCop[2:0]</td>
+<td>输入</td>
+<td>控制信号</td>
+</tr>
+<tr>
+<td>grf[31:0]</td>
+<td>输入</td>
+<td><strong>处理完转发后</strong><code>$rs</code>寄存器保存的32位地址</td>
+</tr>
+<tr>
+<td>NPC[31:0]</td>
+<td>输出</td>
+<td>32位输出次地址</td>
+</tr>
+<tr>
+<td>Req</td>
+<td>输入</td>
+<td>中断异常</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="控制信号说明"><a href="#控制信号说明" class="headerlink" title="控制信号说明"></a>控制信号说明</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>控制信号值</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$000$</td>
+<td><code>NPC=PC+4</code></td>
+</tr>
+<tr>
+<td>$001$</td>
+<td>执行<code>beq</code>等b类指令</td>
+</tr>
+<tr>
+<td>$110$</td>
+<td>执行<code>j</code>，<code>jal</code>指令</td>
+</tr>
+<tr>
+<td>$111$</td>
+<td>执行<code>jalr</code>，<code>jr</code>指令</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="D级-Decode-译码"><a href="#D级-Decode-译码" class="headerlink" title="D级(Decode/译码)"></a>D级(Decode/译码)</h3><ul>
+<li>本级需要处理来自E, M, W级的转发，转发信号为<code>EPCplus8</code>，<code>MPCplus8</code>，<code>M_ALUans</code>，<code>W_WD</code>，优先级按顺序排列，最低为原寄存器读出的值<code>D_RD1</code>，<code>D_RD2</code>。</li>
+<li>本级的输入是来自F级的<code>PC</code>和<code>Instr</code>，输出是<code>D_fixedRD1</code>，<code>D_fixedRD2</code>，<code>D_ext32</code>，<code>D_PC</code>和<code>D_Instr</code>，还有输出到F级的<code>NPC</code>，<code>A3</code>和<code>PCplus8</code>记得一路带着。</li>
+<li>本级元件较多，比较复杂</li>
+</ul>
+<h4 id="FD-REG（F-D级流水线寄存器）"><a href="#FD-REG（F-D级流水线寄存器）" class="headerlink" title="FD_REG（F/D级流水线寄存器）"></a>FD_REG（F/D级流水线寄存器）</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>信号名称</th>
+<th>方向</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>clk</td>
+<td>输入</td>
+<td>时钟信号</td>
+</tr>
+<tr>
+<td>reset</td>
+<td>输入</td>
+<td>同步复位信号</td>
+</tr>
+<tr>
+<td>FD_clear</td>
+<td>输入</td>
+<td>寄存器刷新信号（阻塞时使用）</td>
+</tr>
+<tr>
+<td>F_PC</td>
+<td>输入</td>
+<td>F级PC的指令地址</td>
+</tr>
+<tr>
+<td>F_Instr[31:0]</td>
+<td>输入</td>
+<td>32位的指令值</td>
+</tr>
+<tr>
+<td>FPCplus8</td>
+<td>输入</td>
+<td>F_PC+8</td>
+</tr>
+<tr>
+<td>F_ExcCode</td>
+<td>输入</td>
+<td>F级指令异常</td>
+</tr>
+<tr>
+<td>F_BD</td>
+<td>输入</td>
+<td>是否是延迟槽指令</td>
+</tr>
+<tr>
+<td>Req</td>
+<td>输入</td>
+<td>是否有中断异常请求</td>
+</tr>
+<tr>
+<td>D_PC</td>
+<td>输出</td>
+<td>D级PC的指令地址</td>
+</tr>
+<tr>
+<td>D_Instr[31:0]</td>
+<td>输出</td>
+<td>32位的指令值</td>
+</tr>
+<tr>
+<td>DPCplus8</td>
+<td>输出</td>
+<td><code>jal</code>指令要存入<code>$ra</code>的值</td>
+</tr>
+<tr>
+<td>FD_ExcCode</td>
+<td>输出</td>
+<td>F流水至D级的异常码</td>
+</tr>
+<tr>
+<td>D_BD</td>
+<td>输出</td>
+<td>是否是延迟槽指令</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="D-GRF（寄存器堆）"><a href="#D-GRF（寄存器堆）" class="headerlink" title="D_GRF（寄存器堆）"></a>D_GRF（寄存器堆）</h4><p><strong>端口说明</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>信号名称</th>
+<th>方向</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A1[4:0]</td>
+<td>输入</td>
+<td>5位地址输入信号，将其储存的数据读出到RD1</td>
+</tr>
+<tr>
+<td>A2[4:0]</td>
+<td>输入</td>
+<td>5位地址输入信号，将其储存的数据读出到RD2</td>
+</tr>
+<tr>
+<td>A3[4:0]</td>
+<td>输入</td>
+<td>5位地址输入信号，将其作为写入数据的目标寄存器</td>
+</tr>
+<tr>
+<td>RD1[31:0]</td>
+<td>输出</td>
+<td>输出A1指定的寄存器中的32位数据</td>
+</tr>
+<tr>
+<td>RD2[31:0]</td>
+<td>输出</td>
+<td>输出A2指定的寄存器中的32位数据</td>
+</tr>
+<tr>
+<td>WD[31:0]</td>
+<td>输入</td>
+<td>32位数据输入信号</td>
+</tr>
+<tr>
+<td>GRFwe</td>
+<td>输入</td>
+<td>写使能</td>
+</tr>
+<tr>
+<td>clk</td>
+<td>输入</td>
+<td>时钟信号</td>
+</tr>
+<tr>
+<td>reset</td>
+<td>输入</td>
+<td>异步复位信号，将32个寄存器中的数据清零；1：复位；0：无效</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="控制信号说明-1"><a href="#控制信号说明-1" class="headerlink" title="控制信号说明"></a>控制信号说明</h5><p><strong><code>D_A3slt</code></strong></p>
+<p>从<code>rt</code>字段，<code>rd</code>字段，$0x1f$中进行选择，与P4相同，但与P4不同的是，我们A3信号需要一直带着走到W级才写寄存器。寄存器所有与<strong>写入</strong>有关的端口都应连<strong>W级信号</strong>！包括<code>W_GRFwe</code>，<code>W_A3</code>，<code>W_WD</code>。P5采用分布式译码，<code>D_A3slt</code>在<code>D_ctrl</code>模块译出，<code>W_GRFwe</code>在W级译出，<code>W_A3</code>从D级选出<code>D_A3</code>后一路跟着流水，<code>W_WD</code>是在W级通过选择而得到的。</p>
+<h4 id="D-EXT（位扩展）"><a href="#D-EXT（位扩展）" class="headerlink" title="D_EXT（位扩展）"></a>D_EXT（位扩展）</h4><p>将16位二进制数进行零扩展或符号扩展到32位</p>
+<p><strong>控制信号说明</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>控制信号值</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$0$</td>
+<td>零扩展</td>
+</tr>
+<tr>
+<td>$1$</td>
+<td>符号扩展</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="D-CMP（比较器）"><a href="#D-CMP（比较器）" class="headerlink" title="D_CMP（比较器）"></a>D_CMP（比较器）</h4><p>把原来ALU中比较值是否相等的运算移到了CMP里面，去指导<code>beq</code>这一类型的指令是否跳转</p>
+<p>P5控制信号只有<code>CMP_beq=0</code>，现在P6扩展一个<code>bne</code>指令。</p>
+<p><strong>端口说明</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>信号名称</th>
+<th>方向</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rs[31:0]</td>
+<td>输入</td>
+<td><strong>处理完转发后</strong><code>$rs</code>寄存器的值</td>
+</tr>
+<tr>
+<td>rt[31:0]</td>
+<td>输入</td>
+<td><strong>处理完转发后</strong><code>$rt</code>寄存器的值</td>
+</tr>
+<tr>
+<td>CMPOp[2:0]</td>
+<td>输入</td>
+<td>控制信号</td>
+</tr>
+<tr>
+<td>zero</td>
+<td>输出</td>
+<td>指示是否跳转，输入<code>NPC</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>控制信号</strong></p>
+<p><strong><code>CMPop</code></strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>控制信号值</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$0$</td>
+<td><code>beq</code></td>
+</tr>
+<tr>
+<td>$1$</td>
+<td><code>bne</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="E级-Execute-执行"><a href="#E级-Execute-执行" class="headerlink" title="E级(Execute/执行)"></a>E级(Execute/执行)</h3><h4 id="DE-REG（D-E级流水线寄存器）"><a href="#DE-REG（D-E级流水线寄存器）" class="headerlink" title="DE_REG（D/E级流水线寄存器）"></a>DE_REG（D/E级流水线寄存器）</h4><ul>
+<li><p>输入<code>D_PC,D_Instr,D_ext32</code>，此外上一级修正后的<code>D_fixedRD1</code>和<code>D_fixedRD2</code>的值也要参与流水，，<strong>这是由于指令序列<code>sw, nop, add</code>的存在，<code>sw</code>在M级需要使用<code>$rt</code>的数据，但是在E级不会再进行转发（因为在D级已经转发过了），因此需要让正确的<code>$rt</code>值参与流水</strong></p>
+</li>
+<li><p>输出<code>E_PC,E_Instr,E_ext32,E_RD1,E_RD2</code>，<code>ALU</code>需要这些信息</p>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>信号名称</th>
+<th>方向</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>clk</td>
+<td>输入</td>
+<td>时钟信号</td>
+</tr>
+<tr>
+<td>reset</td>
+<td>输入</td>
+<td>同步复位信号</td>
+</tr>
+<tr>
+<td>DE_clear</td>
+<td>输入</td>
+<td>寄存器刷新信号（阻塞时使用）</td>
+</tr>
+<tr>
+<td>D_PC[31:0]</td>
+<td>输入</td>
+<td>D级PC的指令地址</td>
+</tr>
+<tr>
+<td>D_Instr[31:0]</td>
+<td>输入</td>
+<td>32位的指令值</td>
+</tr>
+<tr>
+<td>D_ext32[31:0]</td>
+<td>输入</td>
+<td>16位立即数经<code>EXT</code>扩展的结果</td>
+</tr>
+<tr>
+<td>D_RD1[31:0]</td>
+<td>输入</td>
+<td>32位的寄存器数据</td>
+</tr>
+<tr>
+<td>D_RD2[31:0]</td>
+<td>输入</td>
+<td>32位的寄存器数据</td>
+</tr>
+<tr>
+<td>DPCplus8</td>
+<td>输入</td>
+<td>PC+8</td>
+</tr>
+<tr>
+<td>D_ExcCode</td>
+<td>输入</td>
+<td>D级指令异常</td>
+</tr>
+<tr>
+<td>D_BD</td>
+<td>输入</td>
+<td>是否是延迟槽指令</td>
+</tr>
+<tr>
+<td>Req</td>
+<td>输入</td>
+<td>是否有中断异常请求</td>
+</tr>
+<tr>
+<td>E_PC[31:0]</td>
+<td>输出</td>
+<td>E级PC的指令地址</td>
+</tr>
+<tr>
+<td>E_Instr[31:0]</td>
+<td>输出</td>
+<td>32位的指令值</td>
+</tr>
+<tr>
+<td>E_ext32[31:0]</td>
+<td>输出</td>
+<td>16位立即数经<code>EXT</code>扩展的结果</td>
+</tr>
+<tr>
+<td>E_RD1[31:0]</td>
+<td>输出</td>
+<td>32位的寄存器数据</td>
+</tr>
+<tr>
+<td>E_RD2[31:0]</td>
+<td>输出</td>
+<td>32位的寄存器数据</td>
+</tr>
+<tr>
+<td>EPCplus8</td>
+<td>输出</td>
+<td>PC+8</td>
+</tr>
+<tr>
+<td>DE_ExcCode</td>
+<td>输出</td>
+<td>D流水至E级的异常码</td>
+</tr>
+<tr>
+<td>E_BD</td>
+<td>输出</td>
+<td>是否是延迟槽指令</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="E-ALU（算术逻辑单元）"><a href="#E-ALU（算术逻辑单元）" class="headerlink" title="E_ALU（算术逻辑单元）"></a>E_ALU（算术逻辑单元）</h4><ul>
+<li>相比于P4，ALU变化不大，仅仅是去掉了$zero$输出，给了<code>CMP</code>模块。</li>
+</ul>
+<p><strong>端口说明</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>信号名称</th>
+<th>方向</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A[31:0]</td>
+<td>输入</td>
+<td>32位输入运算数A</td>
+</tr>
+<tr>
+<td>B[31:0]</td>
+<td>输入</td>
+<td>32位输入运算数B</td>
+</tr>
+<tr>
+<td>ALUOp[4:0]</td>
+<td>输入</td>
+<td>控制信号</td>
+</tr>
+<tr>
+<td>C[31:0]</td>
+<td>输出</td>
+<td>32位输出运算结果</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>控制信号说明</strong></p>
+<p><strong>1. ALUOp</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>控制信号值</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$000$</td>
+<td>执行加法运算</td>
+</tr>
+<tr>
+<td>$001$</td>
+<td>执行减法运算</td>
+</tr>
+<tr>
+<td>$010$</td>
+<td>执行逻辑与运算</td>
+</tr>
+<tr>
+<td>$011$</td>
+<td>执行逻辑或运算</td>
+</tr>
+<tr>
+<td>$100$</td>
+<td>执行<code>lui</code>指令</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>2. ALUASel</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>控制信号值</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$0$</td>
+<td>选修正后的<code>E_fixedRD1</code></td>
+</tr>
+<tr>
+<td>$1$</td>
+<td>保留</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>3. ALUBSel</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>控制信号值</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$0$</td>
+<td>选修正后的<code>E_fixedRD2</code></td>
+</tr>
+<tr>
+<td>$1$</td>
+<td>选择立即数进行运算</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="E-MDU（乘除槽）"><a href="#E-MDU（乘除槽）" class="headerlink" title="E_MDU（乘除槽）"></a>E_MDU（乘除槽）</h4><p><strong>端口说明</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>信号名称</th>
+<th>方向</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>clk</td>
+<td>输入</td>
+<td>时钟信号</td>
+</tr>
+<tr>
+<td>reset</td>
+<td>输入</td>
+<td>复位信号</td>
+</tr>
+<tr>
+<td><code>MDUOp[2:0]</code></td>
+<td>输入</td>
+<td>控制信号</td>
+</tr>
+<tr>
+<td><code>InputA[31:0]</code></td>
+<td>输入</td>
+<td>32位输入运算数A</td>
+</tr>
+<tr>
+<td><code>InputB[31:0]</code></td>
+<td>输入</td>
+<td>32位输入运算数B</td>
+</tr>
+<tr>
+<td>start</td>
+<td>输入</td>
+<td>开始运算的指示信号</td>
+</tr>
+<tr>
+<td>busy</td>
+<td>输出</td>
+<td>是否处于运算过程中</td>
+</tr>
+<tr>
+<td>HI[31:0]</td>
+<td>输出</td>
+<td>32位HI寄存器值结果</td>
+</tr>
+<tr>
+<td>LO[31:0]</td>
+<td>输出</td>
+<td>32位LO寄存器值结果</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>控制信号说明</strong></p>
+<p><strong>1. MDUOp</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>控制信号值</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>乘法运算</td>
+</tr>
+<tr>
+<td>1</td>
+<td>除法运算</td>
+</tr>
+<tr>
+<td>2</td>
+<td>无符号乘法运算</td>
+</tr>
+<tr>
+<td>3</td>
+<td>无符号除法运算</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>mfhi</code>指令</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>mflo</code>指令</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>mthi</code>指令，把D1的值赋给HI寄存器中</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>mtlo</code>指令，把D1的值赋给LO寄存器中</td>
+</tr>
+<tr>
+<td>8</td>
+<td>不是乘除法运算</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="M级-Memory-储存"><a href="#M级-Memory-储存" class="headerlink" title="M级(Memory/储存)"></a>M级(Memory/储存)</h3><ul>
+<li>输入<code>E_PC,E_Instr</code>，此外上一级的<code>E_ALUAns</code>参与流水，即<code>E_ALUAns</code>需要参与流水，<strong>这是因为<code>ALUAns</code>是待写入或读取的内存地址</strong>，<strong>另外，上一级的修正后的rt值需要参与流水</strong>，因此还需要输入<code>E_fixedRD2</code>，<strong>这是因为<code>sw</code>指令会向内存中写入<code>$rt</code>的数据</strong></li>
+<li>输出<code>M_PC,M_Instr,M_ALUAns,M_DMrd</code></li>
+</ul>
+<h4 id="EM-REG（E-M级流水线寄存器）"><a href="#EM-REG（E-M级流水线寄存器）" class="headerlink" title="EM_REG（E/M级流水线寄存器）"></a>EM_REG（E/M级流水线寄存器）</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>信号名称</th>
+<th>方向</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>clk</td>
+<td>输入</td>
+<td>时钟信号</td>
+</tr>
+<tr>
+<td>reset</td>
+<td>输入</td>
+<td>同步复位信号</td>
+</tr>
+<tr>
+<td>EM_clear</td>
+<td>输入</td>
+<td>寄存器刷新信号（阻塞时使用）</td>
+</tr>
+<tr>
+<td>E_PC[31:0]</td>
+<td>输入</td>
+<td>E级PC的指令地址</td>
+</tr>
+<tr>
+<td>E_Instr[31:0]</td>
+<td>输入</td>
+<td>32位的指令值</td>
+</tr>
+<tr>
+<td>E_fixedRD2[31:0]</td>
+<td>输入</td>
+<td>32位的寄存器数据</td>
+</tr>
+<tr>
+<td>E_ALUAns[31:0]</td>
+<td>输入</td>
+<td>32位的ALU运算结果</td>
+</tr>
+<tr>
+<td>EPCplus8</td>
+<td>输入</td>
+<td>PC+8</td>
+</tr>
+<tr>
+<td>E_ExcCode</td>
+<td>输入</td>
+<td>E级指令异常</td>
+</tr>
+<tr>
+<td>E_BD</td>
+<td>输入</td>
+<td>是否是延迟槽指令</td>
+</tr>
+<tr>
+<td>Req</td>
+<td>输入</td>
+<td>是否有中断异常请求</td>
+</tr>
+<tr>
+<td>M_PC[31:0]</td>
+<td>输出</td>
+<td>M级PC的指令地址</td>
+</tr>
+<tr>
+<td>M_Instr[31:0]</td>
+<td>输出</td>
+<td>32位的指令值</td>
+</tr>
+<tr>
+<td>M_ALUAns[31:0]</td>
+<td>输出</td>
+<td>32位的ALU运算结果</td>
+</tr>
+<tr>
+<td>M_RD2[31:0]</td>
+<td>输出</td>
+<td>32位的寄存器数据</td>
+</tr>
+<tr>
+<td>MPCplus8</td>
+<td>输出</td>
+<td>PC+8</td>
+</tr>
+<tr>
+<td>EM_ExcCode</td>
+<td>输出</td>
+<td>E流水至M级的异常码</td>
+</tr>
+<tr>
+<td>M_BD</td>
+<td>输出</td>
+<td>是否是延迟槽指令</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="M-DM（数据储存器）"><a href="#M-DM（数据储存器）" class="headerlink" title="M_DM（数据储存器）"></a>M_DM（数据储存器）</h4><ul>
+<li><p><code>DM</code>已经不需要自行实现，调用<code>mips_txt.v</code>中的接口即可</p>
+</li>
+<li><p>利用BE模块处理待写入数据，使其支持按半字、字节、字储存</p>
+</li>
+<li>利用DE模块处理DM返回的数据，使其可以按照不同要求存入寄存器</li>
+</ul>
+<h5 id="M-BE"><a href="#M-BE" class="headerlink" title="M_BE"></a>M_BE</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>信号名称</th>
+<th>方向</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>saveop[3:0]</code></td>
+<td>输入</td>
+<td>控制信号</td>
+</tr>
+<tr>
+<td><code>addr[31:0]</code></td>
+<td>输入</td>
+<td>地址信息，用于处理半字、字节</td>
+</tr>
+<tr>
+<td><code>data[31:0]</code></td>
+<td>输入</td>
+<td>读取的寄存器数据，待处理</td>
+</tr>
+<tr>
+<td><code>DMwr[3:0]</code></td>
+<td>输出</td>
+<td>控制写入半字、字节的位置</td>
+</tr>
+<tr>
+<td><code>fixed_data[31:0]</code></td>
+<td>输出</td>
+<td>待写入数据</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="M-DE"><a href="#M-DE" class="headerlink" title="M_DE"></a>M_DE</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>信号名称</th>
+<th>方向</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>loadop[3:0]</code></td>
+<td>输入</td>
+<td>控制信号</td>
+</tr>
+<tr>
+<td><code>addr[31:0]</code></td>
+<td>输入</td>
+<td>地址信息，用于处理半字、字节</td>
+</tr>
+<tr>
+<td><code>data[31:0]</code></td>
+<td>输入</td>
+<td><code>mips_txt.v</code>返回的DM中的数据</td>
+</tr>
+<tr>
+<td><code>fixed_data[31:0]</code></td>
+<td>输出</td>
+<td>处理之后的正确的读取数据</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="与接口进行交互"><a href="#与接口进行交互" class="headerlink" title="与接口进行交互"></a>与接口进行交互</h5><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-comment">// 与DM交互			</span><br>BE _be (<span class="hljs-variable">.addr</span>(M_DMaddr),<br>		 <span class="hljs-variable">.data</span>(M_DM_WD), <br>		 <span class="hljs-variable">.saveop</span>(M_saveop), <br>		 <span class="hljs-variable">.DMwr</span>(M_DM_bytewr),<br>       <span class="hljs-variable">.fixed_data</span>(M_fixed_DM_WD));	<br>DE _de  (<span class="hljs-variable">.addr</span>(M_DMaddr),<br>			<span class="hljs-variable">.data</span>(M_DMrd),<br>			<span class="hljs-variable">.loadop</span>(M_loadop),<br>			<span class="hljs-variable">.fixed_data</span>(M_fixedRD)<br>			);<br><span class="hljs-keyword">assign</span> m_inst_addr = M_PC;<br><span class="hljs-keyword">assign</span> m_data_addr = M_ALUAns;<br><span class="hljs-keyword">assign</span> m_data_addr = M_DMaddr;<br><span class="hljs-keyword">assign</span> m_data_wdata = M_fixed_DM_WD;<br><span class="hljs-keyword">assign</span> m_data_byteen = M_DM_bytewr;<br><span class="hljs-keyword">assign</span> M_DMrd = m_data_rdata;<br><br><span class="hljs-comment">// 正确输出GRF读写信息</span><br><span class="hljs-keyword">assign</span> m_inst_addr = M_PC;<br><span class="hljs-keyword">assign</span> w_inst_addr = W_PC;<br><span class="hljs-keyword">assign</span> w_grf_we    = W_GRFwe;<br><span class="hljs-keyword">assign</span> w_grf_addr  = W_A3;<br><span class="hljs-keyword">assign</span> w_grf_wdata = W_WD;<br></code></pre></td></tr></table></figure>
+<h3 id="W级-Write-回写"><a href="#W级-Write-回写" class="headerlink" title="W级(Write/回写)"></a>W级(Write/回写)</h3><ul>
+<li>W级事实上与D级重合了，但是仍然需要处理向E,M级的转发</li>
+</ul>
+<h4 id="MW-REG（M-W级流水线寄存器）"><a href="#MW-REG（M-W级流水线寄存器）" class="headerlink" title="MW_REG（M/W级流水线寄存器）"></a>MW_REG（M/W级流水线寄存器）</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>信号名称</th>
+<th>方向</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>clk</td>
+<td>输入</td>
+<td>时钟信号</td>
+</tr>
+<tr>
+<td>reset</td>
+<td>输入</td>
+<td>同步复位信号</td>
+</tr>
+<tr>
+<td>MW_clear</td>
+<td>输入</td>
+<td>寄存器刷新信号（阻塞时使用）</td>
+</tr>
+<tr>
+<td>M_PC[31:0]</td>
+<td>输入</td>
+<td>M级PC的指令地址</td>
+</tr>
+<tr>
+<td>M_Instr[31:0]</td>
+<td>输入</td>
+<td>32位的指令值</td>
+</tr>
+<tr>
+<td>M_DMRD[31:0]</td>
+<td>输入</td>
+<td>从内存中读取的值</td>
+</tr>
+<tr>
+<td>M_ALUAns[31:0]</td>
+<td>输入</td>
+<td>32位的ALU运算结果</td>
+</tr>
+<tr>
+<td>MPCplus8</td>
+<td>输入</td>
+<td>PC+8</td>
+</tr>
+<tr>
+<td>W_PC[31:0]</td>
+<td>输出</td>
+<td>W级PC的指令地址</td>
+</tr>
+<tr>
+<td>W_Instr[31:0]</td>
+<td>输出</td>
+<td>32位的指令值</td>
+</tr>
+<tr>
+<td>W_DMrd[31:0]</td>
+<td>输出</td>
+<td>从内存中读取的值</td>
+</tr>
+<tr>
+<td>W_ALUAns[31:0]</td>
+<td>输出</td>
+<td>32位的ALU运算结果</td>
+</tr>
+<tr>
+<td>WPCplus8</td>
+<td>输出</td>
+<td>PC+8</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="控制信号"><a href="#控制信号" class="headerlink" title="控制信号"></a>控制信号</h3><p>我采用分布式译码，每一级实例化一个控制器，对于所有<code>CTRL</code>均有：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>opcode</th>
+<th>funct</th>
+<th>NPCOp</th>
+<th>WRA3Sel</th>
+<th>WDSel</th>
+<th>EXTOp</th>
+<th>WE</th>
+<th>ALUASel</th>
+<th>ALUBSel</th>
+<th>ALUOp</th>
+<th>DMWr</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>add</strong></td>
+<td>000000</td>
+<td>100000</td>
+<td>000</td>
+<td>01</td>
+<td>00</td>
+<td>X</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>000</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>sub</strong></td>
+<td>000000</td>
+<td>100010</td>
+<td>000</td>
+<td>01</td>
+<td>00</td>
+<td>X</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>001</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>ori</strong></td>
+<td>001101</td>
+<td></td>
+<td>000</td>
+<td>00</td>
+<td>00</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>011</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>lw</strong></td>
+<td>100011</td>
+<td></td>
+<td>000</td>
+<td>00</td>
+<td>01</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>000</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>sw</strong></td>
+<td>101011</td>
+<td></td>
+<td>000</td>
+<td>00</td>
+<td>01</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>000</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>beq</strong></td>
+<td>000100</td>
+<td></td>
+<td>001</td>
+<td>X</td>
+<td>X</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>001</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>lui</strong></td>
+<td>001111</td>
+<td></td>
+<td>000</td>
+<td>00</td>
+<td>00</td>
+<td>X</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>100</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>jal</strong></td>
+<td>000011</td>
+<td></td>
+<td>110</td>
+<td>10</td>
+<td>10</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>jr</strong></td>
+<td>000000</td>
+<td>001000</td>
+<td>111</td>
+<td>00</td>
+<td>00</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>对于不同级的<code>CTRL</code>，我们只需连出那一级所需控制信号即可。</p>
+<p>D级：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">wire</span> [<span class="hljs-number">1</span>:<span class="hljs-number">0</span>] D_A3slt;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] D_NPCop;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] D_CMPop;<br><span class="hljs-keyword">wire</span> D_EXTop;<br><span class="hljs-keyword">wire</span> D_GRFwe;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] D_t_use_rs;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] D_t_use_rt;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] D_t_new;<br></code></pre></td></tr></table></figure>
+<p>E级：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">wire</span> E_ALUAslt;<br><span class="hljs-keyword">wire</span> E_ALUBslt;<br><span class="hljs-keyword">wire</span> E_GRFwe;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] E_ALUop;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] E_t_use_rs;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] E_t_use_rt;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] E_t_new;<br></code></pre></td></tr></table></figure>
+<p>M级：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">wire</span> M_DMwr;<br><span class="hljs-keyword">wire</span> M_GRFwe;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] M_t_use_rs;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] M_t_use_rt;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] M_t_new;<br></code></pre></td></tr></table></figure>
+<p>W级：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">wire</span> [<span class="hljs-number">1</span>:<span class="hljs-number">0</span>] W_WDslt;<br><span class="hljs-keyword">wire</span> W_GRFwe;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] W_t_use_rs;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] W_t_use_rt;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] W_t_new;<br></code></pre></td></tr></table></figure>
+<h2 id="冲突处理方法"><a href="#冲突处理方法" class="headerlink" title="冲突处理方法"></a>冲突处理方法</h2><h3 id="转发"><a href="#转发" class="headerlink" title="转发"></a>转发</h3><p>采用暴力转发和AT模型，注意由于T_new和在哪一级有关，我们得让这一级的CTRL知道它处在哪一级，于是我给控制模块传入一个$t$，$t=0,1,2,3$分别代表D,E,M,W级。这样，以add的T_new为例，就可以如下计算：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs verilog">T_new=(t&lt;=<span class="hljs-number">4&#x27;h2</span>)? (<span class="hljs-number">4&#x27;h2</span>-t) : <span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
+<img src="/posts/P7%E8%AF%BE%E4%B8%8B-%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%AD%E5%BC%82%E5%B8%B8%E7%9A%84MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F/e27b5c863cead7f2912b8885e7d38375.png" srcset="/img/loading.gif" lazyload class="" title="e27b5c863cead7f2912b8885e7d38375">
+<img src="/posts/P7%E8%AF%BE%E4%B8%8B-%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%AD%E5%BC%82%E5%B8%B8%E7%9A%84MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F/d722038c84b1b2f3eabc92416978bb1b.png" srcset="/img/loading.gif" lazyload class="" title="d722038c84b1b2f3eabc92416978bb1b">
+<h3 id="阻塞"><a href="#阻塞" class="headerlink" title="阻塞"></a>阻塞</h3><p><code>T_use&lt;T_new</code>时阻塞。需要以下这些条件同时成立：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs verilog">A3 != <span class="hljs-number">5&#x27;b00000</span> &amp; rs == A3 &amp; T_use_rs != <span class="hljs-number">4&#x27;hf</span> &amp; T_new != <span class="hljs-number">4&#x27;h0</span> &amp; D_T_use_rs &lt; E_T_new<br></code></pre></td></tr></table></figure>
+<p>对于每一级，就加上级号，如<code>D_A3</code>。</p>
+<p>得到阻塞信号后，<code>PC</code>，<code>FDreg</code>写使能赋$0$，<code>DEreg</code>清空。</p>
+<p>P7与P6不同的是，遇到<code>eret</code>指令后续都得阻塞，所以加两行：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs verilog">(D_eret &amp;&amp; E_ismtc0 &amp;&amp; E_rd == <span class="hljs-number">5&#x27;b01110</span>) ? <span class="hljs-number">1&#x27;b1</span> :<br>(D_eret &amp;&amp; M_ismtc0 &amp;&amp; M_rd == <span class="hljs-number">5&#x27;b01110</span>) ? <span class="hljs-number">1&#x27;b1</span> : <span class="hljs-number">1&#x27;b0</span>;<br></code></pre></td></tr></table></figure>
+<h3 id="MIPS-Bridge与Timer"><a href="#MIPS-Bridge与Timer" class="headerlink" title="MIPS,Bridge与Timer"></a>MIPS,Bridge与Timer</h3><img src="/posts/P7%E8%AF%BE%E4%B8%8B-%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%AD%E5%BC%82%E5%B8%B8%E7%9A%84MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F/2de8ca541ec5476a8cca234aaaca7200.png" srcset="/img/loading.gif" lazyload class="" title="2de8ca541ec5476a8cca234aaaca7200">
+<h3 id="异常码"><a href="#异常码" class="headerlink" title="异常码"></a>异常码</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">异常与中断码</th>
+<th style="text-align:left">助记符与名称</th>
+<th style="text-align:left">指令与指令类型</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left"><code>Int</code> （外部中断）</td>
+<td style="text-align:left">所有指令</td>
+<td style="text-align:left">中断请求，来源于计时器与外部中断。</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left"><code>AdEL</code> （取指异常）</td>
+<td style="text-align:left">所有指令</td>
+<td style="text-align:left">PC 地址未字对齐。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">PC 地址超过 <code>0x3000 ~ 0x6ffc</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>AdEL</code> （取数异常）</td>
+<td style="text-align:left"><code>lw</code></td>
+<td style="text-align:left">取数地址未与 4 字节对齐。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>lh</code></td>
+<td style="text-align:left">取数地址未与 2 字节对齐。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>lh</code>, <code>lb</code></td>
+<td style="text-align:left">取 Timer 寄存器的值。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">load 型指令</td>
+<td style="text-align:left">计算地址时加法溢出。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">load 型指令</td>
+<td style="text-align:left">取数地址超出 DM、Timer0、Timer1、中断发生器的范围。</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left"><code>AdES</code> （存数异常）</td>
+<td style="text-align:left"><code>sw</code></td>
+<td style="text-align:left">存数地址未 4 字节对齐。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>sh</code></td>
+<td style="text-align:left">存数地址未 2 字节对齐。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>sh</code>, <code>sb</code></td>
+<td style="text-align:left">存 Timer 寄存器的值。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">store 型指令</td>
+<td style="text-align:left">计算地址加法溢出。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">store 型指令</td>
+<td style="text-align:left">向计时器的 Count 寄存器存值。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">store 型指令</td>
+<td style="text-align:left">存数地址超出 DM、Timer0、Timer1、中断发生器的范围。</td>
+</tr>
+<tr>
+<td style="text-align:left">8</td>
+<td style="text-align:left"><code>Syscall</code> （系统调用）</td>
+<td style="text-align:left"><code>syscall</code></td>
+<td style="text-align:left">系统调用。</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left"><code>RI</code>（未知指令）</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">未知的指令码。</td>
+</tr>
+<tr>
+<td style="text-align:left">12</td>
+<td style="text-align:left"><code>Ov</code>（溢出异常）</td>
+<td style="text-align:left"><code>add</code>, <code>addi</code>, <code>sub</code></td>
+<td style="text-align:left">算术溢出。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="有关加指令"><a href="#有关加指令" class="headerlink" title="有关加指令"></a>有关加指令</h3><p>加指令有几种类型，一般是一道R型的普通运算，一道<code>beq</code>类并清空延迟槽，一道<code>lw</code>类并卡时间。</p>
+<h4 id="1-R型运算指令"><a href="#1-R型运算指令" class="headerlink" title="1.R型运算指令"></a>1.R型运算指令</h4><p>和P4单周期CPU没有什么本质区别，主要改动Ctrl模块和ALU模块即可。</p>
+<h4 id="2-类beq型清空延迟槽指令"><a href="#2-类beq型清空延迟槽指令" class="headerlink" title="2.类beq型清空延迟槽指令"></a>2.类<code>beq</code>型清空延迟槽指令</h4><p>以P5_L2_2022的<code>bonall</code>指令为例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs pseudocode">I:<br><br>target_offset ← sign_extend(offset||02)<br><br>Condition ← GPR[rs] + GPR[rt] = 032<br><br>GPR[31] ← PC + 8<br><br>I+1:<br><br>If condition then<br><br>	PC ← PC + target_offset<br><br>else<br><br>	NullifyCurrentInstruction()<br><br>endif<br></code></pre></td></tr></table></figure>
+<p>需要按如下步骤修改：</p>
+<ol>
+<li><p>修改CMP模块，加上一个输出端口（如<code>opposite</code>)示意现在是否满足跳转条件；同时应用上<code>CMPop</code>，虽然理论上这是一个冗余设计，因为你并不需要用<code>CMPop</code>作为MUX，是输出到一个新的端口，但这是一种保护性的设计，对于长期维护可能很乱，但是课上只要加一条指令，就非常让人安心。</p>
+</li>
+<li><p>在CTRL模块中加入该指令。指令驱动型的最大优势在此处一览无余。一般而言，我们直接将<code>beq</code>指令下的信号复制过来即可，再扫一遍有没有需要变化的，比如如果这个指令需要写入，<code>A3slt</code>，<code>WDslt</code>，<code>GRFwe</code>就都得变。</p>
+</li>
+<li><p>在<code>NPCop</code>中添加<code>input opposite</code>，并在assign语句的三目运算符下增加判断，一般形如：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs verilog">(NPCop==<span class="hljs-number">3&#x27;b010</span> &amp;&amp; !opposite) ? PC4:<br>(NPCop==<span class="hljs-number">3&#x27;b010</span> &amp;&amp; opposite) ? F_PC+offsetbeq:<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>在顶层连线。将1中端口加上流水线级别设出来（如<code>D_opposite</code>），连入<code>NPC</code>，<code>CMP</code>。有的时候是否写入寄存器、写入哪个寄存器和这个判断信号有关，那么还需连入CTRL</p>
+</li>
+<li><p>最重要也是最容易忘的一步！！！加入<code>PC+8</code>硬编码！否则不会转发！</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> E_isPCplus8 = (E_Instr[<span class="hljs-number">31</span>:<span class="hljs-number">26</span>] === <span class="hljs-number">6&#x27;b000011</span> || E_Instr[<span class="hljs-number">31</span>:<span class="hljs-number">26</span>]==<span class="hljs-number">6&#x27;b011001</span>);<br><span class="hljs-keyword">assign</span> M_isPCplus8 = (M_Instr[<span class="hljs-number">31</span>:<span class="hljs-number">26</span>] === <span class="hljs-number">6&#x27;b000011</span> || M_Instr[<span class="hljs-number">31</span>:<span class="hljs-number">26</span>]==<span class="hljs-number">6&#x27;b011001</span>);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>如果需要增加寄存器接口（如<code>D_RD2</code>)，请务必接入转发后的数据，如<code>D_fixedRD2</code>.</p>
+</li>
+<li><p>如果需要作为<code>input</code>传入各级CTRL，可能要把这个<code>condition</code>信号流水。一般出现于<code>GRFwe</code>不定的时候。</p>
+</li>
+</ol>
+<h4 id="3-类lw型指令与时间优化"><a href="#3-类lw型指令与时间优化" class="headerlink" title="3.类lw型指令与时间优化"></a>3.类<code>lw</code>型指令与时间优化</h4><p>这是最困难的一类题！我们以推荐题中最难的L5_2022为例。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs pseudocode">vAddr ← sign_extend(offset) + GPR[base]<br><br>pAddr ← vAddr31...2 || 02<br><br>memword ← memory[pAddr]<br><br>bit ← vAddr1<br><br>def:<br><br>countOne(x): x 中 1 的个数<br><br>countZero(x): x 中 0 的个数<br><br>memHalf ← memword15+16*bit ..16*bit<br><br>Condition ← countZero(memHalf) ≤ countOne(memHalf)<br><br>if Condition:<br><br>	GPR[rt] ← sign_extend(memHalf)<br><br>else:<br><br>	GPR[31] ← PC + 4<br><br>end if<br></code></pre></td></tr></table></figure>
+<p>首先，因为它是取出字（半字、字节）进行操作，那么我们得到操作数至少在<code>dm</code>模块才能出来。于是我们有两个选择，要么在<code>dm</code>模块加一个输出端口，在<code>dm</code>内部算出需要的结果；要么在顶层直接计算。</p>
+<ol>
+<li>如果使用前者，我们将新结果放入<code>DMans</code>，0数是否小于1数放入<code>condition</code>端口，相当于给dm模块加了两个输出。</li>
+<li>将<code>DMans</code>，<code>condition</code>从M级开始参与流水。</li>
+<li>在CTRL模块内增加该指令，先默认其选用rt寄存器，并写入DMans，即<code>`A3slt=0</code>，<code>WDslt=3</code>，注意WD是多加了一个接口的。</li>
+<li>在顶层连线后，修正M级的A3和W级的WD，并将所有用到<code>M_A3</code>的地方修正。</li>
+<li>阻塞模块，遇到E级是该指令且<code>D_rs</code>或<code>D_rt</code>等于<code>E_A3</code>或$31$号寄存器时阻塞，注意阻塞的<code>T_use</code>等条件仍需写！</li>
+</ol>
+<p>注意以下可能出bug的地方：</p>
+<ul>
+<li>注意A3在M级就修正，而WD直接在选择端口加一个硬编码即可。</li>
+<li>阻塞是阻塞E级！传入<code>E_islwer</code>之类的</li>
+<li>注意CTRL可能不一定能照抄，比如会用到rt之类的。</li>
+</ul>
+<h2 id="测试方案"><a href="#测试方案" class="headerlink" title="测试方案"></a><strong>测试方案</strong></h2><p>使用$COT$评测机进行对拍。</p>
+<p>不过使用中遇到不少问题。由于阻塞周期不同，和MARS对拍会出现timer给出的中断不一致的情况。如果能找到阻塞方式完全相同的同学，就可以实现对拍。</p>
+<p>构造数据就是覆盖所有可能中断异常的情况，然后重点测试延迟槽有关的异常中断。</p>
+<p>下面是一段内部异常的自测代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs assembly">lw      $t0, 1($zero)<br>sw      $t0, 2($zero)<br>addi    $t0, $zero, 0x7fff<br>lui     $t0, 0x7fff<br>addi    $t1, $t0, 1<br>sll     $t0, $t0, 1<br></code></pre></td></tr></table></figure>
+<p><code>handler</code>使用学长评测机里的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br></pre></td><td class="code"><pre><code class="hljs assembly"># 主要处理PC异常<br>_quick_handle:<br>    mfc0 $k0, $13<br>    andi $k0, $k0, 0x00fc<br><br>    # 没有srl指令，这一步骤判断异常是否为0x0004<br>    ori	$k1, $0, 0x0010<br>    beq	$k0, $k1, adel_handler_quick<br>    nop<br>    <br>    beq $0, $0, _entry<br>    nop<br><br># 入口程序<br>_entry:	<br>    mfc0 $1, $13<br>    ori	$k0, $0, 0x1000<br>    sw $sp, -4($k0)<br>    <br>    addi $k0, $k0, -256<br>    add $sp, $0, $k0<br>    <br>    beq $0, $0,	_save_context<br>    nop<br><br># PC错误<br>adel_handler_quick:<br>    mfc0 $k0, $14<br>    addi $k0, $k0, -0x3000<br>    lui $k1, 0xffff<br>    ori $k1,$k1,0xe000<br>    and $k0,$k0,$k1<br>    bne $k0,$0,adel_type_2<br>    nop<br>    mfc0 $k0, $14<br>    andi $k0,$k0,3<br>    bne $k0,$0,adel_type_1<br>    nop<br>    jal _entry<br>    nop<br>    <br># PC未对齐<br>adel_type_1:<br>    mfc0 $k0, $14<br>    andi $k0, $k0, 0xfffc<br>    addi $k0, $k0, 4<br>    mtc0 $k0, $14<br>    eret<br>    ori $1, $0, 0x1234<br>    <br># PC超出范围<br>adel_type_2:<br>    ori $k0, $0, 0x2180<br>    lw $k0, 0($k0)<br>    mtc0 $k0,$14<br>    nop<br>    eret<br>    ori $1, $0, 0x1234<br><br># 判断异常中断类型<br>_main_handler:<br>    mfc0 $k0, $13<br>    andi $k0, $k0, 0x00fc<br>    <br>    ori	$k1, $0, 0x0000<br>    beq	$k0, $k1, int_handler<br>    nop<br>    ori	$k1, $0, 0x0010<br>    beq	$k0, $k1, adel_handler<br>    nop<br>    ori	$k1, $0, 0x0014<br>    beq	$k0, $k1, ades_handler<br>    nop<br>    ori	$k1, $0, 0x0028<br>    beq	$k0, $k1, ri_handler<br>    nop<br>    ori	$k1, $0, 0x0030<br>    beq	$k0, $k1, ov_handler<br>    nop<br>    ori $k1, $0, 0x0020<br>    beq $k0, $k1, syscall_handler<br>    nop<br><br># 判断中断类型<br>int_handler:<br>    sw $ra, 0($sp)<br>    addi $sp, $sp, -16<br>    mfc0 $v0, $12<br>    sw $v0, 0($sp)<br>    mfc0 $v0, $13<br>    sw $v0, 4($sp)<br>        <br>    # check INT[3]<br>    lw $v0, 0($sp)<br>    lw $v1, 4($sp)<br>    and	$v0, $v1, $v0<br>    andi $v0, $v0, 0x800<br>    bne	$v0, $0, timer1_handler<br>    nop<br>    <br>    # check INT[2]<br>    lw	$v0, 0($sp)<br>    lw	$v1, 4($sp)<br>    and	$v0, $v1, $v0<br>    andi $v0, $v0, 0x400<br>    bne	$v0, $0, timer0_handler<br>    nop<br>    jal interrupt_handler<br>    nop<br><br># 外部中断<br>interrupt_handler:<br>    lui $k0, 0xffff<br>    ori $k0, $k0, 0xffff<br>    addi $k1, $0, 0x2180<br>    lw $k1, 0($k1)<br>    addi $k0, $0, 0x7f20<br>    sb $0, 0($k0)<br>    jal _restore_context<br>    nop<br><br># Timer0中断<br>timer0_handler:<br>    lui $k0, 0xffff<br>    addi $k1, $0, 0x2180<br>    lw $k1, 0($k1) <br>    addi $k0, $0, 0x7f00<br>    sw $0, 0($k0)<br>    jal _restore_context<br>    nop<br><br># Timer1中断<br>timer1_handler:<br>    lui $k0, 0xffff<br>    ori $k0, $k0, 0x1<br>    addi $k1, $0, 0x2180<br>    lw $k1, 0($k1)<br>    addi $k0, $0, 0x7f10<br>    sw $0, 0($k0)<br>    jal _restore_context<br>    nop<br><br># 其他AdEL异常直接跳过<br>adel_handler:<br>    mfc0 $t0, $14<br>    mfc0 $k0, $13<br>    lui	$t2, 0x8000<br>    and	$t3, $k0, $t2<br>    addi $t0, $t0, 4<br>    bne	$t3, $t2, adel_nxt<br>    nop<br>    addi $t0, $t0, 4<br>    adel_nxt:<br>    mtc0 $t0, $14<br>    jal	_restore_context<br>    nop<br><br># AdES异常直接跳过<br>ades_handler:<br>    mfc0 $t0, $14<br>    mfc0 $k0, $13<br>    lui	$t2, 0x8000<br>    and	$t3, $k0, $t2<br>    addi $t0, $t0, 4<br>    bne	$t3, $t2, ades_nxt<br>    nop<br>    addi $t0, $t0, 4<br>    ades_nxt:<br>    mtc0 $t0, $14<br>    jal	_restore_context<br>    nop<br><br># 未知指令直接跳过<br>ri_handler:<br>    mfc0 $t0, $14<br>    mfc0 $k0, $13<br>    lui	$t2, 0x8000<br>    and	$t3, $k0, $t2<br>    addi $t0, $t0, 4<br>    bne	$t3, $t2, ri_nxt<br>    nop<br>    addi $t0, $t0, 4<br>    ri_nxt:<br>    mtc0 $t0, $14<br>    jal	_restore_context<br>    nop<br>    <br># 算术溢出直接跳过<br>ov_handler:<br>    mfc0 $t0, $14<br>    mfc0 $k0, $13<br>    lui	$t2, 0x8000<br>    and	$t3, $k0, $t2<br>    addi $t0, $t0, 4<br>    bne	$t3, $t2, ov_nxt<br>    nop<br>    addi $t0, $t0, 4<br>    ov_nxt:<br>    mtc0 $t0, $14<br>    jal	_restore_context<br>    nop<br><br># 处理一下syscall直接跳过<br>syscall_handler:<br>    mfc0 $t0, $14<br>    mfc0 $k0, $13<br>    lui	$t2, 0x8000<br>    and	$t3, $k0, $t2<br>    addi $t0, $t0, 4<br>    bne	$t3, $t2, syscall_nxt<br>    nop<br>    addi $t0, $t0, 4<br>    syscall_nxt:<br>    mtc0 $t0, $14<br>    jal	_restore_context<br>    nop<br><br># 返回<br>_restore:<br>    eret<br>    ori $1, $0, 0x1234<br>    <br># 保存上下文<br>_save_context:<br>    sw $2, 8($sp)    <br>    sw $3, 12($sp)    <br>    sw $4, 16($sp)    <br>    sw $5, 20($sp)    <br>    sw $6, 24($sp)    <br>    sw $7, 28($sp)    <br>    sw $8, 32($sp)    <br>    sw $9, 36($sp)    <br>    sw $10, 40($sp)   <br>    sw $11, 44($sp)    <br>    sw $12, 48($sp)   <br>    sw $13, 52($sp)    <br>    sw $14, 56($sp)   <br>    sw $15, 60($sp)    <br>    sw $16, 64($sp)   <br>    sw $17, 68($sp)    <br>    sw $18, 72($sp)   <br>    sw $19, 76($sp)    <br>    sw $20, 80($sp)   <br>    sw $21, 84($sp)    <br>    sw $22, 88($sp)   <br>    sw $23, 92($sp)    <br>    sw $24, 96($sp)   <br>    sw $25, 100($sp)   <br>    sw $28, 112($sp)   <br>    sw $29, 116($sp)   <br>    sw $30, 120($sp)   <br>    sw $31, 124($sp)<br>    mfhi $k0<br>    sw $k0, 128($sp)<br>    mflo $k0<br>    sw $k0, 132($sp)<br>    jal	_main_handler<br>    nop<br>    <br># 恢复上下文<br>_restore_context:<br>    addi $sp, $0, 0x1000<br>    addi $sp, $sp, -256<br>    lw $2, 8($sp)   <br>    lw $3, 12($sp)   <br>    lw $4, 16($sp)   <br>    lw $5, 20($sp)   <br>    lw $6, 24($sp)   <br>    lw $7, 28($sp)   <br>    lw $8, 32($sp)   <br>    lw $9, 36($sp)   <br>    lw $10, 40($sp)    <br>    lw $11, 44($sp)   <br>    lw $12, 48($sp)    <br>    lw $13, 52($sp)   <br>    lw $14, 56($sp)    <br>    lw $15, 60($sp)   <br>    lw $16, 64($sp)    <br>    lw $17, 68($sp)   <br>    lw $18, 72($sp)    <br>    lw $19, 76($sp)   <br>    lw $20, 80($sp)    <br>    lw $21, 84($sp)   <br>    lw $22, 88($sp)    <br>    lw $23, 92($sp)   <br>    lw $24, 96($sp)    <br>    lw $25, 100($sp)    <br>    lw $28, 112($sp)   <br>    lw $30, 120($sp)   <br>    lw $31, 124($sp)   <br>    lw $k0, 128($sp)<br>    mthi $k0<br>    lw $k0, 132($sp)<br>    mtlo $k0<br>    lw $29, 116($sp)<br>    ori $1,$0,1<br>    beq $0, $0, _restore	<br>    nop<br></code></pre></td></tr></table></figure>
+<h2 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h2><h3 id="思考题1"><a href="#思考题1" class="headerlink" title="思考题1"></a>思考题1</h3><blockquote>
+<p>请查阅相关资料，说明鼠标和键盘的输入信号是如何被 CPU 知晓的？</p>
+</blockquote>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><p>主要通过两种方式：<strong>轮询（Polling）</strong> 和 <strong>中断（Interrupt）</strong>。在现代操作系统中，中断是主要使用的方式。</p>
+<h4 id="1-轮询-Polling"><a href="#1-轮询-Polling" class="headerlink" title="1. 轮询 (Polling)"></a>1. 轮询 (Polling)</h4><p>轮询是一种相对原始和低效的方式。它的工作原理如下：</p>
+<ul>
+<li><strong>CPU 主动查询</strong>：CPU 在其执行循环中，会周期性地、主动地去检查外设的状态。例如，CPU 会不断读取键盘控制器的某个状态寄存器。</li>
+<li><strong>状态判断</strong>：如果状态寄存器中的某个标志位（例如“数据就绪”位）被设置，CPU 就知道有新的键盘输入了。</li>
+<li><strong>数据读取</strong>：确认有新数据后，CPU 会从键盘控制器的数据寄存器中读取按键的扫描码（scancode），并进行处理。</li>
+<li><strong>循环往复</strong>：如果没有新数据，CPU 就继续执行其他任务，过一会儿再回来查询。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li><strong>效率低下</strong>：CPU 需要花费大量的时钟周期去执行无意义的查询操作，即使大部分时间里用户并没有操作键盘或鼠标。这浪费了宝贵的计算资源。</li>
+<li><strong>响应不及时</strong>：CPU 两次查询之间存在时间间隔。如果用户在这个间隔内输入，CPU 无法立即响应，必须等到下一次查询时才能发现，导致延迟。</li>
+</ul>
+<p>轮询通常只在一些简单的嵌入式系统或操作系统启动的早期阶段（此时中断系统还未初始化好）使用。</p>
+<h4 id="2-中断-Interrupt"><a href="#2-中断-Interrupt" class="headerlink" title="2. 中断 (Interrupt)"></a>2. 中断 (Interrupt)</h4><p>中断是现代计算机系统处理外设交互的主流方式，它高效且响应迅速。其工作流程如下：</p>
+<ol>
+<li><strong>事件发生</strong>：用户按下键盘上的一个键，或者移动/点击鼠标。</li>
+<li><strong>设备控制器处理</strong>：键盘/鼠标控制器（一个专门的硬件芯片）s检测到这个物理动作，将其转换为数字信号（例如，键盘的扫描码），并将其存入自己的内部缓冲区（数据寄存器）。</li>
+<li><strong>发送中断请求 (IRQ)</strong>：设备控制器通过一根物理信号线，向 <strong>中断控制器</strong>（如经典的 8259A PIC 或现代的 APIC）发送一个中断请求（Interrupt Request, IRQ）信号。这个信号就像是设备在对 CPU “举手”，表示“我有急事找你”。</li>
+<li><strong>中断控制器通知 CPU</strong>：中断控制器接收到来自多个设备的中断请求后，会根据优先级进行仲裁，然后向 CPU 的一个特定引脚（中断引脚）发送一个中断信号。</li>
+<li><strong>CPU 响应中断</strong>：<ul>
+<li>CPU 在执行完当前指令后，会检查中断引脚。如果检测到中断信号，并且中断是允许的（即中断标志位未被屏蔽），CPU 就会暂停当前正在执行的程序。</li>
+<li><strong>保存现场</strong>：CPU 会自动将当前的程序计数器（PC）和一些关键寄存器（如程序状态字 PSW）的值压入内核堆栈。这是为了在处理完中断后能够准确地返回到原来的执行位置。</li>
+<li><strong>识别中断源</strong>：CPU 会向中断控制器询问是哪个设备触发了中断。中断控制器会返回一个唯一的数字，称为 <strong>中断向量号</strong>。</li>
+</ul>
+</li>
+<li><strong>跳转到中断服务程序 (ISR)</strong>：<ul>
+<li>CPU 使用这个中断向量号，在内存中的一个预设的表——<strong>中断向量表（Interrupt Vector Table, IVT）</strong>——中查找对应的条目。</li>
+<li>这个表中的每个条目都存放着一个地址，指向处理特定中断的程序，这个程序被称为 <strong>中断服务程序（Interrupt Service Routine, ISR）</strong> 或中断处理程序。</li>
+<li>CPU 将 PC 设置为这个 ISR 的地址，开始执行中断处理。</li>
+</ul>
+</li>
+<li><strong>执行 ISR</strong>：<ul>
+<li>ISR 是操作系统内核的一部分（通常是设备驱动程序的一部分）。它会从设备控制器的数据寄存器中读取数据（如键盘扫描码）。</li>
+<li>对数据进行处理（例如，将其放入操作系统的键盘缓冲区，等待应用程序读取）。</li>
+<li>向设备控制器发送一个确认信号，表示数据已被处理，设备可以准备下一次输入。</li>
+</ul>
+</li>
+<li><strong>恢复现场</strong>：ISR 执行完毕后，会执行一条特殊指令（如 <code>iret</code>）。这条指令会从内核堆栈中弹出之前保存的 PC 和寄存器值，将其恢复到 CPU 中。</li>
+<li><strong>返回原程序</strong>：CPU 从被中断的地方继续执行原来的程序，就好像什么都没发生过一样。</li>
+</ol>
+<h3 id="思考题2"><a href="#思考题2" class="headerlink" title="思考题2"></a>思考题2</h3><blockquote>
+<p>请思考为什么我们的 CPU 处理中断异常必须是已经指定好的地址？如果你的 CPU 支持用户自定义入口地址，即处理中断异常的程序由用户提供，其还能提供我们所希望的功能吗？如果可以，请说明这样可能会出现什么问题？否则举例说明。（假设用户提供的中断处理程序合法）</p>
+</blockquote>
+<h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><h4 id="1-为什么必须是指定好的地址？"><a href="#1-为什么必须是指定好的地址？" class="headerlink" title="1. 为什么必须是指定好的地址？"></a>1. 为什么必须是指定好的地址？</h4><p>原因在于 <strong>安全</strong>、<strong>稳定</strong> 和 <strong>隔离</strong>。</p>
+<ul>
+<li><p><strong>安全性 (Security)</strong>：中断和异常处理程序（Handler/ISR）通常在 <strong>内核模式（Kernel Mode）</strong> 或特权模式下运行。在这个模式下，代码拥有最高权限，可以访问所有内存、所有硬件设备，并执行所有 CPU 指令。如果允许用户程序自定义这个入口地址，就相当于给了用户程序一个直接跳转到内核模式并执行任意代码的机会。</p>
+<ul>
+<li><strong>恶意攻击</strong>：一个恶意程序可以将其入口地址设置为一段它自己编写的恶意代码。当中断发生时，CPU 会以最高权限执行这段恶意代码，从而绕过所有安全限制，窃取数据、破坏系统、安装病毒等。这是一种典型的 <strong>权限提升（Privilege Escalation）</strong> 攻击。</li>
+</ul>
+</li>
+<li><p><strong>稳定性 (Stability)</strong>：中断处理程序是系统的核心，必须编写得极其小心和健壮。它需要正确地保存和恢复现场、与硬件交互、管理系统资源。</p>
+<ul>
+<li><strong>系统崩溃</strong>：即使用户程序不是恶意的，其提供的处理程序也可能存在 bug。例如，它可能忘记在处理完后向中断控制器发送确认信号，导致该中断被不断触发（称为“中断风暴”），使系统完全卡死。或者，它可能没有正确恢复所有寄存器，导致返回原程序后，原程序状态被破坏，从而崩溃。如果一个用户程序的 bug 就能导致整个操作系统崩溃，那这个系统是完全不可靠的。</li>
+</ul>
+</li>
+<li><p><strong>隔离性 (Isolation)</strong>：现代操作系统的一个基本原则是进程隔离。一个进程的错误不应该影响到其他进程或操作系统内核。让操作系统统一管理中断处理，确保了无论哪个用户程序在运行时发生中断，处理逻辑都是一致、可靠、且与用户程序隔离的。</p>
+</li>
+</ul>
+<h4 id="2-如果支持用户自定义入口地址，会怎样？"><a href="#2-如果支持用户自定义入口地址，会怎样？" class="headerlink" title="2. 如果支持用户自定义入口地址，会怎样？"></a>2. 如果支持用户自定义入口地址，会怎样？</h4><p><strong>它不能提供我们所希望的功能。</strong> 我们希望的功能是一个安全、稳定、多任务的计算环境。允许用户自定义中断入口地址会彻底摧毁这个环境。</p>
+<p>即使我们假设“用户提供的中断处理程序合法”（即没有语法错误，能运行），也会出现以下致命问题：</p>
+<ul>
+<li><p><strong>问题一：权限提升与安全崩溃</strong></p>
+<ul>
+<li><strong>例子</strong>：一个用户程序 <code>A</code> 想要读取另一个用户程序 <code>B</code> 的密码（这在正常情况下被内存保护机制所禁止）。<code>A</code> 可以编写一个中断处理程序，该程序的功能是“读取物理地址 <code>0x12345678</code>（假设这是程序 B 存放密码的地方）的数据，并存到 <code>A</code> 的内存里”。然后，<code>A</code> 将这个处理程序的地址设置为计时器中断的处理入口。当计时器中断发生时，CPU 会跳转到 <code>A</code> 的代码，并以内核权限执行它。<code>A</code> 就成功地绕过了所有内存保护，窃取了 <code>B</code> 的数据。整个系统的安全模型荡然无存。</li>
+</ul>
+</li>
+<li><p><strong>问题二：系统不稳定与资源冲突</strong></p>
+<ul>
+<li><strong>例子</strong>：假设两个不同的用户程序 <code>P1</code> 和 <code>P2</code> 都想自定义同一个硬件（如磁盘）的中断处理程序。<code>P1</code> 设置了它的处理程序，开始进行磁盘读写。此时操作系统切换到 <code>P2</code> 运行，<code>P2</code> 又把中断处理程序改成了它自己的。当中断（表示 <code>P1</code> 的磁盘操作已完成）到来时，CPU 却跳转到了 <code>P2</code> 的处理程序。<code>P2</code> 的代码不知道如何处理这个中断，或者错误地处理了它，很可能导致数据损坏或系统死锁。由操作系统统一管理可以确保资源访问的一致性和正确性。</li>
+</ul>
+</li>
+<li><p><strong>问题三：破坏抽象与复杂性</strong></p>
+<ul>
+<li>操作系统为应用程序提供了简洁的抽象接口（系统调用，如 <code>read</code>、<code>write</code>）。应用程序不需要关心底层硬件中断的细节。如果让应用程序自己处理中断，那么每个需要I/O的程序都必须包含针对特定硬件的、复杂的、低级别的中断处理代码，这将使得编程变得异常困难，且程序不具备可移植性。</li>
+</ul>
+</li>
+</ul>
+<p><strong>结论</strong>：<br>中断/异常入口地址是用户态和内核态之间的一道至关重要的“门”。这扇门必须由操作系统这位“守门员”严格把控。允许用户程序随意指定这扇门通向哪里，无异于将整个系统的钥匙交给了每一个用户程序，必然会导致安全和稳定性的灾难。因此，中断向量表（或类似的机制）必须由操作系统独占和管理，这是现代操作系统设计的基石。</p>
+<h3 id="思考题3"><a href="#思考题3" class="headerlink" title="思考题3"></a>思考题3</h3><blockquote>
+<p>为何与外设通信需要 Bridge？</p>
+</blockquote>
+<h3 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h3><ol>
+<li><strong>地址解码与请求路由 (Address Decoding and Request Routing)</strong><ul>
+<li><strong>核心功能</strong>：CPU 采用<strong>内存映射 I/O (Memory-Mapped I/O, MMIO)</strong> 的方式与外设通信。这意味着在 CPU 的视角里，外设的控制寄存器、数据寄存器等被映射到主存地址空间中的特定地址。CPU 访问这些特殊地址就等同于访问外设。</li>
+<li><strong>桥的作用</strong>：CPU 在执行 <code>load</code> 或 <code>store</code> 指令时，只负责产生一个内存地址，并将这个请求发送到总线上。它并不关心这个地址最终对应的是物理内存（RAM）还是某个外设。系统桥的核心职责就是<strong>监视</strong>总线上的地址。当它看到一个地址时，会根据预设的地址空间划分（如题目中表格所示），来判断这个请求应该被发送给谁。</li>
+<li><strong>具体例子</strong>：<ul>
+<li>如果 CPU 访问地址 <code>0x0000_1000</code>，系统桥解码后发现它在数据存储器（DM）的范围 <code>0x0000_0000 ~ 0x0000_2FFF</code> 内，于是它会将请求路由到 DM。</li>
+<li>如果 CPU 访问地址 <code>0x0000_7F00</code>，系统桥解码后发现这是计时器 0 的地址，于是它会将请求路由到计时器 0 模块，并激活相应的寄存器读写操作。</li>
+</ul>
+</li>
+<li><strong>总结</strong>：系统桥就像一个<strong>交通警察或路由器</strong>，它根据地址这个“门牌号”，将 CPU 的访问请求精确地导向正确的目的地（内存或各种外设）。</li>
+</ul>
+</li>
+<li><p><strong>模块化与可扩展性 (Modularity and Scalability)</strong></p>
+<ul>
+<li>通过将地址解码逻辑集中在系统桥中，CPU 的设计可以保持简洁和通用。CPU 核心只需要关心如何生成访存请求，而不需要知道系统中有哪些外设以及它们的地址是什么。</li>
+<li>当系统需要增加或移除一个外设时，我们只需要修改系统桥的解码逻辑，而无需改动复杂的 CPU 核心。这大大增强了设计的<strong>模块化</strong>和<strong>可扩展性</strong>。</li>
+</ul>
+</li>
+<li><p><strong>总线协议转换 (Bus Protocol Conversion)</strong></p>
+<ul>
+<li>在更复杂的系统中，CPU 内部总线（通常速度很快）和外设总线（可能速度较慢，协议也不同，如 APB, AHB, AXI 等）之间存在差异。桥可以作为不同总线之间的<strong>协议转换器</strong>，负责同步和匹配不同总线的数据宽度、时序和信号。虽然在 P7 这个简化的系统中可能不明显，但在真实系统中这是桥的另一个关键作用。</li>
+</ul>
+</li>
+<li><p><strong>隔离与解耦 (Isolation and Decoupling)</strong></p>
+<ul>
+<li>系统桥将 CPU 核心与具体的物理设备实现解耦。CPU 无需关心计时器内部是如何工作的，只需通过 <code>load/store</code> 指令读写其“内存地址”即可。这种抽象使得整个系统设计更加清晰，层次分明。</li>
+</ul>
+</li>
+</ol>
+<p>综上所述，系统桥是连接 CPU 核心与系统中其他组件（内存、外设）的关键枢纽。它通过<strong>地址解码</strong>实现了统一地址空间下的请求分发，并通过<strong>模块化设计</strong>提升了系统的可扩展性和可维护性。没有桥，CPU 将无法区分和访问挂载在同一总线上的不同设备。</p>
+<h3 id="思考题4"><a href="#思考题4" class="headerlink" title="思考题4"></a>思考题4</h3><blockquote>
+<p>请阅读官方提供的定时器源代码，阐述两种中断模式的异同，并分别针对每一种模式绘制状态移图。</p>
+</blockquote>
+<h3 id="解答-3"><a href="#解答-3" class="headerlink" title="解答"></a>解答</h3><h4 id="1-单次触发模式-One-shot-Mode"><a href="#1-单次触发模式-One-shot-Mode" class="headerlink" title="1. 单次触发模式 (One-shot Mode)"></a>1. 单次触发模式 (One-shot Mode)</h4><ul>
+<li><strong>激活条件</strong>: <code>ctrl[2:1]</code> 的值为 <code>2&#39;b00</code>。</li>
+<li><strong>工作行为</strong>:<ol>
+<li>软件通过设置 <code>ctrl[0] = 1</code> 来启动定时器。</li>
+<li>状态机从 <code>IDLE</code> -&gt; <code>LOAD</code> -&gt; <code>CNT</code> 进行转换。</li>
+<li>在 <code>CNT</code> 状态，<code>count</code> 寄存器开始倒计时。</li>
+<li>当 <code>count</code> 减至 1，在下一个时钟周期，状态机进入 <code>INT</code> 状态，并将内部中断标志 <code>_IRQ</code> 置为 1。</li>
+<li>在 <code>INT</code> 状态，由于满足条件 <code>ctrl[2:1] == 2&#39;b00</code>，硬件会执行 <code>ctrl[0] &lt;= 1&#39;b0;</code>。<strong>这是该模式的核心特征：定时器硬件会自动将其自身的使能位清零，从而实现自我禁用。</strong></li>
+<li>执行完自我禁用操作后，状态机转换回 <code>IDLE</code> 状态并保持。</li>
+</ol>
+</li>
+<li><strong>总结</strong>: 在此模式下，定时器倒计时一次，触发一次中断，然后自动停止，直到软件下一次显式地重新使能它。</li>
+</ul>
+<h4 id="2-周期性模式-Periodic-Mode"><a href="#2-周期性模式-Periodic-Mode" class="headerlink" title="2. 周期性模式 (Periodic Mode)"></a>2. 周期性模式 (Periodic Mode)</h4><ul>
+<li><p><strong>激活条件</strong>: <code>ctrl[2:1]</code> 的值不为 <code>2&#39;b00</code> (即 <code>01</code>, <code>10</code>, 或 <code>11</code>)。</p>
+</li>
+<li><p><strong>工作行为</strong>:</p>
+<ol>
+<li>软件通过设置 <code>ctrl[0] = 1</code> 来启动定时器。</li>
+<li>状态机从 <code>IDLE</code> -&gt; <code>LOAD</code> -&gt; <code>CNT</code> 进行转换。</li>
+<li>在 <code>CNT</code> 状态，<code>count</code> 寄存器开始倒计时。</li>
+<li>当 <code>count</code> 减至 1，状态机进入 <code>INT</code> 状态，并将 <code>_IRQ</code> 置为 1。</li>
+<li>在 <code>INT</code> 状态，由于不满足 <code>ctrl[2:1] == 2&#39;b00</code> 的条件，硬件会执行 <code>else</code> 分支：<code>_IRQ &lt;= 1&#39;b0;</code>，然后转换回 <code>IDLE</code> 状态。</li>
+<li><strong>关键在于，<code>ctrl[0]</code> 的值保持为 1 (未被硬件修改)</strong>。因此，在下一个时钟周期，当状态机处于 <code>IDLE</code> 状态时，<code>if(</code>ctrl[0])<code>的条件立即满足，定时器会自动重新进入</code>LOAD` 状态，开始新一轮的倒计时。</li>
+</ol>
+</li>
+<li><p><strong>总结</strong>: 在此模式下，定时器倒计时一次，触发一次中断，然后立即自动重新加载预设值并开始下一轮倒计时，如此循环往复，直到软件将 <code>ctrl[0]</code> 清零来主动停止它。</p>
+<img src="/posts/P7%E8%AF%BE%E4%B8%8B-%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%AD%E5%BC%82%E5%B8%B8%E7%9A%84MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F/%E5%9B%BE6.4.1%EF%BC%9ATimer%E6%A8%A1%E5%9D%97Mode0.png" srcset="/img/loading.gif" lazyload class="" width="0">
+</li>
+</ul>
+<img src="/posts/P7%E8%AF%BE%E4%B8%8B-%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%AD%E5%BC%82%E5%B8%B8%E7%9A%84MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F/%E5%9B%BE6.4.2%EF%BC%9ATimer%E6%A8%A1%E5%9D%97Mode1.png" srcset="/img/loading.gif" lazyload class="" width="1">
+<h3 id="思考题5"><a href="#思考题5" class="headerlink" title="思考题5"></a>思考题5</h3><blockquote>
+<p>倘若中断信号流入的时候，在检测宏观 PC 的一级如果是一条空泡（你的 CPU 该级所有信息均为空）指令，此时会发生什么问题？在此例基础上请思考：在 P7 中，清空流水线产生的空泡指令应该保留原指令的哪些信息？</p>
+</blockquote>
+<h3 id="解答-4"><a href="#解答-4" class="headerlink" title="解答"></a>解答</h3><p>如果所有信息都为空，包括PC，那会导致<code>eret</code>返回时EPC=0，跳回到0处，而PC地址是从3000开始的，立马就又会出发地址越界的错误，从而卡死在异常处理程序里出不来。</p>
+<p>应该保留<strong>原始指令的 PC 值</strong>和<strong>是否是延迟槽指令BD</strong></p>
+<h3 id="思考题6"><a href="#思考题6" class="headerlink" title="思考题6"></a>思考题6</h3><blockquote>
+<p>为什么 <code>jalr</code> 指令的两个寄存器不能相同，例如 <code>jalr $31, $31</code>？</p>
+</blockquote>
+<h3 id="解答-5"><a href="#解答-5" class="headerlink" title="解答"></a>解答</h3><p>因为这会导致<strong>跳转的目标地址</strong>被<strong>返回地址</strong>覆盖，造成原始的跳转信息丢失。</p>
+<p><code>jalr $31, $31</code> 指令要做两件事：</p>
+<ol>
+<li><strong>跳转</strong>：读取 $31 寄存器里的地址，准备跳过去。</li>
+<li><strong>链接</strong>：把返回地址（PC+8）<strong>写回</strong>到 $31 寄存器。</li>
+</ol>
+<p><strong>问题在于</strong>：当指令执行完毕后，$31 寄存器里存的不再是原来的跳转目标地址，而是新的返回地址。原来的目标地址就被<strong>擦除</strong>了。</p>
+<h3 id="思考题7"><a href="#思考题7" class="headerlink" title="思考题7"></a>思考题7</h3><blockquote>
+<p>[P7 选做] 请详细描述你的测试方案及测试数据构造策略。</p>
+</blockquote>
+<h3 id="解答-6"><a href="#解答-6" class="headerlink" title="解答"></a>解答</h3><p>见上测试方案</p>
+<h3 id="附：课下随手记，一些容易出现的bug"><a href="#附：课下随手记，一些容易出现的bug" class="headerlink" title="附：课下随手记，一些容易出现的bug"></a>附：课下随手记，一些容易出现的bug</h3><h1 id="P7-随手记"><a href="#P7-随手记" class="headerlink" title="P7-随手记"></a>P7-随手记</h1><p>ExcCode这里要按顺序，可能会有点问题。</p>
+<p>有线没定义，没连，Req连入be</p>
+<p>笔误</p>
+<p>如何跳转回EPC？</p>
+<p>Stall和Req的优先级</p>
+<p>M_fixedALUans，转发用这个</p>
+<p>clear还需要置1吗？</p>
+<p>流水线寄存器，PC不能置0！</p>
+<p>CTRL的RI，cp0we</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CO%E8%AF%BE%E4%B8%8B/" class="category-chain-item">CO课下</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CO/" class="print-no-link">#CO</a>
+      
+        <a href="/tags/CO%E8%AF%BE%E4%B8%8B/" class="print-no-link">#CO课下</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>P7课下-支持中断异常的MIPS微系统</div>
+      <div>http://example.com/posts/P7课下-支持中断异常的MIPS微系统/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>pppphop</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年12月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/%E8%AE%A1%E7%BB%84%E6%80%BB%E7%BB%93-%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E%E7%9A%84%E8%AF%9D/" title="计组总结-写在最后的话">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">计组总结-写在最后的话</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/P6%E8%AF%BE%E4%B8%8B-%E6%9B%B4%E5%A4%8D%E6%9D%82%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/" title="P6课下-更复杂五级流水线CPU">
+                        <span class="hidden-mobile">P6课下-更复杂五级流水线CPU</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

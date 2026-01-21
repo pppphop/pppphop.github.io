@@ -19,27 +19,27 @@
   <meta name="author" content="pppphop">
   <meta name="keywords" content="">
   
-    <meta name="description" content="CO设计文档—Verilog五级全速流水线CPU总体设计概述要求实现的指令集为add, sub, ori, lw, sw, beq, lui, jal, jr, nop。支持延迟槽。 整体结构如下图所示：  命名规范 对于元件的文件命名，均为元件英文简称，例如GRF.v，ALU.v等，实例化时命名为_小写英文名，例如_alu，_grf等 对于流水线寄存器文件命名为两边的流水线层级reg，例如FDr">
+    <meta name="description" content="CO设计文档—更复杂五级流水线CPUP6是奖励关，难度和P5 P7不在一个档次； 总体设计概述要求实现的指令集为： 12345add, sub, and, or, slt, sltu, luiaddi, andi, orilb, lh, lw, sb, sh, swmult, multu, div, divu, mfhi, mflo, mthi, mtlobeq, bne, jal, jr 支持延">
 <meta property="og:type" content="article">
-<meta property="og:title" content="P5课下-Verilog五级全速流水线CPU">
-<meta property="og:url" content="http://example.com/posts/P5%E8%AF%BE%E4%B8%8B-Verilog%E4%BA%94%E7%BA%A7%E5%85%A8%E9%80%9F%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/index.html">
+<meta property="og:title" content="P6课下-更复杂五级流水线CPU">
+<meta property="og:url" content="http://example.com/posts/P6%E8%AF%BE%E4%B8%8B-%E6%9B%B4%E5%A4%8D%E6%9D%82%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/index.html">
 <meta property="og:site_name" content="zhp的博客">
-<meta property="og:description" content="CO设计文档—Verilog五级全速流水线CPU总体设计概述要求实现的指令集为add, sub, ori, lw, sw, beq, lui, jal, jr, nop。支持延迟槽。 整体结构如下图所示：  命名规范 对于元件的文件命名，均为元件英文简称，例如GRF.v，ALU.v等，实例化时命名为_小写英文名，例如_alu，_grf等 对于流水线寄存器文件命名为两边的流水线层级reg，例如FDr">
+<meta property="og:description" content="CO设计文档—更复杂五级流水线CPUP6是奖励关，难度和P5 P7不在一个档次； 总体设计概述要求实现的指令集为： 12345add, sub, and, or, slt, sltu, luiaddi, andi, orilb, lh, lw, sb, sh, swmult, multu, div, divu, mfhi, mflo, mthi, mtlobeq, bne, jal, jr 支持延">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/posts/P5%E8%AF%BE%E4%B8%8B-Verilog%E4%BA%94%E7%BA%A7%E5%85%A8%E9%80%9F%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/P5%E7%A4%BA%E6%84%8F%E5%9B%BE.png">
-<meta property="og:image" content="http://example.com/posts/P5%E8%AF%BE%E4%B8%8B-Verilog%E4%BA%94%E7%BA%A7%E5%85%A8%E9%80%9F%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/e27b5c863cead7f2912b8885e7d38375.png">
-<meta property="og:image" content="http://example.com/posts/P5%E8%AF%BE%E4%B8%8B-Verilog%E4%BA%94%E7%BA%A7%E5%85%A8%E9%80%9F%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/d722038c84b1b2f3eabc92416978bb1b.png">
-<meta property="article:published_time" content="2025-11-14T02:41:51.000Z">
-<meta property="article:modified_time" content="2026-01-21T09:05:58.260Z">
+<meta property="og:image" content="http://example.com/posts/P6%E8%AF%BE%E4%B8%8B-%E6%9B%B4%E5%A4%8D%E6%9D%82%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/p7.png">
+<meta property="og:image" content="http://example.com/posts/P6%E8%AF%BE%E4%B8%8B-%E6%9B%B4%E5%A4%8D%E6%9D%82%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/e27b5c863cead7f2912b8885e7d38375.png">
+<meta property="og:image" content="http://example.com/posts/P6%E8%AF%BE%E4%B8%8B-%E6%9B%B4%E5%A4%8D%E6%9D%82%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/d722038c84b1b2f3eabc92416978bb1b.png">
+<meta property="article:published_time" content="2025-11-29T09:03:02.000Z">
+<meta property="article:modified_time" content="2026-01-21T09:07:42.015Z">
 <meta property="article:author" content="pppphop">
 <meta property="article:tag" content="CO">
 <meta property="article:tag" content="CO课下">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/posts/P5%E8%AF%BE%E4%B8%8B-Verilog%E4%BA%94%E7%BA%A7%E5%85%A8%E9%80%9F%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/P5%E7%A4%BA%E6%84%8F%E5%9B%BE.png">
+<meta name="twitter:image" content="http://example.com/posts/P6%E8%AF%BE%E4%B8%8B-%E6%9B%B4%E5%A4%8D%E6%9D%82%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/p7.png">
   
   
   
-  <title>P5课下-Verilog五级全速流水线CPU - zhp的博客</title>
+  <title>P6课下-更复杂五级流水线CPU - zhp的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -205,7 +205,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="P5课下-Verilog五级全速流水线CPU"></span>
+            <span id="subtitle" data-typed-text="P6课下-更复杂五级流水线CPU"></span>
           
         </div>
 
@@ -216,8 +216,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-11-14 10:41" pubdate>
-          2025年11月14日 上午
+        <time datetime="2025-11-29 17:03" pubdate>
+          2025年11月29日 下午
         </time>
       </span>
     
@@ -239,7 +239,7 @@
         
         
         
-          93 分钟
+          96 分钟
         
       </span>
     
@@ -276,14 +276,17 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">P5课下-Verilog五级全速流水线CPU</h1>
+            <h1 id="seo-header">P6课下-更复杂五级流水线CPU</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="CO设计文档—Verilog五级全速流水线CPU"><a href="#CO设计文档—Verilog五级全速流水线CPU" class="headerlink" title="CO设计文档—Verilog五级全速流水线CPU"></a>CO设计文档—Verilog五级全速流水线CPU</h1><h2 id="总体设计概述"><a href="#总体设计概述" class="headerlink" title="总体设计概述"></a>总体设计概述</h2><p>要求实现的指令集为<code>add, sub, ori, lw, sw, beq, lui, jal, jr, nop</code>。<strong>支持延迟槽</strong>。</p>
+                <h1 id="CO设计文档—更复杂五级流水线CPU"><a href="#CO设计文档—更复杂五级流水线CPU" class="headerlink" title="CO设计文档—更复杂五级流水线CPU"></a>CO设计文档—更复杂五级流水线CPU</h1><p>P6是奖励关，难度和P5 P7不在一个档次；</p>
+<h2 id="总体设计概述"><a href="#总体设计概述" class="headerlink" title="总体设计概述"></a>总体设计概述</h2><p>要求实现的指令集为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs assembly">add, sub, and, or, slt, sltu, lui<br>addi, andi, ori<br>lb, lh, lw, sb, sh, sw<br>mult, multu, div, divu, mfhi, mflo, mthi, mtlo<br>beq, bne, jal, jr<br></code></pre></td></tr></table></figure>
+<p><strong>支持延迟槽</strong>。</p>
 <p>整体结构如下图所示：</p>
-<img src="/posts/P5%E8%AF%BE%E4%B8%8B-Verilog%E4%BA%94%E7%BA%A7%E5%85%A8%E9%80%9F%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/P5%E7%A4%BA%E6%84%8F%E5%9B%BE.png" srcset="/img/loading.gif" lazyload class="" title="P5示意图">
+<img src="/posts/P6%E8%AF%BE%E4%B8%8B-%E6%9B%B4%E5%A4%8D%E6%9D%82%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/p7.png" srcset="/img/loading.gif" lazyload class="" title="p7">
 <h3 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h3><ul>
 <li>对于元件的文件命名，均为<code>元件英文简称</code>，例如<code>GRF.v</code>，<code>ALU.v</code>等，实例化时命名为<code>_小写英文名</code>，例如<code>_alu</code>，<code>_grf</code>等</li>
 <li>对于流水线寄存器文件命名为<code>两边的流水线层级reg</code>，例如<code>FDreg.v</code>，<code>DEreg.v</code>，实例化时命名相同。</li>
@@ -344,6 +347,8 @@
 </tbody>
 </table>
 </div>
+<p>然后与<code>mips_txt.v</code>交互获得当前指令</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs verilog">PC _pc (<span class="hljs-variable">.clk</span>(clk),<br>		  <span class="hljs-variable">.reset</span>(reset),<br>		  <span class="hljs-variable">.PC_en</span>(PC_en),<br>		  <span class="hljs-variable">.PC</span>(F_PC),<br>		  <span class="hljs-variable">.NPC</span>(F_NPC)<br>		  );<br><br><span class="hljs-keyword">assign</span> i_inst_addr = F_PC;<br><span class="hljs-keyword">assign</span> F_Instr = i_inst_rdata;<br></code></pre></td></tr></table></figure>
 <h4 id="NPC（次地址计算单元）"><a href="#NPC（次地址计算单元）" class="headerlink" title="NPC（次地址计算单元）"></a>NPC（次地址计算单元）</h4><p>把<code>beq</code>是否执行的判断交给了D级的<code>CMP</code>，根据输入信号<code>zero</code>和控制信号<code>NPCop</code>判断是否跳转</p>
 <p>其实<code>NPC</code>横跨了F级和D级两级，我们只输入<code>F_PC</code>即可，因为事实上<code>F_PC=D_PC+4</code>，<code>beq</code>转发的<code>D_PC+4+offset=F_PC+offset</code>。<code>F_PC+8</code>则用于流水<code>PC</code>值，后面<code>jal</code>转发的时候用</p>
 <p>我们一路携带<code>PC+8</code>到各级，便于转发。</p>
@@ -396,19 +401,19 @@
 </thead>
 <tbody>
 <tr>
-<td>000</td>
+<td>$000$</td>
 <td><code>NPC=PC+4</code></td>
 </tr>
 <tr>
-<td>001</td>
+<td>$001$</td>
 <td>执行<code>beq</code>等b类指令</td>
 </tr>
 <tr>
-<td>110</td>
+<td>$110$</td>
 <td>执行<code>j</code>，<code>jal</code>指令</td>
 </tr>
 <tr>
-<td>111</td>
+<td>$111$</td>
 <td>执行<code>jalr</code>，<code>jr</code>指令</td>
 </tr>
 </tbody>
@@ -537,7 +542,7 @@
 </table>
 </div>
 <h5 id="控制信号说明-1"><a href="#控制信号说明-1" class="headerlink" title="控制信号说明"></a>控制信号说明</h5><p><strong><code>D_A3slt</code></strong></p>
-<p>从<code>rt</code>字段，<code>rd</code>字段，0𝑥1𝑓中进行选择，与P4相同，但与P4不同的是，我们A3信号需要一直带着走到W级才写寄存器。寄存器所有与<strong>写入</strong>有关的端口都应连<strong>W级信号</strong>！包括<code>W_GRFwe</code>，<code>W_A3</code>，<code>W_WD</code>。P5采用分布式译码，<code>D_A3slt</code>在<code>D_ctrl</code>模块译出，<code>W_GRFwe</code>在W级译出，<code>W_A3</code>从D级选出<code>D_A3</code>后一路跟着流水，<code>W_WD</code>是在W级通过选择而得到的。</p>
+<p>从<code>rt</code>字段，<code>rd</code>字段，$0x1f$中进行选择，与P4相同，但与P4不同的是，我们A3信号需要一直带着走到W级才写寄存器。寄存器所有与<strong>写入</strong>有关的端口都应连<strong>W级信号</strong>！包括<code>W_GRFwe</code>，<code>W_A3</code>，<code>W_WD</code>。P5采用分布式译码，<code>D_A3slt</code>在<code>D_ctrl</code>模块译出，<code>W_GRFwe</code>在W级译出，<code>W_A3</code>从D级选出<code>D_A3</code>后一路跟着流水，<code>W_WD</code>是在W级通过选择而得到的。</p>
 <h4 id="D-EXT（位扩展）"><a href="#D-EXT（位扩展）" class="headerlink" title="D_EXT（位扩展）"></a>D_EXT（位扩展）</h4><p>将16位二进制数进行零扩展或符号扩展到32位</p>
 <p><strong>控制信号说明</strong></p>
 <div class="table-container">
@@ -550,18 +555,18 @@
 </thead>
 <tbody>
 <tr>
-<td>0</td>
+<td>$0$</td>
 <td>零扩展</td>
 </tr>
 <tr>
-<td>1</td>
+<td>$1$</td>
 <td>符号扩展</td>
 </tr>
 </tbody>
 </table>
 </div>
 <h4 id="D-CMP（比较器）"><a href="#D-CMP（比较器）" class="headerlink" title="D_CMP（比较器）"></a>D_CMP（比较器）</h4><p>把原来ALU中比较值是否相等的运算移到了CMP里面，去指导<code>beq</code>这一类型的指令是否跳转</p>
-<p>控制信号目前只有<code>CMP_beq=0</code>，未来可以扩展</p>
+<p>P5控制信号只有<code>CMP_beq=0</code>，现在P6扩展一个<code>bne</code>指令。</p>
 <p><strong>端口说明</strong></p>
 <div class="table-container">
 <table>
@@ -596,9 +601,33 @@
 </tbody>
 </table>
 </div>
+<p><strong>控制信号</strong></p>
+<p><strong><code>CMPop</code></strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>控制信号值</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$0$</td>
+<td><code>beq</code></td>
+</tr>
+<tr>
+<td>$1$</td>
+<td><code>bne</code></td>
+</tr>
+</tbody>
+</table>
+</div>
 <h3 id="E级-Execute-执行"><a href="#E级-Execute-执行" class="headerlink" title="E级(Execute/执行)"></a>E级(Execute/执行)</h3><h4 id="DE-REG（D-E级流水线寄存器）"><a href="#DE-REG（D-E级流水线寄存器）" class="headerlink" title="DE_REG（D/E级流水线寄存器）"></a>DE_REG（D/E级流水线寄存器）</h4><ul>
-<li>输入<code>D_PC,D_Instr,D_ext32</code>，此外上一级修正后的<code>D_fixedRD1</code>和<code>D_fixedRD2</code>的值也要参与流水，，<strong>这是由于指令序列<code>sw, nop, add</code>的存在，<code>sw</code>在M级需要使用<code>$rt</code>的数据，但是在E级不会再进行转发（因为在D级已经转发过了），因此需要让正确的<code>$rt</code>值参与流水</strong></li>
-<li>输出<code>E_PC,E_Instr,E_ext32,E_RD1,E_RD2</code>，<code>ALU</code>需要这些信息</li>
+<li><p>输入<code>D_PC,D_Instr,D_ext32</code>，此外上一级修正后的<code>D_fixedRD1</code>和<code>D_fixedRD2</code>的值也要参与流水，，<strong>这是由于指令序列<code>sw, nop, add</code>的存在，<code>sw</code>在M级需要使用<code>$rt</code>的数据，但是在E级不会再进行转发（因为在D级已经转发过了），因此需要让正确的<code>$rt</code>值参与流水</strong></p>
+</li>
+<li><p>输出<code>E_PC,E_Instr,E_ext32,E_RD1,E_RD2</code>，<code>ALU</code>需要这些信息</p>
+</li>
 </ul>
 <div class="table-container">
 <table>
@@ -689,7 +718,7 @@
 </table>
 </div>
 <h4 id="E-ALU（算术逻辑单元）"><a href="#E-ALU（算术逻辑单元）" class="headerlink" title="E_ALU（算术逻辑单元）"></a>E_ALU（算术逻辑单元）</h4><ul>
-<li>相比于P4，ALU变化不大，仅仅是去掉了𝑧𝑒𝑟𝑜输出，给了<code>CMP</code>模块。</li>
+<li>相比于P4，ALU变化不大，仅仅是去掉了$zero$输出，给了<code>CMP</code>模块。</li>
 </ul>
 <p><strong>端口说明</strong></p>
 <div class="table-container">
@@ -737,23 +766,23 @@
 </thead>
 <tbody>
 <tr>
-<td>000</td>
+<td>$000$</td>
 <td>执行加法运算</td>
 </tr>
 <tr>
-<td>001</td>
+<td>$001$</td>
 <td>执行减法运算</td>
 </tr>
 <tr>
-<td>010</td>
+<td>$010$</td>
 <td>执行逻辑与运算</td>
 </tr>
 <tr>
-<td>011</td>
+<td>$011$</td>
 <td>执行逻辑或运算</td>
 </tr>
 <tr>
-<td>100</td>
+<td>$100$</td>
 <td>执行<code>lui</code>指令</td>
 </tr>
 </tbody>
@@ -770,11 +799,11 @@
 </thead>
 <tbody>
 <tr>
-<td>0</td>
+<td>$0$</td>
 <td>选修正后的<code>E_fixedRD1</code></td>
 </tr>
 <tr>
-<td>1</td>
+<td>$1$</td>
 <td>保留</td>
 </tr>
 </tbody>
@@ -791,12 +820,121 @@
 </thead>
 <tbody>
 <tr>
-<td>0</td>
+<td>$0$</td>
 <td>选修正后的<code>E_fixedRD2</code></td>
 </tr>
 <tr>
-<td>1</td>
+<td>$1$</td>
 <td>选择立即数进行运算</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="E-MDU（乘除槽）"><a href="#E-MDU（乘除槽）" class="headerlink" title="E_MDU（乘除槽）"></a>E_MDU（乘除槽）</h4><p><strong>端口说明</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>信号名称</th>
+<th>方向</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>clk</td>
+<td>输入</td>
+<td>时钟信号</td>
+</tr>
+<tr>
+<td>reset</td>
+<td>输入</td>
+<td>复位信号</td>
+</tr>
+<tr>
+<td><code>MDUOp[2:0]</code></td>
+<td>输入</td>
+<td>控制信号</td>
+</tr>
+<tr>
+<td><code>InputA[31:0]</code></td>
+<td>输入</td>
+<td>32位输入运算数A</td>
+</tr>
+<tr>
+<td><code>InputB[31:0]</code></td>
+<td>输入</td>
+<td>32位输入运算数B</td>
+</tr>
+<tr>
+<td>start</td>
+<td>输入</td>
+<td>开始运算的指示信号</td>
+</tr>
+<tr>
+<td>busy</td>
+<td>输出</td>
+<td>是否处于运算过程中</td>
+</tr>
+<tr>
+<td>HI[31:0]</td>
+<td>输出</td>
+<td>32位HI寄存器值结果</td>
+</tr>
+<tr>
+<td>LO[31:0]</td>
+<td>输出</td>
+<td>32位LO寄存器值结果</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>控制信号说明</strong></p>
+<p><strong>1. MDUOp</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>控制信号值</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>乘法运算</td>
+</tr>
+<tr>
+<td>1</td>
+<td>除法运算</td>
+</tr>
+<tr>
+<td>2</td>
+<td>无符号乘法运算</td>
+</tr>
+<tr>
+<td>3</td>
+<td>无符号除法运算</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>mfhi</code>指令</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>mflo</code>指令</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>mthi</code>指令，把D1的值赋给HI寄存器中</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>mtlo</code>指令，把D1的值赋给LO寄存器中</td>
+</tr>
+<tr>
+<td>8</td>
+<td>不是乘除法运算</td>
 </tr>
 </tbody>
 </table>
@@ -884,10 +1022,13 @@
 </table>
 </div>
 <h4 id="M-DM（数据储存器）"><a href="#M-DM（数据储存器）" class="headerlink" title="M_DM（数据储存器）"></a>M_DM（数据储存器）</h4><ul>
-<li><code>DM</code>与P4基本相同</li>
+<li><p><code>DM</code>已经不需要自行实现，调用<code>mips_txt.v</code>中的接口即可</p>
+</li>
+<li><p>利用BE模块处理待写入数据，使其支持按半字、字节、字储存</p>
+</li>
+<li>利用DE模块处理DM返回的数据，使其可以按照不同要求存入寄存器</li>
 </ul>
-<p><strong>端口说明</strong></p>
-<div class="table-container">
+<h5 id="M-BE"><a href="#M-BE" class="headerlink" title="M_BE"></a>M_BE</h5><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -898,38 +1039,67 @@
 </thead>
 <tbody>
 <tr>
-<td>Addr[31:0]</td>
+<td><code>saveop[3:0]</code></td>
 <td>输入</td>
-<td>待操作的内存地址</td>
+<td>控制信号</td>
 </tr>
 <tr>
-<td>WD[31:0]</td>
+<td><code>addr[31:0]</code></td>
 <td>输入</td>
-<td>待写入内存的值</td>
+<td>地址信息，用于处理半字、字节</td>
 </tr>
 <tr>
-<td>clk</td>
+<td><code>data[31:0]</code></td>
 <td>输入</td>
-<td>时钟信号</td>
+<td>读取的寄存器数据，待处理</td>
 </tr>
 <tr>
-<td>reset</td>
-<td>输入</td>
-<td>异步复位信号</td>
-</tr>
-<tr>
-<td>DMwr</td>
-<td>输入</td>
-<td>写使能信号；1：写入有效；0：写入无效</td>
-</tr>
-<tr>
-<td>RD[31:0]</td>
+<td><code>DMwr[3:0]</code></td>
 <td>输出</td>
-<td>输入地址指向的内存中储存的值</td>
+<td>控制写入半字、字节的位置</td>
+</tr>
+<tr>
+<td><code>fixed_data[31:0]</code></td>
+<td>输出</td>
+<td>待写入数据</td>
 </tr>
 </tbody>
 </table>
 </div>
+<h5 id="M-DE"><a href="#M-DE" class="headerlink" title="M_DE"></a>M_DE</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>信号名称</th>
+<th>方向</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>loadop[3:0]</code></td>
+<td>输入</td>
+<td>控制信号</td>
+</tr>
+<tr>
+<td><code>addr[31:0]</code></td>
+<td>输入</td>
+<td>地址信息，用于处理半字、字节</td>
+</tr>
+<tr>
+<td><code>data[31:0]</code></td>
+<td>输入</td>
+<td><code>mips_txt.v</code>返回的DM中的数据</td>
+</tr>
+<tr>
+<td><code>fixed_data[31:0]</code></td>
+<td>输出</td>
+<td>处理之后的正确的读取数据</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="与接口进行交互"><a href="#与接口进行交互" class="headerlink" title="与接口进行交互"></a>与接口进行交互</h5><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-comment">// 与DM交互			</span><br>BE _be (<span class="hljs-variable">.addr</span>(M_DMaddr),<br>		 <span class="hljs-variable">.data</span>(M_DM_WD), <br>		 <span class="hljs-variable">.saveop</span>(M_saveop), <br>		 <span class="hljs-variable">.DMwr</span>(M_DM_bytewr),<br>       <span class="hljs-variable">.fixed_data</span>(M_fixed_DM_WD));	<br>DE _de  (<span class="hljs-variable">.addr</span>(M_DMaddr),<br>			<span class="hljs-variable">.data</span>(M_DMrd),<br>			<span class="hljs-variable">.loadop</span>(M_loadop),<br>			<span class="hljs-variable">.fixed_data</span>(M_fixedRD)<br>			);<br><span class="hljs-keyword">assign</span> m_inst_addr = M_PC;<br><span class="hljs-keyword">assign</span> m_data_addr = M_ALUAns;<br><span class="hljs-keyword">assign</span> m_data_addr = M_DMaddr;<br><span class="hljs-keyword">assign</span> m_data_wdata = M_fixed_DM_WD;<br><span class="hljs-keyword">assign</span> m_data_byteen = M_DM_bytewr;<br><span class="hljs-keyword">assign</span> M_DMrd = m_data_rdata;<br><br><span class="hljs-comment">// 正确输出GRF读写信息</span><br><span class="hljs-keyword">assign</span> m_inst_addr = M_PC;<br><span class="hljs-keyword">assign</span> w_inst_addr = W_PC;<br><span class="hljs-keyword">assign</span> w_grf_we    = W_GRFwe;<br><span class="hljs-keyword">assign</span> w_grf_addr  = W_A3;<br><span class="hljs-keyword">assign</span> w_grf_wdata = W_WD;<br></code></pre></td></tr></table></figure>
 <h3 id="W级-Write-回写"><a href="#W级-Write-回写" class="headerlink" title="W级(Write/回写)"></a>W级(Write/回写)</h3><ul>
 <li>W级事实上与D级重合了，但是仍然需要处理向E,M级的转发</li>
 </ul>
@@ -1162,25 +1332,25 @@
 </div>
 <p>对于不同级的<code>CTRL</code>，我们只需连出那一级所需控制信号即可。</p>
 <p>D级：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">wire</span> [<span class="hljs-number">1</span>:<span class="hljs-number">0</span>] D_A3slt;<br><span class="hljs-attribute">wire</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] D_NPCop;<br><span class="hljs-attribute">wire</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] D_CMPop;<br><span class="hljs-attribute">wire</span> D_EXTop;<br><span class="hljs-attribute">wire</span> D_GRFwe;<br><span class="hljs-attribute">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] D_t_use_rs;<br><span class="hljs-attribute">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] D_t_use_rt;<br><span class="hljs-attribute">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] D_t_new;<br></code></pre></td></tr></table></figure>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">wire</span> [<span class="hljs-number">1</span>:<span class="hljs-number">0</span>] D_A3slt;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] D_NPCop;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] D_CMPop;<br><span class="hljs-keyword">wire</span> D_EXTop;<br><span class="hljs-keyword">wire</span> D_GRFwe;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] D_t_use_rs;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] D_t_use_rt;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] D_t_new;<br></code></pre></td></tr></table></figure>
 <p>E级：</p>
-<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mel"><span class="hljs-keyword">wire</span> E_ALUAslt;<br><span class="hljs-keyword">wire</span> E_ALUBslt;<br><span class="hljs-keyword">wire</span> E_GRFwe;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] E_ALUop;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] E_t_use_rs;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] E_t_use_rt;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] E_t_new;<br></code></pre></td></tr></table></figure>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">wire</span> E_ALUAslt;<br><span class="hljs-keyword">wire</span> E_ALUBslt;<br><span class="hljs-keyword">wire</span> E_GRFwe;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">2</span>:<span class="hljs-number">0</span>] E_ALUop;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] E_t_use_rs;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] E_t_use_rt;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] E_t_new;<br></code></pre></td></tr></table></figure>
 <p>M级：</p>
-<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mel"><span class="hljs-keyword">wire</span> M_DMwr;<br><span class="hljs-keyword">wire</span> M_GRFwe;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] M_t_use_rs;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] M_t_use_rt;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] M_t_new;<br></code></pre></td></tr></table></figure>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">wire</span> M_DMwr;<br><span class="hljs-keyword">wire</span> M_GRFwe;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] M_t_use_rs;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] M_t_use_rt;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] M_t_new;<br></code></pre></td></tr></table></figure>
 <p>W级：</p>
-<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mel"><span class="hljs-keyword">wire</span> [<span class="hljs-number">1</span>:<span class="hljs-number">0</span>] W_WDslt;<br><span class="hljs-keyword">wire</span> W_GRFwe;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] W_t_use_rs;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] W_t_use_rt;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] W_t_new;<br></code></pre></td></tr></table></figure>
-<h2 id="冲突处理方法"><a href="#冲突处理方法" class="headerlink" title="冲突处理方法"></a>冲突处理方法</h2><h3 id="转发"><a href="#转发" class="headerlink" title="转发"></a>转发</h3><p>采用暴力转发和AT模型，注意由于T_new和在哪一级有关，我们得让这一级的CTRL知道它处在哪一级，于是我给控制模块传入一个𝑡，𝑡=0,1,2,3分别代表D,E,M,W级。这样，以add的T_new为例，就可以如下计算：</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">T_new</span>=(t&lt;=<span class="hljs-number">4</span><span class="hljs-string">&#x27;h2)? (4&#x27;</span>h2-t) : <span class="hljs-number">0</span><span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
-<img src="/posts/P5%E8%AF%BE%E4%B8%8B-Verilog%E4%BA%94%E7%BA%A7%E5%85%A8%E9%80%9F%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/e27b5c863cead7f2912b8885e7d38375.png" srcset="/img/loading.gif" lazyload class="" title="e27b5c863cead7f2912b8885e7d38375">
-<img src="/posts/P5%E8%AF%BE%E4%B8%8B-Verilog%E4%BA%94%E7%BA%A7%E5%85%A8%E9%80%9F%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/d722038c84b1b2f3eabc92416978bb1b.png" srcset="/img/loading.gif" lazyload class="" title="d722038c84b1b2f3eabc92416978bb1b">
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">wire</span> [<span class="hljs-number">1</span>:<span class="hljs-number">0</span>] W_WDslt;<br><span class="hljs-keyword">wire</span> W_GRFwe;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] W_t_use_rs;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] W_t_use_rt;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] W_t_new;<br></code></pre></td></tr></table></figure>
+<h2 id="冲突处理方法"><a href="#冲突处理方法" class="headerlink" title="冲突处理方法"></a>冲突处理方法</h2><h3 id="转发"><a href="#转发" class="headerlink" title="转发"></a>转发</h3><p>采用暴力转发和AT模型，注意由于T_new和在哪一级有关，我们得让这一级的CTRL知道它处在哪一级，于是我给控制模块传入一个$t$，$t=0,1,2,3$分别代表D,E,M,W级。这样，以add的T_new为例，就可以如下计算：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs verilog">T_new=(t&lt;=<span class="hljs-number">4&#x27;h2</span>)? (<span class="hljs-number">4&#x27;h2</span>-t) : <span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
+<img src="/posts/P6%E8%AF%BE%E4%B8%8B-%E6%9B%B4%E5%A4%8D%E6%9D%82%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/e27b5c863cead7f2912b8885e7d38375.png" srcset="/img/loading.gif" lazyload class="" title="e27b5c863cead7f2912b8885e7d38375">
+<img src="/posts/P6%E8%AF%BE%E4%B8%8B-%E6%9B%B4%E5%A4%8D%E6%9D%82%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/d722038c84b1b2f3eabc92416978bb1b.png" srcset="/img/loading.gif" lazyload class="" title="d722038c84b1b2f3eabc92416978bb1b">
 <h3 id="阻塞"><a href="#阻塞" class="headerlink" title="阻塞"></a>阻塞</h3><p><code>T_use&lt;T_new</code>时阻塞。需要以下这些条件同时成立：</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">A3 !<span class="hljs-punctuation">=</span> <span class="hljs-number">5</span>&#x27;b<span class="hljs-number">0000</span>0 &amp; rs == A3 &amp; T_use_rs != 4&#x27;hf <span class="hljs-meta">&amp; T_new != 4&#x27;h0 &amp; D_T_use_rs &lt; E_T_new</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs verilog">A3 != <span class="hljs-number">5&#x27;b00000</span> &amp; rs == A3 &amp; T_use_rs != <span class="hljs-number">4&#x27;hf</span> &amp; T_new != <span class="hljs-number">4&#x27;h0</span> &amp; D_T_use_rs &lt; E_T_new<br></code></pre></td></tr></table></figure>
 <p>对于每一级，就加上级号，如<code>D_A3</code>。</p>
-<p>得到阻塞信号后，<code>PC</code>，<code>FDreg</code>写使能赋0，<code>DEreg</code>清空。</p>
+<p>得到阻塞信号后，<code>PC</code>，<code>FDreg</code>写使能赋$0$，<code>DEreg</code>清空。</p>
 <h3 id="有关加指令"><a href="#有关加指令" class="headerlink" title="有关加指令"></a>有关加指令</h3><p>加指令有几种类型，一般是一道R型的普通运算，一道<code>beq</code>类并清空延迟槽，一道<code>lw</code>类并卡时间。</p>
 <h4 id="1-R型运算指令"><a href="#1-R型运算指令" class="headerlink" title="1.R型运算指令"></a>1.R型运算指令</h4><p>和P4单周期CPU没有什么本质区别，主要改动Ctrl模块和ALU模块即可。</p>
 <h4 id="2-类beq型清空延迟槽指令"><a href="#2-类beq型清空延迟槽指令" class="headerlink" title="2.类beq型清空延迟槽指令"></a>2.类<code>beq</code>型清空延迟槽指令</h4><p>以P5_L2_2022的<code>bonall</code>指令为例：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs stylus">I:<br><br>target_offset ← <span class="hljs-built_in">sign_extend</span>(<span class="hljs-attribute">offset</span>||<span class="hljs-number">02</span>)<br><br>Condition ← GPR<span class="hljs-selector-attr">[rs]</span> + GPR<span class="hljs-selector-attr">[rt]</span> = <span class="hljs-number">032</span><br><br>GPR<span class="hljs-selector-attr">[31]</span> ← PC + <span class="hljs-number">8</span><br><br>I+<span class="hljs-number">1</span>:<br><br>If condition then<br><br>    PC ← PC + target_offset<br><br><span class="hljs-keyword">else</span><br><br>    <span class="hljs-built_in">NullifyCurrentInstruction</span>()<br><br>endif<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs pseudocode">I:<br><br>target_offset ← sign_extend(offset||02)<br><br>Condition ← GPR[rs] + GPR[rt] = 032<br><br>GPR[31] ← PC + 8<br><br>I+1:<br><br>If condition then<br><br>	PC ← PC + target_offset<br><br>else<br><br>	NullifyCurrentInstruction()<br><br>endif<br></code></pre></td></tr></table></figure>
 <p>需要按如下步骤修改：</p>
 <ol>
 <li><p>修改CMP模块，加上一个输出端口（如<code>opposite</code>)示意现在是否满足跳转条件；同时应用上<code>CMPop</code>，虽然理论上这是一个冗余设计，因为你并不需要用<code>CMPop</code>作为MUX，是输出到一个新的端口，但这是一种保护性的设计，对于长期维护可能很乱，但是课上只要加一条指令，就非常让人安心。</p>
@@ -1188,7 +1358,7 @@
 <li><p>在CTRL模块中加入该指令。指令驱动型的最大优势在此处一览无余。一般而言，我们直接将<code>beq</code>指令下的信号复制过来即可，再扫一遍有没有需要变化的，比如如果这个指令需要写入，<code>A3slt</code>，<code>WDslt</code>，<code>GRFwe</code>就都得变。</p>
 </li>
 <li><p>在<code>NPCop</code>中添加<code>input opposite</code>，并在assign语句的三目运算符下增加判断，一般形如：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">(<span class="hljs-attribute">NPCop</span>==3&#x27;b010 &amp;&amp; !opposite) ? PC4:<br>(<span class="hljs-attribute">NPCop</span>==3&#x27;b010 &amp;&amp; opposite) ? F_PC+offsetbeq:<br></code></pre></td></tr></table></figure>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs verilog">(NPCop==<span class="hljs-number">3&#x27;b010</span> &amp;&amp; !opposite) ? PC4:<br>(NPCop==<span class="hljs-number">3&#x27;b010</span> &amp;&amp; opposite) ? F_PC+offsetbeq:<br></code></pre></td></tr></table></figure>
 </li>
 </ol>
 <ol>
@@ -1210,7 +1380,7 @@
 <li>将<code>DMans</code>，<code>condition</code>从M级开始参与流水。</li>
 <li>在CTRL模块内增加该指令，先默认其选用rt寄存器，并写入DMans，即<code>`A3slt=0</code>，<code>WDslt=3</code>，注意WD是多加了一个接口的。</li>
 <li>在顶层连线后，修正M级的A3和W级的WD，并将所有用到<code>M_A3</code>的地方修正。</li>
-<li>阻塞模块，遇到E级是该指令且<code>D_rs</code>或<code>D_rt</code>等于<code>E_A3</code>或31号寄存器时阻塞</li>
+<li>阻塞模块，遇到E级是该指令且<code>D_rs</code>或<code>D_rt</code>等于<code>E_A3</code>或$31$号寄存器时阻塞，注意阻塞的<code>T_use</code>等条件仍需写！</li>
 </ol>
 <p>注意以下可能出bug的地方：</p>
 <ul>
@@ -1226,147 +1396,224 @@
 <li><code>jr</code>指令的生成。正常来说，在数据生成的过程中，会出现<code>jr $1</code>这种数据，而$1存了个很大的数，一下就跳到很远的没有指令处了。我使用两种方式生成<code>jr</code>：一种和<code>jal</code>配对，在<code>jal</code>跳完所在的指令后面多少行生成<code>jr $31</code>；第二种是和赋值语句配对，<code>jr $x</code>前绑定<code>add sub lui ori</code>之一算出<code>$x</code>，满足$x在当前指令地址-最后一条指令地址之间。</li>
 <li>注意字对齐</li>
 <li>限制寄存器范围，避免使用编译器需要使用的特殊寄存器，也能提升命中率。</li>
-<li>立即数范围不超过16位（我取的8位），以免被当成伪指令汇编成多条，出现我们没有实现的<code>addu</code>等</li>
+<li>立即数范围不超过$16$位（我取的$8$位），以免被当成伪指令汇编成多条，出现我们没有实现的<code>addu</code>等</li>
 <li>分支测试，生成<code>label_i</code>这种标签供跳转。</li>
 </ul>
 <p>Python代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">import</span> struct<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">PipelineTestGenerator</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-comment"># 指令集定义</span><br>        <span class="hljs-variable language_">self</span>.instructions = [<span class="hljs-string">&#x27;add&#x27;</span>, <span class="hljs-string">&#x27;sub&#x27;</span>, <span class="hljs-string">&#x27;ori&#x27;</span>, <span class="hljs-string">&#x27;lw&#x27;</span>, <span class="hljs-string">&#x27;sw&#x27;</span>, <span class="hljs-string">&#x27;beq&#x27;</span>, <span class="hljs-string">&#x27;lui&#x27;</span>, <span class="hljs-string">&#x27;jal&#x27;</span>, <span class="hljs-string">&#x27;jr&#x27;</span>, <span class="hljs-string">&#x27;nop&#x27;</span>]<br><br>        <span class="hljs-comment"># 存储器限制</span><br>        <span class="hljs-variable language_">self</span>.im_start = <span class="hljs-number">0x00003000</span><br>        <span class="hljs-variable language_">self</span>.im_size = <span class="hljs-number">1024</span>  <span class="hljs-comment"># 限制为1024条指令</span><br>        <span class="hljs-variable language_">self</span>.dm_start = <span class="hljs-number">0x00000000</span><br>        <span class="hljs-variable language_">self</span>.dm_size = <span class="hljs-number">3072</span>  <span class="hljs-comment"># 12KiB</span><br><br>        <span class="hljs-comment"># 寄存器定义</span><br>        <span class="hljs-variable language_">self</span>.registers = [<span class="hljs-string">f&#x27;$<span class="hljs-subst">&#123;i&#125;</span>&#x27;</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">32</span>)]<br><br>        <span class="hljs-comment"># 限制的寄存器范围（避免使用特殊寄存器）</span><br>        <span class="hljs-variable language_">self</span>.data_regs = [<span class="hljs-string">f&#x27;$<span class="hljs-subst">&#123;i&#125;</span>&#x27;</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">26</span>)]  <span class="hljs-comment"># $1-$25</span><br>        <span class="hljs-variable language_">self</span>.temp_regs = [<span class="hljs-string">f&#x27;$<span class="hljs-subst">&#123;i&#125;</span>&#x27;</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">8</span>, <span class="hljs-number">16</span>)]  <span class="hljs-comment"># $8-$15 作为临时寄存器</span><br><br>        <span class="hljs-comment"># 数据地址范围限制（为了增加lw/sw命中概率）</span><br>        <span class="hljs-variable language_">self</span>.data_addr_range = <span class="hljs-built_in">range</span>(<span class="hljs-number">0x0000</span>, <span class="hljs-number">0x0100</span>, <span class="hljs-number">4</span>)  <span class="hljs-comment"># 限制在256字节范围内</span><br><br>        <span class="hljs-comment"># 分支地址范围</span><br>        <span class="hljs-variable language_">self</span>.branch_range = <span class="hljs-built_in">range</span>(-<span class="hljs-number">16</span>, <span class="hljs-number">17</span>, <span class="hljs-number">4</span>)  <span class="hljs-comment"># 缩小分支偏移范围</span><br><br>        <span class="hljs-comment"># 立即数范围</span><br>        <span class="hljs-variable language_">self</span>.imm_range = <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-number">256</span>)  <span class="hljs-comment"># 8位立即数</span><br><br>        <span class="hljs-comment"># 测试序列计数器</span><br>        <span class="hljs-variable language_">self</span>.test_count = <span class="hljs-number">0</span><br>        <span class="hljs-variable language_">self</span>.label_count = <span class="hljs-number">0</span><br>        <span class="hljs-variable language_">self</span>.func_count = <span class="hljs-number">0</span><br><br>        <span class="hljs-comment"># 已生成的指令计数</span><br>        <span class="hljs-variable language_">self</span>.generated_count = <span class="hljs-number">0</span><br>        <span class="hljs-variable language_">self</span>.max_instructions = random.randint(<span class="hljs-number">800</span>, <span class="hljs-number">1000</span>)  <span class="hljs-comment"># 在800-1000条之间随机</span><br><br>        <span class="hljs-comment"># 记录函数位置信息</span><br>        <span class="hljs-variable language_">self</span>.func_locations = &#123;&#125;  <span class="hljs-comment"># &#123;func_name: (start_index, end_index)&#125;</span><br>        <span class="hljs-variable language_">self</span>.current_func = <span class="hljs-literal">None</span><br><br>        <span class="hljs-comment"># 记录指令位置</span><br>        <span class="hljs-variable language_">self</span>.instruction_positions = []<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">generate_instruction_sequence</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;生成指令序列&quot;&quot;&quot;</span><br>        code = []<br><br>        <span class="hljs-comment"># 初始化部分 - 设置寄存器和内存</span><br>        init_code = <span class="hljs-variable language_">self</span>._generate_initialization()<br>        code.extend(init_code)<br>        <span class="hljs-variable language_">self</span>.generated_count += <span class="hljs-built_in">len</span>(init_code)<br>        <span class="hljs-variable language_">self</span>._update_instruction_positions(init_code)<br><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;初始化代码生成完成，共 <span class="hljs-subst">&#123;<span class="hljs-built_in">len</span>(init_code)&#125;</span> 条指令&quot;</span>)<br><br>        <span class="hljs-comment"># 生成测试序列</span><br>        <span class="hljs-keyword">while</span> <span class="hljs-variable language_">self</span>.generated_count &lt; <span class="hljs-variable language_">self</span>.max_instructions:<br>            <span class="hljs-comment"># 随机选择指令类型，增加数据相关指令的概率</span><br>            instr_type = random.choices(<br>                [<span class="hljs-string">&#x27;data_related&#x27;</span>, <span class="hljs-string">&#x27;control&#x27;</span>, <span class="hljs-string">&#x27;memory&#x27;</span>, <span class="hljs-string">&#x27;nop&#x27;</span>],<br>                weights=[<span class="hljs-number">0.5</span>, <span class="hljs-number">0.3</span>, <span class="hljs-number">0.15</span>, <span class="hljs-number">0.05</span>]<br>            )[<span class="hljs-number">0</span>]<br><br>            new_code = []<br>            <span class="hljs-keyword">if</span> instr_type == <span class="hljs-string">&#x27;data_related&#x27;</span>:<br>                new_code = <span class="hljs-variable language_">self</span>._generate_data_related_pair()<br>            <span class="hljs-keyword">elif</span> instr_type == <span class="hljs-string">&#x27;control&#x27;</span>:<br>                new_code = <span class="hljs-variable language_">self</span>._generate_control_flow()<br>            <span class="hljs-keyword">elif</span> instr_type == <span class="hljs-string">&#x27;memory&#x27;</span>:<br>                new_code = <span class="hljs-variable language_">self</span>._generate_memory_access()<br>            <span class="hljs-keyword">else</span>:<br>                new_code = [<span class="hljs-string">&#x27;nop&#x27;</span>]<br><br>            <span class="hljs-comment"># 检查是否会超出限制</span><br>            <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.generated_count + <span class="hljs-built_in">len</span>(new_code) &gt; <span class="hljs-variable language_">self</span>.max_instructions:<br>                <span class="hljs-comment"># 如果超出，用nop填充剩余空间</span><br>                remaining = <span class="hljs-variable language_">self</span>.max_instructions - <span class="hljs-variable language_">self</span>.generated_count<br>                <span class="hljs-keyword">if</span> remaining &gt; <span class="hljs-number">0</span>:<br>                    new_code = [<span class="hljs-string">&#x27;nop&#x27;</span>] * remaining<br>                <span class="hljs-keyword">else</span>:<br>                    <span class="hljs-keyword">break</span><br><br>            code.extend(new_code)<br>            <span class="hljs-variable language_">self</span>.generated_count += <span class="hljs-built_in">len</span>(new_code)<br>            <span class="hljs-variable language_">self</span>._update_instruction_positions(new_code)<br><br>            <span class="hljs-comment"># 每生成50条指令输出进度</span><br>            <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.generated_count % <span class="hljs-number">50</span> == <span class="hljs-number">0</span>:<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;已生成 <span class="hljs-subst">&#123;self.generated_count&#125;</span> 条指令...&quot;</span>)<br><br>        <span class="hljs-comment"># 添加结束代码</span><br>        final_code = <span class="hljs-variable language_">self</span>._generate_final_code()<br>        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.generated_count + <span class="hljs-built_in">len</span>(final_code) &lt;= <span class="hljs-variable language_">self</span>.max_instructions:<br>            code.extend(final_code)<br>            <span class="hljs-variable language_">self</span>.generated_count += <span class="hljs-built_in">len</span>(final_code)<br>            <span class="hljs-variable language_">self</span>._update_instruction_positions(final_code)<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-comment"># 如果空间不足，调整结束代码</span><br>            code.append(<span class="hljs-string">&quot;end_loop:&quot;</span>)<br>            code.append(<span class="hljs-string">&quot;nop&quot;</span>)<br>            code.append(<span class="hljs-string">&quot;beq $0, $0, end_loop&quot;</span>)<br>            code.append(<span class="hljs-string">&quot;nop&quot;</span>)<br>            <span class="hljs-variable language_">self</span>.generated_count += <span class="hljs-number">4</span><br>            <span class="hljs-variable language_">self</span>._update_instruction_positions([<span class="hljs-string">&quot;end_loop:&quot;</span>, <span class="hljs-string">&quot;nop&quot;</span>, <span class="hljs-string">&quot;beq $0, $0, end_loop&quot;</span>, <span class="hljs-string">&quot;nop&quot;</span>])<br><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;最终生成 <span class="hljs-subst">&#123;self.generated_count&#125;</span> 条指令&quot;</span>)<br>        <span class="hljs-keyword">return</span> code<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_update_instruction_positions</span>(<span class="hljs-params">self, instructions</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;更新指令位置信息&quot;&quot;&quot;</span><br>        <span class="hljs-keyword">for</span> instr <span class="hljs-keyword">in</span> instructions:<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> instr.strip() <span class="hljs-keyword">or</span> instr.startswith(<span class="hljs-string">&#x27;#&#x27;</span>) <span class="hljs-keyword">or</span> instr.endswith(<span class="hljs-string">&#x27;:&#x27;</span>):<br>                <span class="hljs-keyword">continue</span><br>            <span class="hljs-variable language_">self</span>.instruction_positions.append(<br>                <span class="hljs-variable language_">self</span>.generated_count - <span class="hljs-built_in">len</span>(instructions) + <span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.instruction_positions))<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_generate_initialization</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;生成初始化代码&quot;&quot;&quot;</span><br>        init_code = []<br><br>        <span class="hljs-comment"># 添加文件头注释</span><br>        init_code.append(<span class="hljs-string">&quot;# MIPS流水线处理器自动化测试程序&quot;</span>)<br>        init_code.append(<span class="hljs-string">&quot;# 生成的指令序列用于测试转发、暂停和数据相关&quot;</span>)<br>        init_code.append(<span class="hljs-string">&quot;&quot;</span>)<br><br>        <span class="hljs-comment"># 初始化数据寄存器</span><br>        <span class="hljs-keyword">for</span> i, reg <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(<span class="hljs-variable language_">self</span>.data_regs[:<span class="hljs-number">8</span>]):  <span class="hljs-comment"># 只初始化前8个数据寄存器</span><br>            imm = random.choice(<span class="hljs-built_in">list</span>(<span class="hljs-variable language_">self</span>.imm_range))<br>            init_code.append(<span class="hljs-string">f&quot;ori <span class="hljs-subst">&#123;reg&#125;</span>, $0, <span class="hljs-subst">&#123;imm&#125;</span>&quot;</span>)<br><br>        <span class="hljs-comment"># 初始化内存区域 - 简化版本</span><br>        base_reg = <span class="hljs-variable language_">self</span>.data_regs[<span class="hljs-number">0</span>]<br>        <span class="hljs-keyword">for</span> offset <span class="hljs-keyword">in</span> [<span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>]:  <span class="hljs-comment"># 只初始化3个内存位置</span><br>            imm = random.choice(<span class="hljs-built_in">list</span>(<span class="hljs-variable language_">self</span>.imm_range))<br>            temp_reg = <span class="hljs-variable language_">self</span>.temp_regs[<span class="hljs-number">0</span>]<br>            init_code.append(<span class="hljs-string">f&quot;lui <span class="hljs-subst">&#123;temp_reg&#125;</span>, <span class="hljs-subst">&#123;imm&#125;</span>&quot;</span>)<br>            init_code.append(<span class="hljs-string">f&quot;ori <span class="hljs-subst">&#123;temp_reg&#125;</span>, <span class="hljs-subst">&#123;temp_reg&#125;</span>, <span class="hljs-subst">&#123;imm&#125;</span>&quot;</span>)<br>            init_code.append(<span class="hljs-string">f&quot;sw <span class="hljs-subst">&#123;temp_reg&#125;</span>, <span class="hljs-subst">&#123;offset&#125;</span>(<span class="hljs-subst">&#123;base_reg&#125;</span>)&quot;</span>)<br><br>        <span class="hljs-keyword">return</span> init_code<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_generate_data_related_pair</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;生成数据相关指令对（用于测试转发）&quot;&quot;&quot;</span><br>        pair = []<br><br>        <span class="hljs-comment"># 选择指令类型组合</span><br>        producer_types = [<span class="hljs-string">&#x27;add&#x27;</span>, <span class="hljs-string">&#x27;sub&#x27;</span>, <span class="hljs-string">&#x27;ori&#x27;</span>, <span class="hljs-string">&#x27;lui&#x27;</span>, <span class="hljs-string">&#x27;lw&#x27;</span>]<br>        consumer_types = [<span class="hljs-string">&#x27;add&#x27;</span>, <span class="hljs-string">&#x27;sub&#x27;</span>, <span class="hljs-string">&#x27;ori&#x27;</span>, <span class="hljs-string">&#x27;sw&#x27;</span>]<br><br>        producer = random.choice(producer_types)<br>        consumer = random.choice(consumer_types)<br><br>        <span class="hljs-comment"># 选择寄存器</span><br>        dest_reg = random.choice(<span class="hljs-variable language_">self</span>.data_regs[:<span class="hljs-number">8</span>])  <span class="hljs-comment"># 使用已初始化的寄存器</span><br>        src_reg1 = random.choice(<span class="hljs-variable language_">self</span>.data_regs[:<span class="hljs-number">8</span>])<br>        src_reg2 = random.choice(<span class="hljs-variable language_">self</span>.data_regs[:<span class="hljs-number">8</span>])<br>        temp_reg = random.choice(<span class="hljs-variable language_">self</span>.temp_regs)<br><br>        <span class="hljs-comment"># 生成生产者指令</span><br>        <span class="hljs-keyword">if</span> producer == <span class="hljs-string">&#x27;add&#x27;</span>:<br>            pair.append(<span class="hljs-string">f&quot;add <span class="hljs-subst">&#123;dest_reg&#125;</span>, <span class="hljs-subst">&#123;src_reg1&#125;</span>, <span class="hljs-subst">&#123;src_reg2&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">elif</span> producer == <span class="hljs-string">&#x27;sub&#x27;</span>:<br>            pair.append(<span class="hljs-string">f&quot;sub <span class="hljs-subst">&#123;dest_reg&#125;</span>, <span class="hljs-subst">&#123;src_reg1&#125;</span>, <span class="hljs-subst">&#123;src_reg2&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">elif</span> producer == <span class="hljs-string">&#x27;ori&#x27;</span>:<br>            imm = random.choice(<span class="hljs-built_in">list</span>(<span class="hljs-variable language_">self</span>.imm_range))<br>            pair.append(<span class="hljs-string">f&quot;ori <span class="hljs-subst">&#123;dest_reg&#125;</span>, <span class="hljs-subst">&#123;src_reg1&#125;</span>, <span class="hljs-subst">&#123;imm&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">elif</span> producer == <span class="hljs-string">&#x27;lui&#x27;</span>:<br>            imm = random.choice(<span class="hljs-built_in">list</span>(<span class="hljs-variable language_">self</span>.imm_range))<br>            pair.append(<span class="hljs-string">f&quot;lui <span class="hljs-subst">&#123;dest_reg&#125;</span>, <span class="hljs-subst">&#123;imm&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">elif</span> producer == <span class="hljs-string">&#x27;lw&#x27;</span>:<br>            base_reg = random.choice(<span class="hljs-variable language_">self</span>.data_regs[:<span class="hljs-number">5</span>])<br>            offset = random.choice([<span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>])<br>            pair.append(<span class="hljs-string">f&quot;lw <span class="hljs-subst">&#123;dest_reg&#125;</span>, <span class="hljs-subst">&#123;offset&#125;</span>(<span class="hljs-subst">&#123;base_reg&#125;</span>)&quot;</span>)<br><br>        <span class="hljs-comment"># 插入0-2条无关指令</span><br>        nop_count = random.randint(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>)<br>        <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(nop_count):<br>            <span class="hljs-comment"># 插入真正无关的指令（不使用目标寄存器）</span><br>            unrelated_instr = random.choice([<span class="hljs-string">&#x27;add&#x27;</span>, <span class="hljs-string">&#x27;sub&#x27;</span>, <span class="hljs-string">&#x27;ori&#x27;</span>, <span class="hljs-string">&#x27;nop&#x27;</span>])<br>            <span class="hljs-keyword">if</span> unrelated_instr == <span class="hljs-string">&#x27;nop&#x27;</span>:<br>                pair.append(<span class="hljs-string">&#x27;nop&#x27;</span>)<br>            <span class="hljs-keyword">else</span>:<br>                reg1 = random.choice([r <span class="hljs-keyword">for</span> r <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.temp_regs <span class="hljs-keyword">if</span> r != dest_reg])<br>                reg2 = random.choice([r <span class="hljs-keyword">for</span> r <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.temp_regs <span class="hljs-keyword">if</span> r != dest_reg])<br>                reg3 = random.choice([r <span class="hljs-keyword">for</span> r <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.temp_regs <span class="hljs-keyword">if</span> r != dest_reg])<br><br>                <span class="hljs-keyword">if</span> unrelated_instr == <span class="hljs-string">&#x27;add&#x27;</span>:<br>                    pair.append(<span class="hljs-string">f&quot;add <span class="hljs-subst">&#123;reg1&#125;</span>, <span class="hljs-subst">&#123;reg2&#125;</span>, <span class="hljs-subst">&#123;reg3&#125;</span>&quot;</span>)<br>                <span class="hljs-keyword">elif</span> unrelated_instr == <span class="hljs-string">&#x27;sub&#x27;</span>:<br>                    pair.append(<span class="hljs-string">f&quot;sub <span class="hljs-subst">&#123;reg1&#125;</span>, <span class="hljs-subst">&#123;reg2&#125;</span>, <span class="hljs-subst">&#123;reg3&#125;</span>&quot;</span>)<br>                <span class="hljs-keyword">else</span>:<br>                    imm = random.choice(<span class="hljs-built_in">list</span>(<span class="hljs-variable language_">self</span>.imm_range))<br>                    pair.append(<span class="hljs-string">f&quot;ori <span class="hljs-subst">&#123;reg1&#125;</span>, <span class="hljs-subst">&#123;reg2&#125;</span>, <span class="hljs-subst">&#123;imm&#125;</span>&quot;</span>)<br><br>        <span class="hljs-comment"># 生成消费者指令（使用生产者产生的数据）</span><br>        <span class="hljs-keyword">if</span> consumer == <span class="hljs-string">&#x27;add&#x27;</span>:<br>            pair.append(<span class="hljs-string">f&quot;add <span class="hljs-subst">&#123;temp_reg&#125;</span>, <span class="hljs-subst">&#123;dest_reg&#125;</span>, <span class="hljs-subst">&#123;src_reg1&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">elif</span> consumer == <span class="hljs-string">&#x27;sub&#x27;</span>:<br>            pair.append(<span class="hljs-string">f&quot;sub <span class="hljs-subst">&#123;temp_reg&#125;</span>, <span class="hljs-subst">&#123;dest_reg&#125;</span>, <span class="hljs-subst">&#123;src_reg1&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">elif</span> consumer == <span class="hljs-string">&#x27;ori&#x27;</span>:<br>            imm = random.choice(<span class="hljs-built_in">list</span>(<span class="hljs-variable language_">self</span>.imm_range))<br>            pair.append(<span class="hljs-string">f&quot;ori <span class="hljs-subst">&#123;temp_reg&#125;</span>, <span class="hljs-subst">&#123;dest_reg&#125;</span>, <span class="hljs-subst">&#123;imm&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">elif</span> consumer == <span class="hljs-string">&#x27;sw&#x27;</span>:<br>            base_reg = random.choice(<span class="hljs-variable language_">self</span>.data_regs[:<span class="hljs-number">5</span>])<br>            offset = random.choice([<span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>])<br>            pair.append(<span class="hljs-string">f&quot;sw <span class="hljs-subst">&#123;dest_reg&#125;</span>, <span class="hljs-subst">&#123;offset&#125;</span>(<span class="hljs-subst">&#123;base_reg&#125;</span>)&quot;</span>)<br><br>        <span class="hljs-keyword">return</span> pair<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_generate_control_flow</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;生成控制流指令&quot;&quot;&quot;</span><br>        control_code = []<br><br>        control_type = random.choice([<span class="hljs-string">&#x27;beq&#x27;</span>, <span class="hljs-string">&#x27;jal&#x27;</span>, <span class="hljs-string">&#x27;jr_safe&#x27;</span>])<br><br>        <span class="hljs-keyword">if</span> control_type == <span class="hljs-string">&#x27;beq&#x27;</span>:<br>            reg1 = random.choice(<span class="hljs-variable language_">self</span>.data_regs[:<span class="hljs-number">8</span>])<br>            reg2 = random.choice(<span class="hljs-variable language_">self</span>.data_regs[:<span class="hljs-number">8</span>])<br>            <span class="hljs-comment"># 有限的分支偏移</span><br>            offset = random.choice([<span class="hljs-number">4</span>, <span class="hljs-number">8</span>, <span class="hljs-number">12</span>, -<span class="hljs-number">4</span>, -<span class="hljs-number">8</span>, -<span class="hljs-number">12</span>])<br>            label = <span class="hljs-string">f&quot;label_<span class="hljs-subst">&#123;self.label_count&#125;</span>&quot;</span><br>            <span class="hljs-variable language_">self</span>.label_count += <span class="hljs-number">1</span><br>            control_code.append(<span class="hljs-string">f&quot;beq <span class="hljs-subst">&#123;reg1&#125;</span>, <span class="hljs-subst">&#123;reg2&#125;</span>, <span class="hljs-subst">&#123;label&#125;</span>&quot;</span>)<br>            control_code.append(<span class="hljs-string">&quot;nop&quot;</span>)  <span class="hljs-comment"># 延迟槽</span><br>            control_code.append(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;label&#125;</span>:&quot;</span>)<br><br>        <span class="hljs-keyword">elif</span> control_type == <span class="hljs-string">&#x27;jal&#x27;</span>:<br>            func_label = <span class="hljs-string">f&quot;func_<span class="hljs-subst">&#123;self.func_count&#125;</span>&quot;</span><br>            <span class="hljs-variable language_">self</span>.func_count += <span class="hljs-number">1</span><br><br>            <span class="hljs-comment"># 记录函数开始位置</span><br>            func_start = <span class="hljs-variable language_">self</span>.generated_count + <span class="hljs-built_in">len</span>(control_code)<br><br>            control_code.append(<span class="hljs-string">f&quot;jal <span class="hljs-subst">&#123;func_label&#125;</span>&quot;</span>)<br>            control_code.append(<span class="hljs-string">&quot;nop&quot;</span>)  <span class="hljs-comment"># 延迟槽</span><br>            control_code.append(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;func_label&#125;</span>:&quot;</span>)<br><br>            <span class="hljs-comment"># 简化的函数体</span><br>            func_body_size = random.randint(<span class="hljs-number">3</span>, <span class="hljs-number">8</span>)<br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(func_body_size):<br>                <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.generated_count + <span class="hljs-built_in">len</span>(control_code) &gt;= <span class="hljs-variable language_">self</span>.max_instructions - <span class="hljs-number">3</span>:<br>                    <span class="hljs-keyword">break</span><br><br>                instr_type = random.choice([<span class="hljs-string">&#x27;add&#x27;</span>, <span class="hljs-string">&#x27;sub&#x27;</span>, <span class="hljs-string">&#x27;ori&#x27;</span>, <span class="hljs-string">&#x27;lw&#x27;</span>, <span class="hljs-string">&#x27;sw&#x27;</span>, <span class="hljs-string">&#x27;nop&#x27;</span>])<br>                <span class="hljs-keyword">if</span> instr_type == <span class="hljs-string">&#x27;add&#x27;</span>:<br>                    reg1 = random.choice(<span class="hljs-variable language_">self</span>.temp_regs)<br>                    reg2 = random.choice(<span class="hljs-variable language_">self</span>.temp_regs)<br>                    reg3 = random.choice(<span class="hljs-variable language_">self</span>.temp_regs)<br>                    control_code.append(<span class="hljs-string">f&quot;add <span class="hljs-subst">&#123;reg1&#125;</span>, <span class="hljs-subst">&#123;reg2&#125;</span>, <span class="hljs-subst">&#123;reg3&#125;</span>&quot;</span>)<br>                <span class="hljs-keyword">elif</span> instr_type == <span class="hljs-string">&#x27;sub&#x27;</span>:<br>                    reg1 = random.choice(<span class="hljs-variable language_">self</span>.temp_regs)<br>                    reg2 = random.choice(<span class="hljs-variable language_">self</span>.temp_regs)<br>                    reg3 = random.choice(<span class="hljs-variable language_">self</span>.temp_regs)<br>                    control_code.append(<span class="hljs-string">f&quot;sub <span class="hljs-subst">&#123;reg1&#125;</span>, <span class="hljs-subst">&#123;reg2&#125;</span>, <span class="hljs-subst">&#123;reg3&#125;</span>&quot;</span>)<br>                <span class="hljs-keyword">elif</span> instr_type == <span class="hljs-string">&#x27;ori&#x27;</span>:<br>                    reg1 = random.choice(<span class="hljs-variable language_">self</span>.temp_regs)<br>                    reg2 = random.choice(<span class="hljs-variable language_">self</span>.temp_regs)<br>                    imm = random.choice(<span class="hljs-built_in">list</span>(<span class="hljs-variable language_">self</span>.imm_range))<br>                    control_code.append(<span class="hljs-string">f&quot;ori <span class="hljs-subst">&#123;reg1&#125;</span>, <span class="hljs-subst">&#123;reg2&#125;</span>, <span class="hljs-subst">&#123;imm&#125;</span>&quot;</span>)<br>                <span class="hljs-keyword">elif</span> instr_type == <span class="hljs-string">&#x27;lw&#x27;</span>:<br>                    base_reg = random.choice(<span class="hljs-variable language_">self</span>.data_regs[:<span class="hljs-number">5</span>])<br>                    dest_reg = random.choice(<span class="hljs-variable language_">self</span>.temp_regs)<br>                    offset = random.choice([<span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>])<br>                    control_code.append(<span class="hljs-string">f&quot;lw <span class="hljs-subst">&#123;dest_reg&#125;</span>, <span class="hljs-subst">&#123;offset&#125;</span>(<span class="hljs-subst">&#123;base_reg&#125;</span>)&quot;</span>)<br>                <span class="hljs-keyword">elif</span> instr_type == <span class="hljs-string">&#x27;sw&#x27;</span>:<br>                    base_reg = random.choice(<span class="hljs-variable language_">self</span>.data_regs[:<span class="hljs-number">5</span>])<br>                    src_reg = random.choice(<span class="hljs-variable language_">self</span>.temp_regs)<br>                    offset = random.choice([<span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>])<br>                    control_code.append(<span class="hljs-string">f&quot;sw <span class="hljs-subst">&#123;src_reg&#125;</span>, <span class="hljs-subst">&#123;offset&#125;</span>(<span class="hljs-subst">&#123;base_reg&#125;</span>)&quot;</span>)<br>                <span class="hljs-keyword">else</span>:<br>                    control_code.append(<span class="hljs-string">&quot;nop&quot;</span>)<br><br>            <span class="hljs-comment"># 记录函数结束位置</span><br>            func_end = <span class="hljs-variable language_">self</span>.generated_count + <span class="hljs-built_in">len</span>(control_code)<br>            <span class="hljs-variable language_">self</span>.func_locations[func_label] = (func_start, func_end)<br><br>            <span class="hljs-comment"># 安全的jr $31返回</span><br>            control_code.append(<span class="hljs-string">&quot;jr $31&quot;</span>)<br>            control_code.append(<span class="hljs-string">&quot;nop&quot;</span>)  <span class="hljs-comment"># 延迟槽</span><br><br>        <span class="hljs-keyword">elif</span> control_type == <span class="hljs-string">&#x27;jr_safe&#x27;</span>:<br>            <span class="hljs-comment"># 安全的jr生成方式</span><br>            jr_type = random.choice([<span class="hljs-string">&#x27;jal_pair&#x27;</span>, <span class="hljs-string">&#x27;calc_addr&#x27;</span>])<br><br>            <span class="hljs-keyword">if</span> jr_type == <span class="hljs-string">&#x27;jal_pair&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-variable language_">self</span>.func_locations:<br>                <span class="hljs-comment"># 方式1: 与jal配对，在函数内部使用jr $31</span><br>                <span class="hljs-comment"># 这里我们已经在jal部分处理了，所以这种情况不需要额外生成</span><br>                <span class="hljs-comment"># 改为生成一个简单的控制流</span><br>                reg1 = random.choice(<span class="hljs-variable language_">self</span>.data_regs[:<span class="hljs-number">8</span>])<br>                reg2 = random.choice(<span class="hljs-variable language_">self</span>.data_regs[:<span class="hljs-number">8</span>])<br>                label = <span class="hljs-string">f&quot;label_<span class="hljs-subst">&#123;self.label_count&#125;</span>&quot;</span><br>                <span class="hljs-variable language_">self</span>.label_count += <span class="hljs-number">1</span><br>                control_code.append(<span class="hljs-string">f&quot;beq <span class="hljs-subst">&#123;reg1&#125;</span>, <span class="hljs-subst">&#123;reg2&#125;</span>, <span class="hljs-subst">&#123;label&#125;</span>&quot;</span>)<br>                control_code.append(<span class="hljs-string">&quot;nop&quot;</span>)<br>                control_code.append(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;label&#125;</span>:&quot;</span>)<br><br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-comment"># 方式2: 与赋值语句配对，计算合法地址</span><br>                jr_reg = random.choice(<span class="hljs-variable language_">self</span>.temp_regs)<br><br>                <span class="hljs-comment"># 计算一个合法的跳转地址</span><br>                <span class="hljs-comment"># 当前指令位置（估算）</span><br>                current_pos = <span class="hljs-variable language_">self</span>.generated_count + <span class="hljs-built_in">len</span>(control_code)<br>                <span class="hljs-comment"># 合法的跳转目标范围（在当前指令附近）</span><br>                target_range_start = <span class="hljs-built_in">max</span>(<span class="hljs-number">0</span>, current_pos - <span class="hljs-number">20</span>)<br>                target_range_end = <span class="hljs-built_in">min</span>(<span class="hljs-variable language_">self</span>.max_instructions - <span class="hljs-number">1</span>, current_pos + <span class="hljs-number">20</span>)<br><br>                <span class="hljs-keyword">if</span> target_range_end &gt; target_range_start:<br>                    target_pos = random.randint(target_range_start, target_range_end)<br>                    <span class="hljs-comment"># 转换为字节地址</span><br>                    target_addr = <span class="hljs-number">0x3000</span> + target_pos * <span class="hljs-number">4</span><br><br>                    <span class="hljs-comment"># 使用lui和ori计算地址</span><br>                    upper = (target_addr &gt;&gt; <span class="hljs-number">16</span>) &amp; <span class="hljs-number">0xFFFF</span><br>                    lower = target_addr &amp; <span class="hljs-number">0xFFFF</span><br><br>                    control_code.append(<span class="hljs-string">f&quot;lui <span class="hljs-subst">&#123;jr_reg&#125;</span>, <span class="hljs-subst">&#123;upper&#125;</span>&quot;</span>)<br>                    control_code.append(<span class="hljs-string">f&quot;ori <span class="hljs-subst">&#123;jr_reg&#125;</span>, <span class="hljs-subst">&#123;jr_reg&#125;</span>, <span class="hljs-subst">&#123;lower&#125;</span>&quot;</span>)<br>                    control_code.append(<span class="hljs-string">f&quot;jr <span class="hljs-subst">&#123;jr_reg&#125;</span>&quot;</span>)<br>                    control_code.append(<span class="hljs-string">&quot;nop&quot;</span>)  <span class="hljs-comment"># 延迟槽</span><br>                <span class="hljs-keyword">else</span>:<br>                    <span class="hljs-comment"># 如果无法计算合法地址，生成一个简单的指令</span><br>                    control_code.append(<span class="hljs-string">&quot;nop&quot;</span>)<br><br>        <span class="hljs-keyword">return</span> control_code<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_generate_memory_access</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;生成内存访问指令序列&quot;&quot;&quot;</span><br>        memory_code = []<br><br>        access_type = random.choice([<span class="hljs-string">&#x27;lw_sw_sequence&#x27;</span>, <span class="hljs-string">&#x27;multiple_access&#x27;</span>, <span class="hljs-string">&#x27;simple&#x27;</span>])<br><br>        <span class="hljs-keyword">if</span> access_type == <span class="hljs-string">&#x27;lw_sw_sequence&#x27;</span>:<br>            <span class="hljs-comment"># lw后接使用数据的指令</span><br>            base_reg = random.choice(<span class="hljs-variable language_">self</span>.data_regs[:<span class="hljs-number">5</span>])<br>            dest_reg = random.choice(<span class="hljs-variable language_">self</span>.data_regs[:<span class="hljs-number">8</span>])<br>            offset = random.choice([<span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>])<br><br>            memory_code.append(<span class="hljs-string">f&quot;lw <span class="hljs-subst">&#123;dest_reg&#125;</span>, <span class="hljs-subst">&#123;offset&#125;</span>(<span class="hljs-subst">&#123;base_reg&#125;</span>)&quot;</span>)<br><br>            <span class="hljs-comment"># 插入0-2条指令</span><br>            nop_count = random.randint(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>)<br>            <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(nop_count):<br>                memory_code.append(<span class="hljs-string">&quot;nop&quot;</span>)<br><br>            <span class="hljs-comment"># 使用加载的数据</span><br>            use_type = random.choice([<span class="hljs-string">&#x27;add&#x27;</span>, <span class="hljs-string">&#x27;ori&#x27;</span>, <span class="hljs-string">&#x27;sw&#x27;</span>])<br>            <span class="hljs-keyword">if</span> use_type == <span class="hljs-string">&#x27;add&#x27;</span>:<br>                temp_reg = random.choice(<span class="hljs-variable language_">self</span>.temp_regs)<br>                memory_code.append(<span class="hljs-string">f&quot;add <span class="hljs-subst">&#123;temp_reg&#125;</span>, <span class="hljs-subst">&#123;dest_reg&#125;</span>, <span class="hljs-subst">&#123;dest_reg&#125;</span>&quot;</span>)<br>            <span class="hljs-keyword">elif</span> use_type == <span class="hljs-string">&#x27;ori&#x27;</span>:<br>                temp_reg = random.choice(<span class="hljs-variable language_">self</span>.temp_regs)<br>                imm = random.choice(<span class="hljs-built_in">list</span>(<span class="hljs-variable language_">self</span>.imm_range))<br>                memory_code.append(<span class="hljs-string">f&quot;ori <span class="hljs-subst">&#123;temp_reg&#125;</span>, <span class="hljs-subst">&#123;dest_reg&#125;</span>, <span class="hljs-subst">&#123;imm&#125;</span>&quot;</span>)<br>            <span class="hljs-keyword">else</span>:<br>                memory_code.append(<span class="hljs-string">f&quot;sw <span class="hljs-subst">&#123;dest_reg&#125;</span>, <span class="hljs-subst">&#123;offset&#125;</span>(<span class="hljs-subst">&#123;base_reg&#125;</span>)&quot;</span>)<br><br>        <span class="hljs-keyword">elif</span> access_type == <span class="hljs-string">&#x27;multiple_access&#x27;</span>:<br>            base_reg = random.choice(<span class="hljs-variable language_">self</span>.data_regs[:<span class="hljs-number">5</span>])<br>            reg1 = random.choice(<span class="hljs-variable language_">self</span>.data_regs[:<span class="hljs-number">8</span>])<br>            reg2 = random.choice(<span class="hljs-variable language_">self</span>.data_regs[:<span class="hljs-number">8</span>])<br><br>            offsets = random.sample([<span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>], <span class="hljs-number">2</span>)<br>            memory_code.append(<span class="hljs-string">f&quot;lw <span class="hljs-subst">&#123;reg1&#125;</span>, <span class="hljs-subst">&#123;offsets[<span class="hljs-number">0</span>]&#125;</span>(<span class="hljs-subst">&#123;base_reg&#125;</span>)&quot;</span>)<br>            memory_code.append(<span class="hljs-string">f&quot;lw <span class="hljs-subst">&#123;reg2&#125;</span>, <span class="hljs-subst">&#123;offsets[<span class="hljs-number">1</span>]&#125;</span>(<span class="hljs-subst">&#123;base_reg&#125;</span>)&quot;</span>)<br>            memory_code.append(<span class="hljs-string">f&quot;add <span class="hljs-subst">&#123;reg1&#125;</span>, <span class="hljs-subst">&#123;reg1&#125;</span>, <span class="hljs-subst">&#123;reg2&#125;</span>&quot;</span>)<br>            memory_code.append(<span class="hljs-string">f&quot;sw <span class="hljs-subst">&#123;reg1&#125;</span>, <span class="hljs-subst">&#123;offsets[<span class="hljs-number">0</span>]&#125;</span>(<span class="hljs-subst">&#123;base_reg&#125;</span>)&quot;</span>)<br>        <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># simple</span><br>            base_reg = random.choice(<span class="hljs-variable language_">self</span>.data_regs[:<span class="hljs-number">5</span>])<br>            reg = random.choice(<span class="hljs-variable language_">self</span>.data_regs[:<span class="hljs-number">8</span>])<br>            offset = random.choice([<span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>])<br>            <span class="hljs-keyword">if</span> random.choice([<span class="hljs-literal">True</span>, <span class="hljs-literal">False</span>]):<br>                memory_code.append(<span class="hljs-string">f&quot;lw <span class="hljs-subst">&#123;reg&#125;</span>, <span class="hljs-subst">&#123;offset&#125;</span>(<span class="hljs-subst">&#123;base_reg&#125;</span>)&quot;</span>)<br>            <span class="hljs-keyword">else</span>:<br>                memory_code.append(<span class="hljs-string">f&quot;sw <span class="hljs-subst">&#123;reg&#125;</span>, <span class="hljs-subst">&#123;offset&#125;</span>(<span class="hljs-subst">&#123;base_reg&#125;</span>)&quot;</span>)<br><br>        <span class="hljs-keyword">return</span> memory_code<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_generate_final_code</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;生成程序结束代码&quot;&quot;&quot;</span><br>        <span class="hljs-keyword">return</span> [<br>            <span class="hljs-string">&quot;&quot;</span>,<br>            <span class="hljs-string">&quot;# 程序结束&quot;</span>,<br>            <span class="hljs-string">&quot;end_loop:&quot;</span>,<br>            <span class="hljs-string">&quot;nop&quot;</span>,<br>            <span class="hljs-string">&quot;beq $0, $0, end_loop&quot;</span>,<br>            <span class="hljs-string">&quot;nop&quot;</span><br>        ]<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">generate_hex_file</span>(<span class="hljs-params">self, assembly_code, filename</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;生成十六进制文件&quot;&quot;&quot;</span><br>        <span class="hljs-comment"># 由于我们无法直接生成正确的机器码，这里只生成占位符</span><br>        <span class="hljs-comment"># 实际使用时应该用Mars进行汇编</span><br><br>        <span class="hljs-comment"># 计算实际指令数量（排除标签和注释）</span><br>        actual_instructions = []<br>        <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> assembly_code:<br>            line = line.strip()<br>            <span class="hljs-keyword">if</span> line <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> line.startswith(<span class="hljs-string">&#x27;#&#x27;</span>) <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> line.endswith(<span class="hljs-string">&#x27;:&#x27;</span>):<br>                actual_instructions.append(line)<br><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;实际指令数量: <span class="hljs-subst">&#123;<span class="hljs-built_in">len</span>(actual_instructions)&#125;</span>&quot;</span>)<br><br>        <span class="hljs-comment"># 写入简单的十六进制占位文件</span><br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(filename, <span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>            f.write(<span class="hljs-string">&quot;v2.0 raw\n&quot;</span>)<br>            <span class="hljs-comment"># 每条指令用0占位，实际应由Mars生成</span><br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(actual_instructions)):<br>                f.write(<span class="hljs-string">&quot;00000000\n&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">generate_test_program</span>(<span class="hljs-params">self, output_asm=<span class="hljs-string">&quot;test_program.s&quot;</span>, output_hex=<span class="hljs-string">&quot;test_program.hex&quot;</span></span>):<br>        <span class="hljs-string">&quot;&quot;&quot;生成完整的测试程序&quot;&quot;&quot;</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;生成流水线测试程序...&quot;</span>)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;目标指令数量: <span class="hljs-subst">&#123;self.max_instructions&#125;</span> 条&quot;</span>)<br><br>        <span class="hljs-comment"># 重置计数器</span><br>        <span class="hljs-variable language_">self</span>.generated_count = <span class="hljs-number">0</span><br>        <span class="hljs-variable language_">self</span>.label_count = <span class="hljs-number">0</span><br>        <span class="hljs-variable language_">self</span>.func_count = <span class="hljs-number">0</span><br>        <span class="hljs-variable language_">self</span>.func_locations = &#123;&#125;<br>        <span class="hljs-variable language_">self</span>.instruction_positions = []<br><br>        <span class="hljs-comment"># 生成汇编代码</span><br>        assembly_code = <span class="hljs-variable language_">self</span>.generate_instruction_sequence()<br><br>        <span class="hljs-comment"># 保存汇编文件</span><br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(output_asm, <span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>            <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> assembly_code:<br>                f.write(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;line&#125;</span>\n&quot;</span>)<br><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;汇编代码已保存到: <span class="hljs-subst">&#123;output_asm&#125;</span>&quot;</span>)<br><br>        <span class="hljs-comment"># 统计实际指令数量</span><br>        actual_count = <span class="hljs-built_in">len</span>([l <span class="hljs-keyword">for</span> l <span class="hljs-keyword">in</span> assembly_code <span class="hljs-keyword">if</span> l.strip() <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> l.startswith(<span class="hljs-string">&#x27;#&#x27;</span>) <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> l.endswith(<span class="hljs-string">&#x27;:&#x27;</span>)])<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;实际生成的指令数量: <span class="hljs-subst">&#123;actual_count&#125;</span>&quot;</span>)<br><br>        <span class="hljs-comment"># 生成十六进制文件</span><br>        <span class="hljs-variable language_">self</span>.generate_hex_file(assembly_code, output_hex)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;十六进制占位文件已保存到: <span class="hljs-subst">&#123;output_hex&#125;</span>&quot;</span>)<br><br>        <span class="hljs-keyword">return</span> assembly_code<br><br><br><span class="hljs-comment"># 使用示例</span><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-comment"># 创建测试生成器</span><br>    generator = PipelineTestGenerator()<br><br>    <span class="hljs-comment"># 生成测试程序</span><br>    test_program = generator.generate_test_program(<span class="hljs-string">&quot;mips_code.asm&quot;</span>, <span class="hljs-string">&quot;mips_code.hex&quot;</span>)<br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n测试程序特性:&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;- 指令集: add, sub, ori, lw, sw, beq, lui, jal, jr, nop&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;- 指令数量: <span class="hljs-subst">&#123;generator.generated_count&#125;</span> 条 (在800-1000条之间随机)&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;- 数据地址范围: 0x0000-0x00FF (提高lw/sw命中概率)&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;- 包含数据相关指令对测试转发&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;- 包含控制流指令测试分支预测和跳转&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;- 包含内存访问序列测试load-use相关&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;- 安全的jr指令生成:&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;  * 与jal配对，在函数内使用jr $31返回&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;  * 与赋值语句配对，计算合法跳转地址&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;- 所有地址和数值都在合法范围内&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;- 确保不超过1024条指令限制&quot;</span>)<br></code></pre></td></tr></table></figure>
 <h2 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h2><h3 id="思考题1"><a href="#思考题1" class="headerlink" title="思考题1"></a>思考题1</h3><blockquote>
-<p>我们使用提前分支判断的方法尽早产生结果来减少因不确定而带来的开销，但实际上这种方法并非总能提高效率，请从流水线冒险的角度思考其原因并给出一个指令序列的例子。</p>
+<p>为什么需要有单独的乘除法部件而不是整合进 ALU？为何需要有独立的 HI、LO 寄存器？</p>
 </blockquote>
-<p>从流水线冒险的角度来看，提前分支判断（即在D级就决定分支是否跳转）旨在减少控制冒险带来的停顿，但这种方法并非总能提高效率，主要是因为分支判断可能依赖于尚未就绪的数据，从而引发数据冒险。具体来说，如果分支指令的条件操作数依赖于前面指令的计算结果，而该结果还在流水线中未写回寄存器文件，那么提前分支判断就无法获得正确的数据，导致流水线仍需停顿等待数据可用，从而无法避免性能损失。例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">add $3,$2,$1<br>beq $1,$4,label<br></code></pre></td></tr></table></figure>
-<p>原本在E级的<code>ALU</code>判断出是否跳转信号<code>zero</code>，是刚好可以不用阻塞的，现在前提到D级，导致需要阻塞一拍，其实是不划算的。</p>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><ul>
+<li><strong>单独乘除法部件 (MDU) 的原因：</strong><ol>
+<li><strong>时延差异（关键路径）：</strong> ALU 中的加减与逻辑运算通常可以在单周期内通过组合逻辑完成。而乘法和除法（尤其是除法）极其复杂，如果使用组合逻辑实现，会产生极大的延迟，从而严重拖慢整个 CPU 的时钟周期（Critical Path）。将其独立并在流水线中视为多周期部件，可以保持 CPU 主频在一个较高的水平。</li>
+<li><strong>并行性：</strong> 现代流水线 CPU 中，乘除法部件可以独立于 ALU 工作。当 MDU 在计算耗时的除法时，后续不相关的指令（如 add, sub）可以继续流过 ALU 执行，提高了流水线的吞吐率。</li>
+</ol>
+</li>
+<li><strong>独立 HI、LO 寄存器的原因：</strong><ol>
+<li><strong>位宽需求：</strong> 两个 32 位整数相乘，结果可能达到 64 位；32 位整数除法会产生 32 位商和 32 位余数（共 64 位）。而 MIPS 的通用寄存器（GRF）仅为 32 位，无法一次性存储运算结果。</li>
+<li><strong>避免占用 GRF 端口：</strong> 如果将 64 位结果写入 GRF，需要占用两个寄存器号（如 $t0 和 $t1），且写入需要两个周期（或增加写端口）。使用专用的 HI/LO 寄存器可以简化 GRF 的设计，且不干扰通用寄存器的读写调度。</li>
+</ol>
+</li>
+</ul>
 <h3 id="思考题2"><a href="#思考题2" class="headerlink" title="思考题2"></a>思考题2</h3><blockquote>
-<p>因为延迟槽的存在，对于 <code>jal</code> 等需要将指令地址写入寄存器的指令，要写回 PC + 8，请思考为什么这样设计？</p>
+<p>真实的流水线 CPU 是如何使用实现乘除法的？请查阅相关资料进行简单说明。</p>
 </blockquote>
-<p>在 MIPS 架构中，延迟槽（delay slot）的设计是为了优化流水线性能，减少控制冒险带来的停顿。当执行跳转指令（如 <code>jal</code>）时，跳转指令之后的指令（即延迟槽中的指令）总是会被执行，无论跳转是否发生。这是因为在流水线中，跳转指令在译码阶段（D）才能确定目标地址，但此时下一条指令已经进入取指阶段（F），为了保持流水线充满，延迟槽被用于执行一条有用的指令或空操作（<code>nop</code>）。</p>
-<p>对于 <code>jal</code> 指令（跳转并链接），其作用是将返回地址保存到寄存器（如 <code>$ra</code>）中，以便在子程序执行完成后能正确返回。返回地址应当指向子程序调用后应该继续执行的位置。由于延迟槽的存在，<code>jal</code> 指令之后的延迟槽指令会被执行，因此返回地址必须指向延迟槽之后的那条指令，即 <code>PC + 8</code>。</p>
+<h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><p>在真实的现代高性能 CPU 中，乘除法的实现比本实验更复杂：</p>
+<ul>
+<li><strong>硬件乘法器：</strong> 通常采用 <strong>Wallace Tree</strong> 或 <strong>Dadda Tree</strong> 等压缩树结构配合 <strong>Booth 编码</strong>，并设计成流水线结构。这意味着虽然乘法延迟可能是 3-5 个周期，但吞吐量可以达到 1（即每个周期都能发射一条新的乘法指令）。</li>
+<li><strong>硬件除法器：</strong> 除法较难流水线化，通常使用 <strong>SRT 算法</strong> 或 <strong>Newton-Raphson 迭代法</strong>。现代 CPU 的除法延迟仍然较高（可能 10-20+ 周期），且通常是非流水线的或部分流水线的。</li>
+<li><strong>乱序执行：</strong> 遇到乘除法时，CPU 不会单纯阻塞，而是利用保留站（Reservation Station）或重排序缓冲区（ROB），让后续无关指令乱序执行，掩盖乘除法的长延迟。</li>
+</ul>
 <h3 id="思考题3"><a href="#思考题3" class="headerlink" title="思考题3"></a>思考题3</h3><blockquote>
-<p>我们要求所有转发数据都来源于流水寄存器而不能是功能部件（如 DM、ALU），请思考为什么？</p>
+<p>请结合自己的实现分析，你是如何处理 Busy 信号带来的周期阻塞的？</p>
 </blockquote>
-<p><strong>保证时序稳定与设计简化。</strong></p>
+<h3 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h3><p>在我的代码中，Busy 信号的处理主要体现在 MDU 模块的状态机和 Stall 模块的阻塞逻辑中：</p>
 <ol>
-<li><strong>时序稳定（关键原因）</strong>：功能部件（如 ALU）的输出是组合逻辑的结果，在时钟周期结束前可能是不稳定的。流水线寄存器在时钟边沿捕获数据，能为本时钟周期提供<strong>稳定不变</strong>的数据源。如果直接从 ALU 转发，数据在周期内变化会导致冒险逻辑判断错误和结果不可靠。</li>
-<li><strong>设计简化</strong>：所有转发数据都来自固定的寄存器（如 E/M、M/W），为转发网络提供了统一、干净的接口。如果允许从功能部件直接转发，会引入大量复杂且时序各异的路径，极大地增加了设计和验证的难度。</li>
+<li><p><strong>Busy 的产生 (MDU.v)：</strong><br>当 start 信号有效时，MDU 内部的计数器 count 被置位（乘法 5 周期，除法 10 周期）。只要 count != 0，busy 信号就持续输出高电平 1’b1。</p>
+</li>
+<li><p><strong>阻塞逻辑 (Stall.v)：</strong><br>我在 Stall 模块中添加了针对 MDU 的逻辑：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> D_Stall = ... | (D_ismult &amp; (E_start | E_busy));<br></code></pre></td></tr></table></figure>
+<p>这里的 <code>D_ismult</code> 标识当前 D 级是否为乘除法相关指令（<code>mult</code>, <code>div</code>, <code>mfhi</code>, <code>mflo</code> 等）。<br>逻辑含义是：如果 <strong>D 级是乘除法指令</strong> 且 <strong>(E 级刚开始乘除法 OR MDU 正忙)</strong>，则拉高 D_Stall。</p>
+</li>
+<li><p><strong>效果：</strong><br>这会冻结 PC 和 F/D 级流水线寄存器，并清空 D/E 级流水线寄存器（插入 NOP）。直到 MDU 计算完成，busy 变低，D 级的指令才被允许进入 E 级。这有效地防止了后续指令在 MDU 运算未完成时错误地读取 HI/LO 或打断运算</p>
+</li>
 </ol>
 <h3 id="思考题4"><a href="#思考题4" class="headerlink" title="思考题4"></a>思考题4</h3><blockquote>
-<p>我们为什么要使用 GPR 内部转发？该如何实现？</p>
+<p>请问采用字节使能信号的方式处理写指令有什么好处？（提示：从清晰性、统一性等角度考虑）</p>
 </blockquote>
-<p>为了解决”写后读”（RAW）数据冒险。当连续两条指令对同一寄存器进行写和读时，避免流水线停顿，确保后续指令能立即获取刚写入的值。</p>
-<p>实现实际就是W-&gt;D级的转发通路。</p>
+<h3 id="解答-3"><a href="#解答-3" class="headerlink" title="解答"></a>解答</h3><ol>
+<li><strong>接口统一与规范性：</strong> 无论是 sw（写字）、sh（写半字）还是 sb（写字节），CPU 与数据存储器（DM）的交互接口都保持一致（32位数据线 + 4位使能线）。不需要针对不同的写宽度设计不同的写信号（如 we_byte, we_half 等）。</li>
+<li><strong>简化 CPU 逻辑（清晰性）：</strong> CPU 不需要先从内存“读出旧字”，修改部分字节后再“写回新字”（Read-Modify-Write）。CPU 只需要通过 BE 模块将数据放置在正确的数据线上，并根据地址低两位生成正确的 byteen 掩码。实际的字节写入控制权交给了存储器控制器或 TB，降低了 CPU 内部逻辑的耦合度。</li>
+<li><strong>硬件映射自然：</strong> 在 FPGA 或实际电路中，Block RAM 通常就带有字节写使能端口（Byte Write Enable），这种设计直接对应物理硬件的特性。</li>
+</ol>
 <h3 id="思考题5"><a href="#思考题5" class="headerlink" title="思考题5"></a>思考题5</h3><blockquote>
-<p>我们转发时数据的需求者和供给者可能来源于哪些位置？共有哪些转发数据通路？</p>
+<p>请思考，我们在按字节读和按字节写时，实际从 DM 获得的数据和向 DM 写入的数据是否是一字节？在什么情况下我们按字节读和按字节写的效率会高于按字读和按字写呢？</p>
 </blockquote>
-<p>需求者：<code>DEreg</code>流水线寄存器，E级的ALU，M级的DM_WD。</p>
-<p>供给者：<code>EPCplus8</code>，<code>MPCplus8</code>，<code>M_ALUans</code>，<code>W_WD</code></p>
-<p>一共有3×5=15条数据通路，共用一下一共5个转发MUX。</p>
+<h3 id="解答-4"><a href="#解答-4" class="headerlink" title="解答"></a>解答</h3><ul>
+<li><strong>实际数据大小：</strong><ul>
+<li><strong>从 DM 获得的数据：</strong> 实际上是从存储器读出的<strong>一整个字（32位）</strong>。因为内存通常是按字对齐组织的。我们需要通过 DE (Data Extension) 模块根据地址低两位从中截取所需的字节，并进行符号扩展。</li>
+<li><strong>向 DM 写入的数据：</strong> 实际上也是<strong>32位数据</strong>。虽然我们只想改写一个字节，但在 <code>m_data_wdata</code> 线上，我们将该字节复制到了对应的位置（在 BE 模块中处理），并利用 <code>byte_en</code> 告诉存储器只更新那一部分。</li>
+</ul>
+</li>
+<li><strong>效率比较：</strong><ul>
+<li>在我们的 MIPS 架构中，按字节读写（<code>lb</code>/<code>sb</code>）和按字读写（<code>lw</code>/<code>sw</code>）的<strong>时钟周期数是一样的</strong>（都是 5 级流水），因此速度上没有区别。</li>
+<li><strong>效率高于按字读写的情况：</strong> 这种效率优势主要体现在<strong>空间利用率</strong>和<strong>处理非对齐数据</strong>上。例如处理字符串（<code>char</code>数组）或网络数据包时，如果强制用 <code>lw/sw</code>，需要大量的移位和掩码运算来打包/解包数据。使用 <code>lb/sb</code> 可以直接操作最小单元，代码密度更高，处理打包数据（Packed Data）时指令数更少，从这个角度看效率更高。</li>
+</ul>
+</li>
+</ul>
 <h3 id="思考题6"><a href="#思考题6" class="headerlink" title="思考题6"></a>思考题6</h3><blockquote>
-<p>在课上测试时，我们需要你现场实现新的指令，对于这些新的指令，你可能需要在原有的数据通路上做哪些扩展或修改？提示：你可以对指令进行分类，思考每一类指令可能修改或扩展哪些位置。</p>
+<p>为了对抗复杂性你采取了哪些抽象和规范手段？这些手段在译码和处理数据冲突的时候有什么样的特点与帮助？</p>
 </blockquote>
-<p><strong>新指令的扩展/修改方案：</strong></p>
-<h4 id="1-R型算术逻辑指令（如-and-xor）"><a href="#1-R型算术逻辑指令（如-and-xor）" class="headerlink" title="1. R型算术逻辑指令（如 and, xor）"></a>1. R型算术逻辑指令（如 and, xor）</h4><ul>
-<li><strong>执行阶段</strong>：扩展ALU功能，添加新运算</li>
-<li><strong>控制信号</strong>：更新ALU控制逻辑</li>
-<li><strong>无需修改数据通路结构</strong></li>
+<h3 id="解答-5"><a href="#解答-5" class="headerlink" title="解答"></a>解答</h3><p>在代码中，我采取了以下手段：</p>
+<ol>
+<li><strong>模块化设计（高内聚低耦合）：</strong><ul>
+<li>将乘除法独立为 MDU 模块。</li>
+<li>将内存写入掩码生成独立为 BE 模块。</li>
+<li>将内存读取扩展独立为 DE 模块。</li>
+<li>这使得 mips.v 顶层只负责连线，逻辑清晰。</li>
 </ul>
-<h4 id="2-I型立即数指令（如-andi-addiu）"><a href="#2-I型立即数指令（如-andi-addiu）" class="headerlink" title="2. I型立即数指令（如 andi, addiu）"></a>2. I型立即数指令（如 andi, addiu）</h4><ul>
-<li><strong>译码阶段</strong>：扩展立即数处理（符号/零扩展选择）</li>
-<li><strong>控制信号</strong>：新增ExtOp信号控制扩展方式</li>
-<li><strong>执行阶段</strong>：确保立即数正确输入ALU</li>
+</li>
+<li><strong>控制信号的抽象（译码器分类）：</strong><ul>
+<li>在 CTRL.v 中，我没有直接输出分散的控制位，而是定义了 loadop[3:0]（区分 lb, lh, lw）和 saveop[3:0]（区分 sb, sh, sw）。</li>
+<li>这使得 ALU、BE、DE 模块只需要判断操作类型，而不需要知道具体指令是哪一条。</li>
 </ul>
-<h4 id="3-移位指令（如-sllv-sra）"><a href="#3-移位指令（如-sllv-sra）" class="headerlink" title="3. 移位指令（如 sllv, sra）"></a>3. 移位指令（如 sllv, sra）</h4><ul>
-<li><strong>执行阶段</strong>：添加移位器或扩展ALU移位功能</li>
-<li><strong>数据通路</strong>：增加移位数量输入路径（寄存器或立即数）</li>
-<li><strong>控制信号</strong>：新增移位类型控制</li>
+</li>
+<li><strong>T_use / T_new 时间模型：</strong><ul>
+<li>这是解决冲突最核心的抽象。我没有针对每一对 add-sub 或 lw-add 写特判，而是给每条指令定义了生成数据的时间 (T_new) 和使用数据的时间 (T_use)。</li>
+<li>在 Stall.v 和转发逻辑中，只需要比较数值大小 (T_use &lt; T_new) 即可自动覆盖所有指令组合的冒险情况。</li>
 </ul>
-<h4 id="4-访存指令（如-lb-sh）"><a href="#4-访存指令（如-lb-sh）" class="headerlink" title="4. 访存指令（如 lb, sh）"></a>4. 访存指令（如 lb, sh）</h4><ul>
-<li><strong>存储阶段</strong>：扩展DM支持字节/半字访问</li>
-<li><strong>控制信号</strong>：新增MemSize信号</li>
-<li><strong>写回阶段</strong>：添加加载数据扩展逻辑（符号/零扩展）</li>
-</ul>
-<h4 id="5-分支指令（如-bne-blez）"><a href="#5-分支指令（如-bne-blez）" class="headerlink" title="5. 分支指令（如 bne, blez）"></a>5. 分支指令（如 bne, blez）</h4><ul>
-<li><strong>译码阶段</strong>：扩展比较器功能（≠、≤等）</li>
-<li><strong>控制信号</strong>：新增BranchType信号</li>
-<li><strong>PC计算</strong>：可能增加新的目标地址计算路径</li>
-</ul>
-<h4 id="6-特殊指令（如-mul-mfhi）"><a href="#6-特殊指令（如-mul-mfhi）" class="headerlink" title="6. 特殊指令（如 mul, mfhi）"></a>6. 特殊指令（如 mul, mfhi）</h4><ul>
-<li><strong>执行阶段</strong>：可能添加专用功能单元（乘除法器）</li>
-<li><strong>寄存器文件</strong>：可能扩展特殊寄存器（HI/LO）</li>
-<li><strong>数据通路</strong>：新增特殊寄存器读写路径</li>
-</ul>
-<h4 id="7-考场上的神秘指令"><a href="#7-考场上的神秘指令" class="headerlink" title="7.考场上的神秘指令"></a>7.考场上的神秘指令</h4><p>往往需要我们取出什么什么，进行一个怎样的运算，相等则跳转否则存入哪哪哪，那么我们要记住，凡是增加的借口都要考虑转发；要计算出该指令的AT模型表，以便看出是否需要阻塞。</p>
+</li>
+</ol>
 <h3 id="思考题7"><a href="#思考题7" class="headerlink" title="思考题7"></a>思考题7</h3><blockquote>
-<p>简要描述你的译码器架构，并思考该架构的优势以及不足。</p>
+<p>在本实验中你遇到了哪些不同指令类型组合产生的冲突？你又是如何解决的？相应的测试样例是什么样的？</p>
 </blockquote>
-<p>我使用分布式译码，在每一级译出需要的信号。传入𝑡让CTRL知道自己在哪一级，便于译出T_new</p>
-<h4 id="控制信号分类"><a href="#控制信号分类" class="headerlink" title="控制信号分类"></a>控制信号分类</h4><ul>
-<li><strong>NPC控制</strong>：分支跳转类型（NPCop）</li>
-<li><strong>寄存器控制</strong>：写使能（GRFwe）、目标地址选择（A3slt）、写数据选择（WDslt）</li>
-<li><strong>运算控制</strong>：ALU操作（ALUop）、输入选择（ALUAslt、ALUBslt）</li>
-<li><strong>内存控制</strong>：存储器写使能（DMwr）</li>
-<li><strong>立即数控制</strong>：扩展方式（EXTop）</li>
-<li><strong>比较控制</strong>：比较操作（CMPop）</li>
-<li><strong>冒险检测</strong>：输出<code>T_use_rs</code>、<code>T_use_rt</code>、<code>T_new</code>用于流水线冒险检测</li>
-</ul>
-<h4 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h4><ol>
-<li><strong>时序优化</strong><ul>
-<li>控制信号与对应流水级同步，减少组合逻辑延迟</li>
-<li>避免了长距离控制信号传输</li>
-</ul>
-</li>
-<li><strong>模块化设计</strong><ul>
-<li>各阶段控制器独立，便于调试和修改</li>
-<li>新指令只需在对应阶段添加控制逻辑</li>
-</ul>
-</li>
-<li><strong>冒险处理完善</strong><ul>
-<li>集成T-use/T-new机制，支持精确的冒险检测</li>
-<li>为转发和停顿提供准确的时间信息</li>
-</ul>
-</li>
-<li><strong>简洁性</strong><ul>
-<li>每个阶段只生成需要的控制信号</li>
-<li>减少不必要的信号传输</li>
-</ul>
-</li>
-</ol>
-<h4 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h4><ol>
-<li><strong>代码冗余</strong><ul>
-<li>相同的指令在不同阶段需要重复译码</li>
-<li>控制逻辑分散，维护成本较高</li>
-</ul>
-</li>
-<li><strong>一致性风险</strong><ul>
-<li>多实例可能导致控制信号不一致</li>
-<li>指令修改需要在所有CTRL实例中同步更新</li>
-</ul>
-</li>
-<li><strong>扩展性限制</strong><ul>
-<li>新指令需要修改多个阶段的控制器</li>
-<li>控制信号数量固定，难以适应复杂指令集</li>
-</ul>
-</li>
-<li><strong>时序分析复杂</strong><ul>
-<li>需要确保所有CTRL实例的时序一致性</li>
-<li>冒险检测逻辑依赖多个阶段的T值同步</li>
-</ul>
-</li>
-<li><strong>资源占用</strong><ul>
-<li>多个CTRL实例增加硬件资源消耗</li>
-<li>控制逻辑重复导致面积开销</li>
-</ul>
-</li>
-</ol>
+<h3 id="解答-6"><a href="#解答-6" class="headerlink" title="解答"></a>解答</h3><p>普通的数据冲突和结构冲突已经在P5都解决了；</p>
+<p>对于P6的话，主要是乘除单元导致的后续指令需要阻塞D级。样例如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mult $1, $2<br>mfhi $3   # 应在此处阻塞直到乘法结束<br></code></pre></td></tr></table></figure>
 <h3 id="思考题8"><a href="#思考题8" class="headerlink" title="思考题8"></a>思考题8</h3><blockquote>
-<p>[P5 选做] 请详细描述你的测试方案及测试数据构造策略。</p>
+<p>如果你是手动构造的样例，请说明构造策略，说明你的测试程序如何保证<strong>覆盖</strong>了所有需要测试的情况；如果你是<strong>完全随机</strong>生成的测试样例，请思考完全随机的测试程序有何不足之处；如果你在生成测试样例时采用了<strong>特殊的策略</strong>，比如构造连续数据冒险序列，请你描述一下你使用的策略如何<strong>结合了随机性</strong>达到强测的效果。</p>
 </blockquote>
-<p>测试方案见上方<em>测试方案</em>段落。下面给出生成的一组测试样例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br><span class="line">528</span><br><span class="line">529</span><br><span class="line">530</span><br><span class="line">531</span><br><span class="line">532</span><br><span class="line">533</span><br><span class="line">534</span><br><span class="line">535</span><br><span class="line">536</span><br><span class="line">537</span><br><span class="line">538</span><br><span class="line">539</span><br><span class="line">540</span><br><span class="line">541</span><br><span class="line">542</span><br><span class="line">543</span><br><span class="line">544</span><br><span class="line">545</span><br><span class="line">546</span><br><span class="line">547</span><br><span class="line">548</span><br><span class="line">549</span><br><span class="line">550</span><br><span class="line">551</span><br><span class="line">552</span><br><span class="line">553</span><br><span class="line">554</span><br><span class="line">555</span><br><span class="line">556</span><br><span class="line">557</span><br><span class="line">558</span><br><span class="line">559</span><br><span class="line">560</span><br><span class="line">561</span><br><span class="line">562</span><br><span class="line">563</span><br><span class="line">564</span><br><span class="line">565</span><br><span class="line">566</span><br><span class="line">567</span><br><span class="line">568</span><br><span class="line">569</span><br><span class="line">570</span><br><span class="line">571</span><br><span class="line">572</span><br><span class="line">573</span><br><span class="line">574</span><br><span class="line">575</span><br><span class="line">576</span><br><span class="line">577</span><br><span class="line">578</span><br><span class="line">579</span><br><span class="line">580</span><br><span class="line">581</span><br><span class="line">582</span><br><span class="line">583</span><br><span class="line">584</span><br><span class="line">585</span><br><span class="line">586</span><br><span class="line">587</span><br><span class="line">588</span><br><span class="line">589</span><br><span class="line">590</span><br><span class="line">591</span><br><span class="line">592</span><br><span class="line">593</span><br><span class="line">594</span><br><span class="line">595</span><br><span class="line">596</span><br><span class="line">597</span><br><span class="line">598</span><br><span class="line">599</span><br><span class="line">600</span><br><span class="line">601</span><br><span class="line">602</span><br><span class="line">603</span><br><span class="line">604</span><br><span class="line">605</span><br><span class="line">606</span><br><span class="line">607</span><br><span class="line">608</span><br><span class="line">609</span><br><span class="line">610</span><br><span class="line">611</span><br><span class="line">612</span><br><span class="line">613</span><br><span class="line">614</span><br><span class="line">615</span><br><span class="line">616</span><br><span class="line">617</span><br><span class="line">618</span><br><span class="line">619</span><br><span class="line">620</span><br><span class="line">621</span><br><span class="line">622</span><br><span class="line">623</span><br><span class="line">624</span><br><span class="line">625</span><br><span class="line">626</span><br><span class="line">627</span><br><span class="line">628</span><br><span class="line">629</span><br><span class="line">630</span><br><span class="line">631</span><br><span class="line">632</span><br><span class="line">633</span><br><span class="line">634</span><br><span class="line">635</span><br><span class="line">636</span><br><span class="line">637</span><br><span class="line">638</span><br><span class="line">639</span><br><span class="line">640</span><br><span class="line">641</span><br><span class="line">642</span><br><span class="line">643</span><br><span class="line">644</span><br><span class="line">645</span><br><span class="line">646</span><br><span class="line">647</span><br><span class="line">648</span><br><span class="line">649</span><br><span class="line">650</span><br><span class="line">651</span><br><span class="line">652</span><br><span class="line">653</span><br><span class="line">654</span><br><span class="line">655</span><br><span class="line">656</span><br><span class="line">657</span><br><span class="line">658</span><br><span class="line">659</span><br><span class="line">660</span><br><span class="line">661</span><br><span class="line">662</span><br><span class="line">663</span><br><span class="line">664</span><br><span class="line">665</span><br><span class="line">666</span><br><span class="line">667</span><br><span class="line">668</span><br><span class="line">669</span><br><span class="line">670</span><br><span class="line">671</span><br><span class="line">672</span><br><span class="line">673</span><br><span class="line">674</span><br><span class="line">675</span><br><span class="line">676</span><br><span class="line">677</span><br><span class="line">678</span><br><span class="line">679</span><br><span class="line">680</span><br><span class="line">681</span><br><span class="line">682</span><br><span class="line">683</span><br><span class="line">684</span><br><span class="line">685</span><br><span class="line">686</span><br><span class="line">687</span><br><span class="line">688</span><br><span class="line">689</span><br><span class="line">690</span><br><span class="line">691</span><br><span class="line">692</span><br><span class="line">693</span><br><span class="line">694</span><br><span class="line">695</span><br><span class="line">696</span><br><span class="line">697</span><br><span class="line">698</span><br><span class="line">699</span><br><span class="line">700</span><br><span class="line">701</span><br><span class="line">702</span><br><span class="line">703</span><br><span class="line">704</span><br><span class="line">705</span><br><span class="line">706</span><br><span class="line">707</span><br><span class="line">708</span><br><span class="line">709</span><br><span class="line">710</span><br><span class="line">711</span><br><span class="line">712</span><br><span class="line">713</span><br><span class="line">714</span><br><span class="line">715</span><br><span class="line">716</span><br><span class="line">717</span><br><span class="line">718</span><br><span class="line">719</span><br><span class="line">720</span><br><span class="line">721</span><br><span class="line">722</span><br><span class="line">723</span><br><span class="line">724</span><br><span class="line">725</span><br><span class="line">726</span><br><span class="line">727</span><br><span class="line">728</span><br><span class="line">729</span><br><span class="line">730</span><br><span class="line">731</span><br><span class="line">732</span><br><span class="line">733</span><br><span class="line">734</span><br><span class="line">735</span><br><span class="line">736</span><br><span class="line">737</span><br><span class="line">738</span><br><span class="line">739</span><br><span class="line">740</span><br><span class="line">741</span><br><span class="line">742</span><br><span class="line">743</span><br><span class="line">744</span><br><span class="line">745</span><br><span class="line">746</span><br><span class="line">747</span><br><span class="line">748</span><br><span class="line">749</span><br><span class="line">750</span><br><span class="line">751</span><br><span class="line">752</span><br><span class="line">753</span><br><span class="line">754</span><br><span class="line">755</span><br><span class="line">756</span><br><span class="line">757</span><br><span class="line">758</span><br><span class="line">759</span><br><span class="line">760</span><br><span class="line">761</span><br><span class="line">762</span><br><span class="line">763</span><br><span class="line">764</span><br><span class="line">765</span><br><span class="line">766</span><br><span class="line">767</span><br><span class="line">768</span><br><span class="line">769</span><br><span class="line">770</span><br><span class="line">771</span><br><span class="line">772</span><br><span class="line">773</span><br><span class="line">774</span><br><span class="line">775</span><br><span class="line">776</span><br><span class="line">777</span><br><span class="line">778</span><br><span class="line">779</span><br><span class="line">780</span><br><span class="line">781</span><br><span class="line">782</span><br><span class="line">783</span><br><span class="line">784</span><br><span class="line">785</span><br><span class="line">786</span><br><span class="line">787</span><br><span class="line">788</span><br><span class="line">789</span><br><span class="line">790</span><br><span class="line">791</span><br><span class="line">792</span><br><span class="line">793</span><br><span class="line">794</span><br><span class="line">795</span><br><span class="line">796</span><br><span class="line">797</span><br><span class="line">798</span><br><span class="line">799</span><br><span class="line">800</span><br><span class="line">801</span><br><span class="line">802</span><br><span class="line">803</span><br><span class="line">804</span><br><span class="line">805</span><br><span class="line">806</span><br><span class="line">807</span><br><span class="line">808</span><br><span class="line">809</span><br><span class="line">810</span><br><span class="line">811</span><br><span class="line">812</span><br><span class="line">813</span><br><span class="line">814</span><br><span class="line">815</span><br><span class="line">816</span><br><span class="line">817</span><br><span class="line">818</span><br><span class="line">819</span><br><span class="line">820</span><br><span class="line">821</span><br><span class="line">822</span><br><span class="line">823</span><br><span class="line">824</span><br><span class="line">825</span><br><span class="line">826</span><br><span class="line">827</span><br><span class="line">828</span><br><span class="line">829</span><br><span class="line">830</span><br><span class="line">831</span><br><span class="line">832</span><br><span class="line">833</span><br><span class="line">834</span><br><span class="line">835</span><br><span class="line">836</span><br><span class="line">837</span><br><span class="line">838</span><br><span class="line">839</span><br><span class="line">840</span><br><span class="line">841</span><br><span class="line">842</span><br><span class="line">843</span><br><span class="line">844</span><br><span class="line">845</span><br><span class="line">846</span><br><span class="line">847</span><br><span class="line">848</span><br><span class="line">849</span><br><span class="line">850</span><br><span class="line">851</span><br><span class="line">852</span><br><span class="line">853</span><br><span class="line">854</span><br><span class="line">855</span><br><span class="line">856</span><br><span class="line">857</span><br><span class="line">858</span><br><span class="line">859</span><br><span class="line">860</span><br><span class="line">861</span><br><span class="line">862</span><br><span class="line">863</span><br><span class="line">864</span><br><span class="line">865</span><br><span class="line">866</span><br><span class="line">867</span><br><span class="line">868</span><br><span class="line">869</span><br><span class="line">870</span><br><span class="line">871</span><br><span class="line">872</span><br><span class="line">873</span><br><span class="line">874</span><br><span class="line">875</span><br><span class="line">876</span><br><span class="line">877</span><br><span class="line">878</span><br><span class="line">879</span><br><span class="line">880</span><br><span class="line">881</span><br><span class="line">882</span><br><span class="line">883</span><br><span class="line">884</span><br><span class="line">885</span><br><span class="line">886</span><br><span class="line">887</span><br><span class="line">888</span><br><span class="line">889</span><br><span class="line">890</span><br><span class="line">891</span><br><span class="line">892</span><br><span class="line">893</span><br><span class="line">894</span><br><span class="line">895</span><br><span class="line">896</span><br><span class="line">897</span><br><span class="line">898</span><br><span class="line">899</span><br><span class="line">900</span><br><span class="line">901</span><br><span class="line">902</span><br><span class="line">903</span><br><span class="line">904</span><br><span class="line">905</span><br><span class="line">906</span><br><span class="line">907</span><br><span class="line">908</span><br><span class="line">909</span><br><span class="line">910</span><br><span class="line">911</span><br><span class="line">912</span><br><span class="line">913</span><br><span class="line">914</span><br><span class="line">915</span><br><span class="line">916</span><br><span class="line">917</span><br><span class="line">918</span><br><span class="line">919</span><br><span class="line">920</span><br><span class="line">921</span><br><span class="line">922</span><br><span class="line">923</span><br><span class="line">924</span><br><span class="line">925</span><br><span class="line">926</span><br><span class="line">927</span><br><span class="line">928</span><br><span class="line">929</span><br><span class="line">930</span><br><span class="line">931</span><br><span class="line">932</span><br><span class="line">933</span><br><span class="line">934</span><br><span class="line">935</span><br><span class="line">936</span><br><span class="line">937</span><br><span class="line">938</span><br><span class="line">939</span><br><span class="line">940</span><br><span class="line">941</span><br><span class="line">942</span><br><span class="line">943</span><br><span class="line">944</span><br><span class="line">945</span><br><span class="line">946</span><br><span class="line">947</span><br><span class="line">948</span><br><span class="line">949</span><br><span class="line">950</span><br><span class="line">951</span><br><span class="line">952</span><br><span class="line">953</span><br><span class="line">954</span><br><span class="line">955</span><br><span class="line">956</span><br><span class="line">957</span><br><span class="line">958</span><br><span class="line">959</span><br><span class="line">960</span><br><span class="line">961</span><br><span class="line">962</span><br><span class="line">963</span><br><span class="line">964</span><br><span class="line">965</span><br><span class="line">966</span><br><span class="line">967</span><br><span class="line">968</span><br><span class="line">969</span><br><span class="line">970</span><br><span class="line">971</span><br><span class="line">972</span><br><span class="line">973</span><br><span class="line">974</span><br><span class="line">975</span><br><span class="line">976</span><br><span class="line">977</span><br><span class="line">978</span><br><span class="line">979</span><br><span class="line">980</span><br><span class="line">981</span><br><span class="line">982</span><br><span class="line">983</span><br><span class="line">984</span><br></pre></td><td class="code"><pre><code class="hljs assembly">ori $1, $0, 232<br>ori $2, $0, 176<br>ori $3, $0, 234<br>ori $4, $0, 191<br>ori $5, $0, 224<br>ori $6, $0, 65<br>ori $7, $0, 70<br>ori $8, $0, 100<br>lui $8, 41<br>ori $8, $8, 41<br>sw $8, 0($1)<br>lui $8, 228<br>ori $8, $8, 228<br>sw $8, 4($1)<br>lui $8, 143<br>ori $8, $8, 143<br>sw $8, 8($1)<br>ori $2, $6, 33<br>add $8, $10, $12<br>add $10, $2, $6<br>add $7, $7, $7<br>add $8, $7, $7<br>beq $6, $7, label_0<br>nop<br>label_0:<br>add $4, $5, $5<br>sub $12, $4, $5<br>nop<br>jal func_0<br>nop<br>func_0:<br>sub $9, $10, $10<br>sub $10, $9, $11<br>sub $8, $12, $15<br>add $10, $8, $10<br>sw $11, 8($1)<br>nop<br>nop<br>jr $31<br>nop<br>lui $10, 0<br>ori $10, $10, 12496<br>jr $10<br>nop<br>add $8, $6, $7<br>sub $13, $13, $9<br>ori $14, $8, 7<br>lui $2, 80<br>add $8, $15, $12<br>sub $10, $14, $13<br>sub $14, $2, $4<br>add $3, $8, $2<br>ori $15, $10, 164<br>sw $3, 4($1)<br>jal func_1<br>nop<br>func_1:<br>sw $11, 4($1)<br>sw $9, 8($4)<br>nop<br>sw $15, 4($5)<br>sw $13, 4($1)<br>nop<br>ori $11, $10, 96<br>jr $31<br>nop<br>ori $4, $4, 220<br>add $10, $11, $10<br>sub $10, $13, $15<br>ori $13, $4, 117<br>lw $2, 4($4)<br>lw $5, 8($4)<br>add $2, $2, $5<br>sw $2, 4($4)<br>lw $5, 0($5)<br>lw $3, 8($5)<br>add $5, $5, $3<br>sw $5, 0($5)<br>ori $4, $6, 220<br>sub $10, $4, $6<br>beq $3, $1, label_1<br>nop<br>label_1:<br>lui $3, 130<br>ori $11, $14, 77<br>add $14, $11, $15<br>sub $13, $3, $5<br>lw $5, 8($2)<br>add $15, $5, $2<br>lw $3, 0($4)<br>ori $13, $9, 175<br>add $15, $3, $5<br>nop<br>jal func_2<br>nop<br>func_2:<br>lw $10, 8($4)<br>sub $11, $9, $12<br>sub $11, $10, $11<br>add $8, $11, $14<br>add $14, $11, $8<br>jr $31<br>nop<br>lw $5, 4($2)<br>lw $5, 0($2)<br>add $5, $5, $5<br>sw $5, 4($2)<br>lui $14, 0<br>ori $14, $14, 12720<br>jr $14<br>nop<br>jal func_3<br>nop<br>func_3:<br>lw $11, 0($5)<br>add $15, $12, $10<br>lw $12, 0($1)<br>jr $31<br>nop<br>lw $2, 0($5)<br>nop<br>add $11, $2, $7<br>ori $3, $5, 168<br>ori $14, $12, 193<br>ori $10, $8, 221<br>sw $3, 8($4)<br>lw $1, 0($4)<br>lw $1, 4($4)<br>add $1, $1, $1<br>sw $1, 0($4)<br>sub $7, $4, $4<br>add $9, $14, $8<br>ori $12, $14, 155<br>sub $12, $7, $4<br>nop<br>ori $3, $6, 84<br>sub $10, $3, $6<br>lw $3, 8($4)<br>lw $6, 4($4)<br>add $3, $3, $6<br>sw $3, 8($4)<br>lw $6, 4($1)<br>lui $2, 203<br>sub $14, $12, $11<br>add $13, $13, $8<br>ori $11, $2, 55<br>add $1, $8, $7<br>ori $15, $9, 4<br>nop<br>sw $1, 4($3)<br>jal func_4<br>nop<br>func_4:<br>lw $13, 4($4)<br>ori $12, $14, 83<br>lw $15, 8($5)<br>sw $13, 8($1)<br>jr $31<br>nop<br>nop<br>add $4, $4, $4<br>sw $4, 0($3)<br>add $8, $3, $8<br>add $12, $12, $10<br>add $12, $8, $3<br>lw $1, 4($2)<br>ori $14, $1, 39<br>lw $6, 8($5)<br>lui $11, 0<br>ori $11, $11, 12920<br>jr $11<br>nop<br>lw $8, 0($5)<br>add $13, $10, $12<br>ori $14, $11, 171<br>add $10, $8, $1<br>add $1, $7, $3<br>sub $10, $10, $12<br>add $15, $1, $7<br>lui $7, 224<br>sw $7, 0($2)<br>ori $6, $4, 19<br>ori $9, $10, 254<br>sub $9, $9, $15<br>sub $14, $6, $4<br>lui $3, 115<br>sub $10, $14, $8<br>ori $15, $3, 45<br>nop<br>ori $1, $7, 72<br>nop<br>sw $1, 0($2)<br>add $7, $3, $2<br>add $9, $7, $3<br>beq $7, $8, label_2<br>nop<br>label_2:<br>add $3, $8, $3<br>add $10, $11, $11<br>nop<br>sw $3, 8($1)<br>nop<br>sub $5, $7, $3<br>sub $15, $5, $7<br>beq $8, $1, label_3<br>nop<br>label_3:<br>lw $3, 8($2)<br>sub $3, $7, $5<br>ori $12, $15, 66<br>ori $10, $3, 8<br>add $6, $1, $5<br>sw $6, 0($3)<br>lw $3, 0($5)<br>add $13, $3, $4<br>lw $5, 0($5)<br>nop<br>sub $10, $8, $14<br>add $8, $5, $7<br>lw $7, 8($2)<br>add $13, $15, $8<br>sub $14, $15, $9<br>add $13, $7, $6<br>sub $1, $6, $2<br>sub $15, $8, $11<br>add $11, $1, $6<br>lui $3, 132<br>sub $15, $10, $15<br>sub $14, $12, $11<br>sub $8, $3, $6<br>sub $2, $1, $1<br>sub $13, $9, $14<br>add $8, $12, $15<br>sw $2, 4($3)<br>ori $7, $5, 7<br>add $14, $14, $15<br>add $15, $15, $10<br>ori $9, $7, 50<br>jal func_5<br>nop<br>func_5:<br>add $12, $10, $10<br>sub $14, $15, $14<br>sw $12, 0($2)<br>lw $9, 0($4)<br>lw $13, 0($3)<br>add $14, $14, $9<br>sw $13, 8($2)<br>jr $31<br>nop<br>lw $8, 0($5)<br>add $12, $8, $8<br>lui $2, 181<br>sub $9, $12, $13<br>ori $8, $2, 43<br>lui $8, 65<br>add $9, $14, $15<br>add $14, $8, $1<br>beq $2, $1, label_4<br>nop<br>label_4:<br>ori $1, $7, 108<br>sub $12, $10, $12<br>ori $10, $1, 212<br>nop<br>ori $8, $8, 148<br>add $14, $14, $14<br>sub $10, $10, $14<br>sw $8, 8($5)<br>lw $2, 0($5)<br>nop<br>sw $2, 0($2)<br>beq $3, $5, label_5<br>nop<br>label_5:<br>sub $1, $6, $4<br>sub $8, $1, $6<br>jal func_6<br>nop<br>func_6:<br>nop<br>sw $14, 0($4)<br>nop<br>add $13, $9, $11<br>nop<br>ori $10, $13, 235<br>ori $9, $15, 228<br>jr $31<br>nop<br>lw $3, 8($2)<br>ori $9, $3, 31<br>jal func_7<br>nop<br>func_7:<br>ori $9, $10, 233<br>add $12, $12, $10<br>sub $11, $8, $11<br>nop<br>lw $14, 4($1)<br>ori $13, $9, 229<br>jr $31<br>nop<br>ori $1, $8, 83<br>add $14, $1, $8<br>sub $3, $1, $6<br>sub $11, $14, $13<br>sub $10, $15, $8<br>sub $9, $3, $1<br>lw $7, 0($2)<br>nop<br>nop<br>sw $7, 0($2)<br>beq $2, $4, label_6<br>nop<br>label_6:<br>ori $4, $3, 167<br>sub $12, $15, $8<br>ori $8, $4, 64<br>jal func_8<br>nop<br>func_8:<br>nop<br>lw $10, 4($2)<br>sw $15, 4($2)<br>sw $8, 4($3)<br>ori $9, $14, 55<br>jr $31<br>nop<br>jal func_9<br>nop<br>func_9:<br>ori $10, $12, 30<br>lw $9, 8($2)<br>ori $8, $10, 140<br>lw $13, 0($1)<br>sw $13, 4($1)<br>sub $13, $13, $12<br>jr $31<br>nop<br>lui $7, 149<br>ori $11, $11, 181<br>ori $11, $7, 83<br>add $3, $1, $8<br>ori $14, $8, 108<br>sub $14, $14, $13<br>sw $3, 0($5)<br>ori $5, $3, 120<br>ori $14, $5, 253<br>nop<br>lw $6, 8($2)<br>lw $8, 4($3)<br>nop<br>add $8, $8, $8<br>lui $9, 0<br>ori $9, $9, 13688<br>jr $9<br>nop<br>lui $8, 90<br>nop<br>add $10, $13, $14<br>ori $13, $8, 227<br>nop<br>sw $5, 4($3)<br>add $2, $5, $2<br>nop<br>sub $15, $9, $13<br>add $12, $2, $5<br>ori $8, $6, 130<br>sw $8, 0($1)<br>nop<br>sub $2, $7, $4<br>sub $10, $13, $13<br>sub $14, $2, $7<br>beq $2, $1, label_7<br>nop<br>label_7:<br>lw $7, 8($5)<br>lw $4, 4($5)<br>add $7, $7, $4<br>sw $7, 8($5)<br>jal func_10<br>nop<br>func_10:<br>sub $15, $11, $14<br>add $9, $15, $15<br>nop<br>lw $15, 0($4)<br>ori $9, $13, 36<br>nop<br>nop<br>add $9, $15, $12<br>jr $31<br>nop<br>lw $1, 0($3)<br>nop<br>ori $11, $11, 25<br>sw $1, 8($1)<br>add $1, $2, $2<br>sub $14, $13, $14<br>ori $8, $10, 88<br>add $10, $1, $2<br>beq $1, $8, label_8<br>nop<br>label_8:<br>beq $3, $6, label_9<br>nop<br>label_9:<br>lw $7, 8($5)<br>ori $14, $7, 140<br>sub $6, $1, $2<br>ori $9, $10, 96<br>sub $14, $6, $1<br>lw $5, 8($2)<br>add $3, $8, $7<br>add $13, $9, $12<br>add $14, $12, $13<br>sw $3, 4($3)<br>beq $7, $4, label_10<br>nop<br>label_10:<br>lw $8, 0($2)<br>beq $5, $8, label_11<br>nop<br>label_11:<br>sub $3, $1, $4<br>add $9, $3, $1<br>lw $7, 0($5)<br>ori $14, $7, 108<br>ori $4, $6, 63<br>ori $15, $15, 151<br>add $9, $8, $10<br>sub $13, $4, $6<br>lw $7, 4($5)<br>beq $4, $4, label_12<br>nop<br>label_12:<br>lui $6, 245<br>sw $6, 0($5)<br>lw $8, 4($2)<br>nop<br>add $12, $14, $9<br>sw $8, 8($5)<br>sub $5, $2, $5<br>add $13, $14, $8<br>sub $11, $14, $13<br>sub $15, $5, $2<br>lw $8, 0($1)<br>lw $6, 8($3)<br>nop<br>nop<br>add $15, $6, $6<br>sw $3, 0($5)<br>lui $6, 197<br>sw $6, 4($5)<br>lw $2, 0($4)<br>sub $13, $13, $12<br>sub $11, $2, $8<br>jal func_11<br>nop<br>func_11:<br>add $15, $15, $10<br>sw $10, 0($2)<br>sub $14, $11, $12<br>sw $8, 4($3)<br>sw $8, 0($4)<br>jr $31<br>nop<br>lui $13, 0<br>ori $13, $13, 14232<br>jr $13<br>nop<br>beq $1, $3, label_13<br>nop<br>label_13:<br>sub $7, $2, $8<br>ori $15, $12, 133<br>ori $10, $7, 187<br>sub $1, $4, $3<br>ori $13, $10, 79<br>add $8, $1, $4<br>lui $3, 168<br>add $10, $13, $8<br>ori $15, $3, 228<br>lw $3, 8($4)<br>ori $9, $3, 198<br>lw $3, 8($1)<br>lw $2, 0($1)<br>add $3, $3, $2<br>sw $3, 8($1)<br>jal func_12<br>nop<br>func_12:<br>sw $13, 8($2)<br>ori $13, $9, 36<br>ori $10, $14, 121<br>nop<br>sub $15, $9, $10<br>jr $31<br>nop<br>add $3, $7, $1<br>ori $9, $12, 19<br>nop<br>sub $9, $3, $7<br>lui $1, 131<br>ori $14, $9, 21<br>ori $15, $12, 145<br>add $13, $1, $5<br>lw $6, 8($3)<br>lw $6, 4($3)<br>add $6, $6, $6<br>sw $6, 8($3)<br>nop<br>lui $8, 203<br>nop<br>sw $8, 4($1)<br>lui $10, 0<br>ori $10, $10, 14384<br>jr $10<br>nop<br>sub $3, $4, $6<br>nop<br>ori $13, $3, 143<br>lui $4, 184<br>ori $12, $9, 9<br>sub $9, $4, $3<br>lui $9, 0<br>ori $9, $9, 14376<br>jr $9<br>nop<br>nop<br>lw $8, 0($3)<br>nop<br>ori $10, $12, 99<br>add $10, $8, $5<br>add $3, $2, $2<br>ori $10, $13, 75<br>sub $8, $3, $2<br>lw $8, 0($2)<br>nop<br>add $10, $8, $8<br>add $4, $2, $4<br>sub $10, $8, $9<br>sub $10, $10, $13<br>ori $12, $4, 240<br>lui $4, 55<br>add $13, $14, $14<br>sub $10, $4, $2<br>lw $2, 8($4)<br>lw $7, 0($4)<br>add $2, $2, $7<br>sw $2, 8($4)<br>ori $1, $8, 246<br>ori $10, $11, 228<br>sub $14, $14, $11<br>sw $1, 8($3)<br>beq $7, $1, label_14<br>nop<br>label_14:<br>sub $1, $2, $2<br>nop<br>sw $1, 0($1)<br>lw $1, 0($5)<br>nop<br>nop<br>sw $1, 0($5)<br>lui $9, 0<br>ori $9, $9, 14624<br>jr $9<br>nop<br>add $7, $2, $1<br>add $13, $12, $15<br>ori $8, $8, 21<br>sub $14, $7, $2<br>beq $6, $4, label_15<br>nop<br>label_15:<br>beq $7, $6, label_16<br>nop<br>label_16:<br>beq $5, $8, label_17<br>nop<br>label_17:<br>sub $3, $4, $1<br>ori $13, $12, 155<br>nop<br>add $15, $3, $4<br>lw $2, 0($2)<br>nop<br>nop<br>sw $2, 0($2)<br>beq $3, $4, label_18<br>nop<br>label_18:<br>add $3, $2, $4<br>sub $14, $3, $2<br>ori $4, $5, 56<br>ori $12, $12, 218<br>ori $10, $14, 59<br>sub $10, $4, $5<br>lw $4, 4($5)<br>sub $11, $13, $13<br>sub $8, $4, $5<br>lw $7, 0($5)<br>nop<br>add $12, $7, $6<br>ori $4, $1, 67<br>sub $10, $4, $1<br>lw $3, 0($5)<br>nop<br>sub $12, $3, $5<br>ori $8, $7, 91<br>sub $14, $11, $12<br>add $9, $13, $14<br>ori $8, $8, 43<br>lui $15, 0<br>ori $15, $15, 14736<br>jr $15<br>nop<br>lui $4, 254<br>ori $10, $14, 113<br>sub $14, $4, $8<br>ori $5, $8, 234<br>sub $9, $5, $8<br>lui $7, 116<br>nop<br>ori $10, $12, 5<br>add $12, $7, $6<br>sub $6, $5, $8<br>sw $6, 4($4)<br>lw $2, 0($5)<br>lw $1, 4($5)<br>add $2, $2, $1<br>sw $2, 0($5)<br>beq $4, $6, label_19<br>nop<br>label_19:<br>sub $4, $6, $4<br>add $15, $4, $6<br>ori $4, $2, 142<br>sub $14, $4, $2<br>lw $1, 8($4)<br>sub $8, $1, $4<br>lw $8, 0($1)<br>nop<br>sw $8, 4($3)<br>lw $7, 4($5)<br>sub $15, $9, $14<br>ori $15, $9, 50<br>sub $10, $7, $6<br>nop<br>lw $8, 0($4)<br>lw $7, 4($4)<br>add $8, $8, $7<br>sw $8, 0($4)<br>lw $2, 0($5)<br>beq $6, $8, label_20<br>nop<br>label_20:<br>lw $5, 8($1)<br>sub $10, $15, $8<br>sw $5, 0($3)<br>add $3, $3, $8<br>sub $15, $3, $3<br>beq $4, $5, label_21<br>nop<br>label_21:<br>lw $3, 0($4)<br>sub $7, $5, $3<br>nop<br>sw $7, 8($5)<br>lw $5, 8($2)<br>lw $8, 8($3)<br>add $14, $8, $6<br>ori $3, $1, 178<br>add $11, $12, $15<br>ori $8, $13, 108<br>ori $12, $3, 187<br>sub $8, $5, $4<br>ori $10, $12, 1<br>ori $14, $15, 7<br>sub $13, $8, $5<br>lw $8, 0($2)<br>nop<br>add $12, $8, $8<br>lui $3, 123<br>add $8, $8, $14<br>sw $3, 0($4)<br>beq $8, $1, label_22<br>nop<br>label_22:<br>lui $6, 196<br>add $12, $13, $9<br>add $9, $15, $12<br>sw $6, 8($5)<br>lw $3, 4($5)<br>lui $14, 0<br>ori $14, $14, 15060<br>jr $14<br>nop<br>lw $5, 8($4)<br>ori $15, $8, 26<br>add $15, $11, $15<br>add $10, $5, $3<br>lui $3, 89<br>sw $3, 0($4)<br>lw $1, 4($5)<br>ori $8, $1, 246<br>lw $8, 4($3)<br>nop<br>sub $15, $8, $6<br>add $7, $2, $2<br>sw $7, 4($3)<br>add $7, $1, $1<br>sub $9, $10, $8<br>ori $11, $8, 5<br>add $10, $7, $1<br>jal func_13<br>nop<br>func_13:<br>add $15, $14, $14<br>nop<br>add $12, $8, $9<br>add $14, $11, $8<br>jr $31<br>nop<br>lw $7, 4($4)<br>add $8, $7, $4<br>add $11, $8, $7<br>nop<br>beq $3, $5, label_23<br>nop<br>label_23:<br>nop<br>beq $7, $1, label_24<br>nop<br>label_24:<br>jal func_14<br>nop<br>func_14:<br>add $11, $15, $15<br>sub $15, $15, $9<br>ori $15, $12, 7<br>sub $15, $14, $11<br>jr $31<br>nop<br>lw $7, 4($1)<br>sw $7, 0($1)<br>ori $6, $8, 248<br>sub $15, $8, $10<br>sub $15, $6, $8<br>ori $3, $4, 163<br>add $10, $9, $10<br>add $10, $3, $4<br>lui $9, 0<br>ori $9, $9, 15392<br>jr $9<br>nop<br>lw $5, 4($5)<br>nop<br>nop<br>ori $11, $5, 139<br>nop<br>add $2, $3, $1<br>add $11, $2, $3<br>beq $7, $4, label_25<br>nop<br>label_25:<br>lui $13, 0<br>ori $13, $13, 15416<br>jr $13<br>nop<br>add $5, $7, $7<br>nop<br>add $9, $5, $7<br>add $6, $1, $6<br>nop<br>add $13, $6, $1<br>beq $2, $1, label_26<br>nop<br>label_26:<br>ori $6, $5, 229<br>sub $13, $14, $9<br>ori $13, $14, 138<br>sub $12, $6, $5<br>jal func_15<br>nop<br>func_15:<br>lw $11, 4($5)<br>sw $10, 8($2)<br>ori $11, $15, 99<br>sw $10, 8($2)<br>sub $14, $13, $8<br>jr $31<br>nop<br>lw $1, 4($1)<br>lw $1, 8($1)<br>add $1, $1, $1<br>sw $1, 4($1)<br>add $7, $6, $7<br>sw $7, 4($5)<br>lui $7, 230<br>sub $11, $7, $2<br>sub $8, $7, $5<br>sub $13, $14, $12<br>ori $15, $11, 16<br>sw $8, 8($5)<br>sub $3, $2, $7<br>nop<br>sub $10, $11, $11<br>add $15, $3, $2<br>sub $7, $8, $7<br>sw $7, 8($5)<br>nop<br>lw $4, 4($4)<br>lw $4, 8($4)<br>add $4, $4, $4<br>sw $4, 4($4)<br>sub $8, $5, $6<br>ori $14, $8, 12<br>ori $6, $4, 150<br>nop<br>nop<br>sub $9, $6, $4<br>lui $5, 50<br>ori $10, $11, 20<br>sw $5, 4($2)<br>beq $5, $4, label_27<br>nop<br>label_27:<br>add $4, $8, $6<br>add $8, $4, $8<br>add $7, $3, $4<br>ori $14, $9, 241<br>ori $14, $14, 178<br>sub $10, $7, $3<br>add $5, $2, $2<br>ori $13, $13, 220<br>sub $12, $10, $14<br>sw $5, 0($3)<br>lw $5, 0($5)<br>add $9, $8, $15<br>add $13, $5, $8<br>add $4, $1, $4<br>sw $4, 8($3)<br>lui $1, 129<br>ori $15, $1, 31<br>jal func_16<br>nop<br>func_16:<br>add $8, $11, $10<br>add $15, $10, $10<br>nop<br>jr $31<br>nop<br>add $2, $5, $2<br>add $11, $14, $13<br>add $12, $13, $9<br>sw $2, 0($2)<br>beq $2, $2, label_28<br>nop<br>label_28:<br>sub $8, $7, $1<br>add $12, $8, $7<br>beq $1, $2, label_29<br>nop<br>label_29:<br>beq $8, $1, label_30<br>nop<br>label_30:<br>jal func_17<br>nop<br>func_17:<br>nop<br>sw $12, 0($5)<br>nop<br>sw $9, 0($4)<br>sw $8, 4($3)<br>sw $14, 0($5)<br>jr $31<br>nop<br>lw $8, 4($1)<br>nop<br>sw $8, 4($1)<br>lw $6, 8($5)<br>sw $6, 8($5)<br>lui $6, 45<br>add $10, $10, $9<br>ori $14, $6, 224<br>add $1, $6, $2<br>ori $14, $9, 66<br>sub $15, $1, $6<br>lui $5, 239<br>add $10, $14, $8<br>add $8, $9, $14<br>sub $14, $5, $6<br>ori $2, $3, 239<br>add $8, $2, $3<br>sub $7, $3, $4<br>add $10, $9, $13<br>sub $12, $9, $12<br>ori $11, $7, 119<br>lw $2, 4($5)<br>lw $7, 8($5)<br>add $2, $2, $7<br>sw $2, 4($5)<br>sub $6, $2, $5<br>nop<br>sub $8, $11, $9<br>sub $10, $6, $2<br>beq $5, $3, label_31<br>nop<br>label_31:<br>ori $1, $6, 238<br>nop<br>add $9, $1, $6<br>lw $1, 0($5)<br>ori $13, $1, 150<br>lw $6, 4($3)<br>lw $7, 8($3)<br>add $6, $6, $7<br>sw $6, 4($3)<br>lui $3, 12<br>ori $12, $11, 212<br>sub $12, $15, $15<br>sub $9, $3, $2<br>add $5, $5, $2<br>add $13, $13, $11<br>ori $8, $14, 101<br>sub $13, $5, $5<br>ori $5, $4, 181<br>add $14, $11, $14<br>ori $13, $9, 33<br>ori $10, $5, 232<br>lw $5, 8($4)<br>nop<br>add $15, $5, $5<br>lw $3, 8($2)<br>ori $8, $12, 7<br>ori $11, $3, 190<br>lw $6, 0($5)<br>nop<br>nop<br>add $14, $6, $6<br>lui $5, 3<br>ori $9, $12, 226<br>sub $15, $5, $8<br>beq $4, $8, label_32<br>nop<br>label_32:<br>beq $2, $2, label_33<br>nop<br>label_33:<br>jal func_18<br>nop<br>func_18:<br>ori $13, $10, 192<br>lw $10, 8($3)<br>lw $8, 4($5)<br>sw $13, 4($5)<br>nop<br>jr $31<br>nop<br>beq $1, $6, label_34<br>nop<br>label_34:<br>add $3, $5, $3<br>add $13, $13, $13<br>sw $3, 0($5)<br>sub $5, $3, $1<br>nop<br>sw $5, 0($1)<br>lw $2, 0($4)<br>lw $5, 4($4)<br>add $2, $2, $5<br>sw $2, 0($4)<br>ori $5, $4, 217<br>sub $13, $5, $4<br>ori $6, $3, 27<br>nop<br>ori $9, $6, 239<br>end_loop:<br>nop<br>beq $0, $0, end_loop<br>nop<br></code></pre></td></tr></table></figure>
+<h3 id="解答-7"><a href="#解答-7" class="headerlink" title="解答"></a>解答</h3><p><strong>我的测试策略：受限随机测试 (Constrained Random Testing)</strong></p>
+<p>我的测试程序并不是“完全随机”的，而是基于<strong>约束</strong>和<strong>状态反馈</strong>的随机生成策略。完全随机生成的二进制码或汇编代码在流水线 CPU 测试中效率极低，因为大概率会产生无效指令、除以零异常或死循环，且很难触发生僻的流水线冲突逻辑。</p>
+<p>为了保证覆盖率并达到强测效果，我采用了以下策略结合随机性：</p>
+<ol>
+<li><p><strong>寄存器池约束（构造数据冒险）：</strong></p>
+<ul>
+<li><strong>策略：</strong> 我没有从 0-31 号寄存器中均匀随机选择，而是维护了一个较小的<strong>“测试寄存器池”</strong>（<code>self.__test_regs</code>，例如只包含 14 个常用寄存器）。</li>
+<li><strong>效果：</strong> 在生成指令（如 <code>add $t1, $t2, $t3</code>）时，源寄存器（rs, rt）和目的寄存器（rd）都从这个小池子里随机选取。这极大地提高了<strong>“读后写”（RAW）</strong>相关发生的概率。因为寄存器数量少，上一条指令刚写过的寄存器，很大概率会被紧接着的下一条或下下一条指令读取，从而高频触发 <strong>E级转发、M级转发</strong> 以及 <strong>Load-Use 暂停</strong> 逻辑。</li>
+</ul>
+</li>
+<li><p><strong>指令模板与权重（覆盖功能部件）：</strong></p>
+<ul>
+<li><strong>策略：</strong> 我将指令分为 <code>cal_r</code> (算术), <code>load</code>, <code>store</code>, <code>branch</code>, <code>md</code> (乘除) 等类别。测试生成器会按类别随机选择，确保 ALU、DM、MDU 等部件都能被均匀覆盖，而不是随机生成一堆 <code>nop</code> 或全是 <code>add</code>。</li>
+<li><strong>效果：</strong> 保证了每种类型的指令组合（如 <code>乘法</code> 后接 <code>mflo</code>，<code>load</code> 后接 <code>alu</code>）都能出现。</li>
+</ul>
+</li>
+<li><p><strong>内存地址约束（防止访存越界）：</strong></p>
+<ul>
+<li><strong>策略：</strong> 在生成 <code>load/store</code> 指令时，不是随机生成 base 和 offset，而是先在 Python 内部维护一个 <code>grf</code> 镜像模型，根据基址寄存器当前的值，反向计算出一个合法的 <code>offset</code>，使得最终地址 <code>base + offset</code> 落在合法的数据存储区（0x0000-0x3000）内。</li>
+<li><strong>效果：</strong> 避免了随机测试中常见的“地址越界”导致的评测失败，使得测试能专注于 CPU 的读写逻辑是否正确。</li>
+</ul>
+</li>
+<li><p><strong>边界数据注入（ALU 鲁棒性）：</strong></p>
+<ul>
+<li><strong>策略：</strong> 专门设计了 <code>__set_inf_32bits</code> 等函数，在随机操作数中混入 <strong>0、最大正数、最小负数、-1</strong> 等特殊边界值。</li>
+<li><strong>效果：</strong> 强测 ALU 的加法器溢出处理（虽然 P6 忽略溢出，但结果需正确截断）、符号扩展逻辑以及乘除法的特殊情况。</li>
+</ul>
+</li>
+</ol>
+<p><strong>总结：</strong><br>通过缩小寄存器选择范围来<strong>人为制造冲突</strong>，通过数学计算约束立即数来<strong>保证合法性</strong>，结合大规模的随机迭代（Test Times），既保证了测试的<strong>合法性</strong>，又最大化了<strong>流水线冲突</strong>的覆盖率。</p>
 <h3 id="思考题9"><a href="#思考题9" class="headerlink" title="思考题9"></a>思考题9</h3><blockquote>
 <p>[P5、P6 选做] 请评估我们给出的覆盖率分析模型的合理性，如有更好的方案，可一并提出。</p>
 </blockquote>
-<p>将于P6完成。</p>
+<h3 id="解答-8"><a href="#解答-8" class="headerlink" title="解答"></a>解答</h3><h3 id="一、-覆盖率分析模型的合理性评估"><a href="#一、-覆盖率分析模型的合理性评估" class="headerlink" title="一、 覆盖率分析模型的合理性评估"></a>一、 覆盖率分析模型的合理性评估</h3><h4 id="1-优点与亮点"><a href="#1-优点与亮点" class="headerlink" title="1. 优点与亮点"></a>1. 优点与亮点</h4><ul>
+<li><p><strong>指令分类（Abstraction）极其高效</strong></p>
+<ul>
+<li><strong>合理性：</strong> MIPS指令集很大，如果枚举所有 <code>add -&gt; sub</code>、<code>add -&gt; ori</code> 等具体指令对，组合空间将爆炸（$N^2$）。模型将指令按功能和数据通路特征归类（如 <code>cal_rr</code>, <code>load</code>, <code>store</code>），将 $N^2$ 的复杂度降低到了 $13 \times 13$ 的类别矩阵。</li>
+<li><strong>意义：</strong> 这种抽象抓住了流水线冲突的本质：冲突取决于<strong>写入哪个寄存器、在哪个阶段写入、以及后序指令在哪个阶段读取</strong>，而不太取决于具体是 <code>add</code> 还是 <code>sub</code>。</li>
+</ul>
+</li>
+<li><p><strong>“转发测试有效性”的引入是点睛之笔</strong></p>
+<ul>
+<li><strong>合理性：</strong> 仅仅构造出转发路径（如 E-&gt;D）是不够的。如果寄存器旧值（GRF中）和新值（转发值）相同，即使硬件转发功能损坏（导致读了旧值），测试程序也能跑通。模型明确要求“新旧值必须不同”，这有效防止了<strong>假阳性（False Positive）</strong>测试通过。</li>
+<li><strong>意义：</strong> 强迫测试数据必须动态变化，不能全 0 或全 1，提高了对数据通路多路选择器（MUX）故障的检测能力。</li>
+</ul>
+</li>
+<li><p><strong>元组化描述（Forwarding Quadruple / Blocking Triple）精确定义了冲突</strong></p>
+<ul>
+<li><strong>合理性：</strong><ul>
+<li>转发四元组 <code>&lt;产, 消, 产级, 消级&gt;</code> 覆盖了所有可能的旁路路径。</li>
+<li>阻塞三元组 <code>&lt;D指令, 阻塞源, 间隔&gt;</code> 覆盖了 Load-Use 冒险的不同距离（间隔 0 或 1 条指令）。</li>
+</ul>
+</li>
+<li><strong>意义：</strong> 这种定义方式直接对应硬件设计中的 <code>Stall</code> 逻辑判断条件（<code>Tuse</code> vs <code>Tnew</code>）和转发逻辑判断条件（寄存器号相等且写使能），非常贴合硬件实现的物理本质。</li>
+</ul>
+</li>
+<li><p><strong>评分公式设计的导向性很好</strong></p>
+<ul>
+<li><strong>合理性：</strong> 公式 $60 + 40 \times (k / K_{max})$ 是一个阶跃函数。只要覆盖了该类别（$k&gt;0$），起步就是 60 分。</li>
+<li><strong>意义：</strong> 这鼓励学生优先进行<strong>广度优先搜索</strong>（覆盖所有冲突类型），而不是在某一种简单的冲突上（如 <code>add-&gt;add</code>）死磕。这符合验证工程的原则：先确保存在这个逻辑，再追求逻辑的完备性。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-潜在的不足与局限性"><a href="#2-潜在的不足与局限性" class="headerlink" title="2. 潜在的不足与局限性"></a>2. 潜在的不足与局限性</h4><ul>
+<li><p><strong>数据值的覆盖率缺失（Data Value Coverage）</strong></p>
+<ul>
+<li><strong>问题：</strong> 该模型只关注“指令序列结构”，不关注“操作数的值”。例如，测试程序可能全是用正数运算，却没测试负数、0、最大整数等边界情况。</li>
+<li><strong>后果：</strong> 无法检测 ALU 的功能错误（如符号扩展错误、溢出逻辑错误、特定算术操作错误）。</li>
+</ul>
+</li>
+<li><p><strong>具体操作码的覆盖不足（Opcode Coverage）</strong></p>
+<ul>
+<li><strong>问题：</strong> <code>cal_rr</code> 包含了 <code>add</code>, <code>sub</code>, <code>and</code> 等。如果测试集只测了 <code>add -&gt; sub</code>，虽然覆盖了 <code>cal_rr -&gt; cal_rr</code> 这个类别，但可能 <code>xor</code> 指令的转发逻辑（比如 ALU Opcode 选择信号）有问题却没被测出来。</li>
+<li><strong>后果：</strong> 可能会漏掉特定指令独有的控制信号 bug。</li>
+</ul>
+</li>
+<li><p><strong>MDU 忙信号（Busy）阻塞的考量不足</strong></p>
+<ul>
+<li><strong>问题：</strong> 阻塞三元组定义中似乎主要针对 Load-Use 阻塞。P6 中 <code>mult/div</code> 引起的 Busy 阻塞（结构冒险/控制逻辑阻塞）是非常关键的。如果模型忽略了 MDU 的 Start/Busy 信号冲突覆盖，是不完整的。</li>
+</ul>
+</li>
+<li><p><strong>按字节访存（P6 特性）的粒度不够</strong></p>
+<ul>
+<li><strong>问题：</strong> <code>store</code> 类包含了 <code>sw, sh, sb</code>。在 P6 中，<code>sb</code> 和 <code>sh</code> 涉及复杂的 <code>BE</code>（Byte Enable）逻辑和 <code>DE</code>（Data Extension）逻辑。仅覆盖 <code>sw</code> 的转发可能无法发现 <code>lb</code> 转发逻辑中的位截断错误。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="二、-更好的方案与改进建议"><a href="#二、-更好的方案与改进建议" class="headerlink" title="二、 更好的方案与改进建议"></a>二、 更好的方案与改进建议</h3><p>针对上述不足，提出以下改进或补充方案：</p>
+<h4 id="1-引入“数据翻转覆盖率”-Toggle-Coverage-Corner-Case"><a href="#1-引入“数据翻转覆盖率”-Toggle-Coverage-Corner-Case" class="headerlink" title="1. 引入“数据翻转覆盖率” (Toggle Coverage / Corner Case)"></a>1. 引入“数据翻转覆盖率” (Toggle Coverage / Corner Case)</h4><ul>
+<li><strong>方案：</strong> 在评估有效转发时，不仅要求新旧值不同，还建议增加对数据位的监控。</li>
+<li><strong>具体指标：</strong><ul>
+<li><strong>全0/全1覆盖：</strong> 确保操作数出现过 <code>0x00000000</code> 和 <code>0xFFFFFFFF</code>。</li>
+<li><strong>位翻转覆盖：</strong> 确保 32 位数据线上的每一位都在转发过程中发生过 <code>0-&gt;1</code> 和 <code>1-&gt;0</code> 的跳变。这能检测总线粘连故障。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-细化指令子类与-MDU-专项覆盖"><a href="#2-细化指令子类与-MDU-专项覆盖" class="headerlink" title="2. 细化指令子类与 MDU 专项覆盖"></a>2. 细化指令子类与 MDU 专项覆盖</h4><ul>
+<li><strong>方案：</strong><ul>
+<li><strong>Load/Store 细分：</strong> 将 <code>load</code> 分为 <code>load_word</code> (lw) 和 <code>load_subword</code> (lb/lh)，因为后者的转发/扩展逻辑更易出错。</li>
+<li><strong>MDU 状态覆盖：</strong> 增加一种“MDU 阻塞元组”，专门统计 <code>&lt;乘除指令, 读/写HI_LO指令, 间隔时间&gt;</code>。</li>
+<li><strong>评测标准：</strong> 必须覆盖 <code>Busy</code> 信号拉高时尝试读取 HI/LO 寄存器的情况，以及连续乘除法指令的覆盖。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-增强“指令组合”的颗粒度-Cross-Coverage"><a href="#3-增强“指令组合”的颗粒度-Cross-Coverage" class="headerlink" title="3. 增强“指令组合”的颗粒度 (Cross-Coverage)"></a>3. 增强“指令组合”的颗粒度 (Cross-Coverage)</h4><ul>
+<li><strong>方案：</strong> 在现有的类别得分基础上，增加“操作码遍历要求”。</li>
+<li><strong>具体规则：</strong> 对于类别 <code>&lt;cal_rr, cal_rr&gt;</code>，虽然不要求 $12 \times 12$ 种全排列，但要求类别内的<strong>每一个操作码</strong>（如 <code>add</code>, <code>sub</code>…）至少作为生产者出现一次，且至少作为消费者出现一次。</li>
+<li><strong>修正公式：</strong> 如果某类指令未被遍历完全，即使 $k$ 值很高，也给予一定的分数惩罚。</li>
+</ul>
+<h4 id="4-增加“连续冲突”检测-Chain-Hazards"><a href="#4-增加“连续冲突”检测-Chain-Hazards" class="headerlink" title="4. 增加“连续冲突”检测 (Chain Hazards)"></a>4. 增加“连续冲突”检测 (Chain Hazards)</h4><ul>
+<li><strong>方案：</strong> 目前的模型主要关注“一对一”的冲突。建议增加对 <strong>Forwarding Chain</strong> 的评估。</li>
+<li><strong>场景：</strong> <code>A -&gt; B -&gt; C</code>。<ul>
+<li>指令 A 产生数据。</li>
+<li>指令 B 使用 A 的数据（转发 1），产生新数据。</li>
+<li>指令 C 使用 B 的数据（转发 2）。</li>
+</ul>
+</li>
+<li><strong>意义：</strong> 这种连续紧密的转发对流水线寄存器的时序压力最大，也是验证转发逻辑优先级（如 EX 级转发优于 MEM 级转发）的关键场景。</li>
+</ul>
 
                 
               </div>
@@ -1414,8 +1661,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>P5课下-Verilog五级全速流水线CPU</div>
-      <div>http://example.com/posts/P5课下-Verilog五级全速流水线CPU/</div>
+      <div>P6课下-更复杂五级流水线CPU</div>
+      <div>http://example.com/posts/P6课下-更复杂五级流水线CPU/</div>
     </div>
     <div class="license-meta">
       
@@ -1427,7 +1674,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年11月14日</div>
+          <div>2025年11月29日</div>
         </div>
       
       
@@ -1459,9 +1706,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/P6%E8%AF%BE%E4%B8%8B-%E6%9B%B4%E5%A4%8D%E6%9D%82%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/" title="P6课下-更复杂五级流水线CPU">
+                      <a href="/posts/P7%E8%AF%BE%E4%B8%8B-%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%AD%E5%BC%82%E5%B8%B8%E7%9A%84MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F/" title="P7课下-支持中断异常的MIPS微系统">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">P6课下-更复杂五级流水线CPU</span>
+                        <span class="hidden-mobile">P7课下-支持中断异常的MIPS微系统</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -1469,8 +1716,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/P4%E8%AF%BE%E4%B8%8B-Verilog%E5%8D%95%E5%91%A8%E6%9C%9FCPU/" title="P4课下-Verilog单周期CPU">
-                        <span class="hidden-mobile">P4课下-Verilog单周期CPU</span>
+                      <a href="/posts/P5%E8%AF%BE%E4%B8%8B-Verilog%E4%BA%94%E7%BA%A7%E5%85%A8%E9%80%9F%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/" title="P5课下-Verilog五级全速流水线CPU">
+                        <span class="hidden-mobile">P5课下-Verilog五级全速流水线CPU</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
