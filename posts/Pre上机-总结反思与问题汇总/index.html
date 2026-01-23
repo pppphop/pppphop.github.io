@@ -1,0 +1,1075 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pppphop">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Pre-总结反思与问题汇总T1.推箱子-Logisim出现了严重的失误，花了两个多小时导致道心破碎，甚至一度想“大不了爆零吧”。主要需要反思以下几点：  平常“真值表生成状态机”的轮椅题做的太多了，往往没有过多的输入输出设计，导致看到题目第一眼是懵的，甚至还在想怎么设计状态转移图和真值表，“难道要三十个状态吗”，对较新颖的题型不熟练导致没有做题的底气，对于$flag$保持一周的创新点也处理的略微慌">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pre上机-总结反思与问题汇总">
+<meta property="og:url" content="http://example.com/posts/Pre%E4%B8%8A%E6%9C%BA-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E4%B8%8E%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/index.html">
+<meta property="og:site_name" content="zhp的博客">
+<meta property="og:description" content="Pre-总结反思与问题汇总T1.推箱子-Logisim出现了严重的失误，花了两个多小时导致道心破碎，甚至一度想“大不了爆零吧”。主要需要反思以下几点：  平常“真值表生成状态机”的轮椅题做的太多了，往往没有过多的输入输出设计，导致看到题目第一眼是懵的，甚至还在想怎么设计状态转移图和真值表，“难道要三十个状态吗”，对较新颖的题型不熟练导致没有做题的底气，对于$flag$保持一周的创新点也处理的略微慌">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/posts/Pre%E4%B8%8A%E6%9C%BA-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E4%B8%8E%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/grid.png">
+<meta property="og:image" content="http://example.com/posts/Pre%E4%B8%8A%E6%9C%BA-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E4%B8%8E%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/testcirc.png">
+<meta property="og:image" content="http://example.com/posts/Pre%E4%B8%8A%E6%9C%BA-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E4%B8%8E%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/fmt.png">
+<meta property="og:image" content="http://example.com/posts/Pre%E4%B8%8A%E6%9C%BA-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E4%B8%8E%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/wave.png">
+<meta property="article:published_time" content="2025-09-30T02:29:02.000Z">
+<meta property="article:modified_time" content="2026-01-23T08:52:32.466Z">
+<meta property="article:author" content="pppphop">
+<meta property="article:tag" content="CO">
+<meta property="article:tag" content="CO上机">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/posts/Pre%E4%B8%8A%E6%9C%BA-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E4%B8%8E%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/grid.png">
+  
+  
+  
+  <title>Pre上机-总结反思与问题汇总 - zhp的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zhp的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Pre上机-总结反思与问题汇总"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-09-30 10:29" pubdate>
+          2025年9月30日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          35 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Pre上机-总结反思与问题汇总</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Pre-总结反思与问题汇总"><a href="#Pre-总结反思与问题汇总" class="headerlink" title="Pre-总结反思与问题汇总"></a>Pre-总结反思与问题汇总</h1><h3 id="T1-推箱子-Logisim"><a href="#T1-推箱子-Logisim" class="headerlink" title="T1.推箱子-Logisim"></a>T1.推箱子-Logisim</h3><p>出现了严重的失误，花了两个多小时导致道心破碎，甚至一度想“大不了爆零吧”。主要需要反思以下几点：</p>
+<ol>
+<li>平常“真值表生成状态机”的轮椅题做的太多了，往往没有过多的输入输出设计，导致看到题目第一眼是懵的，甚至还在想怎么设计状态转移图和真值表，“难道要三十个状态吗”，对较新颖的题型不熟练导致没有做题的底气，对于$flag$保持一周的创新点也处理的略微慌张；</li>
+<li>对<strong>早晚一拍概念不清晰</strong>，是拿$x$比较还是拿$xnext$比较，到考试结束前五分钟甚至都没有意识到这个问题；</li>
+<li>看到$flag$要保持一拍，确实很快想到了要用<strong>寄存器</strong>，但心里不踏实的感觉，有点不敢实践，总想“先不管交一交看一看”，后面用寄存器还是没过，我就以为自己想法错了，开始一阵瞎改，把状态机模块的$flag$直接废除不用了，丝毫没有意识到是$out$的问题；</li>
+<li>不会<strong>自动化测试</strong>，手动点在考场紧张的环境下，有时候输出错了也没发现，精神高度紧张可能忽略掉一些东西，有空可以学一学有没有更好的测试方式；</li>
+<li>值得夸奖的是我的状态转移模块一般就写对了，没有更多的更改，而且我做的很从容淡定有自信，可能是考试刚开始还很冷静。</li>
+</ol>
+<p>本题的解题思路:</p>
+<p>先设计状态转移模块$fsm$，用$tunnel$表示$x$,$x+dx$,$y$,$y+dy$，判断$x+dx$是否$&gt;5$，$y+dy$是否$&gt;5$，以及$x$，$y$是否同时等于那六个障碍物的$x$，$y$坐标，将这些或起来，便是我们想要的<strong>实时的下一拍的</strong>$flag$。当然，作为组合逻辑，我们本就只能输出实时的，”保持一拍”得在主电路里实现。注意：$dx$，$dy$要进行<strong>零扩展</strong>变成三位，比较器一定要选$Unsigned$。</p>
+<p>然后设计主电路，首先两个$3$位寄存器分别存$x$，$y$当下的值，与$dx$，$dy$一同传入$fsm$模块，得到的$flag$在寄存器中<strong>缓一拍</strong>输出，既实现了将$fsm$模块中对$x+dx$，$y+dy$判断导致的“早一拍”问题，又实现了无$reset$信号时保持一拍，有$reset$立马清零的效果。至于$out$就更简单了，使用比较器判断当前$x$，$y$（可以从寄存器$Q$端引出隧道）是否都为0即可，组合逻辑。</p>
+<h3 id="T2-Roll-Verilog"><a href="#T2-Roll-Verilog" class="headerlink" title="T2.Roll-Verilog"></a>T2.Roll-Verilog</h3><p>暴露了我Verilog已经几近与忘光了的事实。太久没写，没地方可以评测，没有什么有创新点的题目，对一些稍微进阶的语言技巧都记不太清不敢用。总结一下当中遇到的各种问题：</p>
+<ol>
+<li>$for$循环怎么写都不会了？是在什么模块里面能写？晚些时候一定要查证一下，在我印象中是$tb$文件的$initial$用的多，要提交的文件应该是尽量不要用$initial$，不能综合还是什么？时序逻辑里不能$for$吗？组合逻辑可以？这次只有$assign$我用着放心，得亏是简单的组合逻辑；（查证：<strong>组合逻辑</strong>和<strong>时序逻辑</strong>都可使用可综合的$for$循环，用在$always$块里即可）</li>
+<li>$wire$的拼接，用大括号，<strong>从高位到低位</strong>，考场上甚至不确定；</li>
+<li><strong>数组的定义方式</strong>！不是像$C$语言一样$a[8]$，应该是$a[7:0]$这种？晚点查证一下；（查证后回答：应是$a[0:7]$）</li>
+<li>最初居然定义$reg$类型，明显这里都用$wire$就好，顶多循环变量用$reg$，说明基本概念还没有炉火纯青，虽然看到报错能立马意识到；</li>
+<li>$testbench$中要不要用$initial$，感觉这还是我第一次直接$assign$，两行就写完了。看向巨的反应我应该写的不对。不确定是不是最好的写法。而且实例化的写法有点忘了，结合报错试探了好几下；（查证：实现一次测试完给的两个测试点，要用$initial$，还是用$initial$比较好，组合逻辑的$testbench$<strong>无需$clk$</strong>，但是也要延迟10s）</li>
+<li>对于一部分报错信息看不懂，看到反倒懵了，还是得多练。</li>
+</ol>
+<p>本题解题思路：</p>
+<p>这题很简单，哪怕设$8+8$个变量然后各种复制粘贴$assign$也是能过的。但是本题的目的是让你学如何使用$for$循环，以及”-：”的使用。那么首先这是一道组合逻辑，由输入和逻辑运算直接得到输出，具体操作都给你了，按操作翻译一遍就行，当然我们在写循环的过程中，难免遇到一些问题：</p>
+<p><strong>循环变量</strong>用什么？在<code>always</code>外面设<code>integer</code></p>
+<ol>
+<li>$for$放在哪？放在<code>always @(*)</code>里面</li>
+<li>数组是怎么定义的？<code>wire [3:0] a[0:7]</code></li>
+<li>注意$i++$会报错，Verilog没有这种语法，要用$i=i+1$</li>
+<li>如果直接<code>arr[i]=a[(i + 1) * 4 - 1-:i*4]</code>，会收到报错：$i\ is\ not\ a\ constant$。其实并不是要求中括号内非得都是常数，<strong>只要冒号左右两边不全为变量就行</strong>。于是我们学会使用<code>[i-:4]</code>，意思是<strong>往低里取从$i$开始$4$个位</strong>。</li>
+</ol>
+<p>最后将<code>sum[i]</code>用<strong>大括号拼接</strong>起来，<code>assign</code>给$out$就行了。代码及其$testbench$见下：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> roll(<br>    <span class="hljs-keyword">input</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] a,<br>    <span class="hljs-keyword">output</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] out<br>    );<br><span class="hljs-keyword">reg</span> [<span class="hljs-number">3</span>:<span class="hljs-number">0</span>] arr[<span class="hljs-number">0</span>:<span class="hljs-number">7</span>],sum[<span class="hljs-number">0</span>:<span class="hljs-number">7</span>],tmp;<br><span class="hljs-keyword">integer</span> i,j;<br><span class="hljs-keyword">always</span> @(*) <span class="hljs-keyword">begin</span><br>	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">8</span>;i=i+<span class="hljs-number">1</span>) <span class="hljs-keyword">begin</span><br>		arr[i]=a[(i + <span class="hljs-number">1</span>) * <span class="hljs-number">4</span> - <span class="hljs-number">1</span>-:<span class="hljs-number">4</span>];<br>	<span class="hljs-keyword">end</span><br>	sum[<span class="hljs-number">0</span>]=arr[<span class="hljs-number">0</span>];<br>	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">7</span>;i=i+<span class="hljs-number">1</span>) <span class="hljs-keyword">begin</span><br>		sum[i+<span class="hljs-number">1</span>]=sum[i]+arr[i+<span class="hljs-number">1</span>];<br>	<span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><span class="hljs-keyword">assign</span> out=&#123;sum[<span class="hljs-number">7</span>],sum[<span class="hljs-number">6</span>],sum[<span class="hljs-number">5</span>],sum[<span class="hljs-number">4</span>],sum[<span class="hljs-number">3</span>],sum[<span class="hljs-number">2</span>],sum[<span class="hljs-number">1</span>],sum[<span class="hljs-number">0</span>]&#125;;<br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> tbroll(<br>    );<br><span class="hljs-keyword">reg</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] a;<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] out;<br><span class="hljs-keyword">initial</span> <span class="hljs-keyword">begin</span><br>	a=<span class="hljs-number">32&#x27;h11111111</span>;<br>	#<span class="hljs-number">10</span>;<br>	a=<span class="hljs-number">32&#x27;h87654321</span>;<br>	#<span class="hljs-number">10</span>;<br><span class="hljs-keyword">end</span><br>roll r(a,out);<br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
+<h3 id="T3-Submatrix-MIPS"><a href="#T3-Submatrix-MIPS" class="headerlink" title="T3.Submatrix-MIPS"></a>T3.Submatrix-MIPS</h3><p>整体写法和常用指令确实记得，但是很多地方也不熟练或遗忘了。总结问题如下：</p>
+<ol>
+<li>不记得宏定义怎么写了，那些找矩阵下标，输入输出，平常复制粘贴惯了，国庆好好记一下；</li>
+<li>由于天天复制粘贴宏定义，导致输入输出也不熟练，甚至完全遗忘了字符串是怎么输出的，还好在$help$文档里翻到了一处$la$提醒了我；</li>
+<li>助教问答环节回答的不是很理想，要注意记一下各个<strong>寄存器的作用</strong>；</li>
+<li>中间错误的想要用乘法，发现不会用，对乘除的$HI$，$LO$<strong>怎么分配</strong>，要再看一看，记一下并实战应用一下；</li>
+<li>这次有时间不够的原因，做的很匆忙思路都没成型，导致删删改改很多，之后要整体<strong>构思</strong>好；</li>
+</ol>
+<p>本题解题思路:</p>
+<p>没有递归和函数调用，所以是一道比较简单的MIPS题，考验你基本的输入输出，宏定义，寻址，循环等内容。可以不用写出C语言代码直接写。首先我们要能熟练的写出那些常用的宏定义，平常的练习中经常直接复制粘贴，可上机考试的时候没有办法投机取巧，只能自己老老实实打，这个时候像我一样忘了怎么输出字符串就很致命了。我们需要给矩阵开至少$4\times 4\times 4$的空间，用<code>asciiz</code>定义空格，换行与<code>&quot;Out of bounds&quot;</code>。输入循环$16$次，用$beq$跳出。先用<code>bgt</code>判断$i+m$和$j+n$是否存在$&gt;4$的情况，有就跳转到<code>error</code>，直接输出报错的字符串就行。接着往后写二重循环，外层从$i$到$i+m-1$，内层由$j$到$j+m-1$，注意不要漏掉</p>
+<ol>
+<li>每个循环末尾$j$指令</li>
+<li>$j$指令前将循环变量$+1$</li>
+<li>外层循环每次回到开头进入新一轮循环，将内层循环变量<strong>复位</strong></li>
+<li>内层循环每输出一个数输出一个空格</li>
+<li>外层循环$j$前输出换行符</li>
+</ol>
+<p>至于寄存器的作用：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">寄存器编号</th>
+<th style="text-align:left">助记符</th>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">用途</th>
+<th style="text-align:left">是否在调用中保持</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>零寄存器</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left"><code>$zero</code></td>
+<td style="text-align:left">常数零</td>
+<td style="text-align:left">其值恒为0，读取它总是返回0，写入它无效。</td>
+<td style="text-align:left">不适用</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>保留寄存器</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left"><code>$at</code></td>
+<td style="text-align:left">汇编临时寄存器</td>
+<td style="text-align:left">被汇编器保留，用于处理大的立即数或地址加载（如 <code>lui</code> 指令）。<strong>程序员不应直接使用。</strong></td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>返回值寄存器</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">2-3</td>
+<td style="text-align:left"><code>$v0</code> - <code>$v1</code></td>
+<td style="text-align:left">值寄存器</td>
+<td style="text-align:left">用于存放<strong>函数调用的返回值</strong>。如果返回值大小超过一个寄存器（如64位整数），则使用 <code>$v0</code> 和 <code>$v1</code> 共同存放。</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>参数寄存器</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">4-7</td>
+<td style="text-align:left"><code>$a0</code> - <code>$a3</code></td>
+<td style="text-align:left">参数寄存器</td>
+<td style="text-align:left">用于向函数传递<strong>前四个参数</strong>。如果参数多于四个，超出的部分会通过栈来传递。</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>临时寄存器</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">8-15</td>
+<td style="text-align:left"><code>$t0</code> - <code>$t7</code></td>
+<td style="text-align:left">临时寄存器</td>
+<td style="text-align:left">用于存放<strong>临时变量</strong>。在函数调用中，这些寄存器的值<strong>不保证</strong>被调用者保存。如果调用函数后还需要这些值，调用者必须自己保存。</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>保存寄存器</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">16-23</td>
+<td style="text-align:left"><code>$s0</code> - <code>$s7</code></td>
+<td style="text-align:left">保存寄存器</td>
+<td style="text-align:left">用于存放<strong>需要跨函数调用保留的局部变量</strong>。如果一个函数使用了这些寄存器，它<strong>必须</strong>在函数开始时保存它们的原始值（通常在栈上），并在函数返回前恢复它们。</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>更多临时寄存器</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">24-25</td>
+<td style="text-align:left"><code>$t8</code> - <code>$t9</code></td>
+<td style="text-align:left">临时寄存器</td>
+<td style="text-align:left">与 <code>$t0-$t7</code> 作用相同，是额外的临时寄存器。</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>内核寄存器</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">26-27</td>
+<td style="text-align:left"><code>$k0</code> - <code>$k1</code></td>
+<td style="text-align:left">内核保留寄存器</td>
+<td style="text-align:left">专门为<strong>操作系统内核</strong>（如中断和异常处理程序）保留。应用程序<strong>不应使用</strong>这些寄存器。</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>全局指针寄存器</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">28</td>
+<td style="text-align:left"><code>$gp</code></td>
+<td style="text-align:left">全局指针</td>
+<td style="text-align:left">指向静态数据区（存储全局变量和静态变量）的中间位置。通过 <code>$gp</code> 可以更方便地用单条指令访问64KB范围内的全局数据，而不需要每次都使用 <code>lui</code> 和 <code>ori</code> 两条指令。</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>栈指针寄存器</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">29</td>
+<td style="text-align:left"><code>$sp</code></td>
+<td style="text-align:left">栈指针</td>
+<td style="text-align:left">指向运行时栈的顶部。栈用于存放函数返回地址、保存的寄存器、局部变量等。<code>$sp</code> 必须按字（4字节）对齐。</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>帧指针寄存器</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">30</td>
+<td style="text-align:left"><code>$fp</code> 或 <code>$s8</code></td>
+<td style="text-align:left">帧指针</td>
+<td style="text-align:left">指向当前函数栈帧的底部。它提供了一个固定的参考点，方便访问栈上的参数和局部变量，尤其是在栈指针 <code>$sp</code> 动态变化时。虽然它被列为 <code>$s8</code>，但其作用更像一个专用的帧指针。</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>返回地址寄存器</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">31</td>
+<td style="text-align:left"><code>$ra</code></td>
+<td style="text-align:left">返回地址</td>
+<td style="text-align:left">当使用 <code>jal</code>（跳转并链接）指令调用函数时，下一条指令的地址（返回地址）会自动存入 <code>$ra</code>。函数结束时通常通过 <code>jr $ra</code> 指令返回到调用点。</td>
+<td style="text-align:left">否</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>完整代码见下，宏定义板子也可自取：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><code class="hljs assembly">.macro end<br>	li $v0,10<br>	syscall<br>.end_macro <br><br>.macro getInt(%des)<br>	li $v0,5<br>	syscall <br>	move %des,$v0<br>.end_macro <br>	<br>.macro printInt(%src)<br>	move $a0,%src<br>	li $v0,1<br>	syscall <br>.end_macro <br><br>.macro printStr(%src)<br>	la $a0,%src<br>	li $v0,4<br>	syscall <br>.end_macro <br><br>.macro push(%src)<br>	addi $sp,$sp,-4<br>	sw %src 0($sp)<br>.end_macro <br><br>.macro getIndex(%src1,%src2,%des)<br>	sll %des,%src1,2<br>	add %des,%des,%src2<br>	sll %des,%des,2<br>.end_macro <br><br>.data<br>	a: .space 100<br>	space: .asciiz &quot; &quot;<br>	nxtline: .asciiz &quot;\n&quot;<br>	err: .asciiz &quot;Out of bounds&quot;<br><br>.text<br>li $s0,16<br>li $t0,0<br>for_in:<br>	beq $t0,$s0,for_in_end<br>	getInt($t1)<br>	sll $t2,$t0,2<br>	sw $t1 a($t2)<br>	addi $t0,$t0,1<br>	j for_in<br><br>for_in_end:<br>getInt($s1)					#s1=m<br>getInt($s2)					#s2=n<br>getInt($s3)					#s3=i<br>getInt($s4)					#s4=j<br><br>add $t4,$s1,$s3<br>add $t5,$s2,$s4<br>bgt $t4,4,error<br>bgt $t5,4,error<br><br>move $t0,$s3<br>for_i:<br>	beq $t0,$t4,for_i_end<br>	move $t1,$s4<br>	for_j:<br>		beq $t1,$t5,for_j_end<br>		getIndex($t0,$t1,$t2)<br>		lw $t3,a($t2)<br>		printInt($t3)<br>		printStr(space)<br>		addi $t1,$t1,1<br>		j for_j<br>	for_j_end:<br>		addi $t0,$t0,1<br>		printStr(nxtline)<br>		j for_i<br>for_i_end:<br>	end<br><br>error:<br>	printStr(err)<br>end<br>														<br></code></pre></td></tr></table></figure>
+<p>下面附本次上机题目：</p>
+<p>（注：本次上机全部做对才算通过）</p>
+<h1 id="T1-推箱子"><a href="#T1-推箱子" class="headerlink" title="T1-推箱子"></a>T1-推箱子</h1><p>独小星在玩一个简化版的推箱子游戏，请你设计一个状态机，根据输入来判断箱子是否被推到了目标点并输出。</p>
+<h2 id="提交要求"><a href="#提交要求" class="headerlink" title="提交要求"></a>提交要求</h2><h3 id="任务要求"><a href="#任务要求" class="headerlink" title="任务要求"></a>任务要求</h3><p>游戏地图建立在一个二维平面直角坐标系中，箱子在游戏开始或每次$reset$后位于$(0,0)$坐标处。推箱子的目标点固定位于$(5,5)$坐标处。</p>
+<p>游戏地图大小为：以$(0,0)$为左下角，以$(5,5)$为右上角，边长为$5$的正方形 (共$6\times6=36$个坐标点) 。 位于游戏地图内，当且仅当 。</p>
+<p>游戏地图中的坐标点分为墙体和空地。墙体固定为：$(1,1)$ ，$(1,2)$，$(2,1)$，$(4,4)$，$(4,3)$，$(3,4)$ 这 个坐标点。墙体是不可到达区域。</p>
+<p>每周期输入一对$(dx,dy)$，表示箱子的移动变化量。若箱子当前坐标为$(x,y)$，则箱子的预期落脚点为$(x+dx,y+dy)$ 。</p>
+<p>如果箱子的预期落脚点是合法的 (合法定义见下文) ，则在下一周期更新箱子的坐标为该落脚点。如果箱子的预期落脚点不合法，则将$flag$置为$1$持续一周期，下一周期箱子坐标保持不动。</p>
+<p>保证每周期输入的 只会是：$(0,0)$ ，$(1,0)$，$(0,1)$ 这$3$种中的一种。</p>
+<p>箱子的预期落脚点是合法的，<strong>当且仅当该落脚点位于游戏地图内，并且该落脚点不是墙体</strong>。</p>
+<p>当箱子坐标位于目标点时，输出$out$为$1$ ，否则为$0$。</p>
+<p>游戏地图大致如下：</p>
+<img src="/posts/Pre%E4%B8%8A%E6%9C%BA-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E4%B8%8E%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/grid.png" srcset="/img/loading.gif" lazyload class="" title="grid">
+<h3 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>功能</th>
+<th>位宽</th>
+<th>方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>clk</td>
+<td>时钟信号</td>
+<td>1</td>
+<td>I</td>
+</tr>
+<tr>
+<td>reset</td>
+<td><strong>异步</strong>复位信号</td>
+<td>1</td>
+<td>I</td>
+</tr>
+<tr>
+<td>dx</td>
+<td>坐标移动变化量</td>
+<td>1</td>
+<td>I</td>
+</tr>
+<tr>
+<td>dy</td>
+<td>坐标移动变化量</td>
+<td>1</td>
+<td>I</td>
+</tr>
+<tr>
+<td>out</td>
+<td>箱子是否位于目标点</td>
+<td>1</td>
+<td>O</td>
+</tr>
+<tr>
+<td>flag</td>
+<td>是否尝试移动到非法坐标</td>
+<td>1</td>
+<td>O</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>输入</strong>：保证每周期输入的$(dx,dy)$只会是：$(0,0)$ ，$(1,0)$，$(0,1)$ 这$3$种中的一种。</li>
+<li><strong>输出</strong>：$flag$默认为$0$，若当前周期箱子尝试移动到非法坐标，则下一周期$flag$置为$1$( 若有$reset$则立刻复位为$1$)。</li>
+<li><strong>文件内模块名</strong>: <strong>Sokoban</strong></li>
+<li><strong>测试电路图</strong>：</li>
+</ul>
+<img src="/posts/Pre%E4%B8%8A%E6%9C%BA-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E4%B8%8E%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/testcirc.png" srcset="/img/loading.gif" lazyload class="" title="testcirc">
+<ul>
+<li><strong>注意：请保证模块的 appearance 与下图一致，否则有可能造成评测错误。注意输入的上下顺序。</strong></li>
+</ul>
+<img src="/posts/Pre%E4%B8%8A%E6%9C%BA-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E4%B8%8E%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/fmt.png" srcset="/img/loading.gif" lazyload class="" title="fmt">
+<h1 id="T2-翻涌数字"><a href="#T2-翻涌数字" class="headerlink" title="T2-翻涌数字"></a>T2-翻涌数字</h1><h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>给出一个位宽为$32$的输入 ，代表$8$个位宽为$4$的数据，分别命名为$a_0$，$a_1$，…… ，$a_7$ 。</p>
+<p>其中$a_i$= $a[(i+1)*4-1:i*4]$</p>
+<p>对每一个$a_i$进行操作，使得$a_i$= $\sum_{j=0}^{i}a_j$</p>
+<p>对操作后得到的$a_i$按原顺序进行拼接，并输出拼接后的$a$。</p>
+<p>特别的：若$a_i$相加时出现溢出，则保留对 <code>4&#39;d16</code> 取余后的结果。</p>
+<h2 id="2、模块规格"><a href="#2、模块规格" class="headerlink" title="2、模块规格"></a>2、模块规格</h2><p>模块名：roll</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>信号名</th>
+<th>方向</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a[31:0]</td>
+<td>I</td>
+<td>用于计算的数</td>
+</tr>
+<tr>
+<td>out[31:0]</td>
+<td>O</td>
+<td>计算结果</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="3、输入输出样例"><a href="#3、输入输出样例" class="headerlink" title="3、输入输出样例"></a>3、输入输出样例</h2><img src="/posts/Pre%E4%B8%8A%E6%9C%BA-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E4%B8%8E%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/wave.png" srcset="/img/loading.gif" lazyload class="" title="wave">
+<p>如图，当 为 <code>32&#39;h11111111</code> 时， 为 <code>32&#39;h87654321</code> 。</p>
+<p>当 为 <code>32&#39;h87654321</code> 时， 为 <code>32&#39;h4c5fa631</code> 。</p>
+<h2 id="4、提交要求"><a href="#4、提交要求" class="headerlink" title="4、提交要求"></a>4、提交要求</h2><ul>
+<li>必须严格按照模块的端口名称和方向定义。</li>
+<li>文件内模块名： roll</li>
+<li>模块内不要包含任何 <code>$display</code> 语句，以防造成误判。</li>
+</ul>
+<h2 id="T3-MIPS-Submatrix"><a href="#T3-MIPS-Submatrix" class="headerlink" title="T3-MIPS_Submatrix"></a>T3-MIPS_Submatrix</h2><h3 id="功能需求"><a href="#功能需求" class="headerlink" title="功能需求"></a>功能需求</h3><p>实现 MIPS 汇编程序：从 $4 × 4$ 的大矩阵 $A$ 中提取出指定位置指定大小的子矩阵。</p>
+<h3 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h3><p>第 1 - 16 行依次输入大矩阵 $A$ 的元素 $t$（整数， $0 ≤ t ≤ 100$）：</p>
+<ul>
+<li>第一行： $A$ 第 0 行第 0 列的元素</li>
+<li>第二行： $A$ 第 0 行第 1 列的元素</li>
+<li>…… （依此类推）</li>
+</ul>
+<p>第 17 行输入一个整数 $m$ ，表示子矩阵的行数（$1 ≤ m ≤ 4$）。</p>
+<p>第 18 行输入一个整数 $n$ ，表示子矩阵的列数（$1 ≤ n ≤ 4$）。</p>
+<p>第 19 行输入一个整数 $i$ ，表示子矩阵的第 0 行第 0 列元素在大矩阵 $A$ 中的行数（$0 ≤ i ≤ 3$）。</p>
+<p>第 20 行输入一个整数 $j$ ，表示子矩阵的第 0 行第 0 列元素在大矩阵 $A$ 中的列数（$0 ≤ j ≤ 3$）。</p>
+<h3 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h3><ol>
+<li>若子矩阵完全位于大矩阵内，未超出边界：输出$m*n$子矩阵，共 $m$ 行，每行 $n$ 个元素（空格分隔）。</li>
+<li>若超出边界：输出字符串 <code>Out of bounds</code>。</li>
+</ol>
+<h3 id="约定"><a href="#约定" class="headerlink" title="约定"></a>约定</h3><ol>
+<li>大矩阵 $A$ 的行索引和列索引从 0 开始编号。</li>
+<li>请勿使用 <code>.globl main</code></li>
+<li>请使用 <code>syscall</code> 结束程序：</li>
+</ol>
+<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mips">li $<span class="hljs-built_in">v0</span>, <span class="hljs-number">10</span><br><span class="hljs-keyword">syscall</span><br></code></pre></td></tr></table></figure>
+<h3 id="输入样例-1"><a href="#输入样例-1" class="headerlink" title="输入样例 1"></a>输入样例 1</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs none">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>2<br>2<br>1<br>1<br></code></pre></td></tr></table></figure>
+<h3 id="输出样例-1"><a href="#输出样例-1" class="headerlink" title="输出样例 1"></a>输出样例 1</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs none">6 7<br>10 11<br></code></pre></td></tr></table></figure>
+<h3 id="输入样例-2"><a href="#输入样例-2" class="headerlink" title="输入样例 2"></a>输入样例 2</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs none">4<br>3<br>2<br>1<br>8<br>7<br>6<br>5<br>12<br>11<br>10<br>9<br>13<br>14<br>15<br>16<br>3<br>2<br>2<br>2<br></code></pre></td></tr></table></figure>
+<h3 id="输出样例-2"><a href="#输出样例-2" class="headerlink" title="输出样例 2"></a>输出样例 2</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs none">Out of bounds<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CO%E4%B8%8A%E6%9C%BA/" class="category-chain-item">CO上机</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CO/" class="print-no-link">#CO</a>
+      
+        <a href="/tags/CO%E4%B8%8A%E6%9C%BA/" class="print-no-link">#CO上机</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Pre上机-总结反思与问题汇总</div>
+      <div>http://example.com/posts/Pre上机-总结反思与问题汇总/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>pppphop</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年9月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/P1%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D/" title="P1课下-总结反思">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">P1课下-总结反思</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/P0%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D%E6%96%87%E6%A1%A3/" title="P0课下-总结反思文档">
+                        <span class="hidden-mobile">P0课下-总结反思文档</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
