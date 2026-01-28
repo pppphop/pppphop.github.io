@@ -27,7 +27,7 @@
 <meta property="og:description" content="2025-2026 计算机组成原理 期末试卷$Sorted ~by ~2406-zhp$ 一、单项选择题（每题 2 分，共 20 分） 若机器字长为 32 位，采用补码表示整数，则其能表示的最小值为：A. $0$B. $-2^{31}$C. $-2^{32}$D. $-(2^{31}-1)$  在设计时序逻辑电路时，若要存储电路的当前状态以便在下一时钟周期参与运算，最适合的硬件方案是：A. 仅使用">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-01-16T12:19:03.000Z">
-<meta property="article:modified_time" content="2026-01-21T00:50:26.216Z">
+<meta property="article:modified_time" content="2026-01-28T09:37:06.479Z">
 <meta property="article:author" content="pppphop">
 <meta property="article:tag" content="CO">
 <meta property="article:tag" content="往年题">
@@ -326,7 +326,7 @@
 </ol>
 <hr>
 <h2 id="四、MIPS-汇编程序设计（10-分）"><a href="#四、MIPS-汇编程序设计（10-分）" class="headerlink" title="四、MIPS 汇编程序设计（10 分）"></a>四、MIPS 汇编程序设计（10 分）</h2><p><strong>题目：</strong> 给定一个整型数组 <code>A</code>，其首地址保存在寄存器 <code>$a0</code> 中，数组长度 $N$ 保存在 <code>$a1</code> 中。请补全下列 MIPS 代码，功能为：<strong>统计数组 A 中所有“小于 0”的元素的个数</strong>。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs assembly">	li $s0, 0         <br>    li $t0, 0          <br><br>Loop:<br>    bge ____ , $a1, End <br>        <br>    add $t1 , ____ , $a0  <br>    lw  ____ , 0($t1)    <br>    <br>    slt $t3, $t2 , ____<br>    beq $t3, ____ , Next <br>    <br>   <br>    addi $s0, $s0, 1   <br>    <br>Next:<br>    addi ____ , ____ , ____   <br>    __ ____<br><br>End:<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs assembly">	li $s0, 0         <br>    li $t0, 0          <br><br>Loop:<br>    bge $t0, $a1, End <br>    <br>    sll $t1, ____ , 2    <br>        <br>    add $t1, ____ , $a0  <br>    <br>    lw  ____ , 0($t1)    <br>    <br>    slt $t3, ____ , ____<br>    <br>    beq $t3, ____ , Next <br>    <br>    addi $s0, $s0, 1   <br>    <br>Next:<br>    addi ____ , ____ , 1   <br>    <br>    __ ______<br><br>End:<br></code></pre></td></tr></table></figure>
 <hr>
 <h2 id="五、存储系统扩展（10-分）"><a href="#五、存储系统扩展（10-分）" class="headerlink" title="五、存储系统扩展（10 分）"></a>五、存储系统扩展（10 分）</h2><p>某计算机主存地址空间大小为 64KB，按字节编址（数据总线 8 位）。系统程序区占低地址区，<code>0-0x3FFF</code>：占用 16KB 空间，由 ROM 芯片组成。剩余高地址区为用户数据区。</p>
 <p>现有芯片规格如下：<strong>ROM 芯片</strong>：$4K \times 4$ 位，<strong>DRAM 芯片</strong>：$16K \times 8$ 位</p>
@@ -350,7 +350,7 @@
 </li>
 </ol>
 <hr>
-<h2 id="七、虚拟存储器（10-分）"><a href="#七、虚拟存储器（10-分）" class="headerlink" title="七、虚拟存储器（10 分）"></a>七、虚拟存储器（10 分）</h2><p>某计算机系统采用虚拟页式存储管理，物理空间$1$GB，虚拟空间4GB，页大小为 <strong>4KB</strong>。TLB（快表）采用 <strong>2路组相联</strong> 映射方式，大小32KB。每个表项包含1位有效位、1位脏位。</p>
+<h2 id="七、虚拟存储器（10-分）"><a href="#七、虚拟存储器（10-分）" class="headerlink" title="七、虚拟存储器（10 分）"></a>七、虚拟存储器（10 分）</h2><p>某计算机系统采用虚拟页式存储管理，物理空间$1$GB，虚拟空间4GB，页大小为 <strong>4KB</strong>。TLB（快表）采用 <strong>2路组相联</strong> 映射方式， TLB 拥有 32 个表项。每个表项包含1位有效位、1位脏位。</p>
 <p>1.逻辑地址为多少位，一共有多少虚页？</p>
 <p>2.虚地址中哪几位是虚页号，虚页号TLB中哪几位为标记位(Tag)，计算TLB总容量。</p>
 <p>3.系统使用一个磁盘子系统，磁盘转速为6000 rpm，有8个盘，218个柱面，每个磁道12个扇区，其中有两个扇区保留不存储信息，扇区大小512B，平均寻道时间为5 ms，求磁盘平均访问时间和总存储容量。</p>
