@@ -286,6 +286,33 @@
   
   
   <entry>
+    <title>P3上机-问题思路汇总</title>
+    <link href="/posts/P3%E4%B8%8A%E6%9C%BA-%E9%97%AE%E9%A2%98%E6%80%9D%E8%B7%AF%E6%B1%87%E6%80%BB/"/>
+    <url>/posts/P3%E4%B8%8A%E6%9C%BA-%E9%97%AE%E9%A2%98%E6%80%9D%E8%B7%AF%E6%B1%87%E6%80%BB/</url>
+    
+    <content type="html"><![CDATA[<h1 id="P3上机-问题思路汇总"><a href="#P3上机-问题思路汇总" class="headerlink" title="P3上机-问题思路汇总"></a>P3上机-问题思路汇总</h1><h2 id="第一题"><a href="#第一题" class="headerlink" title="第一题"></a>第一题</h2><h3 id="指令格式"><a href="#指令格式" class="headerlink" title="指令格式"></a>指令格式</h3><p><code>REVI</code>-<code>rs</code>-<code>rt</code>-<code>imm16</code></p><p>I型计算类指令，机器码为<code>101101</code></p><h3 id="指令描述"><a href="#指令描述" class="headerlink" title="指令描述"></a>指令描述</h3><p>将<code>rs</code>中数值高imm16位翻转置于低位，剩余位置不变置于高位，将结果存入<code>rt</code>中。（保证<code>imm16</code>严格小于32）</p><h3 id="RTL语言"><a href="#RTL语言" class="headerlink" title="RTL语言"></a>RTL语言</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pseudocode">temp &lt;- GRR[rs]<br>result &lt;- temp[31-imm16:0]||reverse(temp[31:32-imm16])<br>GPR[rt] &lt;- result<br></code></pre></td></tr></table></figure><h2 id="第二题"><a href="#第二题" class="headerlink" title="第二题"></a>第二题</h2><h3 id="指令格式-1"><a href="#指令格式-1" class="headerlink" title="指令格式"></a>指令格式</h3><p><code>BLZ</code>-<code>rs</code>-<code>rt</code>-<code>offset</code></p><p>I型跳转类指令+I型计算类指令，机器码为<code>011000</code></p><h3 id="指令描述-1"><a href="#指令描述-1" class="headerlink" title="指令描述"></a>指令描述</h3><p>比较<code>rs</code>、<code>rt</code>中数据先导零的个数，决定跳转方式与存储数据。</p><h3 id="RTL语言-1"><a href="#RTL语言-1" class="headerlink" title="RTL语言"></a>RTL语言</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs pseudocode">temp1 &lt;-count_leading_zeros(GPR[rs])<br>temp2 &lt;-count_leading_zeros(GPR[rt])<br>if (temp1 == temp2) <br>PC &lt;- PC + 4 + sign_ext(offset||00)<br>else if (temp1 &gt; temp2)<br>PC &lt;- PC + 4<br>rs &lt;- temp1<br>else<br>PC &lt;- PC + 4<br>rs &lt;- temp2<br></code></pre></td></tr></table></figure><h2 id="第三题"><a href="#第三题" class="headerlink" title="第三题"></a>第三题</h2><h3 id="指令格式-2"><a href="#指令格式-2" class="headerlink" title="指令格式"></a>指令格式</h3><p><code>LWF</code>-<code>base</code>-<code>rt</code>-<code>offset</code></p><p>I型访存类指令。</p><h3 id="指令描述-2"><a href="#指令描述-2" class="headerlink" title="指令描述"></a>指令描述</h3><p>Load Word with Filter</p><p>根据<code>filter</code>1的个数决定访存所得数据存入<code>rt</code>还是<code>(rt+1)mod32</code>中。</p><h3 id="RTL语言-2"><a href="#RTL语言-2" class="headerlink" title="RTL语言"></a>RTL语言</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs pseudocode">vaddr &lt;- GPR[base] + sign(offset)<br>paddr &lt;- vaddr[31:2]||00<br>memword &lt;- memory[paddr]<br>filter &lt;- memword And GPR[rt]<br>ones &lt;- count_ones(filter)<br>if (ones mod 2 == 0)<br>GPR[rt] &lt;- memword<br>else<br>GPR[(rt+1)mod32] &lt;- memword<br></code></pre></td></tr></table></figure><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>T1难点在反转，用两个$splitter$序号相反即可，也得点蛮久。</p><p>T2坑点好像是在用$31$减还是$32$，特殊处理找不到$1$的情况。这题想做对有难度，记得当时我卡了很久。</p><p>T3我十分钟一遍过了，只记得过了两道头脑一下清醒了，思路清晰的拿下了这道题。解法好像是只改了顶层，在顶层加点东西就行。</p><h2 id="笔者的话"><a href="#笔者的话" class="headerlink" title="笔者的话"></a>笔者的话</h2><p>如果发现我的解题思路越写越简略，这是正常的，因为实在不记得了555……</p><p>然后讲一讲上机的一些感受，毕竟P3是第一次进入闯关，很多人也会挂在这，我们这届通过率只有百分之三十几，并不高。首先是上机前你会很紧张，真的非常紧张，来回踱步，在机房里等待开始时更是如此，可以尝试深呼吸，想一想其他的事转移一下注意力。如果你在过两题之前发现卡住了，这时候心态包崩的。如果过了两题，那最后一题基本上你的心态会很好，从容优雅的解决最后一道题，因为你心里已经知道自己已经通过了。</p><p>然后是报错信息的问题。相信学长学姐也都教过大家裸交的方法，如果直接裸交自己课下的代码能过两三个点，那基本上就没什么问题，这个基本适用于P5和P7之外的每一关。比如P3，测试点是比较少的，裸交五个点都过了仨，那肯定课下是没问题了。但是你在做加指令题时发现错误信息是课下的指令，比如<code>lw</code>，<code>ori</code>出错，就会怀疑自己的课下。其实这是评测机机制导致的。他只会检测你有<code>GRFwe=1 || DMwe=1</code>的指令，即写寄存器或写内存，这在做P4的过程中就能理解了。可能是新加指令没有写寄存器、写内存，或者你的<code>GRFwe</code>错了、没接线等。</p><p>最后是闯关制的问题。P3-P7一共有三次容错，也就是你可以挂三次P仍然通关计组实验。不用太担心，虽然这个上机贯穿学期始终，花了大量的时间，但是大部分人是可以通关的，可能不是同一批，但几乎不影响分数。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>CO上机</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>CO</tag>
+      
+      <tag>CO上机</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>P4课下-Verilog单周期CPU</title>
     <link href="/posts/P4%E8%AF%BE%E4%B8%8B-Verilog%E5%8D%95%E5%91%A8%E6%9C%9FCPU/"/>
     <url>/posts/P4%E8%AF%BE%E4%B8%8B-Verilog%E5%8D%95%E5%91%A8%E6%9C%9FCPU/</url>
