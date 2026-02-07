@@ -19,23 +19,22 @@
   <meta name="author" content="pppphop">
   <meta name="keywords" content="">
   
-    <meta name="description" content="P0上机-问题总结与反思题面复原1.P0_ups_and_downs题目描述独小星在监测一个数列的起伏变化，聪明的他想到可以用状态机来自动监测。请你帮助小星设计一个 Moore 状态机，来统计一个串行输入数列的起伏规律，并在识别到特定规律时输出。 前置知识在本题中，串行输入是指，不断将当前输入追加到之前输入数列的末尾。假设截止到某个周期共有 $m$ 个输入，从第零个周期到该周期的输入分别为：$a_">
+    <meta name="description" content="第八次作业本次作业是2025年面向对象先导课程的最后一次作业。 在这次作业中，我们没有需要迭代开发的功能，而是希望同学们把目光着眼于自己已经写过的程序，对本学期所学的内容进行总结反思，为正课做好准备。  前言提醒： 请大家先加入CSDN班级社区：点击此处链接 即可加入班级社区 加入班级社区后请修改【社区昵称】为【姓名-学号】 在CSDN社区中发布。    作业简介请同学们按照下述要求撰写博客，提交">
 <meta property="og:type" content="article">
-<meta property="og:title" content="P0上机-问题总结与反思">
-<meta property="og:url" content="http://example.com/posts/P0%E4%B8%8A%E6%9C%BA-%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93%E4%B8%8E%E5%8F%8D%E6%80%9D/index.html">
+<meta property="og:title" content="oopre-第八次作业">
+<meta property="og:url" content="http://example.com/posts/oopre-%E7%AC%AC%E5%85%AB%E6%AC%A1%E4%BD%9C%E4%B8%9A/index.html">
 <meta property="og:site_name" content="zhp的博客">
-<meta property="og:description" content="P0上机-问题总结与反思题面复原1.P0_ups_and_downs题目描述独小星在监测一个数列的起伏变化，聪明的他想到可以用状态机来自动监测。请你帮助小星设计一个 Moore 状态机，来统计一个串行输入数列的起伏规律，并在识别到特定规律时输出。 前置知识在本题中，串行输入是指，不断将当前输入追加到之前输入数列的末尾。假设截止到某个周期共有 $m$ 个输入，从第零个周期到该周期的输入分别为：$a_">
+<meta property="og:description" content="第八次作业本次作业是2025年面向对象先导课程的最后一次作业。 在这次作业中，我们没有需要迭代开发的功能，而是希望同学们把目光着眼于自己已经写过的程序，对本学期所学的内容进行总结反思，为正课做好准备。  前言提醒： 请大家先加入CSDN班级社区：点击此处链接 即可加入班级社区 加入班级社区后请修改【社区昵称】为【姓名-学号】 在CSDN社区中发布。    作业简介请同学们按照下述要求撰写博客，提交">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-10-14T08:24:17.000Z">
-<meta property="article:modified_time" content="2026-01-23T08:48:35.326Z">
+<meta property="article:published_time" content="2025-11-18T09:57:24.000Z">
+<meta property="article:modified_time" content="2026-02-07T10:00:17.522Z">
 <meta property="article:author" content="pppphop">
-<meta property="article:tag" content="CO">
-<meta property="article:tag" content="CO上机">
+<meta property="article:tag" content="oopre">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>P0上机-问题总结与反思 - zhp的博客</title>
+  <title>oopre-第八次作业 - zhp的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -201,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="P0上机-问题总结与反思"></span>
+            <span id="subtitle" data-typed-text="oopre-第八次作业"></span>
           
         </div>
 
@@ -212,8 +211,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-10-14 16:24" pubdate>
-          2025年10月14日 下午
+        <time datetime="2025-11-18 17:57" pubdate>
+          2025年11月18日 下午
         </time>
       </span>
     
@@ -224,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          685 字
         
       </span>
     
@@ -235,7 +234,7 @@
         
         
         
-          17 分钟
+          6 分钟
         
       </span>
     
@@ -272,258 +271,41 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">P0上机-问题总结与反思</h1>
+            <h1 id="seo-header">oopre-第八次作业</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="P0上机-问题总结与反思"><a href="#P0上机-问题总结与反思" class="headerlink" title="P0上机-问题总结与反思"></a>P0上机-问题总结与反思</h1><h2 id="题面复原"><a href="#题面复原" class="headerlink" title="题面复原"></a>题面复原</h2><h3 id="1-P0-ups-and-downs"><a href="#1-P0-ups-and-downs" class="headerlink" title="1.P0_ups_and_downs"></a>1.P0_ups_and_downs</h3><p><strong>题目描述</strong><br>独小星在监测一个数列的起伏变化，聪明的他想到可以用状态机来自动监测。请你帮助小星设计一个 Moore 状态机，来统计一个串行输入数列的起伏规律，并在识别到特定规律时输出。</p>
-<p><strong>前置知识</strong><br>在本题中，串行输入是指，不断将当前输入追加到之前输入数列的末尾。假设截止到某个周期共有 $m$ 个输入，从第零个周期到该周期的输入分别为：$a_{0}$，$a_1, \dots $,$a_{m-2}$，$a_{m-1}$。则从第零周期到该周期的串行输入的串依次为：</p>
-<p>$a_0$</p>
-<p>$a_0 a_1$</p>
-<p>…</p>
-<p>$a_0 a_1 a_2 a_3 \dots a_{m-1}$</p>
-<p>本题中的“起伏”指的是：当前周期输入 $a_m$ 相对于上一周期最后输入 $a_{m-1}$ 的大小关系。若 $a_m$ 严格大于 $a_{m-1}$，则称为一次“起”。若 $a_m$ 严格小于 $a_{m-1}$，则称为一次“伏”。</p>
-<p>数据保证<strong>相邻两周期输入不相同</strong>。</p>
-<p><strong>任务要求</strong><br>使用 Logisim 搭建一个识别串行输入串中“起起伏起伏”规律的 Moore 状态机。</p>
-<p>每个周期输入一个位宽为 5 的<strong>无符号数</strong>，当最近四个周期的输入使得数列满足“起”“起”“伏”“起”时，输出1，否则输出0。</p>
-<p>状态机支持<strong>循环检测</strong>，即当前“起”“起”“伏”“起”的最后一个“起”可以作为下一次“起”“起”“伏”“起”的第一个“起”。</p>
-<p>数列默认第零项为 <code>5&#39;d7</code>，<strong>在初始状态和复位后，数列的 $a_0 = 5’d7$</strong>。</p>
-<p><strong>样例</strong><br>假设串行输入串为：(7)8901215，则状态机输出为：(0)0001001，其中输入的第一个 7 表示数列默认第零项为 7，输出的第一个 0 表示在第一个输入到来之前输出默认为 0。</p>
-<p><strong>输入输出</strong></p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">名称</th>
-<th style="text-align:left">功能</th>
-<th style="text-align:left">位宽</th>
-<th style="text-align:left">方向</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">a</td>
-<td style="text-align:left">输入</td>
-<td style="text-align:left">5</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">clk</td>
-<td style="text-align:left">时钟信号</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">reset</td>
-<td style="text-align:left">异步复位信号</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">output</td>
-<td style="text-align:left">结果</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">O</td>
-</tr>
-</tbody>
-</table>
-</div>
+                <h1 id="第八次作业"><a href="#第八次作业" class="headerlink" title="第八次作业"></a>第八次作业</h1><p>本次作业是2025年面向对象先导课程的最后一次作业。</p>
+<p>在这次作业中，我们没有需要迭代开发的功能，而是希望同学们把目光着眼于自己已经写过的程序，对本学期所学的内容进行总结反思，为正课做好准备。</p>
 <ul>
-<li><strong>输入</strong>：上文所述 $a$ (5 bit)，时钟信号 (1 bit)，异步复位信号 (1 bit)。</li>
-<li><strong>输出</strong>：0 或者 1。</li>
-<li><strong>文件内模块名</strong>：main</li>
-<li><strong>测试要求</strong>：请以 Moore 状态机的方式实现，并提供<strong>异步复位</strong>。</li>
+<li><strong>前言提醒</strong>：<ul>
+<li>请大家先加入CSDN班级社区：<a target="_blank" rel="noopener" href="https://d.buaa.edu.cn/https/77726476706e69737468656265737421f2f552d224236c5e30068cb8/forums/BUAA_2026_spring?joinKey=sreeyqvz76rt-6xkjklnmok-1-f12a1ca9b229ea5a3143dd089aac8684&amp;roleId=1316158">点击此处链接</a> 即可加入班级社区</li>
+<li>加入班级社区后请修改【社区昵称】为【姓名-学号】</li>
+<li>在<a target="_blank" rel="noopener" href="https://d.buaa.edu.cn/https/77726476706e69737468656265737421f2f552d224236c5e30068cb8/forums/BUAA_2026_spring">CSDN社区</a>中发布。</li>
 </ul>
-<hr>
-<h3 id="2-P0-binary-calculator"><a href="#2-P0-binary-calculator" class="headerlink" title="2.P0_binary_calculator"></a>2.P0_binary_calculator</h3><p><strong>题目描述</strong><br>小企鹅在做数字电路设计时，想要设计一个支持特殊位运算的移位计算器，请你帮助设计一个 Mealy 状态机来实现这个功能。</p>
-<p><strong>前置知识</strong><br>在本题中，我们需要设计一个基于移位操作的二进制计算器，支持以下三种操作：</p>
+</li>
+</ul>
+<h2 id="作业简介"><a href="#作业简介" class="headerlink" title="作业简介"></a>作业简介</h2><p>请同学们按照下述要求撰写博客，提交至CSDN社区。</p>
+<p>大家的博客需要包含以下内容：</p>
 <ol>
-<li><strong>移位加法(SA)</strong>：将当前寄存器中的数值左移一位，然后加上输入的操作数。</li>
-<li><strong>移位减法(SS)</strong>：将当前寄存器中的数值左移一位，然后减去输入的操作数。</li>
-<li><strong>移位异或(SX)</strong>：将当前寄存器中的数值左移一位，然后与输入的操作数进行按位异或运算。</li>
+<li>作业最终的架构设计, 在迭代中的架构调整及考虑</li>
+<li>使用JUnit的心得体会</li>
+<li>学习OOPre的心得体会（包括但不限于从面向过程编程过渡到面向对象编程的体会）</li>
+<li>对OOPre课程的简单建议（不多于两条）</li>
 </ol>
-<p><strong>任务要求</strong><br>使用 Logisim 搭建一个移位计算器的 Mealy 状态机。<br>每个周期，系统接收一个 2 位的操作码 <code>op</code> 和一个 8 位的操作数 <code>operand</code>，根据操作码执行相应的运算，输出计算结果并将该结果存入寄存器。</p>
-<p>操作码与运算的对应关系如下：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">op</th>
-<th style="text-align:left">操作</th>
-<th style="text-align:left">功能描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">00</td>
-<td style="text-align:left">复位</td>
-<td style="text-align:left">将寄存器清零</td>
-</tr>
-<tr>
-<td style="text-align:left">01</td>
-<td style="text-align:left">SA</td>
-<td style="text-align:left">将当前寄存器中的数值左移一位，然后加上输入的操作数</td>
-</tr>
-<tr>
-<td style="text-align:left">10</td>
-<td style="text-align:left">SS</td>
-<td style="text-align:left">将当前寄存器中的数值左移一位，然后减去输入的操作数</td>
-</tr>
-<tr>
-<td style="text-align:left">11</td>
-<td style="text-align:left">SX</td>
-<td style="text-align:left">将当前寄存器中的数值左移一位，然后与输入的操作数进行按位异或运算</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>计算器的初始状态和复位后，寄存器中的值为 <code>8&#39;h00</code>。<br>所有计算均使用无符号 8 位整数，计算结果如果超出 8 位表示范围，则类似取模运算保留低 8 位即可。<br><strong>reset 说明</strong>：本题不需要 <code>reset</code> 信号，具体逻辑通过 <code>op</code> 实现。</p>
-<p><strong>样例</strong><br>假设每个时钟周期只有一次输入，那么输入序列为：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">op = 01, operand = 0x03 # SA 操作: (0x00 &lt;&lt; 1) + 0x03 = 0x03<br>op = 01, operand = 0x05 # SA 操作: (0x03 &lt;&lt; 1) + 0x05 = 0x0B<br>op = 10, operand = 0x02 # SS 操作: (0x0B &lt;&lt; 1) - 0x02 = 0x14<br>op = 11, operand = 0xFF # SX 操作: (0x14 &lt;&lt; 1) ^ 0xFF = 0x28 ^ 0xFF = 0xD7<br>op = 00, operand = 任意 # 复位操作: 0x00<br></code></pre></td></tr></table></figure>
-<p>对应的输出序列为：<code>0x03, 0x0B, 0x14, 0xD7, 0x00</code></p>
-<p>需要注意的是，本题要求使用 Mealy 型有限状态机，在一个时钟周期内可能输入不停变化，但是只要时钟上升沿没有到达，其状态就不会被写入寄存器。</p>
-<p><strong>输入输出</strong></p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">名称</th>
-<th style="text-align:left">功能</th>
-<th style="text-align:left">位宽</th>
-<th style="text-align:left">方向</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">op</td>
-<td style="text-align:left">操作码</td>
-<td style="text-align:left">2</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">operand</td>
-<td style="text-align:left">操作数</td>
-<td style="text-align:left">8</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">clk</td>
-<td style="text-align:left">时钟信号</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">result</td>
-<td style="text-align:left">计算结果</td>
-<td style="text-align:left">8</td>
-<td style="text-align:left">O</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><strong>输入</strong>：操作码 <code>op</code>，操作数 <code>operand</code>，时钟信号。</li>
-<li><strong>输出</strong>：计算结果 <code>result</code></li>
-<li><strong>文件内模块名</strong>：main</li>
-</ul>
-<hr>
-<h3 id="3-P0-intelligent-elevator"><a href="#3-P0-intelligent-elevator" class="headerlink" title="3.P0_intelligent_elevator"></a>3.P0_intelligent_elevator</h3><p><strong>题目描述</strong><br>独小星设计了一种智能电梯，能够根据每层乘客人数来动态调节目标楼层，请你设计一个组合电路，计算电梯移动的总楼层数。</p>
-<p><strong>前置知识</strong><br>在本题中，<strong>一共有四个楼层</strong>，分别命名为：第 0 层、第 1 层、第 2 层、第 3 层。<br>从第 $n$ 层移动到第 $m$ 层，电梯移动了 $|m - n|$ 层楼。</p>
-<p><strong>任务要求</strong><br>使用 Logisim 搭建一个组合电路，根据输入的信息计算电梯移动的总楼层数，并输出。</p>
-<p>电梯初始停留楼层不固定，由输入信号 <code>from</code> 指定。<code>from</code> 是一个位宽为 4 的独热编码，其与初始停留楼层的对应关系如下表：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">from</th>
-<th style="text-align:left">初始停留楼层</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0001</td>
-<td style="text-align:left">第 0 层</td>
-</tr>
-<tr>
-<td style="text-align:left">0010</td>
-<td style="text-align:left">第 1 层</td>
-</tr>
-<tr>
-<td style="text-align:left">0100</td>
-<td style="text-align:left">第 2 层</td>
-</tr>
-<tr>
-<td style="text-align:left">1000</td>
-<td style="text-align:left">第 3 层</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>该电梯为理想电梯，乘客只上不下，电梯容量无限。<br>电梯停留在某一楼层时，可以认为该层乘客全部进入电梯了，后续该层乘客数即为 0。由于电梯一开始停留在初始楼层，因此无论输入的乘客数是多少，初始楼层乘客数可直接视为 0。</p>
-<p>电梯的运行逻辑为：寻找目前所有楼层中<strong>乘客数最多且不为 0</strong> 的楼层，并视其为目标楼层，然后从当前停留楼层直达目标楼层并停留（中间路过的楼层不算做停留）。之后继续以该逻辑运行，直到所有楼层乘客数都为 0。</p>
-<p>数据保证<strong>所有楼层乘客数不相同，且均不为 0</strong>。</p>
-<p><strong>输入输出</strong></p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">名称</th>
-<th style="text-align:left">功能</th>
-<th style="text-align:left">位宽</th>
-<th style="text-align:left">方向</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">from</td>
-<td style="text-align:left">初始楼层独热编码</td>
-<td style="text-align:left">4</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">num0</td>
-<td style="text-align:left">第 0 层乘客数</td>
-<td style="text-align:left">8</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">num1</td>
-<td style="text-align:left">第 1 层乘客数</td>
-<td style="text-align:left">8</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">num2</td>
-<td style="text-align:left">第 2 层乘客数</td>
-<td style="text-align:left">8</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">num3</td>
-<td style="text-align:left">第 3 层乘客数</td>
-<td style="text-align:left">8</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">output</td>
-<td style="text-align:left">电梯移动总楼层数</td>
-<td style="text-align:left">8</td>
-<td style="text-align:left">O</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><strong>输入</strong>：保证 <code>num0</code>, <code>num1</code>, <code>num2</code>, <code>num3</code> 互不相等，且均不为 0。</li>
-<li><strong>输出</strong>：电梯移动总楼层数 (8 bit)。</li>
-<li><strong>文件内模块名</strong>：main</li>
-<li><strong>注意</strong>：请保证模块的 appearance 与下图一致，否则有可能造成评测错误。注意输入的上下顺序。</li>
-</ul>
-<h2 id="解答与反思"><a href="#解答与反思" class="headerlink" title="解答与反思"></a>解答与反思</h2><p>第一二题都比较简单（绝对不是这个入懒得重新做的），在我印象中P1还是有点卡人的，主要点在于这个$5’d7$的初始值，我们实际上是无法直接初始化的。要么使用$MUX$选择是7还是寄存器出来的值，要么直接将输入减$7$即可。</p>
-<p>第三题我记得当时颇引起一些风波。我记得有一位同学的做法特别好，我们课下已经学会了排序，这题应该怎么直接套用呢？将$0,1,2,3$补到输入的末尾（$2$位二进制数），对这四个补完的数排序，末尾两位代表对应楼层，这样就知道四个楼层的大小关系了。核心部分就能直接做出来。当然，打表也是可以做的。</p>
-<p>附上我课后重做的文件：</p>
-<a class="btn" href="/files/T3.circ"  title="fas fa-download" target="_blank">T3.circ</a>
+<h2 id="博客要求"><a href="#博客要求" class="headerlink" title="博客要求"></a>博客要求</h2><ol>
+<li><strong>不得抄袭</strong></li>
+<li>文档中所有内容请根据自己的情况自行撰写，切勿使用大模型生成，否则会视情况扣除部分分数。</li>
+<li>在保证内容有意义的情况下不要求字数多（字数过多会对你的博客评分产生负面影响，阐明博客内容要求中的点即可），但是过于敷衍的作业内容可能会对博客分数造成明显影响。</li>
+<li>及时提交。在截止时间后收到的博客将不会获得任何博客分数。</li>
+<li><strong>注意</strong>：在编写完博客并发布在CSDN之后，请在<a target="_blank" rel="noopener" href="https://d.buaa.edu.cn/https/77726476706e69737468656265737421f2f552d224236c5e30068cb8/topics/619997530">对应作业处</a>选择要作为作业提交的博客，点击提交</li>
+<li><strong>任务截止时间：2025-11-17 23:59:59</strong></li>
+</ol>
+<h2 id="作业提交方式"><a href="#作业提交方式" class="headerlink" title="作业提交方式"></a>作业提交方式</h2><p>首先需要你自己的CSDN账号写一个博客，然后通过审核。大家可以在点击右边的【发帖】。</p>
+<p>当你进入到我们CSDN的作业提交处(链接在上面博客要求的第五点)，你将在作业内容的下面看到下图这个框，当然，当你看到这段文字的时候，很可能里面已经有内容了。</p>
+<p>有提交任务，点一下，把你的博客链接贴上来，这里作为示范，我贴一个网站上去，点确定即可提交链接。</p>
+<p>当然，由于我们提交的东西会先经过csdn的 审核，所以一开始并不能看见你交了啥，这里就需要你费心点，多看什么时候显示提交内容，确保从<strong>提交内容</strong>下的链接中能进入到你的博客了，才能算作提交成功。</p>
 
                 
               </div>
@@ -542,7 +324,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/CO%E4%B8%8A%E6%9C%BA/" class="category-chain-item">CO上机</a>
+  <a href="/categories/oopre/" class="category-chain-item">oopre</a>
   
   
 
@@ -557,9 +339,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/CO/" class="print-no-link">#CO</a>
-      
-        <a href="/tags/CO%E4%B8%8A%E6%9C%BA/" class="print-no-link">#CO上机</a>
+        <a href="/tags/oopre/" class="print-no-link">#oopre</a>
       
     </div>
   
@@ -571,8 +351,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>P0上机-问题总结与反思</div>
-      <div>http://example.com/posts/P0上机-问题总结与反思/</div>
+      <div>oopre-第八次作业</div>
+      <div>http://example.com/posts/oopre-第八次作业/</div>
     </div>
     <div class="license-meta">
       
@@ -584,7 +364,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年10月14日</div>
+          <div>2025年11月18日</div>
         </div>
       
       
@@ -616,9 +396,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/oopre-%E7%AC%AC%E4%BA%94%E6%AC%A1%E4%BD%9C%E4%B8%9A/" title="oopre-第五次作业">
+                      <a href="/posts/P5%E4%B8%8A%E6%9C%BA-%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94%E6%B1%87%E6%80%BB/" title="P5上机-问题解答汇总">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">oopre-第五次作业</span>
+                        <span class="hidden-mobile">P5上机-问题解答汇总</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -626,8 +406,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/oopre-%E7%AC%AC%E5%9B%9B%E6%AC%A1%E4%BD%9C%E4%B8%9A/" title="oopre-第四次作业">
-                        <span class="hidden-mobile">oopre-第四次作业</span>
+                      <a href="/posts/P5%E8%AF%BE%E4%B8%8B-Verilog%E4%BA%94%E7%BA%A7%E5%85%A8%E9%80%9F%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/" title="P5课下-Verilog五级全速流水线CPU">
+                        <span class="hidden-mobile">P5课下-Verilog五级全速流水线CPU</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -19,23 +19,22 @@
   <meta name="author" content="pppphop">
   <meta name="keywords" content="">
   
-    <meta name="description" content="P0上机-问题总结与反思题面复原1.P0_ups_and_downs题目描述独小星在监测一个数列的起伏变化，聪明的他想到可以用状态机来自动监测。请你帮助小星设计一个 Moore 状态机，来统计一个串行输入数列的起伏规律，并在识别到特定规律时输出。 前置知识在本题中，串行输入是指，不断将当前输入追加到之前输入数列的末尾。假设截止到某个周期共有 $m$ 个输入，从第零个周期到该周期的输入分别为：$a_">
+    <meta name="description" content="第四次作业背景介绍本次作业的代码将不会和之后的作业有任何开发关系，仅仅为了同学们巩固本次课的内容所用。其中涉及的容易产生 bug 的操作，同学们将来可能会用到，也可能会选择其他方法替代。但是请同学们在本次作业中理解清楚这些 bug 背后的原理，为课程组的代码 debug 。同时，为了达成课程的统一性，我们将采取和前几次作业同样的世界观。 在古老的魔法图书馆中，馆长获悉一群冒险者正在寻求强大的魔法知">
 <meta property="og:type" content="article">
-<meta property="og:title" content="P0上机-问题总结与反思">
-<meta property="og:url" content="http://example.com/posts/P0%E4%B8%8A%E6%9C%BA-%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93%E4%B8%8E%E5%8F%8D%E6%80%9D/index.html">
+<meta property="og:title" content="oopre-第四次作业">
+<meta property="og:url" content="http://example.com/posts/oopre-%E7%AC%AC%E5%9B%9B%E6%AC%A1%E4%BD%9C%E4%B8%9A/index.html">
 <meta property="og:site_name" content="zhp的博客">
-<meta property="og:description" content="P0上机-问题总结与反思题面复原1.P0_ups_and_downs题目描述独小星在监测一个数列的起伏变化，聪明的他想到可以用状态机来自动监测。请你帮助小星设计一个 Moore 状态机，来统计一个串行输入数列的起伏规律，并在识别到特定规律时输出。 前置知识在本题中，串行输入是指，不断将当前输入追加到之前输入数列的末尾。假设截止到某个周期共有 $m$ 个输入，从第零个周期到该周期的输入分别为：$a_">
+<meta property="og:description" content="第四次作业背景介绍本次作业的代码将不会和之后的作业有任何开发关系，仅仅为了同学们巩固本次课的内容所用。其中涉及的容易产生 bug 的操作，同学们将来可能会用到，也可能会选择其他方法替代。但是请同学们在本次作业中理解清楚这些 bug 背后的原理，为课程组的代码 debug 。同时，为了达成课程的统一性，我们将采取和前几次作业同样的世界观。 在古老的魔法图书馆中，馆长获悉一群冒险者正在寻求强大的魔法知">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-10-14T08:24:17.000Z">
-<meta property="article:modified_time" content="2026-01-23T08:48:35.326Z">
+<meta property="article:published_time" content="2025-10-07T03:21:38.000Z">
+<meta property="article:modified_time" content="2026-02-07T09:22:40.742Z">
 <meta property="article:author" content="pppphop">
-<meta property="article:tag" content="CO">
-<meta property="article:tag" content="CO上机">
+<meta property="article:tag" content="oopre">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>P0上机-问题总结与反思 - zhp的博客</title>
+  <title>oopre-第四次作业 - zhp的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -201,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="P0上机-问题总结与反思"></span>
+            <span id="subtitle" data-typed-text="oopre-第四次作业"></span>
           
         </div>
 
@@ -212,8 +211,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-10-14 16:24" pubdate>
-          2025年10月14日 下午
+        <time datetime="2025-10-07 11:21" pubdate>
+          2025年10月7日 上午
         </time>
       </span>
     
@@ -224,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          1.9k 字
         
       </span>
     
@@ -235,7 +234,7 @@
         
         
         
-          17 分钟
+          16 分钟
         
       </span>
     
@@ -272,258 +271,195 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">P0上机-问题总结与反思</h1>
+            <h1 id="seo-header">oopre-第四次作业</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="P0上机-问题总结与反思"><a href="#P0上机-问题总结与反思" class="headerlink" title="P0上机-问题总结与反思"></a>P0上机-问题总结与反思</h1><h2 id="题面复原"><a href="#题面复原" class="headerlink" title="题面复原"></a>题面复原</h2><h3 id="1-P0-ups-and-downs"><a href="#1-P0-ups-and-downs" class="headerlink" title="1.P0_ups_and_downs"></a>1.P0_ups_and_downs</h3><p><strong>题目描述</strong><br>独小星在监测一个数列的起伏变化，聪明的他想到可以用状态机来自动监测。请你帮助小星设计一个 Moore 状态机，来统计一个串行输入数列的起伏规律，并在识别到特定规律时输出。</p>
-<p><strong>前置知识</strong><br>在本题中，串行输入是指，不断将当前输入追加到之前输入数列的末尾。假设截止到某个周期共有 $m$ 个输入，从第零个周期到该周期的输入分别为：$a_{0}$，$a_1, \dots $,$a_{m-2}$，$a_{m-1}$。则从第零周期到该周期的串行输入的串依次为：</p>
-<p>$a_0$</p>
-<p>$a_0 a_1$</p>
-<p>…</p>
-<p>$a_0 a_1 a_2 a_3 \dots a_{m-1}$</p>
-<p>本题中的“起伏”指的是：当前周期输入 $a_m$ 相对于上一周期最后输入 $a_{m-1}$ 的大小关系。若 $a_m$ 严格大于 $a_{m-1}$，则称为一次“起”。若 $a_m$ 严格小于 $a_{m-1}$，则称为一次“伏”。</p>
-<p>数据保证<strong>相邻两周期输入不相同</strong>。</p>
-<p><strong>任务要求</strong><br>使用 Logisim 搭建一个识别串行输入串中“起起伏起伏”规律的 Moore 状态机。</p>
-<p>每个周期输入一个位宽为 5 的<strong>无符号数</strong>，当最近四个周期的输入使得数列满足“起”“起”“伏”“起”时，输出1，否则输出0。</p>
-<p>状态机支持<strong>循环检测</strong>，即当前“起”“起”“伏”“起”的最后一个“起”可以作为下一次“起”“起”“伏”“起”的第一个“起”。</p>
-<p>数列默认第零项为 <code>5&#39;d7</code>，<strong>在初始状态和复位后，数列的 $a_0 = 5’d7$</strong>。</p>
-<p><strong>样例</strong><br>假设串行输入串为：(7)8901215，则状态机输出为：(0)0001001，其中输入的第一个 7 表示数列默认第零项为 7，输出的第一个 0 表示在第一个输入到来之前输出默认为 0。</p>
-<p><strong>输入输出</strong></p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">名称</th>
-<th style="text-align:left">功能</th>
-<th style="text-align:left">位宽</th>
-<th style="text-align:left">方向</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">a</td>
-<td style="text-align:left">输入</td>
-<td style="text-align:left">5</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">clk</td>
-<td style="text-align:left">时钟信号</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">reset</td>
-<td style="text-align:left">异步复位信号</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">output</td>
-<td style="text-align:left">结果</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">O</td>
-</tr>
-</tbody>
-</table>
-</div>
+                <h1 id="第四次作业"><a href="#第四次作业" class="headerlink" title="第四次作业"></a>第四次作业</h1><h3 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h3><p>本次作业的代码将不会和之后的作业有任何开发关系，仅仅为了同学们巩固本次课的内容所用。其中涉及的容易产生 bug 的操作，同学们将来可能会用到，也可能会选择其他方法替代。但是请同学们在本次作业中理解清楚这些 bug 背后的原理，为课程组的代码 debug 。同时，为了达成课程的统一性，我们将采取和前几次作业同样的世界观。</p>
+<p>在古老的魔法图书馆中，馆长获悉一群冒险者正在寻求强大的魔法知识。为帮助他们更好地吸收这些宝贵的知识，馆长决定从馆藏中精选出具有特殊魔咒的书籍，并将这些书籍系统化地整理到书架中，以便有效地支持冒险者的学习与探索。现在请你帮助馆长管理和组织这些书籍。</p>
+<p>以下提到的属性 <strong>魔咒</strong> 是一个字符串，它是书籍的力量之源，决定了书籍的魔法强度。馆长可以通过修改书籍的魔咒来管理和强化这些书籍。</p>
+<p>为了方便你进行管理，馆长向你介绍了它设想的书架和它掌握的相关魔法：</p>
 <ul>
-<li><strong>输入</strong>：上文所述 $a$ (5 bit)，时钟信号 (1 bit)，异步复位信号 (1 bit)。</li>
-<li><strong>输出</strong>：0 或者 1。</li>
-<li><strong>文件内模块名</strong>：main</li>
-<li><strong>测试要求</strong>：请以 Moore 状态机的方式实现，并提供<strong>异步复位</strong>。</li>
-</ul>
-<hr>
-<h3 id="2-P0-binary-calculator"><a href="#2-P0-binary-calculator" class="headerlink" title="2.P0_binary_calculator"></a>2.P0_binary_calculator</h3><p><strong>题目描述</strong><br>小企鹅在做数字电路设计时，想要设计一个支持特殊位运算的移位计算器，请你帮助设计一个 Mealy 状态机来实现这个功能。</p>
-<p><strong>前置知识</strong><br>在本题中，我们需要设计一个基于移位操作的二进制计算器，支持以下三种操作：</p>
-<ol>
-<li><strong>移位加法(SA)</strong>：将当前寄存器中的数值左移一位，然后加上输入的操作数。</li>
-<li><strong>移位减法(SS)</strong>：将当前寄存器中的数值左移一位，然后减去输入的操作数。</li>
-<li><strong>移位异或(SX)</strong>：将当前寄存器中的数值左移一位，然后与输入的操作数进行按位异或运算。</li>
+<li><strong>书籍（Book）</strong>：拥有属性 <strong>名字（name）</strong>，以及 <strong>魔咒（magic）</strong>。</li>
+<li><strong>书架（Bookshelf）</strong>：拥有属性 <strong>编号（id）</strong>，以及一个存储书籍的容器。</li>
+<li>馆长能使用的魔法有：<ol>
+<li>制作一本新的书籍。</li>
+<li>将若干本未被编入书架的书籍编入一个新的书架。</li>
+<li>复制一个已经存在的书架。</li>
+<li>对某个书架进行筛选，移除不符合标准的书籍。</li>
+<li>将一个书架的所有书籍并入另一个书架。</li>
+<li>批量增强书架中所有书籍的魔咒。</li>
+<li>批量截取书架中所有书籍的魔咒。</li>
 </ol>
-<p><strong>任务要求</strong><br>使用 Logisim 搭建一个移位计算器的 Mealy 状态机。<br>每个周期，系统接收一个 2 位的操作码 <code>op</code> 和一个 8 位的操作数 <code>operand</code>，根据操作码执行相应的运算，输出计算结果并将该结果存入寄存器。</p>
-<p>操作码与运算的对应关系如下：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">op</th>
-<th style="text-align:left">操作</th>
-<th style="text-align:left">功能描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">00</td>
-<td style="text-align:left">复位</td>
-<td style="text-align:left">将寄存器清零</td>
-</tr>
-<tr>
-<td style="text-align:left">01</td>
-<td style="text-align:left">SA</td>
-<td style="text-align:left">将当前寄存器中的数值左移一位，然后加上输入的操作数</td>
-</tr>
-<tr>
-<td style="text-align:left">10</td>
-<td style="text-align:left">SS</td>
-<td style="text-align:left">将当前寄存器中的数值左移一位，然后减去输入的操作数</td>
-</tr>
-<tr>
-<td style="text-align:left">11</td>
-<td style="text-align:left">SX</td>
-<td style="text-align:left">将当前寄存器中的数值左移一位，然后与输入的操作数进行按位异或运算</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>计算器的初始状态和复位后，寄存器中的值为 <code>8&#39;h00</code>。<br>所有计算均使用无符号 8 位整数，计算结果如果超出 8 位表示范围，则类似取模运算保留低 8 位即可。<br><strong>reset 说明</strong>：本题不需要 <code>reset</code> 信号，具体逻辑通过 <code>op</code> 实现。</p>
-<p><strong>样例</strong><br>假设每个时钟周期只有一次输入，那么输入序列为：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">op = 01, operand = 0x03 # SA 操作: (0x00 &lt;&lt; 1) + 0x03 = 0x03<br>op = 01, operand = 0x05 # SA 操作: (0x03 &lt;&lt; 1) + 0x05 = 0x0B<br>op = 10, operand = 0x02 # SS 操作: (0x0B &lt;&lt; 1) - 0x02 = 0x14<br>op = 11, operand = 0xFF # SX 操作: (0x14 &lt;&lt; 1) ^ 0xFF = 0x28 ^ 0xFF = 0xD7<br>op = 00, operand = 任意 # 复位操作: 0x00<br></code></pre></td></tr></table></figure>
-<p>对应的输出序列为：<code>0x03, 0x0B, 0x14, 0xD7, 0x00</code></p>
-<p>需要注意的是，本题要求使用 Mealy 型有限状态机，在一个时钟周期内可能输入不停变化，但是只要时钟上升沿没有到达，其状态就不会被写入寄存器。</p>
-<p><strong>输入输出</strong></p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">名称</th>
-<th style="text-align:left">功能</th>
-<th style="text-align:left">位宽</th>
-<th style="text-align:left">方向</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">op</td>
-<td style="text-align:left">操作码</td>
-<td style="text-align:left">2</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">operand</td>
-<td style="text-align:left">操作数</td>
-<td style="text-align:left">8</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">clk</td>
-<td style="text-align:left">时钟信号</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">result</td>
-<td style="text-align:left">计算结果</td>
-<td style="text-align:left">8</td>
-<td style="text-align:left">O</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><strong>输入</strong>：操作码 <code>op</code>，操作数 <code>operand</code>，时钟信号。</li>
-<li><strong>输出</strong>：计算结果 <code>result</code></li>
-<li><strong>文件内模块名</strong>：main</li>
+</li>
+<li>同时，为了方便你随时查看书架的状态，馆长还为你提供了这些查询功能：<ol>
+<li>统计编号为 x（由输入提供）书架的书籍数量（统一编号为 8）。</li>
+<li>统计编号为 x（由输入提供）书架中魔咒字符串中包含 str（由输入提供）的书籍数量（统一编号为 9）。</li>
+<li>统计未被编入书架的书籍数量（统一编号为 10）。</li>
+</ol>
+</li>
 </ul>
-<hr>
-<h3 id="3-P0-intelligent-elevator"><a href="#3-P0-intelligent-elevator" class="headerlink" title="3.P0_intelligent_elevator"></a>3.P0_intelligent_elevator</h3><p><strong>题目描述</strong><br>独小星设计了一种智能电梯，能够根据每层乘客人数来动态调节目标楼层，请你设计一个组合电路，计算电梯移动的总楼层数。</p>
-<p><strong>前置知识</strong><br>在本题中，<strong>一共有四个楼层</strong>，分别命名为：第 0 层、第 1 层、第 2 层、第 3 层。<br>从第 $n$ 层移动到第 $m$ 层，电梯移动了 $|m - n|$ 层楼。</p>
-<p><strong>任务要求</strong><br>使用 Logisim 搭建一个组合电路，根据输入的信息计算电梯移动的总楼层数，并输出。</p>
-<p>电梯初始停留楼层不固定，由输入信号 <code>from</code> 指定。<code>from</code> 是一个位宽为 4 的独热编码，其与初始停留楼层的对应关系如下表：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">from</th>
-<th style="text-align:left">初始停留楼层</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0001</td>
-<td style="text-align:left">第 0 层</td>
-</tr>
-<tr>
-<td style="text-align:left">0010</td>
-<td style="text-align:left">第 1 层</td>
-</tr>
-<tr>
-<td style="text-align:left">0100</td>
-<td style="text-align:left">第 2 层</td>
-</tr>
-<tr>
-<td style="text-align:left">1000</td>
-<td style="text-align:left">第 3 层</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>该电梯为理想电梯，乘客只上不下，电梯容量无限。<br>电梯停留在某一楼层时，可以认为该层乘客全部进入电梯了，后续该层乘客数即为 0。由于电梯一开始停留在初始楼层，因此无论输入的乘客数是多少，初始楼层乘客数可直接视为 0。</p>
-<p>电梯的运行逻辑为：寻找目前所有楼层中<strong>乘客数最多且不为 0</strong> 的楼层，并视其为目标楼层，然后从当前停留楼层直达目标楼层并停留（中间路过的楼层不算做停留）。之后继续以该逻辑运行，直到所有楼层乘客数都为 0。</p>
-<p>数据保证<strong>所有楼层乘客数不相同，且均不为 0</strong>。</p>
-<p><strong>输入输出</strong></p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">名称</th>
-<th style="text-align:left">功能</th>
-<th style="text-align:left">位宽</th>
-<th style="text-align:left">方向</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">from</td>
-<td style="text-align:left">初始楼层独热编码</td>
-<td style="text-align:left">4</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">num0</td>
-<td style="text-align:left">第 0 层乘客数</td>
-<td style="text-align:left">8</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">num1</td>
-<td style="text-align:left">第 1 层乘客数</td>
-<td style="text-align:left">8</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">num2</td>
-<td style="text-align:left">第 2 层乘客数</td>
-<td style="text-align:left">8</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">num3</td>
-<td style="text-align:left">第 3 层乘客数</td>
-<td style="text-align:left">8</td>
-<td style="text-align:left">I</td>
-</tr>
-<tr>
-<td style="text-align:left">output</td>
-<td style="text-align:left">电梯移动总楼层数</td>
-<td style="text-align:left">8</td>
-<td style="text-align:left">O</td>
-</tr>
-</tbody>
-</table>
-</div>
+<p>在本次作业中，你需要完成的任务是：</p>
 <ul>
-<li><strong>输入</strong>：保证 <code>num0</code>, <code>num1</code>, <code>num2</code>, <code>num3</code> 互不相等，且均不为 0。</li>
-<li><strong>输出</strong>：电梯移动总楼层数 (8 bit)。</li>
-<li><strong>文件内模块名</strong>：main</li>
-<li><strong>注意</strong>：请保证模块的 appearance 与下图一致，否则有可能造成评测错误。注意输入的上下顺序。</li>
+<li>对馆长提供的代码进行分析和调试，从而找到其中的错误，修复错误以通过测试。</li>
 </ul>
-<h2 id="解答与反思"><a href="#解答与反思" class="headerlink" title="解答与反思"></a>解答与反思</h2><p>第一二题都比较简单（绝对不是这个入懒得重新做的），在我印象中P1还是有点卡人的，主要点在于这个$5’d7$的初始值，我们实际上是无法直接初始化的。要么使用$MUX$选择是7还是寄存器出来的值，要么直接将输入减$7$即可。</p>
-<p>第三题我记得当时颇引起一些风波。我记得有一位同学的做法特别好，我们课下已经学会了排序，这题应该怎么直接套用呢？将$0,1,2,3$补到输入的末尾（$2$位二进制数），对这四个补完的数排序，末尾两位代表对应楼层，这样就知道四个楼层的大小关系了。核心部分就能直接做出来。当然，打表也是可以做的。</p>
-<p>附上我课后重做的文件：</p>
-<a class="btn" href="/files/T3.circ"  title="fas fa-download" target="_blank">T3.circ</a>
+<h3 id="题目说明"><a href="#题目说明" class="headerlink" title="题目说明"></a>题目说明</h3><p>在本次作业中，初始情况下，图书馆没有任何书籍，你将通过输入指令来指挥馆长的行为。</p>
+<p>以下是对指令的详细说明：</p>
+<ol>
+<li><p>无特殊说明。</p>
+</li>
+<li><p>无特殊说明。</p>
+</li>
+<li><p><strong>复制的定义</strong>：对于两个对象 A，B，当 A，B 满足以下要求时，我们称两者满足复制关系：</p>
+<p>两个对象<strong>不是同一个</strong>（由 <code>System.out.println()</code> 输出后 @ 的编号不同），但对于其每一个属性 A：</p>
+<ul>
+<li>若该属性 A 为基本数据类型（如 <code>int</code>, <code>double</code> 等）或字符串，则两者该属性 A 相等；</li>
+<li>若该属性 A 为对象，两个对象的属性 A 满足复制关系。</li>
+</ul>
+</li>
+<li><p><strong>筛选规则</strong>：查看书籍的魔咒，输入会提供一个整数，记作标准合格度。书籍的标准合格度为其<strong>魔咒字符串</strong>中满足<strong>特定条件 C</strong> 的不同<strong>子串数目</strong>（两个子串相同当且仅当两个子串的起止下标均相同）。</p>
+<p>特定条件 C 的定义为：字符串 s 满足特定条件 C 当且仅当 s 以 <code>#</code> 开头并以 <code>#</code> 结尾，且 s 中 <code>#</code> 字符的个数为 <code>2</code>，同时 s 中包含至少一个数字字符，并且数字字符的总个数不少于字母字符的个数。</p>
+<p>该魔法将所有合格度<strong>小于</strong>标准合格度的书籍<strong>移除</strong>。</p>
+<p><strong>示例-*EXAMPLE*</strong></p>
+<p>例如一本书籍的魔咒为”#A12#bcd#345#Z#”：</p>
+<ul>
+<li>#A12#（<code>2</code> 个数字字符，<code>1</code> 个字母字符，成立）；</li>
+<li>#bcd#（不成立，因为没有数字字符）；</li>
+<li>#345#（成立）；</li>
+<li>#Z#（不成立）。</li>
+</ul>
+<p>因此合格度为 <code>2</code>。</p>
+</li>
+<li><p><strong>规则</strong>：设将编号为 id2 的书架并入编号为 id1 的书架中，合并后书架的编号仍为 id1，id2 书架被取消（id2 原本的书籍不再从属于 id2，而是从属于 id1 书架）。同时，若两个书架中存在一模一样的书籍（<strong>定义：两者名字完全相同，魔咒字符串也完全相同</strong>），则合并后的书架中仅保留其中一本书籍。</p>
+</li>
+<li><p><strong>规则</strong>：给定一个字符串，将书架中所有书籍的魔咒末尾加上该字符串。</p>
+</li>
+<li><p><strong>规则</strong>：将指定 id 的书架内所有书籍的魔咒更新为各自魔咒字符串进行 <code>a，b</code> 截取后的结果。本指令依次输入两个非负整数 a，b（不保证 a，b 的相对大小关系），定义 <code>对字符串 s 进行 a, b 截取</code> 操作：</p>
+<ul>
+<li>若 <code>a &lt;= b</code> 则得到字符串 s 中从下标 <code>a</code> 到下标 <code>b</code> 的部分（包括下标 <code>b</code> 位置的字符）。若 <code>a</code> 超出 s 的下标范围，则得到空串；若 <code>b</code> 超出 s 的下标范围，则截取到 s 的末尾即可。</li>
+<li>若 <code>a &gt; b</code> 则得到空串。</li>
+</ul>
+</li>
+<li><p>无特殊说明。</p>
+</li>
+<li><p>无特殊说明。</p>
+</li>
+</ol>
+<h3 id="输入输出格式"><a href="#输入输出格式" class="headerlink" title="输入输出格式"></a>输入输出格式</h3><p>第一行一个整数 <em>n</em>，表示操作的个数。接下来的 n 行，每行一个形如 <code>{type} {attribute}</code> 的操作，<code>{type}</code> 和 <code>{attribute}</code> 间、若干个 <code>{attribute}</code> 间使用<strong>若干</strong>个空格分割。操作输入输出形式及其含义如下。具体要求也在下表中列出：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>attribute</th>
+<th>意义</th>
+<th>输出（单独成行）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>{name}</code> <code>{magic}</code></td>
+<td>制作一本名字为 <code>{name}</code> 的书籍，其魔咒为 <code>{magic}</code></td>
+<td>无</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>{id}</code> <code>{num}</code> <code>{name1}</code> <code>{name2}</code>….（共 num 个 name）</td>
+<td>将 num 本未被编入书架的书籍 <code>{name1}</code>-<code>{nameN}</code> 编入编号为 <code>{id}</code> 的书架</td>
+<td>无</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>{id1}</code> <code>{id2}</code></td>
+<td>复制编号为 <code>{id1}</code> 的书架，新复制出来的书架编号为 <code>{id2}</code></td>
+<td>无</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>{id}</code> <code>{int}</code></td>
+<td>对编号为 <code>{id}</code> 的书架进行筛选，标准数值为 <code>{int}</code></td>
+<td>无</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>{id1}</code> <code>{id2}</code></td>
+<td>将编号为 <code>{id2}</code> 的书架并入编号为 <code>{id1}</code> 的书架</td>
+<td>无</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>{id}</code> <code>{str}</code></td>
+<td>将编号为 <code>{id}</code> 的书架中的所有书籍的魔咒末尾加上 <code>{str}</code></td>
+<td>无</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>{id}</code> <code>{int1}</code> <code>{int2}</code></td>
+<td>将编号为 <code>{id}</code> 的书架中的所有书籍的魔咒更新为各自魔咒进行 <code>{int1}</code>,<code>{int2}</code> 截取后的字符串</td>
+<td>无</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>{id}</code></td>
+<td>统计编号为 <code>{id}</code> 的书架的书籍数量</td>
+<td><code>{一个整数}</code></td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>{id}</code> <code>{str}</code></td>
+<td>统计编号为 <code>{id}</code> 的书架中魔咒包含子串 <code>{str}</code> 的书籍数量</td>
+<td><code>{一个整数}</code></td>
+</tr>
+<tr>
+<td>10</td>
+<td>（此处无输入）</td>
+<td>统计未被编入书架的书籍数量</td>
+<td><code>{一个整数}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="数据限制"><a href="#数据限制" class="headerlink" title="数据限制"></a>数据限制</h3><p>在其中，所有输入中提到的要被操作的书架的 id 均保证已存在（除了”复制书架指令”中的新 id 是本次复制之前不曾存在过的 id）。</p>
+<ol>
+<li>保证此方法生成的书籍名字均不相同。</li>
+<li>保证提到的书籍均存在且未被编入书架。</li>
+<li>保证复制生成的书架 id 在本次复制之前不曾存在过。</li>
+<li>筛选标准满足：[0,100]。</li>
+</ol>
+<h3 id="变量范围"><a href="#变量范围" class="headerlink" title="变量范围"></a>变量范围</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>整数</td>
+<td>取值范围：0 - 2147483647，无前导0</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>字符串</td>
+<td>保证不会出现空白字符</td>
+</tr>
+<tr>
+<td><code>magic</code></td>
+<td>字符串</td>
+<td>保证不会出现空白字符</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h3><p><strong>输入</strong></p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-number">12</span><br><span class="hljs-symbol">1 </span>BookA #<span class="hljs-number">123#</span>abc#<br><span class="hljs-symbol">1 </span>BookB #<span class="hljs-number">12#</span>def#<span class="hljs-number">456#</span><br><span class="hljs-symbol">1 </span>BookC #xyz#<span class="hljs-number">789#</span>abc#<br><span class="hljs-symbol">2 </span><span class="hljs-number">1</span> <span class="hljs-number">3</span> BookA BookB BookC<br><span class="hljs-symbol">3 </span><span class="hljs-number">1</span> <span class="hljs-number">2</span><br><span class="hljs-symbol">4 </span><span class="hljs-number">1</span> <span class="hljs-number">1</span><br><span class="hljs-symbol">5 </span><span class="hljs-number">1</span> <span class="hljs-number">2</span><br><span class="hljs-symbol">6 </span><span class="hljs-number">1</span> @magical<br><span class="hljs-symbol">7 </span><span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">4</span><br><span class="hljs-symbol">8 </span><span class="hljs-number">1</span><br><span class="hljs-symbol">9 </span><span class="hljs-number">1</span> <span class="hljs-number">456</span><br><span class="hljs-number">10</span><br></code></pre></td></tr></table></figure>
+<p><strong>输出</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs">3<br>0<br>0<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -542,7 +478,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/CO%E4%B8%8A%E6%9C%BA/" class="category-chain-item">CO上机</a>
+  <a href="/categories/oopre/" class="category-chain-item">oopre</a>
   
   
 
@@ -557,9 +493,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/CO/" class="print-no-link">#CO</a>
-      
-        <a href="/tags/CO%E4%B8%8A%E6%9C%BA/" class="print-no-link">#CO上机</a>
+        <a href="/tags/oopre/" class="print-no-link">#oopre</a>
       
     </div>
   
@@ -571,8 +505,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>P0上机-问题总结与反思</div>
-      <div>http://example.com/posts/P0上机-问题总结与反思/</div>
+      <div>oopre-第四次作业</div>
+      <div>http://example.com/posts/oopre-第四次作业/</div>
     </div>
     <div class="license-meta">
       
@@ -584,7 +518,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年10月14日</div>
+          <div>2025年10月7日</div>
         </div>
       
       
@@ -616,9 +550,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/oopre-%E7%AC%AC%E4%BA%94%E6%AC%A1%E4%BD%9C%E4%B8%9A/" title="oopre-第五次作业">
+                      <a href="/posts/P0%E4%B8%8A%E6%9C%BA-%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93%E4%B8%8E%E5%8F%8D%E6%80%9D/" title="P0上机-问题总结与反思">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">oopre-第五次作业</span>
+                        <span class="hidden-mobile">P0上机-问题总结与反思</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -626,8 +560,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/oopre-%E7%AC%AC%E5%9B%9B%E6%AC%A1%E4%BD%9C%E4%B8%9A/" title="oopre-第四次作业">
-                        <span class="hidden-mobile">oopre-第四次作业</span>
+                      <a href="/posts/P1%E8%AF%BE%E4%B8%8B-%E6%80%BB%E7%BB%93%E5%8F%8D%E6%80%9D/" title="P1课下-总结反思">
+                        <span class="hidden-mobile">P1课下-总结反思</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
