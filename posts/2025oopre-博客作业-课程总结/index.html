@@ -1,0 +1,790 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pppphop">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="2025BUAA-OOpre总结反思最终架构设计首先放上两张IDEA自动生成的设计图：   一张粗糙一点，一张细节一点。总体而言，可以分为以下几层 入口层：$main$的作用仅为启动； 控制层： 系统总控制器GameManager： 协调各模块协作 处理所有用户命令 管理游戏流程    管理系统 EmployerManager: 雇佣关系管理 上下级关系维护 盟友关系判断 死亡处理   Battl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025oopre-博客作业-课程总结">
+<meta property="og:url" content="http://example.com/posts/2025oopre-%E5%8D%9A%E5%AE%A2%E4%BD%9C%E4%B8%9A-%E8%AF%BE%E7%A8%8B%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="zhp的博客">
+<meta property="og:description" content="2025BUAA-OOpre总结反思最终架构设计首先放上两张IDEA自动生成的设计图：   一张粗糙一点，一张细节一点。总体而言，可以分为以下几层 入口层：$main$的作用仅为启动； 控制层： 系统总控制器GameManager： 协调各模块协作 处理所有用户命令 管理游戏流程    管理系统 EmployerManager: 雇佣关系管理 上下级关系维护 盟友关系判断 死亡处理   Battl">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/posts/2025oopre-%E5%8D%9A%E5%AE%A2%E4%BD%9C%E4%B8%9A-%E8%AF%BE%E7%A8%8B%E6%80%BB%E7%BB%93/final.png">
+<meta property="og:image" content="http://example.com/posts/2025oopre-%E5%8D%9A%E5%AE%A2%E4%BD%9C%E4%B8%9A-%E8%AF%BE%E7%A8%8B%E6%80%BB%E7%BB%93/final-detail.png">
+<meta property="article:published_time" content="2025-11-18T10:24:30.000Z">
+<meta property="article:modified_time" content="2026-02-07T10:25:40.614Z">
+<meta property="article:author" content="pppphop">
+<meta property="article:tag" content="oopre">
+<meta property="article:tag" content="总结">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/posts/2025oopre-%E5%8D%9A%E5%AE%A2%E4%BD%9C%E4%B8%9A-%E8%AF%BE%E7%A8%8B%E6%80%BB%E7%BB%93/final.png">
+  
+  
+  
+  <title>2025oopre-博客作业-课程总结 - zhp的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zhp的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="2025oopre-博客作业-课程总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-11-18 18:24" pubdate>
+          2025年11月18日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">2025oopre-博客作业-课程总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="2025BUAA-OOpre总结反思"><a href="#2025BUAA-OOpre总结反思" class="headerlink" title="2025BUAA-OOpre总结反思"></a>2025BUAA-OOpre总结反思</h1><h2 id="最终架构设计"><a href="#最终架构设计" class="headerlink" title="最终架构设计"></a>最终架构设计</h2><p>首先放上两张IDEA自动生成的设计图：</p>
+<img src="/posts/2025oopre-%E5%8D%9A%E5%AE%A2%E4%BD%9C%E4%B8%9A-%E8%AF%BE%E7%A8%8B%E6%80%BB%E7%BB%93/final.png" srcset="/img/loading.gif" lazyload class="" title="final">
+<img src="/posts/2025oopre-%E5%8D%9A%E5%AE%A2%E4%BD%9C%E4%B8%9A-%E8%AF%BE%E7%A8%8B%E6%80%BB%E7%BB%93/final-detail.png" srcset="/img/loading.gif" lazyload class="" title="final-detail">
+<p>一张粗糙一点，一张细节一点。总体而言，可以分为以下几层</p>
+<h4 id="入口层："><a href="#入口层：" class="headerlink" title="入口层："></a>入口层：</h4><p>$main$的作用仅为启动；</p>
+<h4 id="控制层："><a href="#控制层：" class="headerlink" title="控制层："></a>控制层：</h4><ul>
+<li>系统总控制器<code>GameManager</code>：<ul>
+<li>协调各模块协作</li>
+<li>处理所有用户命令</li>
+<li>管理游戏流程</li>
+</ul>
+</li>
+</ul>
+<h4 id="管理系统"><a href="#管理系统" class="headerlink" title="管理系统"></a>管理系统</h4><ul>
+<li><strong>EmployerManager</strong>: 雇佣关系管理<ul>
+<li>上下级关系维护</li>
+<li>盟友关系判断</li>
+<li>死亡处理</li>
+</ul>
+</li>
+<li><strong>BattleManager</strong>: 战斗系统<ul>
+<li>群体战斗计算</li>
+<li>伤害和奖励计算</li>
+</ul>
+</li>
+<li><strong>Shop</strong>: 商店系统<ul>
+<li>物品购买逻辑</li>
+<li>金钱系统</li>
+</ul>
+</li>
+</ul>
+<h4 id="实体层-Entity-Layer"><a href="#实体层-Entity-Layer" class="headerlink" title="实体层 (Entity Layer)"></a>实体层 (Entity Layer)</h4><ul>
+<li><strong>Adventurer.java</strong>: 冒险者核心类<ul>
+<li>管理生命值、属性、物品</li>
+<li>处理背包和装备系统</li>
+<li>战斗能力计算</li>
+</ul>
+</li>
+</ul>
+<h4 id="物品系统-Item-System"><a href="#物品系统-Item-System" class="headerlink" title="物品系统 (Item System)"></a>物品系统 (Item System)</h4><h5 id="接口层"><a href="#接口层" class="headerlink" title="接口层"></a>接口层</h5><ul>
+<li><strong>Item.java</strong>: 统一物品接口</li>
+</ul>
+<h5 id="实现类"><a href="#实现类" class="headerlink" title="实现类"></a>实现类</h5><p><strong>药水类 (Bottles)</strong>:</p>
+<ul>
+<li><code>Bottle</code> (父类)</li>
+<li><code>HpBottle</code> (生命药水子类)</li>
+<li><code>AtkBottle</code> (攻击药水子类)</li>
+<li><code>DefBottle</code> (防御药水子类)</li>
+<li><code>ManaBottle</code> (法力药水子类)</li>
+</ul>
+<p><strong>装备类 (Equipments)</strong>:</p>
+<ul>
+<li><code>Equipment</code> (父类)</li>
+<li><code>Weapon</code> (武器父类)</li>
+<li><code>Sword</code> (剑子类)</li>
+<li><code>Magicbook</code> (魔法书子类)</li>
+<li><code>Armour</code> (盔甲子类)</li>
+</ul>
+<p><strong>法术类 (Spells)</strong>:</p>
+<ul>
+<li><code>Spell</code> (父类)</li>
+<li><code>HealSpell</code> (治疗法术子类)</li>
+<li><code>AttackSpell</code> (攻击法术子类)</li>
+</ul>
+<h4 id="工具类-Utility-Classes"><a href="#工具类-Utility-Classes" class="headerlink" title="工具类 (Utility Classes)"></a>工具类 (Utility Classes)</h4><ul>
+<li><strong>Factory</strong>: 工厂模式创建物品</li>
+<li><strong>Parser &amp; Lexer</strong>: 语法解析雇佣关系</li>
+</ul>
+<h2 id="迭代中的架构调整及考虑"><a href="#迭代中的架构调整及考虑" class="headerlink" title="迭代中的架构调整及考虑"></a>迭代中的架构调整及考虑</h2><h4 id="1-第一次迭代：基础物品系统（hw-2"><a href="#1-第一次迭代：基础物品系统（hw-2" class="headerlink" title="1.第一次迭代：基础物品系统（hw_2)"></a>1.第一次迭代：基础物品系统（hw_2)</h4><p>​    200行代码，创建<code>Adventurer</code>等类，实现基本属性的<code>get</code>，<code>add</code>，<code>remove</code>函数等，以及在<code>Main</code>中用<code>Arraylist</code>存储冒险者列表，其实已经为后续迭代埋下了隐患。</p>
+<h4 id="2-第二次迭代：继承、接口（hw-3"><a href="#2-第二次迭代：继承、接口（hw-3" class="headerlink" title="2.第二次迭代：继承、接口（hw_3)"></a>2.第二次迭代：继承、接口（hw_3)</h4><p>​    这次要实现背包和携带功能，并且要学会使用Junit了，代码量暴增。我发现原来在<code>Main</code>中直接控制操作会导致方法行数过多，便查阅相关资料，将<code>main</code>极致压缩至一行<code>new GameManager().start();</code>使用接口<code>Item</code>实现对<code>use</code>各类物品法术的统一管理；使用继承处理新增的不同类型的药水瓶。</p>
+<p>​    回想起来，我仍感谢这次代码重构，在这样一个优化的代码框架下，我直到完结也没有再进行过多的架构级调整。</p>
+<h4 id="3-第三次迭代：装备细化与战斗机制（hw-5"><a href="#3-第三次迭代：装备细化与战斗机制（hw-5" class="headerlink" title="3.第三次迭代：装备细化与战斗机制（hw_5)"></a>3.第三次迭代：装备细化与战斗机制（hw_5)</h4><p>​    这次按理说是迭代量最大的一次，读懂题并梳理清思路就花了本人一晚上。单独开了一个类处理战斗，一个类作为金钱系统，将<code>backpack</code>改为<code>LinkedList</code>类型，加上Junit代码量陡增至2k行+</p>
+<h4 id="4-第四次迭代：雇佣关系与援助（hw-6"><a href="#4-第四次迭代：雇佣关系与援助（hw-6" class="headerlink" title="4.第四次迭代：雇佣关系与援助（hw_6)"></a>4.第四次迭代：雇佣关系与援助（hw_6)</h4><p>​    由于实现的功能过多，理解题意也很耗时。从下手开始就显得没那么难了，并不需要加很多东西，单独开一个<code>EmployerManager</code>类。但是我这次花了大量的时间修改容器，使用<code>HashMap</code>存储冒险者等，花了很长时间理解<code>key</code>和<code>value</code>是如何对应和调用的，有点绕。代码累计2k8行。</p>
+<h4 id="5-Final：递归下降批量导入关系（hw-7"><a href="#5-Final：递归下降批量导入关系（hw-7" class="headerlink" title="5.Final：递归下降批量导入关系（hw_7)"></a>5.Final：递归下降批量导入关系（hw_7)</h4><p>​    迭代量最小的一次，虽然我还没有完全搞懂递归下降，但是指导书上给出了<code>Lexer</code>的代码以及测验中的<code>Parser</code>，分别可以直接使用/模仿使用，便完成了最终版迭代作业。代码长度定格在$3133$行。</p>
+<h2 id="使用JUnit的心得体会"><a href="#使用JUnit的心得体会" class="headerlink" title="使用JUnit的心得体会"></a>使用JUnit的心得体会</h2><p>​    以前我确实没有接触过Junit，但是使用起来还是很好上手的。最开始我觉得比较耗时，后来发现确实能找出自己代码的错误，也助我实现了强测全部一遍过的梦想。总的而言，有以下几点值得记录一下：</p>
+<ol>
+<li>不用再每个<code>@Test</code>下面的方法里单独实例化、初始化，可以在<code>setUp</code>里统一操作；</li>
+<li>一次不要加太多测试点，脑海里容易绕晕，反倒出现“代码没错测试错误”的情况，白白耽误时间；</li>
+<li>有时对更高层级写的Junit测试会覆盖下面的子类，但是不能完全依赖于此，因为往往一串指令是顺着一条线往下走，并不能覆盖所有情况，会导致分支覆盖率特别低。</li>
+<li>代码繁琐后可以以一种类似递归的思路debug，从上往下走。</li>
+</ol>
+<h3 id="学习OOPre的心得体会"><a href="#学习OOPre的心得体会" class="headerlink" title="学习OOPre的心得体会"></a>学习OOPre的心得体会</h3><p>​    在OOpre课程的学习过程中，我认为最大的收获就是慢慢<strong>理解了面向对象这一核心编程思想</strong>。在此之前，我的编程思维主要停留在面向过程阶段，去研究算法，效率，简洁性……而面向对象编程为我打开了一扇全新的大门，让我领略到了另一种编程范式的独特魅力。</p>
+<p>​    通过面向对象编程，我们能够针对特定的对象来设计属性和方法。种方式具有天然的<strong>专属性</strong>——每个方法都是为该类对象量身定制的，在需要时只需通过对象实例直接调用即可。这种设计思路让开发人员能够聚焦于单个类的功能实现，具有很好的独立性和内聚性。最终在系统整合阶段，只需要合理调度各个对象之间的协作关系。这种<strong>“分而治之”</strong>的策略有效降低了系统的整体复杂度，同时大大提升了代码的<strong>可读性和可维护性</strong>。</p>
+<p>​    在项目实践中，我深刻体会到<strong>封装和抽象化设计的重要价值</strong>。正如我前文所说，第二次迭代时的代码重构，让我后续添加功能方便了许多。通过封装，我们可以将复杂的内部逻辑隐藏在简洁的接口之后。比如<code>switch-case</code>语句内部只需调用一个<code>fight()</code>方法就能完成整个战斗流程，完全不需要了解内部复杂的伤害计算、状态判断等细节。这种<strong>“黑箱”设计</strong>理念让我们能够屏蔽实现的复杂性，只关注功能的输入输出，极大地<strong>简化</strong>了上层调用的复杂度。</p>
+<p>​    同时，<strong>抽象化设计</strong>也是面向对象编程的精髓所在。通过<code>Item</code>接口，我为所有物品定义了统一的行为规范，然后在各个具体类中实现特定的功能逻辑。这种设计将通用操作与特殊处理清晰分离，形成了”统一接口+个性实现”的优雅架构。在开发过程中，我可以先确保接口定义的合理性，再逐个完善具体实现，这种层次分明的开发模式让整个项目结构更加<strong>清晰有序</strong>。</p>
+<p>​    另一个重要收获是<strong>规范化代码习惯</strong>的培养。通过课程组的$Checkstyle$代码规范检查，我逐渐养成了良好的编程习惯：有意义的命名、合理的方法长度、清晰的代码结构等。这些看似细节的要求，实际上极大地提升了代码的可读性和可维护性。</p>
+<h2 id="对OOpre课程的建议"><a href="#对OOpre课程的建议" class="headerlink" title="对OOpre课程的建议"></a>对OOpre课程的建议</h2><p>1.初期给予一些Java入门有关资料（？）</p>
+<p>2.助教们注意休息，谢谢你们的陪伴和呵护！正课再见啦！</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/oopre/" class="category-chain-item">oopre</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/oopre/" class="print-no-link">#oopre</a>
+      
+        <a href="/tags/%E6%80%BB%E7%BB%93/" class="print-no-link">#总结</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>2025oopre-博客作业-课程总结</div>
+      <div>http://example.com/posts/2025oopre-博客作业-课程总结/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>pppphop</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年11月18日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/P5%E4%B8%8A%E6%9C%BA-%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94%E6%B1%87%E6%80%BB/" title="P5上机-问题解答汇总">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">P5上机-问题解答汇总</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/oopre-%E7%AC%AC%E5%85%AB%E6%AC%A1%E4%BD%9C%E4%B8%9A/" title="oopre-第八次作业">
+                        <span class="hidden-mobile">oopre-第八次作业</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
