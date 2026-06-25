@@ -354,6 +354,334 @@
       margin: 0;
     }
 
+    body {
+      background:
+        linear-gradient(135deg, rgba(47, 125, 98, 0.12) 0, rgba(47, 125, 98, 0) 34%),
+        linear-gradient(225deg, rgba(123, 94, 46, 0.10) 0, rgba(123, 94, 46, 0) 36%),
+        linear-gradient(180deg, #f3f6f5 0, #edf2f4 100%);
+    }
+
+    .topbar,
+    .toolbar,
+    .quiz-panel,
+    .side-panel {
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .toolbar,
+    .quiz-panel,
+    .side-panel {
+      background: rgba(255, 255, 255, 0.68);
+      border-color: rgba(148, 163, 184, 0.28);
+      box-shadow: 0 24px 70px rgba(31, 41, 55, 0.12);
+    }
+
+    .home-link,
+    .tab,
+    .mode-btn,
+    .plain-btn,
+    .danger-btn,
+    .metric,
+    .option-btn,
+    .answer-box,
+    .mistake-btn {
+      background: rgba(248, 250, 252, 0.72);
+      border-color: rgba(148, 163, 184, 0.28);
+    }
+
+    .primary-btn,
+    .tab.active,
+    .mode-btn.active,
+    .plain-btn.active {
+      background: #22313f;
+      border-color: #22313f;
+      color: #fff;
+    }
+
+    .prompt {
+      color: #1f2937;
+    }
+
+    .feedback {
+      background: rgba(248, 250, 252, 0.66);
+      border-color: rgba(148, 163, 184, 0.28);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111827;
+        --panel: rgba(23, 31, 45, 0.72);
+        --ink: #e5e7eb;
+        --muted: #a8b3c4;
+        --line: rgba(148, 163, 184, 0.22);
+      }
+
+      body {
+        background:
+          linear-gradient(135deg, rgba(94, 151, 134, 0.13) 0, rgba(94, 151, 134, 0) 34%),
+          linear-gradient(225deg, rgba(150, 132, 93, 0.11) 0, rgba(150, 132, 93, 0) 36%),
+          linear-gradient(180deg, #111827 0, #0f172a 100%);
+      }
+
+      .toolbar,
+      .quiz-panel,
+      .side-panel,
+      .home-link,
+      .tab,
+      .mode-btn,
+      .plain-btn,
+      .danger-btn,
+      .metric,
+      .option-btn,
+      .answer-box,
+      .mistake-btn {
+        background: rgba(23, 31, 45, 0.72);
+        border-color: rgba(148, 163, 184, 0.22);
+        color: var(--ink);
+      }
+
+      .prompt,
+      .feedback .answer {
+        color: var(--ink);
+      }
+
+      .feedback {
+        background: rgba(15, 23, 42, 0.64);
+      }
+    }
+
+    :root {
+      color-scheme: light;
+    }
+
+    body,
+    .toolbar,
+    .quiz-panel,
+    .side-panel,
+    .home-link,
+    .tab,
+    .mode-btn,
+    .plain-btn,
+    .danger-btn,
+    .metric,
+    .option-btn,
+    .answer-box,
+    .mistake-btn {
+      color: #1f2937;
+    }
+
+    body {
+      background:
+        linear-gradient(135deg, rgba(47, 125, 98, 0.12) 0, rgba(47, 125, 98, 0) 34%),
+        linear-gradient(225deg, rgba(123, 94, 46, 0.10) 0, rgba(123, 94, 46, 0) 36%),
+        linear-gradient(180deg, #f3f6f5 0, #edf2f4 100%);
+    }
+
+    .toolbar,
+    .quiz-panel,
+    .side-panel {
+      background: rgba(255, 255, 255, 0.68);
+      border-color: rgba(148, 163, 184, 0.28);
+      box-shadow: 0 24px 70px rgba(31, 41, 55, 0.12);
+    }
+
+    .home-link,
+    .tab,
+    .mode-btn,
+    .plain-btn,
+    .danger-btn,
+    .metric,
+    .option-btn,
+    .mistake-btn {
+      background: rgba(248, 250, 252, 0.72);
+      border-color: rgba(148, 163, 184, 0.28);
+    }
+
+    .primary-btn,
+    .tab.active,
+    .mode-btn.active,
+    .plain-btn.active {
+      background: #22313f;
+      border-color: #22313f;
+      color: #fff;
+    }
+
+    .answer-box {
+      background: rgba(255, 255, 255, 0.86);
+      caret-color: #22313f;
+    }
+
+    .answer-box::placeholder {
+      color: #7b8794;
+    }
+
+    .feedback .answer {
+      color: #1f2937;
+    }
+
+    /* Readable fixed light theme for the quiz surface. */
+    :root {
+      color-scheme: light;
+      --bg: #f4f7f6;
+      --panel: #ffffff;
+      --panel-2: #eef8f3;
+      --ink: #1f2937;
+      --muted: #526173;
+      --line: #cfd9e3;
+      --accent: #2f7d62;
+      --accent-2: #7b5e2e;
+      --good: #166534;
+      --bad: #991b1b;
+      --shadow: 0 18px 45px rgba(31, 41, 55, 0.10);
+    }
+
+    body {
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(47, 125, 98, 0.09) 0, rgba(47, 125, 98, 0) 34%),
+        linear-gradient(225deg, rgba(123, 94, 46, 0.07) 0, rgba(123, 94, 46, 0) 36%),
+        linear-gradient(180deg, #f5f8f7 0, #edf2f4 100%);
+    }
+
+    .brand h1,
+    .prompt,
+    .mini-title,
+    .metric strong,
+    .feedback .answer {
+      color: var(--ink);
+    }
+
+    .brand p,
+    .counter,
+    .metric span,
+    .empty {
+      color: var(--muted);
+    }
+
+    .toolbar,
+    .quiz-panel,
+    .side-panel {
+      background: rgba(255, 255, 255, 0.86);
+      border-color: rgba(148, 163, 184, 0.36);
+      box-shadow: var(--shadow);
+    }
+
+    .home-link,
+    .tab,
+    .mode-btn,
+    .plain-btn,
+    .danger-btn,
+    .metric,
+    .option-btn,
+    .mistake-btn,
+    .kbd {
+      background: rgba(248, 250, 252, 0.94);
+      color: var(--ink);
+      border-color: rgba(148, 163, 184, 0.38);
+    }
+
+    .home-link:hover,
+    .tab:hover,
+    .mode-btn:hover,
+    .plain-btn:hover,
+    .danger-btn:hover,
+    .option-btn:hover,
+    .mistake-btn:hover {
+      border-color: rgba(47, 125, 98, 0.45);
+      background: #ffffff;
+    }
+
+    .tab.active,
+    .mode-btn.active,
+    .plain-btn.active,
+    .primary-btn {
+      background: #22313f;
+      border-color: #22313f;
+      color: #ffffff;
+    }
+
+    .danger-btn {
+      color: var(--bad);
+      background: #fff7f7;
+      border-color: rgba(153, 27, 27, 0.26);
+    }
+
+    .primary-btn:disabled,
+    .plain-btn:disabled,
+    .danger-btn:disabled {
+      opacity: 0.58;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .badge {
+      background: #eef8f3;
+      color: var(--accent);
+      border-color: rgba(47, 125, 98, 0.24);
+    }
+
+    .badge.source {
+      background: #f7f1e7;
+      color: var(--accent-2);
+      border-color: rgba(123, 94, 46, 0.24);
+    }
+
+    .option-btn .letter {
+      background: #e8eef5;
+      color: var(--ink);
+    }
+
+    .option-btn.selected {
+      background: #eef8f3;
+      border-color: rgba(47, 125, 98, 0.55);
+    }
+
+    .option-btn.correct {
+      background: #eefaf4;
+      border-color: rgba(34, 197, 94, 0.48);
+      color: #14532d;
+    }
+
+    .option-btn.wrong {
+      background: #fff1f2;
+      border-color: rgba(244, 63, 94, 0.46);
+      color: var(--bad);
+    }
+
+    .answer-box {
+      background: #ffffff;
+      color: var(--ink);
+      border-color: rgba(148, 163, 184, 0.44);
+      caret-color: var(--ink);
+    }
+
+    .answer-box::placeholder {
+      color: #7b8794;
+    }
+
+    .feedback {
+      background: rgba(248, 250, 252, 0.95);
+      color: #475569;
+      border-color: rgba(148, 163, 184, 0.38);
+    }
+
+    .feedback.good {
+      background: #eefaf4;
+      color: var(--good);
+      border-color: rgba(34, 197, 94, 0.38);
+    }
+
+    .feedback.bad {
+      background: #fff1f2;
+      color: var(--bad);
+      border-color: rgba(244, 63, 94, 0.38);
+    }
+
+    .progress-shell {
+      background: #dbe4ee;
+    }
+
     @media (max-width: 860px) {
       .topbar,
       .toolbar,
@@ -807,8 +1135,8 @@
       if (q.type === "judge") {
         $("checkBtn").style.display = "none";
         $("answerArea").innerHTML = `<div class="options">
-          <button class="option-btn ${savedValue === "对" ? "selected" : ""}" type="button" data-value="对"><span class="letter">对</span><span>判断为正确</span></button>
-          <button class="option-btn ${savedValue === "错" ? "selected" : ""}" type="button" data-value="错"><span class="letter">错</span><span>判断为错误</span></button>
+          <button class="option-btn ${savedValue === "对" ? "selected" : ""}" type="button" data-value="对"><span class="letter">对</span><span>正确</span></button>
+          <button class="option-btn ${savedValue === "错" ? "selected" : ""}" type="button" data-value="错"><span class="letter">错</span><span>错误</span></button>
         </div>`;
         return;
       }

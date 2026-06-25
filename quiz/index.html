@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>刷题中心</title>
+  <style>
+    :root {
+      --bg: #edf2f7;
+      --surface: rgba(248, 250, 252, 0.76);
+      --panel: rgba(255, 255, 255, 0.68);
+      --panel-strong: rgba(255, 255, 255, 0.86);
+      --line: rgba(148, 163, 184, 0.32);
+      --ink: #1f2937;
+      --muted: #64748b;
+      --accent: #2f6f73;
+      --accent-2: #5d6b91;
+      --shadow: 0 24px 70px rgba(31, 41, 55, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(47, 111, 115, 0.13) 0, rgba(47, 111, 115, 0) 34%),
+        linear-gradient(225deg, rgba(93, 107, 145, 0.12) 0, rgba(93, 107, 145, 0) 36%),
+        linear-gradient(180deg, #f3f7f8 0, var(--bg) 52%, #e7edf3 100%);
+      letter-spacing: 0;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .app {
+      width: min(1120px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 42px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 46px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .home-link,
+    .enter-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 14px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.62);
+      backdrop-filter: blur(16px);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      min-height: 310px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(47, 111, 115, 0.32);
+      box-shadow: 0 28px 82px rgba(31, 41, 55, 0.18);
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .course-title {
+      margin: 0;
+      font-size: 23px;
+      letter-spacing: 0;
+    }
+
+    .course-note {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .mark {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: rgba(47, 111, 115, 0.12);
+      color: var(--accent);
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .stat {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(148, 163, 184, 0.24);
+      background: var(--panel-strong);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 24px;
+      line-height: 1.05;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .enter-btn {
+      margin-top: auto;
+      width: 100%;
+      min-height: 44px;
+      background: rgba(31, 41, 55, 0.92);
+      color: #fff;
+      border-color: rgba(31, 41, 55, 0.92);
+    }
+
+    .footnote {
+      margin-top: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111827;
+        --surface: rgba(15, 23, 42, 0.76);
+        --panel: rgba(23, 31, 45, 0.72);
+        --panel-strong: rgba(30, 41, 59, 0.82);
+        --line: rgba(148, 163, 184, 0.22);
+        --ink: #e5e7eb;
+        --muted: #a6b3c4;
+        --accent: #8fc8bd;
+        --accent-2: #a8b5d8;
+        --shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+      }
+
+      body {
+        background:
+          linear-gradient(135deg, rgba(143, 200, 189, 0.12) 0, rgba(143, 200, 189, 0) 34%),
+          linear-gradient(225deg, rgba(168, 181, 216, 0.10) 0, rgba(168, 181, 216, 0) 36%),
+          linear-gradient(180deg, #111827 0, #0f172a 100%);
+      }
+    }
+
+    @media (max-width: 860px) {
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .cards { grid-template-columns: 1fr; }
+      .card { min-height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <h1>刷题中心</h1>
+        <p class="subtitle">把几门课的背记练习放在一个入口里，进度记录保存在当前浏览器。</p>
+      </div>
+      <a class="home-link" href="/">返回博客</a>
+    </header>
+
+    <section class="cards" id="courseCards"></section>
+    <p class="footnote">随机、顺序和错题模式都在各科页面内切换；这里显示的是本浏览器里的刷题记录。</p>
+  </main>
+
+  <script>
+    const COURSES = [
+      { key: "military", title: "军理刷题", mark: "军", href: "/military/", total: 278, note: "按提纲覆盖重点，适合考前快速过知识点。" },
+      { key: "ethics", title: "思修刷题", mark: "思", href: "/ethics/", total: 374, note: "覆盖知识点、往年题风格和挖空记忆。" },
+      { key: "os", title: "OS刷题", mark: "OS", href: "/os/", total: 341, note: "分期中与期末模式，期末已排除启动章节。" }
+    ];
+
+    function readState(key) {
+      try {
+        return JSON.parse(localStorage.getItem(`${key}-quiz-state-v1`) || "{}");
+      } catch (_) {
+        return {};
+      }
+    }
+
+    function stats(course) {
+      const state = readState(course.key);
+      const answered = Object.values(state.answered || {});
+      const right = answered.filter((item) => item && item.correct).length;
+      const mistakes = Object.keys(state.mistakes || {}).length;
+      return {
+        done: answered.length,
+        mistakes,
+        rate: answered.length ? `${Math.round(right / answered.length * 100)}%` : "0%"
+      };
+    }
+
+    document.getElementById("courseCards").innerHTML = COURSES.map((course) => {
+      const item = stats(course);
+      return `
+        <article class="card">
+          <div class="card-head">
+            <div>
+              <h2 class="course-title">${course.title}</h2>
+              <p class="course-note">${course.note}</p>
+            </div>
+            <span class="mark">${course.mark}</span>
+          </div>
+          <div class="stats">
+            <div class="stat"><strong>${course.total}</strong><span>题库题量</span></div>
+            <div class="stat"><strong>${item.done}</strong><span>已做题目</span></div>
+            <div class="stat"><strong>${item.rate}</strong><span>正确率</span></div>
+            <div class="stat"><strong>${item.mistakes}</strong><span>错题数</span></div>
+          </div>
+          <a class="enter-btn" href="${course.href}">进入练习</a>
+        </article>
+      `;
+    }).join("");
+  </script>
+</body>
+</html>
