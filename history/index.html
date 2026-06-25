@@ -1,0 +1,901 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>史纲背记刷题</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f7f6;
+      --panel: rgba(255, 255, 255, 0.86);
+      --ink: #1f2937;
+      --muted: #526173;
+      --line: #cfd9e3;
+      --accent: #6f5d2f;
+      --accent-2: #2f6f73;
+      --good: #166534;
+      --bad: #991b1b;
+      --shadow: 0 18px 45px rgba(31, 41, 55, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(111, 93, 47, 0.10) 0, rgba(111, 93, 47, 0) 34%),
+        linear-gradient(225deg, rgba(47, 111, 115, 0.09) 0, rgba(47, 111, 115, 0) 36%),
+        linear-gradient(180deg, #f7f8f5 0, #edf2f4 100%);
+      letter-spacing: 0;
+    }
+
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; border: 0; }
+
+    .app {
+      width: min(1120px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 24px 0 36px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 5vw, 44px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .brand p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .home-link,
+    .tab,
+    .mode-btn,
+    .plain-btn,
+    .primary-btn,
+    .danger-btn,
+    .metric,
+    .option-btn,
+    .mistake-btn {
+      border: 1px solid rgba(148, 163, 184, 0.38);
+      border-radius: 8px;
+      background: rgba(248, 250, 252, 0.94);
+      color: var(--ink);
+    }
+
+    .home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 14px;
+      text-decoration: none;
+    }
+
+    .toolbar,
+    .quiz-panel,
+    .side-panel {
+      border: 1px solid rgba(148, 163, 184, 0.36);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+
+    .tabs,
+    .mode-switch,
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tab,
+    .mode-btn,
+    .plain-btn,
+    .primary-btn,
+    .danger-btn {
+      min-height: 38px;
+      padding: 0 13px;
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .tab:hover,
+    .mode-btn:hover,
+    .plain-btn:hover,
+    .primary-btn:hover,
+    .danger-btn:hover,
+    .option-btn:hover,
+    .mistake-btn:hover {
+      border-color: rgba(111, 93, 47, 0.45);
+      background: #fff;
+    }
+
+    .tab.active,
+    .mode-btn.active,
+    .plain-btn.active,
+    .primary-btn {
+      background: #22313f;
+      border-color: #22313f;
+      color: #fff;
+    }
+
+    .danger-btn {
+      color: var(--bad);
+      background: #fff7f7;
+      border-color: rgba(153, 27, 27, 0.26);
+    }
+
+    .primary-btn:disabled {
+      opacity: 0.58;
+      cursor: not-allowed;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .quiz-panel {
+      min-height: 560px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .question-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 20px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .badge-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      background: #f7f1e7;
+      color: var(--accent);
+      border: 1px solid rgba(111, 93, 47, 0.22);
+    }
+
+    .badge.source {
+      color: var(--accent-2);
+      background: #eef8f3;
+      border-color: rgba(47, 111, 115, 0.22);
+    }
+
+    .counter,
+    .metric span,
+    .empty {
+      color: var(--muted);
+    }
+
+    .question-body {
+      padding: 22px 20px 18px;
+      flex: 1;
+    }
+
+    .prompt {
+      margin: 0 0 18px;
+      font-size: clamp(20px, 3.2vw, 26px);
+      line-height: 1.55;
+      font-weight: 700;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .option-btn {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 36px minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+      min-height: 54px;
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    .option-btn .letter {
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #e8eef5;
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .option-btn.selected {
+      background: #f8f4ec;
+      border-color: rgba(111, 93, 47, 0.55);
+    }
+
+    .option-btn.correct {
+      background: #eefaf4;
+      border-color: rgba(34, 197, 94, 0.48);
+      color: #14532d;
+    }
+
+    .option-btn.wrong {
+      background: #fff1f2;
+      border-color: rgba(244, 63, 94, 0.46);
+      color: var(--bad);
+    }
+
+    .answer-box {
+      width: 100%;
+      min-height: 50px;
+      border: 1px solid rgba(148, 163, 184, 0.44);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--ink);
+      background: #fff;
+      resize: vertical;
+      outline: none;
+    }
+
+    textarea.answer-box {
+      min-height: 150px;
+      line-height: 1.7;
+    }
+
+    .answer-box:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(111, 93, 47, 0.12);
+    }
+
+    .feedback {
+      min-height: 74px;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px dashed rgba(148, 163, 184, 0.38);
+      background: rgba(248, 250, 252, 0.95);
+      color: #475569;
+      line-height: 1.65;
+    }
+
+    .feedback.good {
+      background: #eefaf4;
+      color: var(--good);
+      border-color: rgba(34, 197, 94, 0.38);
+    }
+
+    .feedback.bad {
+      background: #fff1f2;
+      color: var(--bad);
+      border-color: rgba(244, 63, 94, 0.38);
+    }
+
+    .feedback .answer {
+      display: block;
+      margin-top: 6px;
+      color: var(--ink);
+      word-break: break-word;
+    }
+
+    .actions {
+      padding: 0 20px 20px;
+    }
+
+    .side-panel {
+      padding: 16px;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .metric {
+      padding: 12px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 24px;
+      line-height: 1.1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .progress-shell {
+      height: 10px;
+      border-radius: 999px;
+      background: #dbe4ee;
+      overflow: hidden;
+      margin: 8px 0 18px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 0.2s ease;
+    }
+
+    .mini-title {
+      margin: 16px 0 8px;
+      font-size: 15px;
+      color: var(--ink);
+    }
+
+    .mistakes {
+      display: grid;
+      gap: 8px;
+      max-height: 260px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .mistake-btn {
+      width: 100%;
+      padding: 10px;
+      text-align: left;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 860px) {
+      .topbar,
+      .toolbar,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        align-items: stretch;
+      }
+
+      .toolbar,
+      .grid {
+        display: grid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <h1>史纲背记刷题</h1>
+        <p>按 2025 期末考核方案：客观题覆盖全书，大题侧重第 4-10 章学习思考题和 6 个补充思考题。</p>
+      </div>
+      <a class="home-link" href="/">返回博客</a>
+    </header>
+
+    <section class="toolbar" aria-label="刷题控制">
+      <div class="tabs" id="typeTabs"></div>
+      <div class="mode-switch" id="orderTabs">
+        <button class="mode-btn active" type="button" data-order="sequential">顺序</button>
+        <button class="mode-btn" type="button" data-order="random">随机</button>
+      </div>
+      <button class="danger-btn" type="button" id="resetBtn">清空记录</button>
+    </section>
+
+    <section class="grid">
+      <article class="quiz-panel">
+        <div class="question-head">
+          <div class="badge-row">
+            <span class="badge" id="typeBadge"></span>
+            <span class="badge source" id="sourceBadge"></span>
+          </div>
+          <span class="counter" id="counter"></span>
+        </div>
+        <div class="question-body">
+          <p class="prompt" id="prompt"></p>
+          <div id="answerArea"></div>
+          <div class="feedback" id="feedback"></div>
+        </div>
+        <div class="actions">
+          <button class="plain-btn" type="button" id="prevBtn">上一题</button>
+          <button class="primary-btn" type="button" id="checkBtn">判题</button>
+          <button class="plain-btn" type="button" id="answerBtn">看答案</button>
+          <button class="primary-btn" type="button" id="nextBtn">下一题</button>
+        </div>
+      </article>
+
+      <aside class="side-panel">
+        <div class="metric-grid">
+          <div class="metric"><strong id="doneCount">0</strong><span>已做</span></div>
+          <div class="metric"><strong id="rightRate">0%</strong><span>正确率</span></div>
+          <div class="metric"><strong id="totalCount">0</strong><span>当前题量</span></div>
+          <div class="metric"><strong id="mistakeCount">0</strong><span>错题</span></div>
+        </div>
+        <div class="progress-shell" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+        <button class="plain-btn" type="button" id="mistakeModeBtn">只刷错题</button>
+        <h2 class="mini-title">错题本</h2>
+        <div class="mistakes" id="mistakes"></div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const FACTS = [
+      { chapter: "第一章", source: "省流/考研题库", topic: "鸦片战争", fillPrompt: "__________是中国近代史的起点。", fillAnswers: ["鸦片战争"], judgeTrue: "鸦片战争使中国开始沦为半殖民地半封建社会。", judgeFalse: "鸦片战争没有改变中国社会性质。", choice: ["鸦片战争", "甲午战争", "辛亥革命", "五四运动"], shortAnswer: "鸦片战争以后，中国社会性质、主要矛盾、革命任务和阶级关系都发生深刻变化，中国开始沦为半殖民地半封建社会。" },
+      { chapter: "第一章", source: "省流/考研题库", topic: "近代中国主要矛盾", fillPrompt: "近代中国社会主要矛盾包括帝国主义和中华民族的矛盾、__________和人民大众的矛盾。", fillAnswers: ["封建主义"], judgeTrue: "帝国主义和中华民族的矛盾是近代中国最主要的矛盾。", judgeFalse: "近代中国只有资产阶级和无产阶级之间的矛盾。", choice: ["帝国主义和中华民族的矛盾", "城市和乡村的矛盾", "工业和农业的矛盾", "南方和北方的矛盾"], shortAnswer: "近代中国主要矛盾是帝国主义和中华民族的矛盾、封建主义和人民大众的矛盾，其中帝国主义和中华民族的矛盾是最主要的矛盾。" },
+      { chapter: "第一章", source: "省流/考研题库", topic: "两大历史任务", fillPrompt: "近代以来中华民族面临的两大历史任务是争取民族独立、人民解放和实现__________、人民富裕。", fillAnswers: ["国家富强"], judgeTrue: "争取民族独立、人民解放是实现国家富强、人民富裕的前提。", judgeFalse: "两大历史任务彼此无关。", choice: ["民族独立、人民解放", "闭关锁国", "恢复帝制", "平均地权"], shortAnswer: "两大历史任务是争取民族独立、人民解放和实现国家富强、人民富裕；前一任务为后一任务扫清障碍、创造前提。" },
+      { chapter: "第二章", source: "省流/考研题库", topic: "太平天国运动", fillPrompt: "太平天国颁布的纲领性文件包括《天朝田亩制度》和《__________》。", fillAnswers: ["资政新篇"], judgeTrue: "太平天国运动沉重打击了封建统治和外国侵略势力。", judgeFalse: "太平天国运动已经找到科学的救国道路。", choice: ["太平天国运动", "洋务运动", "戊戌维新", "清末新政"], shortAnswer: "太平天国运动沉重打击了封建统治和外国侵略势力，但受农民阶级局限，不能从根本上提出科学完整的救国方案。" },
+      { chapter: "第二章", source: "省流/考研题库", topic: "洋务运动", fillPrompt: "洋务派的指导思想可概括为“__________”。", fillAnswers: ["中体西用"], judgeTrue: "洋务运动没有触动封建制度根基。", judgeFalse: "洋务运动建立了独立完整的资本主义制度。", choice: ["中体西用", "民主共和", "实业救国", "工农武装割据"], shortAnswer: "洋务运动试图学习西方器物技术以维护清王朝统治，客观上刺激了中国资本主义发展，但不触动封建制度，不能使中国走向富强。" },
+      { chapter: "第二章", source: "省流/考研题库", topic: "戊戌维新", fillPrompt: "戊戌维新运动主张学习西方的政治制度，试图在中国实行__________。", fillAnswers: ["君主立宪"], judgeTrue: "戊戌维新运动是资产阶级改良派的救亡图存尝试。", judgeFalse: "戊戌维新运动通过暴力革命推翻了清政府。", choice: ["君主立宪", "封建专制", "农村包围城市", "社会主义改造"], shortAnswer: "戊戌维新运动是资产阶级改良派的救亡尝试，传播了新思想，但依靠没有实权的皇帝和少数官僚，脱离群众，最终失败。" },
+      { chapter: "第三章", source: "省流/考研题库", topic: "辛亥革命", fillPrompt: "辛亥革命推翻了清王朝统治，结束了中国两千多年__________制度。", fillAnswers: ["君主专制"], judgeTrue: "辛亥革命没有改变旧中国半殖民地半封建的社会性质。", judgeFalse: "辛亥革命完成了反帝反封建的历史任务。", choice: ["辛亥革命", "洋务运动", "义和团运动", "新文化运动"], shortAnswer: "辛亥革命推翻清王朝和君主专制制度，建立共和观念，但没有改变半殖民地半封建社会性质，没有完成民族独立、人民解放任务。" },
+      { chapter: "第三章", source: "省流/考研题库", topic: "三民主义", fillPrompt: "孙中山提出的三民主义包括民族主义、民权主义和__________。", fillAnswers: ["民生主义"], judgeTrue: "旧三民主义没有明确提出彻底的反帝反封建纲领。", judgeFalse: "三民主义完全等同于马克思主义。", choice: ["民族、民权、民生", "民主、科学、共和", "土地、武装、根据地", "改革、开放、市场"], shortAnswer: "三民主义包括民族、民权、民生，是资产阶级革命纲领，但旧三民主义没有明确彻底反帝反封建，存在历史局限。" },
+      { chapter: "第四章", source: "课后思考题/省流", topic: "新文化运动", fillPrompt: "新文化运动高举__________和科学两面旗帜。", fillAnswers: ["民主"], judgeTrue: "马克思主义传播深化了新文化运动的思想启蒙。", judgeFalse: "马克思主义传播中断了新文化运动的思想启蒙。", choice: ["民主与科学", "中体西用", "扶清灭洋", "平均地权"], shortAnswer: "马克思主义传播继承并深化了民主与科学精神，克服旧启蒙弱点，把个性解放推进到人民群众的社会解放。" },
+      { chapter: "第四章", source: "课后思考题/省流", topic: "五四运动", fillPrompt: "__________标志着中国新民主主义革命的开端。", fillAnswers: ["五四运动"], judgeTrue: "五四运动中工人阶级开始以独立政治力量登上历史舞台。", judgeFalse: "五四运动与马克思主义传播没有关系。", choice: ["五四运动", "戊戌维新", "洋务运动", "辛亥革命"], shortAnswer: "五四运动是彻底反帝反封建的爱国运动，促进马克思主义传播和工人运动结合，标志着中国新民主主义革命的开端。" },
+      { chapter: "第四章", source: "课后思考题/省流", topic: "中国共产党成立条件", fillPrompt: "马克思主义在中国的传播为中国共产党成立奠定了__________基础。", fillAnswers: ["思想"], judgeTrue: "工人阶级的觉醒为中国共产党成立奠定了阶级基础。", judgeFalse: "中国共产党成立是偶然事件，没有社会基础。", choice: ["马克思主义传播", "闭关锁国", "复辟帝制", "列强分裂中国"], shortAnswer: "中共成立具有历史必然性：近代中国迫切需要先进政党，马克思主义传播奠定思想基础，工人阶级觉醒奠定阶级基础，早期组织建立奠定组织基础。" },
+      { chapter: "第四章", source: "课后思考题/省流", topic: "开天辟地的大事变", fillPrompt: "中国共产党人的初心使命是为中国人民谋幸福、为中华民族谋__________。", fillAnswers: ["复兴"], judgeTrue: "中国共产党成立使中国革命有了坚强领导核心。", judgeFalse: "中国共产党成立没有改变中国革命面貌。", choice: ["中国共产党成立", "北洋军阀混战", "清末新政", "袁世凯称帝"], shortAnswer: "中国共产党成立是开天辟地的大事变，中国革命有了先进坚强的领导核心和科学指导思想，肩负起实现中华民族伟大复兴的历史使命。" },
+      { chapter: "第五章", source: "省流", topic: "中国革命新道路", fillPrompt: "中国革命新道路是农村包围城市、__________。", fillAnswers: ["武装夺取政权"], judgeTrue: "井冈山道路突破了照搬苏联城市中心道路的局限。", judgeFalse: "中国革命新道路主张放弃武装斗争。", choice: ["农村包围城市、武装夺取政权", "议会道路", "君主立宪", "全盘西化"], shortAnswer: "中国革命新道路新在从中国实际出发，走农村包围城市、武装夺取政权道路，建立农村革命根据地，以土地革命调动农民积极性。" },
+      { chapter: "第五章", source: "省流", topic: "长征意义", fillPrompt: "长征实现了红军的战略转移，使中国革命__________。", fillAnswers: ["转危为安"], judgeTrue: "长征促进了中国共产党在政治上走向成熟。", judgeFalse: "长征是一次失败的逃跑，没有历史意义。", choice: ["长征", "护国战争", "北伐战争", "清末新政"], shortAnswer: "长征是理想信念、检验真理、唤醒民众、开创新局的伟大远征，促进党成熟，使中国革命转危为安，形成伟大长征精神。" },
+      { chapter: "第五章", source: "省流", topic: "遵义会议", fillPrompt: "__________开始确立以毛泽东同志为主要代表的马克思主义正确路线在党中央的领导地位。", fillAnswers: ["遵义会议"], judgeTrue: "遵义会议是党的历史上生死攸关的转折点。", judgeFalse: "遵义会议发生在改革开放时期。", choice: ["遵义会议", "中共一大", "八七会议", "七届二中全会"], shortAnswer: "遵义会议在极端危急关头挽救了党、红军和中国革命，开始确立正确路线在党中央的领导地位，是生死攸关的转折点。" },
+      { chapter: "第六章", source: "省流/课后思考题", topic: "抗日战争性质", fillPrompt: "中国人民抗日战争是世界反法西斯战争的__________主战场。", fillAnswers: ["东方"], judgeTrue: "中国抗日战争是正义的、进步的反侵略战争。", judgeFalse: "中国抗日战争不是民族解放战争。", choice: ["东方主战场", "西方主战场", "局部内战", "改良运动"], shortAnswer: "中国抗日战争是神圣的民族解放战争，是反侵略、反压迫、反奴役的正义战争，也是世界反法西斯战争的东方主战场。" },
+      { chapter: "第六章", source: "省流/课后思考题", topic: "全面抗战路线", fillPrompt: "中国共产党坚持全面抗战路线和__________方针。", fillAnswers: ["持久战"], judgeTrue: "《论持久战》阐明了争取抗战胜利的战略方针。", judgeFalse: "中国共产党主张片面抗战路线。", choice: ["全面抗战路线", "片面抗战路线", "速胜论", "亡国论"], shortAnswer: "中国共产党坚持全面抗战路线和持久战方针，动员人民群众，开辟敌后战场，巩固和壮大抗日民族统一战线。" },
+      { chapter: "第六章", source: "省流/课后思考题", topic: "中流砥柱", fillPrompt: "判断抗战中流砥柱，关键看是否坚持抗日民族统一战线并团结带领__________抗战。", fillAnswers: ["人民群众"], judgeTrue: "中国共产党是中国人民抗日战争的中流砥柱。", judgeFalse: "所谓共产党“游而不击”符合历史事实。", choice: ["中国共产党", "北洋军阀", "清政府", "汪伪政权"], shortAnswer: "中国共产党以思想和战略指导、全面抗战路线、敌后战场、抗日根据地和统一战线等发挥中流砥柱作用；所谓“游而不击”不符合历史事实。" },
+      { chapter: "第六章", source: "省流", topic: "抗战胜利意义", fillPrompt: "抗日战争胜利是近代以来中华民族反抗外敌入侵第一次取得__________胜利。", fillAnswers: ["完全"], judgeTrue: "抗战胜利提高了中国国际地位，增强了民族自信。", judgeFalse: "抗战胜利没有影响中华民族复兴进程。", choice: ["完全胜利", "局部失败", "改良成功", "封建复辟"], shortAnswer: "抗战胜利粉碎日本殖民奴役图谋，捍卫主权和领土完整，洗刷民族耻辱，促进民族团结和国际地位提升，成为民族复兴重要转折。" },
+      { chapter: "第七章", source: "省流", topic: "国民党政权崩溃", fillPrompt: "抗战胜利后，国民党政府因专制独裁、贪污腐化和发动__________而走向崩溃。", fillAnswers: ["内战"], judgeTrue: "国民党政府违背人民和平建国愿望，执行反人民内战政策。", judgeFalse: "国民党政权崩溃主要因为人民过度支持其统治。", choice: ["反人民内战政策", "土地改革成功", "民主协商成功", "停止独裁统治"], shortAnswer: "国民党政府代表大地主大资产阶级利益，专制独裁、贪污腐化，违背和平建国愿望发动内战，因丧失民心陷入全民包围并走向崩溃。" },
+      { chapter: "第七章", source: "省流/补充思考题", topic: "第三条道路", fillPrompt: "第三条道路实质上是资产阶级共和国方案，属于__________道路。", fillAnswers: ["旧民主主义"], judgeTrue: "第三条道路在中国行不通。", judgeFalse: "第三条道路能够完成中国反帝反封建任务。", choice: ["第三条道路", "农村包围城市道路", "社会主义道路", "新民主主义革命道路"], shortAnswer: "第三条道路是中间势力关于资产阶级共和国的幻想，实质是旧民主主义道路，不能完成反帝反封建任务，也没有现实阶级基础和政治条件。" },
+      { chapter: "第七章", source: "省流", topic: "新民主主义革命胜利经验", fillPrompt: "中国革命取得胜利的三大法宝是统一战线、武装斗争和__________。", fillAnswers: ["党的建设"], judgeTrue: "没有共产党，就没有新中国。", judgeFalse: "中国革命胜利与党的建设无关。", choice: ["统一战线、武装斗争、党的建设", "中体西用、君主立宪、实业救国", "闭关、复辟、改良", "议会、请愿、复古"], shortAnswer: "没有共产党就没有新中国；中国革命胜利基本经验是统一战线、武装斗争、党的建设三大法宝。" },
+      { chapter: "第八章", source: "省流/补充思考题", topic: "中华人民共和国成立", fillPrompt: "中华人民共和国成立标志着中国__________革命取得基本胜利。", fillAnswers: ["新民主主义"], judgeTrue: "新中国成立开辟了中国历史新纪元。", judgeFalse: "新中国成立后中国仍由帝国主义直接统治。", choice: ["中华人民共和国成立", "辛亥革命", "戊戌维新", "洋务运动"], shortAnswer: "中华人民共和国成立标志新民主主义革命基本胜利，中国人民站起来了，为实现国家富强和人民幸福创造了根本政治前提。" },
+      { chapter: "第八章", source: "省流/补充思考题", topic: "社会主义改造", fillPrompt: "1956年社会主义改造基本完成，标志着__________在我国基本确立。", fillAnswers: ["社会主义基本制度"], judgeTrue: "重归新民主主义社会论通过否定社会主义改造来否定社会主义制度。", judgeFalse: "社会主义改造完成后我国应重归新民主主义社会。", choice: ["社会主义基本制度", "君主立宪制度", "半殖民地制度", "买办资本制度"], shortAnswer: "社会主义改造基本完成标志社会主义基本制度在我国确立；重归新民主主义社会论否定社会主义改造和制度，是错误的。" },
+      { chapter: "第八章", source: "省流", topic: "建设道路探索经验", fillPrompt: "社会主义建设必须正确认识社会主义社会的主要矛盾和根本任务，集中力量发展__________。", fillAnswers: ["生产力"], judgeTrue: "社会主义建设要从实际出发，不能急于求成。", judgeFalse: "社会主义建设可以脱离国情盲目追求速度。", choice: ["从实际出发", "急于求成", "以阶级斗争为纲永远不变", "照搬外国模式"], shortAnswer: "社会主义建设经验教训包括坚持马克思主义同实际结合，正确认识主要矛盾和根本任务，集中发展生产力，从实际出发，发展民主法治，加强党的建设，坚持对外开放。" },
+      { chapter: "第九章", source: "省流", topic: "十一届三中全会", fillPrompt: "党的十一届三中全会把全党工作中心转移到__________上来。", fillAnswers: ["社会主义现代化建设"], judgeTrue: "十一届三中全会开启了改革开放和社会主义现代化建设新时期。", judgeFalse: "十一届三中全会继续坚持以阶级斗争为纲。", choice: ["十一届三中全会", "遵义会议", "中共一大", "瓦窑堡会议"], shortAnswer: "十一届三中全会冲破长期左的错误束缚，重新确立马克思主义思想路线、政治路线、组织路线，作出改革开放决策，开启新时期。" },
+      { chapter: "第九章", source: "省流", topic: "中国特色社会主义开创", fillPrompt: "中国特色社会主义要求把马克思主义普遍真理同中国__________相结合。", fillAnswers: ["具体实际"], judgeTrue: "中国特色社会主义是在改革开放新时期逐步开创和发展的。", judgeFalse: "中国特色社会主义就是照搬别国模式。", choice: ["从中国实际出发", "照搬别国经验", "恢复封建制度", "闭关锁国"], shortAnswer: "中国特色社会主义是把马克思主义基本原理同中国具体实际结合，坚持社会主义道路，从中国实际出发，不照搬别国经验和模式。" },
+      { chapter: "第九章", source: "省流", topic: "中国特色社会主义接续发展", fillPrompt: "邓小平理论回答了在中国建设社会主义、巩固和发展__________的基本问题。", fillAnswers: ["社会主义"], judgeTrue: "三个代表重要思想、科学发展观、习近平新时代中国特色社会主义思想都是中国特色社会主义理论体系的重要成果。", judgeFalse: "中国特色社会主义理论一成不变，没有接续发展。", choice: ["邓小平理论", "中体西用", "旧三民主义", "君主立宪论"], shortAnswer: "中国特色社会主义接续发展形成邓小平理论、三个代表重要思想、科学发展观、习近平新时代中国特色社会主义思想，回答不同时期重大时代课题。" },
+      { chapter: "第十章", source: "省流", topic: "中国特色社会主义进入新时代", fillPrompt: "党的__________以来，中国特色社会主义进入新时代。", fillAnswers: ["十八大"], judgeTrue: "我国社会主要矛盾变化没有改变社会主义初级阶段基本国情。", judgeFalse: "进入新时代意味着我国已经脱离社会主义初级阶段。", choice: ["十八大", "十一届三中全会", "中共一大", "八七会议"], shortAnswer: "中国特色社会主义进入新时代，是承前启后、继往开来的时代，是决胜全面小康、建设现代化强国、实现共同富裕和民族复兴的时代。" },
+      { chapter: "第十章", source: "省流", topic: "新时代主要矛盾", fillPrompt: "新时代我国社会主要矛盾转化为人民日益增长的美好生活需要和__________的发展之间的矛盾。", fillAnswers: ["不平衡不充分"], judgeTrue: "新时代主要矛盾变化是关系全局的历史性变化。", judgeFalse: "新时代我国社会主要矛盾没有发生任何变化。", choice: ["不平衡不充分的发展", "帝国主义和中华民族", "封建主义和人民大众", "农民和地主"], shortAnswer: "新时代我国社会主要矛盾是不平衡不充分的发展和人民日益增长的美好生活需要之间的矛盾，但基本国情和国际地位没有变。" },
+      { chapter: "第十章", source: "省流", topic: "历史性变革意义", fillPrompt: "党的十八大以来，习近平新时代中国特色社会主义思想实现了马克思主义中国化时代化新的__________。", fillAnswers: ["飞跃"], judgeTrue: "党的十八大以来党和国家事业发生历史性变革。", judgeFalse: "新时代历史性变革没有增强党的领导。", choice: ["历史性变革", "闭关锁国", "军阀混战", "封建复辟"], shortAnswer: "党的十八大以来创立新时代中国特色社会主义思想，党的领导全面加强，全面深化改革、经济建设、民主法治、强军兴军、外交、从严治党等取得历史性成就。" }
+    ];
+
+    const SUBJECTIVES = [
+      { id: "sub01", source: "考试方案补充题", type: "essay", prompt: "五四运动后马克思主义的传播是中断了新文化运动的思想启蒙，还是深化了新文化运动的思想启蒙？", answer: "马克思主义传播深化了新文化运动的思想启蒙：继承民主与科学精神并赋予新含义；以马克思主义观点把科学扩展到社会历史研究；克服旧启蒙弱点，以社会主义、集体主义批判纲常名教，把个性解放推进到人民群众的社会解放。", keyPoints: ["深化", "民主与科学", "马克思主义观点", "社会历史研究", "人民群众的社会解放"], minPoints: 4 },
+      { id: "sub02", source: "考试方案补充题", type: "essay", prompt: "为什么说中国共产党成立是近现代中国历史发展的必然要求？", answer: "中国共产党成立是近现代中国历史发展的必然产物：辛亥革命没有完成民族独立人民解放任务，中国迫切需要先进政党；马克思主义传播奠定思想基础；工人阶级觉醒奠定阶级基础；共产党早期组织建立奠定组织基础。", keyPoints: ["辛亥革命没有完成", "先进政党", "马克思主义传播", "工人阶级", "早期组织"], minPoints: 4 },
+      { id: "sub03", source: "考试方案补充题", type: "short", prompt: "为什么说所谓共产党“游而不击”不符合历史事实？", answer: "中国共产党坚持全面抗战路线和持久战方针，开辟敌后战场，建立抗日根据地，发动人民群众抗战，巩固抗日民族统一战线，有大量史实和文献证明其抗战贡献。所谓“游而不击”是历史虚无主义观点。", keyPoints: ["全面抗战路线", "敌后战场", "抗日根据地", "发动人民群众", "历史虚无主义"], minPoints: 4 },
+      { id: "sub04", source: "考试方案补充题", type: "essay", prompt: "如何看待“中国共产党不是抗日战争的中流砥柱，国民党才是”的观点？", answer: "该观点片面。判断中流砥柱关键看是否坚持抗日民族统一战线、团结带领人民群众抗战并坚持到胜利。中国共产党坚持全面抗战路线和持久战，开辟敌后战场，建立抗日根据地，巩固统一战线，发挥了中流砥柱作用。", keyPoints: ["片面", "抗日民族统一战线", "人民群众", "全面抗战路线", "敌后战场", "抗日根据地"], minPoints: 4 },
+      { id: "sub05", source: "考试方案补充题", type: "short", prompt: "为什么“第三条道路”在中国行不通？", answer: "第三条道路是中间势力关于资产阶级共和国的幻想，政治上主张英美式民主，经济上主张改良资本主义，走和平改良道路，实质是旧民主主义道路，不能完成反帝反封建任务，也缺乏现实阶级基础和政治条件。", keyPoints: ["中间势力", "资产阶级共和国", "和平改良", "旧民主主义", "不能完成反帝反封建"], minPoints: 4 },
+      { id: "sub06", source: "考试方案补充题", type: "essay", prompt: "为什么说“重归新民主主义社会论”是错误的？", answer: "重归新民主主义社会论实质是否定社会主义改造、否定社会主义制度和中国特色社会主义道路。新民主主义社会公有制未占主体，社会主义初级阶段公有制占主体；中国革命必须经过过渡时期建立社会主义制度；社会主要矛盾已经变化，阶级斗争不是主要矛盾。", keyPoints: ["否定社会主义改造", "否定社会主义制度", "公有制主体", "过渡时期", "主要矛盾变化"], minPoints: 4 },
+      { id: "sub07", source: "省流 第五章", type: "short", prompt: "中国革命新道路“新”在哪里？", answer: "新在从中国实际出发，走农村包围城市、武装夺取政权道路，建立农村革命根据地，突破照搬苏联城市中心道路的局限；土地革命调动农民积极性，保证革命胜利。", keyPoints: ["中国实际", "农村包围城市", "武装夺取政权", "农村革命根据地", "土地革命"], minPoints: 4 },
+      { id: "sub08", source: "省流 第六章", type: "short", prompt: "为什么说中国人民抗日战争是神圣的民族解放战争？", answer: "中国抗日战争是世界反法西斯战争东方主战场，是反对侵略、压迫和奴役的正义进步战争；日本侵略战争是非正义的；抗战胜利是近代以来中华民族反抗外敌入侵第一次取得完全胜利的民族解放战争。", keyPoints: ["东方主战场", "反侵略", "正义", "日本非正义", "第一次完全胜利"], minPoints: 4 },
+      { id: "sub09", source: "省流 第七章", type: "short", prompt: "为什么说“没有共产党，就没有新中国”？中国革命胜利的基本经验是什么？", answer: "中国共产党以马克思主义和毛泽东思想为指导，始终站在斗争最前线，赢得人民拥护，领导人民取得新民主主义革命胜利。基本经验是统一战线、武装斗争、党的建设。", keyPoints: ["马克思主义", "毛泽东思想", "人民拥护", "新民主主义革命胜利", "统一战线", "武装斗争", "党的建设"], minPoints: 5 },
+      { id: "sub10", source: "省流 第九章", type: "essay", prompt: "为什么说党的十一届三中全会是新中国成立以来的伟大历史转折？", answer: "十一届三中全会冲破长期左的错误束缚，否定两个凡是，高度评价真理标准问题讨论，停止以阶级斗争为纲，把工作中心转移到社会主义现代化建设上来，提出改革开放任务，重新确立马克思主义思想路线、政治路线、组织路线，开启改革开放和社会主义现代化建设新时期。", keyPoints: ["否定两个凡是", "真理标准", "停止以阶级斗争为纲", "工作中心转移", "改革开放", "重新确立路线"], minPoints: 5 },
+      { id: "sub11", source: "省流 第十章", type: "essay", prompt: "联系我国社会主要矛盾的新变化，如何理解中国特色社会主义进入新时代的内涵和意义？", answer: "新时代是承前启后、继往开来继续夺取中国特色社会主义伟大胜利的时代，是全面建设社会主义现代化强国、实现共同富裕、民族复兴并为人类作出更大贡献的时代。意义在于中华民族迎来从站起来、富起来到强起来的飞跃，科学社会主义焕发生机，为发展中国家现代化提供中国智慧和中国方案。", keyPoints: ["承前启后", "现代化强国", "共同富裕", "民族复兴", "站起来富起来强起来", "中国智慧"], minPoints: 5 }
+    ];
+
+    const QUESTIONS = [];
+
+    FACTS.forEach((item, index) => {
+      const source = item.source || item.chapter;
+      QUESTIONS.push({ id: `h${index + 1}_fill`, type: "fill", source, prompt: item.fillPrompt, answers: item.fillAnswers });
+      QUESTIONS.push({ id: `h${index + 1}_judge_t`, type: "judge", source, prompt: item.judgeTrue, answer: "对" });
+      QUESTIONS.push({ id: `h${index + 1}_judge_f`, type: "judge", source, prompt: item.judgeFalse, answer: "错" });
+      QUESTIONS.push({
+        id: `h${index + 1}_choice`,
+        type: "choice",
+        source,
+        prompt: `下列与“${item.topic}”最相关的是（ ）。`,
+        answer: "A",
+        options: { A: item.choice[0], B: item.choice[1], C: item.choice[2], D: item.choice[3] }
+      });
+      QUESTIONS.push({ id: `h${index + 1}_short`, type: "short", source, prompt: `简述${item.topic}。`, answer: item.shortAnswer, aliases: [item.shortAnswer] });
+    });
+
+    QUESTIONS.push(...SUBJECTIVES);
+
+    const TYPE_LABEL = {
+      all: "全部",
+      fill: "填空",
+      choice: "选择",
+      judge: "判断",
+      short: "简答",
+      essay: "论述",
+      mistakes: "错题"
+    };
+
+    const STORE_KEY = "history-quiz-state-v1";
+    const $ = (id) => document.getElementById(id);
+
+    let state = {
+      filter: "all",
+      order: "sequential",
+      index: 0,
+      answered: {},
+      mistakes: {}
+    };
+
+    let queue = [];
+    let queueKey = "";
+
+    function loadState() {
+      try {
+        state = { ...state, ...JSON.parse(localStorage.getItem(STORE_KEY) || "{}") };
+      } catch (_) {
+        saveState();
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORE_KEY, JSON.stringify(state));
+    }
+
+    function shuffle(items) {
+      const copy = [...items];
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function normalizeExact(text) {
+      return String(text || "")
+        .trim()
+        .toLowerCase()
+        .replace(/[，。、“”‘’；;：:,.!?！？（）()\[\]【】《》<>]/g, "")
+        .replace(/\s+/g, "");
+    }
+
+    function normalizeSimilarity(text) {
+      return normalizeExact(text).replace(/[的地得]/g, "");
+    }
+
+    function splitFill(text) {
+      return String(text || "")
+        .trim()
+        .split(/[\s,，;；、/|]+/)
+        .filter(Boolean);
+    }
+
+    function splitAnswerFragments(text) {
+      return String(text || "")
+        .split(/[\s,，;；、/|。.!！?？\n\r]+/)
+        .filter(Boolean);
+    }
+
+    function levenshtein(a, b) {
+      if (a === b) return 0;
+      if (!a.length) return b.length;
+      if (!b.length) return a.length;
+      let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+      let curr = new Array(b.length + 1);
+      for (let i = 1; i <= a.length; i += 1) {
+        curr[0] = i;
+        for (let j = 1; j <= b.length; j += 1) {
+          const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+          curr[j] = Math.min(curr[j - 1] + 1, prev[j] + 1, prev[j - 1] + cost);
+        }
+        [prev, curr] = [curr, prev];
+      }
+      return prev[b.length];
+    }
+
+    function similarity(user, refs) {
+      const source = normalizeSimilarity(user);
+      if (!source) return 0;
+      return refs.reduce((best, ref) => {
+        const target = normalizeSimilarity(ref);
+        const distance = levenshtein(source, target);
+        const score = 1 - distance / Math.max(source.length, target.length, 1);
+        return Math.max(best, score);
+      }, 0);
+    }
+
+    function gradeKeyPoints(user, keyPoints, minPoints) {
+      const source = normalizeSimilarity(user);
+      if (!source) return { hit: 0, total: keyPoints.length, correct: false };
+      const fragments = splitAnswerFragments(user);
+      const hit = keyPoints.reduce((count, point) => {
+        const candidates = Array.isArray(point) ? point : [point];
+        const matched = candidates.some((candidate) => {
+          const target = normalizeSimilarity(candidate);
+          if (!target) return false;
+          if (source.includes(target)) return true;
+          return fragments.some((fragment) => similarity(fragment, [candidate]) >= 0.85);
+        });
+        return count + (matched ? 1 : 0);
+      }, 0);
+      return { hit, total: keyPoints.length, correct: hit >= minPoints };
+    }
+
+    function answerText(q) {
+      if (q.type === "fill") return q.answers.join(" ");
+      return q.answer;
+    }
+
+    function buildQueue(keepCurrentId, force = false) {
+      let items = QUESTIONS;
+      if (state.filter === "mistakes") {
+        items = QUESTIONS.filter((q) => state.mistakes[q.id]);
+      } else if (state.filter !== "all") {
+        items = QUESTIONS.filter((q) => q.type === state.filter);
+      }
+      const nextKey = `${state.filter}|${state.order}|${items.map((q) => q.id).join("|")}`;
+      if (!force && queueKey === nextKey && queue.length) {
+        if (keepCurrentId) {
+          const found = queue.findIndex((q) => q.id === keepCurrentId);
+          state.index = found >= 0 ? found : 0;
+        } else if (state.index >= queue.length) {
+          state.index = 0;
+        }
+        return;
+      }
+      queueKey = nextKey;
+      queue = state.order === "random" ? shuffle(items) : [...items];
+      if (keepCurrentId) {
+        const found = queue.findIndex((q) => q.id === keepCurrentId);
+        state.index = found >= 0 ? found : 0;
+      } else if (state.index >= queue.length) {
+        state.index = 0;
+      }
+    }
+
+    function currentQuestion() {
+      return queue[state.index] || null;
+    }
+
+    function escapeHtml(text) {
+      return String(text).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[ch]));
+    }
+
+    function renderTabs() {
+      const types = ["all", "fill", "choice", "judge", "short", "essay"];
+      $("typeTabs").innerHTML = types.map((type) => {
+        const count = type === "all" ? QUESTIONS.length : QUESTIONS.filter((q) => q.type === type).length;
+        return `<button class="tab ${state.filter === type ? "active" : ""}" type="button" data-type="${type}">${TYPE_LABEL[type]} ${count}</button>`;
+      }).join("");
+    }
+
+    function grade(q, value) {
+      if (q.type === "choice" || q.type === "judge") {
+        return { correct: value === q.answer, detail: "" };
+      }
+      if (q.type === "fill") {
+        const parts = splitFill(value);
+        const byParts = parts.length === q.answers.length && q.answers.every((ans, i) => normalizeExact(ans) === normalizeExact(parts[i]));
+        const byWhole = normalizeExact(value) === q.answers.map(normalizeExact).join("");
+        return { correct: byParts || byWhole, detail: "" };
+      }
+      let pointResult = null;
+      if (q.keyPoints && q.minPoints) {
+        pointResult = gradeKeyPoints(value, q.keyPoints, q.minPoints);
+        if (pointResult.correct) {
+          return { correct: true, detail: `命中要点 ${pointResult.hit}/${pointResult.total}` };
+        }
+      }
+      const score = similarity(value, [q.answer, ...(q.aliases || [])]);
+      const pointDetail = pointResult ? `命中要点 ${pointResult.hit}/${pointResult.total}；` : "";
+      return { correct: score >= 0.85, detail: `${pointDetail}相似度 ${Math.round(score * 100)}%` };
+    }
+
+    function markAnswered(q, value, result) {
+      state.answered[q.id] = { value, correct: result.correct, detail: result.detail || "", at: Date.now() };
+      if (result.correct) {
+        delete state.mistakes[q.id];
+      } else {
+        state.mistakes[q.id] = true;
+      }
+      saveState();
+    }
+
+    function setFeedback(result, q) {
+      const feedback = $("feedback");
+      feedback.className = `feedback ${result.correct ? "good" : "bad"}`;
+      feedback.innerHTML = `${result.correct ? "判定正确" : "判定错误"}${result.detail ? "，" + result.detail : ""}<span class="answer">参考答案：${escapeHtml(answerText(q))}</span>`;
+    }
+
+    function renderQuestion() {
+      buildQueue(currentQuestion()?.id);
+      renderTabs();
+      syncModeButtons();
+
+      const q = currentQuestion();
+      if (!q) {
+        $("typeBadge").textContent = TYPE_LABEL[state.filter] || "题库";
+        $("sourceBadge").textContent = "无题目";
+        $("counter").textContent = "0 / 0";
+        $("prompt").textContent = state.filter === "mistakes" ? "错题本是空的。" : "当前分类没有题目。";
+        $("answerArea").innerHTML = "";
+        $("feedback").className = "feedback";
+        $("feedback").textContent = "换一个题型继续刷。";
+        $("checkBtn").disabled = true;
+        renderStats();
+        return;
+      }
+
+      const saved = state.answered[q.id];
+      $("checkBtn").disabled = q.type === "choice" || q.type === "judge";
+      $("typeBadge").textContent = TYPE_LABEL[q.type];
+      $("sourceBadge").textContent = q.source;
+      $("counter").textContent = `${state.index + 1} / ${queue.length}`;
+      $("prompt").textContent = q.prompt;
+      $("feedback").className = "feedback";
+      $("feedback").textContent = q.type === "fill" ? "填空题多空请用空格隔开。" : "选择、判断自动判题；简答和论述按参考答案或要点判定。";
+
+      if (q.type === "choice") {
+        $("answerArea").innerHTML = `<div class="options">${Object.entries(q.options).map(([letter, text]) => {
+          const cls = saved ? (letter === q.answer ? " correct" : saved.value === letter ? " wrong" : "") : "";
+          return `<button class="option-btn${cls}" type="button" data-value="${letter}"><span class="letter">${letter}</span><span>${escapeHtml(text)}</span></button>`;
+        }).join("")}</div>`;
+      } else if (q.type === "judge") {
+        $("answerArea").innerHTML = `<div class="options">
+          <button class="option-btn ${saved?.value === "对" ? "selected" : ""}" type="button" data-value="对"><span class="letter">对</span><span>正确</span></button>
+          <button class="option-btn ${saved?.value === "错" ? "selected" : ""}" type="button" data-value="错"><span class="letter">错</span><span>错误</span></button>
+        </div>`;
+      } else if (q.type === "fill") {
+        $("answerArea").innerHTML = `<input class="answer-box" id="answerInput" autocomplete="off" placeholder="多个空用空格分隔" value="${escapeHtml(saved?.value || "")}">`;
+      } else {
+        $("answerArea").innerHTML = `<textarea class="answer-box" id="answerInput" placeholder="在这里作答">${escapeHtml(saved?.value || "")}</textarea>`;
+      }
+
+      if (saved) {
+        const refreshed = grade(q, saved.value);
+        if (refreshed.correct !== saved.correct || refreshed.detail !== saved.detail) {
+          markAnswered(q, saved.value, refreshed);
+        }
+        setFeedback(refreshed, q);
+      }
+      renderStats();
+    }
+
+    function renderStats() {
+      const relevantIds = new Set(queue.map((q) => q.id));
+      const answered = Object.entries(state.answered).filter(([id]) => relevantIds.has(id));
+      const correct = answered.filter(([, item]) => item.correct).length;
+      const mistakes = QUESTIONS.filter((q) => state.mistakes[q.id]);
+      $("doneCount").textContent = answered.length;
+      $("rightRate").textContent = answered.length ? `${Math.round((correct / answered.length) * 100)}%` : "0%";
+      $("totalCount").textContent = queue.length;
+      $("mistakeCount").textContent = mistakes.length;
+      $("progressBar").style.width = queue.length ? `${Math.round((answered.length / queue.length) * 100)}%` : "0%";
+      $("mistakes").innerHTML = mistakes.length ? mistakes.map((q) => `<button class="mistake-btn" type="button" data-id="${q.id}">${TYPE_LABEL[q.type]}：${escapeHtml(q.prompt)}</button>`).join("") : `<p class="empty">暂时没有错题。</p>`;
+      $("mistakeModeBtn").classList.toggle("active", state.filter === "mistakes");
+    }
+
+    function submitValue(value) {
+      const q = currentQuestion();
+      if (!q) return;
+      const result = grade(q, value);
+      markAnswered(q, value, result);
+      renderQuestion();
+    }
+
+    function move(delta) {
+      if (!queue.length) return;
+      state.index = (state.index + delta + queue.length) % queue.length;
+      saveState();
+      renderQuestion();
+    }
+
+    function gotoQuestion(id) {
+      const q = QUESTIONS.find((item) => item.id === id);
+      if (!q) return;
+      state.filter = state.mistakes[id] ? "mistakes" : q.type;
+      queueKey = "";
+      buildQueue(id, true);
+      saveState();
+      renderQuestion();
+    }
+
+    function syncModeButtons() {
+      document.querySelectorAll("#orderTabs .mode-btn").forEach((btn) => btn.classList.toggle("active", btn.dataset.order === state.order));
+    }
+
+    document.addEventListener("click", (event) => {
+      const typeButton = event.target.closest("[data-type]");
+      if (typeButton) {
+        state.filter = typeButton.dataset.type;
+        state.index = 0;
+        queueKey = "";
+        saveState();
+        renderQuestion();
+        return;
+      }
+
+      const orderButton = event.target.closest("[data-order]");
+      if (orderButton) {
+        state.order = orderButton.dataset.order;
+        state.index = 0;
+        queueKey = "";
+        saveState();
+        renderQuestion();
+        return;
+      }
+
+      const choiceButton = event.target.closest("[data-value]");
+      if (choiceButton) {
+        submitValue(choiceButton.dataset.value);
+        return;
+      }
+
+      const mistakeButton = event.target.closest("[data-id]");
+      if (mistakeButton) {
+        gotoQuestion(mistakeButton.dataset.id);
+      }
+    });
+
+    $("checkBtn").addEventListener("click", () => {
+      const input = $("answerInput");
+      submitValue(input ? input.value : "");
+    });
+
+    $("answerBtn").addEventListener("click", () => {
+      const q = currentQuestion();
+      if (!q) return;
+      $("feedback").className = "feedback";
+      $("feedback").innerHTML = `<span class="answer">参考答案：${escapeHtml(answerText(q))}</span>`;
+    });
+
+    $("prevBtn").addEventListener("click", () => move(-1));
+    $("nextBtn").addEventListener("click", () => move(1));
+
+    $("resetBtn").addEventListener("click", () => {
+      if (!confirm("确认清空史纲刷题记录和错题本？")) return;
+      state.answered = {};
+      state.mistakes = {};
+      state.index = 0;
+      queueKey = "";
+      saveState();
+      renderQuestion();
+    });
+
+    $("mistakeModeBtn").addEventListener("click", () => {
+      state.filter = state.filter === "mistakes" ? "all" : "mistakes";
+      state.index = 0;
+      queueKey = "";
+      saveState();
+      renderQuestion();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+        const input = $("answerInput");
+        if (input) submitValue(input.value);
+      }
+    });
+
+    loadState();
+    buildQueue();
+    renderQuestion();
+  </script>
+</body>
+</html>
