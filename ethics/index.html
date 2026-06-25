@@ -105,7 +105,8 @@
     }
 
     .tab.active,
-    .mode-btn.active {
+    .mode-btn.active,
+    .plain-btn.active {
       background: var(--ink);
       color: #fff;
       border-color: var(--ink);
@@ -638,6 +639,7 @@
     };
 
     let queue = [];
+    let queueKey = "";
 
     function loadState() {
       try {
@@ -661,13 +663,24 @@
       return copy;
     }
 
-    function buildQueue(keepCurrentId) {
+    function buildQueue(keepCurrentId, force = false) {
       let items = QUESTION_BANK;
       if (state.filter === "mistakes") {
         items = QUESTION_BANK.filter((q) => state.mistakes[q.id]);
       } else if (state.filter !== "all") {
         items = QUESTION_BANK.filter((q) => q.type === state.filter);
       }
+      const nextKey = `${state.filter}|${state.order}|${items.map((q) => q.id).join("|")}`;
+      if (!force && queueKey === nextKey && queue.length) {
+        if (keepCurrentId) {
+          const found = queue.findIndex((q) => q.id === keepCurrentId);
+          state.index = found >= 0 ? found : 0;
+        } else if (state.index >= queue.length) {
+          state.index = 0;
+        }
+        return;
+      }
+      queueKey = nextKey;
       queue = state.order === "random" ? shuffle(items) : [...items];
       if (keepCurrentId) {
         const found = queue.findIndex((q) => q.id === keepCurrentId);
@@ -833,6 +846,7 @@
 
     function renderQuestion() {
       renderTabs();
+      syncModeButtons();
       buildQueue();
       const q = currentQuestion();
       renderStats();
@@ -901,6 +915,7 @@
         if (!btn) return;
         state.filter = btn.dataset.type;
         state.index = 0;
+        queueKey = "";
         saveState();
         renderQuestion();
       });
@@ -908,8 +923,9 @@
         const btn = event.target.closest("[data-order]");
         if (!btn) return;
         state.order = btn.dataset.order;
-        document.querySelectorAll(".mode-btn").forEach((item) => item.classList.toggle("active", item.dataset.order === state.order));
+        syncModeButtons();
         state.index = 0;
+        queueKey = "";
         saveState();
         renderQuestion();
       });
@@ -927,12 +943,14 @@
         state.answered = {};
         state.mistakes = {};
         state.index = 0;
+        queueKey = "";
         saveState();
         renderQuestion();
       });
       $("mistakeModeBtn").addEventListener("click", () => {
-        state.filter = "mistakes";
+        state.filter = state.filter === "mistakes" ? "all" : "mistakes";
         state.index = 0;
+        queueKey = "";
         saveState();
         renderQuestion();
       });
@@ -940,14 +958,20 @@
         const btn = event.target.closest("[data-id]");
         if (!btn) return;
         state.filter = "all";
-        buildQueue(btn.dataset.id);
+        queueKey = "";
+        buildQueue(btn.dataset.id, true);
         saveState();
         renderQuestion();
       });
     }
 
     loadState();
-    document.querySelectorAll(".mode-btn").forEach((item) => item.classList.toggle("active", item.dataset.order === state.order));
+    function syncModeButtons() {
+      document.querySelectorAll("#orderTabs .mode-btn").forEach((item) => item.classList.toggle("active", item.dataset.order === state.order));
+      $("mistakeModeBtn").classList.toggle("active", state.filter === "mistakes");
+    }
+
+    syncModeButtons();
     buildQueue();
     bindEvents();
     renderQuestion();

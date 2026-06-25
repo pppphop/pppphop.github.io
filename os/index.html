@@ -1,0 +1,2066 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OS 背记刷题</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --panel: #ffffff;
+      --soft: #eef7f2;
+      --ink: #172033;
+      --muted: #66758a;
+      --line: #dce3eb;
+      --accent: #2f7d62;
+      --accent-2: #7b5e2e;
+      --good: #188657;
+      --bad: #c2413b;
+      --shadow: 0 18px 42px rgba(23, 32, 51, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #edf7f3 0, var(--bg) 360px);
+      letter-spacing: 0;
+    }
+
+    button, input, textarea { font: inherit; }
+    button { border: 0; cursor: pointer; }
+
+    .app {
+      width: min(1120px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 24px 0 36px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(26px, 5vw, 44px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .brand p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .home-link,
+    .tab,
+    .mode-btn,
+    .plain-btn,
+    .primary-btn,
+    .danger-btn {
+      min-height: 38px;
+      padding: 0 13px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+
+    .tabs,
+    .mode-switch,
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tab.active,
+    .mode-btn.active,
+    .plain-btn.active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    .primary-btn {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .danger-btn {
+      color: var(--bad);
+      border-color: rgba(194, 65, 59, 0.35);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .quiz-panel,
+    .side-panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .quiz-panel {
+      min-height: 560px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .question-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 20px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .badge-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      background: var(--soft);
+      color: var(--accent);
+      border: 1px solid rgba(47, 125, 98, 0.18);
+    }
+
+    .badge.source {
+      color: var(--accent-2);
+      background: #f7f1e7;
+      border-color: rgba(123, 94, 46, 0.18);
+    }
+
+    .counter {
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .question-body {
+      padding: 22px 20px 18px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .prompt {
+      margin: 0 0 18px;
+      font-size: clamp(20px, 3.2vw, 26px);
+      line-height: 1.55;
+      font-weight: 700;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .option-btn {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 36px minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+      min-height: 54px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      text-align: left;
+    }
+
+    .option-btn .letter {
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #edf2f7;
+      font-weight: 700;
+    }
+
+    .option-btn.selected { border-color: var(--accent); background: #f1fbf6; }
+    .option-btn.correct { border-color: rgba(24, 134, 87, 0.6); background: #eefaf4; }
+    .option-btn.wrong { border-color: rgba(194, 65, 59, 0.55); background: #fff1f1; }
+
+    .answer-box {
+      width: 100%;
+      min-height: 50px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--ink);
+      background: #fff;
+      resize: vertical;
+      outline: none;
+    }
+
+    .answer-box:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(47, 125, 98, 0.12);
+    }
+
+    textarea.answer-box {
+      min-height: 150px;
+      line-height: 1.7;
+    }
+
+    .feedback {
+      min-height: 74px;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px dashed var(--line);
+      background: #f8fafc;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .feedback.good { color: var(--good); border-color: rgba(24, 134, 87, 0.35); background: #f0fbf6; }
+    .feedback.bad { color: var(--bad); border-color: rgba(194, 65, 59, 0.35); background: #fff5f4; }
+
+    .feedback .answer {
+      display: block;
+      margin-top: 6px;
+      color: var(--ink);
+      word-break: break-word;
+    }
+
+    .actions { padding: 0 20px 20px; }
+    .side-panel { padding: 16px; }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .metric {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 24px;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .progress-shell {
+      height: 10px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      overflow: hidden;
+      margin: 8px 0 18px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--accent), #3f8fb0);
+      transition: width 0.2s ease;
+    }
+
+    .mini-title {
+      margin: 16px 0 8px;
+      font-size: 15px;
+      color: var(--ink);
+    }
+
+    .mistakes {
+      display: grid;
+      gap: 8px;
+      max-height: 260px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .mistake-btn {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      padding: 10px;
+      text-align: left;
+      line-height: 1.45;
+    }
+
+    .empty {
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    @media (max-width: 860px) {
+      .topbar,
+      .toolbar,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar { align-items: stretch; }
+      .home-link { width: fit-content; }
+      .toolbar, .grid { display: grid; }
+    }
+
+    @media (max-width: 560px) {
+      .app {
+        width: min(100% - 18px, 1120px);
+        padding-top: 14px;
+      }
+
+      .toolbar,
+      .question-head,
+      .question-body,
+      .actions,
+      .side-panel {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .question-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .tab,
+      .mode-btn,
+      .plain-btn,
+      .primary-btn,
+      .danger-btn {
+        flex: 1 1 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <h1>OS 背记刷题</h1>
+        <p>期中覆盖启动、内存、进程线程与同步互斥；期末不含启动，4.2 调度仅在期末模式出现</p>
+      </div>
+      <a class="home-link" href="/">返回博客</a>
+    </header>
+
+    <section class="toolbar" aria-label="刷题控制">
+      <div class="mode-switch" id="examTabs">
+        <button class="mode-btn active" type="button" data-exam="mid">期中</button>
+        <button class="mode-btn" type="button" data-exam="final">期末</button>
+      </div>
+      <div class="tabs" id="typeTabs"></div>
+      <div class="mode-switch" id="orderTabs">
+        <button class="mode-btn active" type="button" data-order="sequential">顺序</button>
+        <button class="mode-btn" type="button" data-order="random">随机</button>
+      </div>
+      <button class="danger-btn" type="button" id="resetBtn">清空记录</button>
+    </section>
+
+    <section class="grid">
+      <article class="quiz-panel">
+        <div class="question-head">
+          <div class="badge-row">
+            <span class="badge" id="typeBadge"></span>
+            <span class="badge source" id="sourceBadge"></span>
+          </div>
+          <span class="counter" id="counter"></span>
+        </div>
+        <div class="question-body">
+          <p class="prompt" id="prompt"></p>
+          <div id="answerArea"></div>
+          <div class="feedback" id="feedback"></div>
+        </div>
+        <div class="actions">
+          <button class="plain-btn" type="button" id="prevBtn">上一题</button>
+          <button class="primary-btn" type="button" id="checkBtn">判题</button>
+          <button class="plain-btn" type="button" id="answerBtn">看答案</button>
+          <button class="primary-btn" type="button" id="nextBtn">下一题</button>
+        </div>
+      </article>
+
+      <aside class="side-panel">
+        <div class="metric-grid">
+          <div class="metric"><strong id="doneCount">0</strong><span>已做</span></div>
+          <div class="metric"><strong id="rightRate">0%</strong><span>正确率</span></div>
+          <div class="metric"><strong id="totalCount">0</strong><span>当前题量</span></div>
+          <div class="metric"><strong id="mistakeCount">0</strong><span>错题</span></div>
+        </div>
+        <div class="progress-shell" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+        <button class="plain-btn" type="button" id="mistakeModeBtn">只刷错题</button>
+        <h2 class="mini-title">错题本</h2>
+        <div class="mistakes" id="mistakes"></div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const QUESTION_BANK = [
+      {
+            "id": "style_mid_fifo_opt",
+            "scope": "mid",
+            "type": "essay",
+            "source": "期中风格题",
+            "prompt": "某进程访问页号序列 1,2,3,1,4,1,2,5，分配 3 个空页框。分别写出 FIFO 和 OPT 的缺页次数。",
+            "answer": "FIFO 缺页 6 次，OPT 缺页 5 次。FIFO 依先入先出淘汰，OPT 淘汰未来最长时间不用的页面。",
+            "aliases": [
+                  "FIFO6 OPT5 先入先出 最优置换 未来最长不用"
+            ]
+      },
+      {
+            "id": "style_mid_pv_buffer1",
+            "scope": "mid",
+            "type": "essay",
+            "source": "期中风格题",
+            "prompt": "用不超过两个信号量，为容量为 1、初始为空的缓冲区写出生产者-消费者同步互斥思路。",
+            "answer": "可设 empty=1、full=0。生产者执行 P(empty)、放入产品、V(full)；消费者执行 P(full)、取走产品、V(empty)。容量为 1 时 empty/full 同时保证同步和互斥。",
+            "aliases": [
+                  "empty=1 full=0 生产者P(empty)V(full) 消费者P(full)V(empty) 容量1 同步互斥"
+            ]
+      },
+      {
+            "id": "style_mid_context_io",
+            "scope": "mid",
+            "type": "essay",
+            "source": "期中风格题",
+            "prompt": "进程执行 read() 后等待慢速 I/O，请写出特权级变化、进程状态变化和设备完成后的中断处理要点。",
+            "answer": "read 系统调用使 CPU 从用户态陷入内核态；若数据未就绪，进程从运行态转为阻塞态，操作系统调度其他就绪进程运行；设备完成后发出硬件中断，CPU 保存现场进入中断处理程序，驱动确认设备状态并唤醒等待进程，使其进入就绪队列，之后由调度器选择运行。",
+            "aliases": [
+                  "用户态 内核态 运行态 阻塞态 就绪队列 硬件中断 保存现场 中断处理 驱动 唤醒 调度"
+            ]
+      },
+      {
+            "id": "style_final_deadlock_min",
+            "scope": "final",
+            "type": "essay",
+            "source": "期末风格题",
+            "prompt": "有 n 个并发进程竞争同类互斥资源，每个进程最多需要 k 个资源。给出保证不发生死锁的资源数下界。",
+            "answer": "若每个进程最多需要 k 个资源，为避免所有进程各持有 k-1 个资源后相互等待，资源数至少为 n*(k-1)+1。这样至少有一个进程能获得第 k 个资源并完成释放。",
+            "aliases": [
+                  "n*(k-1)+1 每个进程持有k-1 至少一个进程获得第k个 完成释放 避免死锁"
+            ]
+      },
+      {
+            "id": "style_final_disk_time",
+            "scope": "final",
+            "type": "essay",
+            "source": "期末风格题",
+            "prompt": "某磁盘平均寻道 8ms，转速 6000rpm，传输 8KB 数据需 1ms。估算读取一个随机小文件平均耗时。",
+            "answer": "平均旋转延迟为半圈时间。6000rpm 即每秒 100 转，一圈 10ms，半圈 5ms。总时间约为寻道 8ms + 旋转 5ms + 传输 1ms = 14ms。",
+            "aliases": [
+                  "6000rpm 100转每秒 一圈10ms 半圈5ms 8+5+1=14ms"
+            ]
+      },
+      {
+            "id": "style_final_file_struct",
+            "scope": "final",
+            "type": "essay",
+            "source": "期末风格题",
+            "prompt": "针对大文件连续访问、大文件随机访问、追求磁盘空间利用率三种需求，分别推荐连续文件、链接文件、索引文件中的哪一种。",
+            "answer": "大文件连续访问适合连续文件，因为顺序读性能好；大文件随机访问适合索引文件，因为可通过索引定位块；追求空间利用率适合链接文件，因为无需连续空间，外部碎片少。",
+            "aliases": [
+                  "连续访问 连续文件 随机访问 索引文件 空间利用率 链接文件 外部碎片少"
+            ]
+      }
+];
+
+    const KNOWLEDGE_POINTS = [
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os001_batch",
+            "source": "1.2 操作系统简史",
+            "topic": "批处理系统",
+            "fillPrompt": "批处理系统主要追求提高资源利用率和作业__________量。",
+            "fillAnswers": [
+                  "吞吐"
+            ],
+            "judgeTrue": "批处理系统强调资源利用率和作业吞吐量。",
+            "judgeFalse": "批处理系统的主要目标是强化人机交互体验。",
+            "shortAnswer": "批处理系统把作业成批处理，强调提高系统资源利用率和作业吞吐量，但交互性较差。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os002_multi_program",
+            "source": "1.2 操作系统简史",
+            "topic": "多道程序设计",
+            "fillPrompt": "多道程序设计通过让多个作业同时驻留内存，提高 CPU 与 I/O 设备的__________率。",
+            "fillAnswers": [
+                  "利用"
+            ],
+            "judgeTrue": "多道程序设计可以在一个作业等待 I/O 时运行其他作业。",
+            "judgeFalse": "多道程序设计要求任一时刻只能有一个作业进入内存。",
+            "shortAnswer": "多道程序设计使多个程序同时进入内存并交替推进，以提高 CPU 和 I/O 资源利用率。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os003_time_sharing",
+            "source": "1.2 操作系统简史",
+            "topic": "分时系统",
+            "fillPrompt": "分时系统通过__________和时钟中断实现多个用户交互使用系统。",
+            "fillAnswers": [
+                  "时间片"
+            ],
+            "judgeTrue": "MULTICS 和 UNIX 是典型分时系统相关代表。",
+            "judgeFalse": "分时系统通常不需要时钟中断。",
+            "shortAnswer": "分时系统强调交互性和公平性，利用时间片和时钟中断在多个用户或进程之间切换 CPU。"
+      },
+      {
+            "kind": "list",
+            "scope": "mid",
+            "id": "os004_os_functions",
+            "source": "1.3 操作系统功能与特征",
+            "topic": "操作系统主要功能",
+            "items": [
+                  "进程管理",
+                  "内存管理",
+                  "设备管理",
+                  "文件管理",
+                  "用户接口"
+            ],
+            "wrongs": [
+                  "编译器优化",
+                  "电路设计",
+                  "网页排版"
+            ],
+            "fillPrompt": "操作系统主要功能包括进程管理、内存管理、设备管理、文件管理和__________。",
+            "fillAnswers": [
+                  "用户接口"
+            ],
+            "shortAnswer": "操作系统主要功能包括进程管理、内存管理、设备管理、文件管理和提供用户接口。"
+      },
+      {
+            "kind": "list",
+            "scope": "mid",
+            "id": "os005_os_features",
+            "source": "1.3 操作系统功能与特征",
+            "topic": "操作系统特征",
+            "items": [
+                  "并发",
+                  "共享",
+                  "虚拟",
+                  "异步"
+            ],
+            "wrongs": [
+                  "顺序独占",
+                  "单用户固定",
+                  "完全同步"
+            ],
+            "fillPrompt": "操作系统的基本特征包括并发、共享、__________和异步。",
+            "fillAnswers": [
+                  "虚拟"
+            ],
+            "shortAnswer": "操作系统具有并发、共享、虚拟、异步等特征。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os006_syscall",
+            "source": "1.3 操作系统功能与特征",
+            "topic": "系统调用",
+            "fillPrompt": "系统调用是用户程序请求操作系统内核提供服务的__________。",
+            "fillAnswers": [
+                  "接口"
+            ],
+            "judgeTrue": "系统调用会使处理器从用户态进入内核态执行相应服务。",
+            "judgeFalse": "系统调用主要由外设硬件异步触发。",
+            "shortAnswer": "系统调用提供用户程序与操作系统内核之间的接口，使用户程序能请求需要特权的服务。"
+      },
+      {
+            "kind": "list",
+            "scope": "mid",
+            "id": "os007_kernel_struct",
+            "source": "1.3 操作系统功能与特征",
+            "topic": "宏内核与微内核",
+            "items": [
+                  "宏内核模块共享内核地址空间，调用开销较低",
+                  "微内核把许多服务放到用户态，隔离性更好",
+                  "微内核服务间通信常通过 IPC",
+                  "微内核通常性能开销更高"
+            ],
+            "wrongs": [
+                  "微内核必须把所有文件系统放入内核态",
+                  "宏内核没有内核态",
+                  "微内核不需要进程通信"
+            ],
+            "fillPrompt": "微内核通常把文件系统、网络等服务放在__________态运行。",
+            "fillAnswers": [
+                  "用户"
+            ],
+            "shortAnswer": "宏内核把多数 OS 服务放在内核态共享地址空间，性能较好但隔离较弱；微内核只保留基本机制，服务多在用户态，通过 IPC 协作。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os008_privileged",
+            "source": "1.4 计算机硬件简介",
+            "topic": "特权指令",
+            "fillPrompt": "只能由操作系统在内核态执行、用户程序不能直接执行的指令称为__________指令。",
+            "fillAnswers": [
+                  "特权"
+            ],
+            "judgeTrue": "I/O 指令、修改中断向量等通常属于特权操作。",
+            "judgeFalse": "用户态程序可以任意执行所有特权指令。",
+            "shortAnswer": "特权指令只能在内核态执行，用于保护系统资源和内核控制权。"
+      },
+      {
+            "kind": "list",
+            "scope": "mid",
+            "id": "os009_interrupt_exception",
+            "source": "1.4 计算机硬件简介",
+            "topic": "中断与异常",
+            "items": [
+                  "中断通常与当前指令无关，是异步事件",
+                  "异常通常与当前指令执行有关，是同步事件",
+                  "系统调用可视为陷入或同步异常",
+                  "中断异常处理需要保存现场"
+            ],
+            "wrongs": [
+                  "中断一定由除零产生",
+                  "异常一定来自外设",
+                  "系统调用不进入内核"
+            ],
+            "fillPrompt": "中断通常是与当前指令无关的__________事件。",
+            "fillAnswers": [
+                  "异步"
+            ],
+            "shortAnswer": "中断多由 I/O 设备或时钟产生，具有异步性；异常与当前指令相关，系统调用可视为陷入或同步异常。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os010_boot_mbr",
+            "source": "2 启动",
+            "topic": "MBR 与引导扇区",
+            "fillPrompt": "一块磁盘通常只有一个 MBR，但分区上可以有多个__________扇区。",
+            "fillAnswers": [
+                  "引导"
+            ],
+            "judgeTrue": "磁盘通常只有一个主引导记录 MBR。",
+            "judgeFalse": "每个磁盘分区都有一个 MBR。",
+            "shortAnswer": "MBR 位于磁盘固定位置，负责早期引导；不同分区可具有各自的引导扇区。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os011_bootloader",
+            "source": "2 启动",
+            "topic": "启动加载器",
+            "fillPrompt": "启动加载器的核心任务是把内核装入内存并转交__________权。",
+            "fillAnswers": [
+                  "控制"
+            ],
+            "judgeTrue": "Bootloader 会把操作系统内核装载到内存。",
+            "judgeFalse": "Bootloader 的主要功能是运行用户浏览器。",
+            "shortAnswer": "启动加载器负责完成早期硬件环境准备，加载内核映像，并把控制权交给内核入口。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os012_abi",
+            "source": "2 启动",
+            "topic": "ABI 兼容",
+            "fillPrompt": "二进制程序能在两个系统上直接运行，要求这两个系统在应用二进制接口即__________上兼容。",
+            "fillAnswers": [
+                  "ABI"
+            ],
+            "judgeTrue": "ABI 不兼容会导致可执行文件无法直接跨系统运行。",
+            "judgeFalse": "只要源代码语言相同，二进制文件一定跨 OS 兼容。",
+            "shortAnswer": "ABI 规定二进制级调用约定、系统调用接口、目标文件格式等，直接影响可执行文件兼容性。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os013_loader",
+            "source": "3.1 内存管理基础",
+            "topic": "装载",
+            "fillPrompt": "用户程序代码被操作系统加载到内存中的过程称为__________。",
+            "fillAnswers": [
+                  "装载"
+            ],
+            "judgeTrue": "装载是把可执行映像放入内存并建立运行环境。",
+            "judgeFalse": "装载就是把高级语言翻译成机器码。",
+            "shortAnswer": "装载是把可执行文件映像加载到内存、建立地址空间和运行环境的过程。"
+      },
+      {
+            "kind": "list",
+            "scope": "mid",
+            "id": "os014_linking",
+            "source": "3.1 内存管理基础",
+            "topic": "编译链接装载",
+            "items": [
+                  "编译把源程序翻译为目标文件",
+                  "链接解析符号并组合目标模块",
+                  "装载把可执行映像放入内存",
+                  "运行时可进行动态链接"
+            ],
+            "wrongs": [
+                  "装载负责语法分析",
+                  "编译负责页面置换",
+                  "链接负责进程调度"
+            ],
+            "fillPrompt": "把目标模块和库组合成可执行文件的过程称为__________。",
+            "fillAnswers": [
+                  "链接"
+            ],
+            "shortAnswer": "编译生成目标文件，链接解析符号并组合模块，装载把可执行文件放入内存运行。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os015_dynamic_relocation",
+            "source": "3.1 内存管理基础",
+            "topic": "动态重定位",
+            "fillPrompt": "动态重定位是指硬件在每次__________访问时完成地址转换。",
+            "fillAnswers": [
+                  "内存"
+            ],
+            "judgeTrue": "动态重定位可在程序运行时把逻辑地址转换为物理地址。",
+            "judgeFalse": "动态重定位只在编译阶段完成一次。",
+            "shortAnswer": "动态重定位依靠硬件在每次内存访问时把逻辑地址变换为物理地址，提高装入灵活性。"
+      },
+      {
+            "kind": "list",
+            "scope": "mid",
+            "id": "os016_fragment",
+            "source": "3.1 内存管理基础",
+            "topic": "内部碎片与外部碎片",
+            "items": [
+                  "固定分区和分页可能产生内部碎片",
+                  "可变分区和分段可能产生外部碎片",
+                  "分页基本消除外部碎片",
+                  "碎片会影响内存利用率"
+            ],
+            "wrongs": [
+                  "分页会产生大量外部碎片",
+                  "分段完全没有外部碎片",
+                  "内部碎片只存在磁盘"
+            ],
+            "fillPrompt": "分页管理通常消除外部碎片，但可能产生__________碎片。",
+            "fillAnswers": [
+                  "内部"
+            ],
+            "shortAnswer": "内部碎片是已分配块内部未被利用的空间，外部碎片是空闲空间分散而难以满足连续分配。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os017_paging",
+            "source": "3.2 页式内存管理",
+            "topic": "页式内存管理",
+            "fillPrompt": "页式管理把虚拟地址空间划分为大小固定的页，把物理内存划分为同样大小的__________。",
+            "fillAnswers": [
+                  "页框"
+            ],
+            "judgeTrue": "页式管理中页和页框大小相同。",
+            "judgeFalse": "页式管理要求所有进程连续占用物理内存。",
+            "shortAnswer": "页式内存管理把虚拟页映射到物理页框，不要求物理连续分配。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os018_pte",
+            "source": "3.2 页式内存管理",
+            "topic": "页表项",
+            "fillPrompt": "页表项通常保存页到页框的映射以及有效位、访问位、修改位、保护位等__________位。",
+            "fillAnswers": [
+                  "标志"
+            ],
+            "judgeTrue": "页表项可用于实现页面到页框的映射。",
+            "judgeFalse": "页表项只保存外存文件名，不包含页框号。",
+            "shortAnswer": "页表项保存物理页框号及有效、保护、访问、修改等标志位。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os019_tlb",
+            "source": "3.2 页式内存管理",
+            "topic": "TLB",
+            "fillPrompt": "TLB 是页表项的高速缓存，可加速虚拟地址到__________地址的转换。",
+            "fillAnswers": [
+                  "物理"
+            ],
+            "judgeTrue": "TLB 命中可减少访问页表造成的内存访问开销。",
+            "judgeFalse": "TLB 保存的是磁盘块索引，与地址转换无关。",
+            "shortAnswer": "TLB 缓存最近使用的地址转换项，命中时可快速得到物理页框号。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os020_asid",
+            "source": "3.2 页式内存管理",
+            "topic": "ASID 与 TLB 刷新",
+            "fillPrompt": "如果 TLB 中不保存进程地址空间标识符 ASID，上下文切换时通常需要__________ TLB。",
+            "fillAnswers": [
+                  "刷新"
+            ],
+            "judgeTrue": "ASID 可帮助区分不同进程的 TLB 项。",
+            "judgeFalse": "没有 ASID 时进程切换也永远不需要处理 TLB。",
+            "shortAnswer": "ASID 用于标识地址空间，缺少 ASID 时进程切换需要刷新或失效 TLB，避免旧转换污染新进程。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os021_multi_level_page",
+            "source": "3.2 页式内存管理",
+            "topic": "多级页表",
+            "fillPrompt": "多级页表可以减少稀疏地址空间中页表占用的__________空间。",
+            "fillAnswers": [
+                  "内存"
+            ],
+            "judgeTrue": "多级页表级数增加通常会增加一次 TLB 未命中时的访存次数。",
+            "judgeFalse": "二级页表平均访存性能一定优于一级页表。",
+            "shortAnswer": "多级页表按需分配下级页表，节省页表空间，但地址转换路径更长。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os022_inverted_page",
+            "source": "3.2 页式内存管理",
+            "topic": "反置页表",
+            "fillPrompt": "反置页表通常按__________页框建立条目，而不是按每个进程的每个虚拟页建立条目。",
+            "fillAnswers": [
+                  "物理"
+            ],
+            "judgeTrue": "反置页表能节省大地址空间系统的页表内存。",
+            "judgeFalse": "反置页表为每个进程每个虚拟页都保存一个条目。",
+            "shortAnswer": "反置页表以物理页框为核心建表，适合大而稀疏的虚拟地址空间，可节省页表内存。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os023_hash_page",
+            "source": "3.2 页式内存管理",
+            "topic": "哈希页表",
+            "fillPrompt": "哈希页表对于地址空间__________的进程尤其有用。",
+            "fillAnswers": [
+                  "稀疏"
+            ],
+            "judgeTrue": "哈希页表常用于大而稀疏的地址空间。",
+            "judgeFalse": "哈希页表只适合地址空间完全连续密集的进程。",
+            "shortAnswer": "哈希页表用哈希方式查找虚拟页到物理页框的映射，适合大地址空间和稀疏映射。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os024_segmentation",
+            "source": "3.3 段式内存管理",
+            "topic": "段式管理",
+            "fillPrompt": "段式管理按程序逻辑单位划分地址空间，每段具有基址和__________。",
+            "fillAnswers": [
+                  "限长"
+            ],
+            "judgeTrue": "段式管理支持不同长度的逻辑段。",
+            "judgeFalse": "段式管理中所有段必须大小完全相同。",
+            "shortAnswer": "段式管理将程序按代码、数据、栈等逻辑段组织，每段用基址和限长进行地址转换与保护。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os025_segment_fragment",
+            "source": "3.3 段式内存管理",
+            "topic": "分段碎片",
+            "fillPrompt": "段式管理段长可变，容易产生__________碎片。",
+            "fillAnswers": [
+                  "外部"
+            ],
+            "judgeTrue": "分段可能产生外部碎片。",
+            "judgeFalse": "分段完全消除了外部碎片。",
+            "shortAnswer": "由于段长可变且要求连续分配，分段容易产生外部碎片。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os026_virtual_memory",
+            "source": "3.4 虚拟内存管理",
+            "topic": "虚拟内存",
+            "fillPrompt": "虚拟内存利用局部性原理，使进程无需一次性把全部程序和数据装入__________。",
+            "fillAnswers": [
+                  "内存"
+            ],
+            "judgeTrue": "虚拟内存依赖程序局部性原理。",
+            "judgeFalse": "虚拟内存要求进程所有页面常驻物理内存。",
+            "shortAnswer": "虚拟内存只把当前需要的页面放入内存，借助缺页中断和页面置换扩展地址空间抽象。"
+      },
+      {
+            "kind": "list",
+            "scope": "mid",
+            "id": "os027_locality",
+            "source": "3.4 虚拟内存管理",
+            "topic": "局部性原理",
+            "items": [
+                  "时间局部性",
+                  "空间局部性"
+            ],
+            "wrongs": [
+                  "安全局部性",
+                  "调度局部性",
+                  "权限局部性"
+            ],
+            "fillPrompt": "程序局部性主要包括时间局部性和__________局部性。",
+            "fillAnswers": [
+                  "空间"
+            ],
+            "shortAnswer": "时间局部性指最近访问的对象可能很快再次访问，空间局部性指相邻地址附近的数据可能被访问。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os028_page_fault",
+            "source": "3.4 虚拟内存管理",
+            "topic": "缺页中断",
+            "fillPrompt": "访问的页面不在内存且页表项无效时，会产生__________中断。",
+            "fillAnswers": [
+                  "缺页"
+            ],
+            "judgeTrue": "缺页中断由当前指令访问缺失页面触发，属于同步异常。",
+            "judgeFalse": "缺页中断总是由键盘设备异步产生。",
+            "shortAnswer": "缺页中断表示所需页面不在内存，OS 需调入页面、更新页表并恢复执行。"
+      },
+      {
+            "kind": "list",
+            "scope": "mid",
+            "id": "os029_replacement",
+            "source": "3.4 虚拟内存管理",
+            "topic": "页面置换算法",
+            "items": [
+                  "FIFO",
+                  "OPT",
+                  "LRU",
+                  "Second Chance"
+            ],
+            "wrongs": [
+                  "段表",
+                  "动态重定位",
+                  "位示图"
+            ],
+            "fillPrompt": "Belady 异常常与__________页面置换算法相关。",
+            "fillAnswers": [
+                  "FIFO"
+            ],
+            "shortAnswer": "常见页面置换算法有 FIFO、OPT、LRU、Second Chance 等；FIFO 可能出现 Belady 异常。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os030_belady",
+            "source": "3.4 虚拟内存管理",
+            "topic": "Belady 异常",
+            "fillPrompt": "增加分配给进程的页框数后，缺页次数反而增加的现象称为__________异常。",
+            "fillAnswers": [
+                  "Belady"
+            ],
+            "judgeTrue": "FIFO 可能出现 Belady 异常。",
+            "judgeFalse": "所有页面置换算法都不可能出现异常。",
+            "shortAnswer": "Belady 异常指页框数增加但缺页次数不减反增，典型出现在 FIFO 算法中。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os031_self_mapping",
+            "source": "3.5 页目录自映射",
+            "topic": "页目录自映射",
+            "fillPrompt": "页目录自映射利用页表自身映射到虚拟地址空间，便于通过__________地址访问页表。",
+            "fillAnswers": [
+                  "虚拟"
+            ],
+            "judgeTrue": "页目录自映射可让内核用虚拟地址访问和修改页表结构。",
+            "judgeFalse": "页目录自映射会取消多级页表。",
+            "shortAnswer": "页目录自映射把页表结构映射进虚拟地址空间，使内核可通过固定虚拟地址管理页表。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os032_page_bits",
+            "source": "3.5 页目录自映射",
+            "topic": "页表位数计算",
+            "fillPrompt": "页大小为 4096 字节时，页内偏移占__________位。",
+            "fillAnswers": [
+                  "12"
+            ],
+            "judgeTrue": "4KB 页面对应 12 位页内偏移。",
+            "judgeFalse": "4KB 页面对应 10 位页内偏移。",
+            "shortAnswer": "页内偏移位数等于 log2(页面大小)，4096 字节页面偏移为 12 位。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os033_process",
+            "source": "4.1 进程与线程",
+            "topic": "进程",
+            "fillPrompt": "进程是资源分配的基本单位，是程序在某个数据集合上的一次__________活动。",
+            "fillAnswers": [
+                  "执行"
+            ],
+            "judgeTrue": "多个进程可以对应同一个可执行程序。",
+            "judgeFalse": "一个程序文件在任意时刻只能对应一个进程。",
+            "shortAnswer": "进程是程序的一次执行活动，拥有独立地址空间和资源，是资源分配的基本单位。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os034_thread",
+            "source": "4.1 进程与线程",
+            "topic": "线程",
+            "fillPrompt": "线程是 CPU 调度和执行的基本单位，同一进程内线程共享进程的地址空间和__________。",
+            "fillAnswers": [
+                  "资源"
+            ],
+            "judgeTrue": "每个线程通常有自己的寄存器组和栈。",
+            "judgeFalse": "同一进程中的线程不共享任何资源。",
+            "shortAnswer": "线程是执行的基本单位，线程间共享所属进程资源，但各自拥有寄存器上下文和栈。"
+      },
+      {
+            "kind": "list",
+            "scope": "mid",
+            "id": "os035_process_state",
+            "source": "4.1 进程与线程",
+            "topic": "进程基本状态",
+            "items": [
+                  "运行态",
+                  "就绪态",
+                  "阻塞态"
+            ],
+            "wrongs": [
+                  "编译态",
+                  "装载态",
+                  "链接态"
+            ],
+            "fillPrompt": "等待 I/O 完成的进程通常处于__________态。",
+            "fillAnswers": [
+                  "阻塞"
+            ],
+            "shortAnswer": "进程常见状态包括运行、就绪、阻塞；等待事件时进入阻塞，具备运行条件但等待 CPU 时处于就绪。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os036_context_switch",
+            "source": "4.1 进程与线程",
+            "topic": "上下文切换",
+            "fillPrompt": "进程上下文切换通常需要陷入__________态执行操作系统代码。",
+            "fillAnswers": [
+                  "内核"
+            ],
+            "judgeTrue": "进程上下文切换要保存和恢复 CPU 上下文并更新内核调度信息。",
+            "judgeFalse": "进程上下文切换完全由用户态普通指令完成。",
+            "shortAnswer": "上下文切换涉及保存当前进程状态、选择下一个进程、恢复其上下文，通常在内核态完成。"
+      },
+      {
+            "kind": "list",
+            "scope": "mid",
+            "id": "os037_ipc",
+            "source": "4.1 进程与线程",
+            "topic": "进程间通信 IPC",
+            "items": [
+                  "管道",
+                  "消息传递",
+                  "共享内存",
+                  "套接字",
+                  "信号"
+            ],
+            "wrongs": [
+                  "页目录",
+                  "磁盘柱面",
+                  "编译优化"
+            ],
+            "fillPrompt": "通常最快的 IPC 形式是__________内存。",
+            "fillAnswers": [
+                  "共享"
+            ],
+            "shortAnswer": "常见 IPC 包括管道、消息传递、共享内存、套接字和信号；共享内存速度快但同步和保护要求高。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os038_exec",
+            "source": "4.1 进程与线程",
+            "topic": "exec 系统调用",
+            "fillPrompt": "exec 会用新程序替换当前进程的地址空间，但通常不改变进程的__________。",
+            "fillAnswers": [
+                  "PID"
+            ],
+            "judgeTrue": "exec 会替换地址空间和程序映像。",
+            "judgeFalse": "exec 一定创建一个新的 PID。",
+            "shortAnswer": "exec 用新的程序映像替换当前进程地址空间，但进程身份通常保持不变。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os039_race",
+            "source": "4.3 进程同步互斥",
+            "topic": "竞态条件",
+            "fillPrompt": "多个进程或线程并发访问共享数据且结果依赖执行时序的现象称为__________条件。",
+            "fillAnswers": [
+                  "竞态"
+            ],
+            "judgeTrue": "竞态条件会导致结果依赖不可控的交错执行顺序。",
+            "judgeFalse": "只要使用多线程就一定没有竞态条件。",
+            "shortAnswer": "竞态条件指并发执行对共享数据的访问结果依赖具体时序，需通过同步互斥控制。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os040_critical",
+            "source": "4.3 进程同步互斥",
+            "topic": "临界区",
+            "fillPrompt": "访问共享资源、同一时刻只允许一个执行流进入的代码段称为__________区。",
+            "fillAnswers": [
+                  "临界"
+            ],
+            "judgeTrue": "临界区需要互斥进入。",
+            "judgeFalse": "临界区内代码可以被任意多个线程同时执行。",
+            "shortAnswer": "临界区是访问共享资源的代码片段，需要保证互斥以避免竞态。"
+      },
+      {
+            "kind": "list",
+            "scope": "mid",
+            "id": "os041_critical_rules",
+            "source": "4.3 进程同步互斥",
+            "topic": "临界区正确性要求",
+            "items": [
+                  "互斥",
+                  "前进",
+                  "有限等待"
+            ],
+            "wrongs": [
+                  "无限等待",
+                  "忙等必需",
+                  "破坏共享"
+            ],
+            "fillPrompt": "临界区问题通常要求互斥、前进和__________等待。",
+            "fillAnswers": [
+                  "有限"
+            ],
+            "shortAnswer": "临界区算法要满足互斥、前进和有限等待，避免同时进入、无故阻塞和饥饿。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os042_semaphore",
+            "source": "4.3 进程同步互斥",
+            "topic": "信号量",
+            "fillPrompt": "信号量通过 P/V 操作表达资源数量或同步条件，P 操作可能使进程__________。",
+            "fillAnswers": [
+                  "阻塞"
+            ],
+            "judgeTrue": "信号量使用不当可能导致死锁。",
+            "judgeFalse": "P 操作永远不会阻塞任何进程。",
+            "shortAnswer": "信号量是整数及其原子 P/V 操作，P 在资源不可用时阻塞，V 释放资源或唤醒等待者。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os043_mutex_sync",
+            "source": "4.3 进程同步互斥",
+            "topic": "互斥与同步",
+            "fillPrompt": "互斥强调不能同时进入临界区，同步强调事件发生的__________关系。",
+            "fillAnswers": [
+                  "先后"
+            ],
+            "judgeTrue": "生产者消费者问题同时包含同步和互斥。",
+            "judgeFalse": "同步与互斥完全等价。",
+            "shortAnswer": "互斥控制共享资源排他访问，同步协调不同执行流之间的先后约束。"
+      },
+      {
+            "kind": "fact",
+            "scope": "mid",
+            "id": "os044_peterson",
+            "source": "4.3 进程同步互斥",
+            "topic": "Peterson 算法",
+            "fillPrompt": "Peterson 双进程互斥算法通常使用 interested 数组和__________变量。",
+            "fillAnswers": [
+                  "turn"
+            ],
+            "judgeTrue": "Peterson 算法可用于说明软件互斥思想。",
+            "judgeFalse": "Peterson 算法不需要任何共享变量。",
+            "shortAnswer": "Peterson 算法用意愿标志和 turn 变量在两个进程间实现互斥、前进和有限等待。"
+      },
+      {
+            "kind": "list",
+            "scope": "mid",
+            "id": "os045_producer_consumer",
+            "source": "4.3 进程同步互斥",
+            "topic": "生产者消费者信号量",
+            "items": [
+                  "empty 表示空缓冲区数量",
+                  "full 表示满缓冲区数量",
+                  "mutex 保护缓冲区互斥访问"
+            ],
+            "wrongs": [
+                  "empty 表示进程数",
+                  "full 表示 CPU 数",
+                  "mutex 用于页面置换"
+            ],
+            "fillPrompt": "生产者消费者问题中，__________通常表示可用空缓冲区数量。",
+            "fillAnswers": [
+                  "empty"
+            ],
+            "shortAnswer": "生产者消费者常用 empty/full 表示同步条件，用 mutex 保护缓冲区互斥访问。"
+      },
+      {
+            "kind": "fact",
+            "scope": "final",
+            "id": "os046_scheduling",
+            "source": "4.2 调度",
+            "topic": "调度",
+            "fillPrompt": "进程调度负责从__________队列中选择进程分配处理器。",
+            "fillAnswers": [
+                  "就绪"
+            ],
+            "judgeTrue": "期中模式不包含调度章节。",
+            "judgeFalse": "进程调度从阻塞队列中选择尚未具备运行条件的进程运行。",
+            "shortAnswer": "调度按照一定策略从就绪队列中选择进程运行，影响响应时间、周转时间和公平性。"
+      },
+      {
+            "kind": "list",
+            "scope": "final",
+            "id": "os047_scheduler_types",
+            "source": "4.2 调度",
+            "topic": "三级调度",
+            "items": [
+                  "高级调度",
+                  "中级调度",
+                  "低级调度"
+            ],
+            "wrongs": [
+                  "文件调度",
+                  "页面调度",
+                  "磁盘调度"
+            ],
+            "fillPrompt": "中级调度常通过换入换出优化内存使用，也称__________调度。",
+            "fillAnswers": [
+                  "交换"
+            ],
+            "shortAnswer": "高级调度决定作业是否进入内存，中级调度通过换入换出控制驻留进程，低级调度选择就绪进程占用 CPU。"
+      },
+      {
+            "kind": "list",
+            "scope": "final",
+            "id": "os048_scheduling_algos",
+            "source": "4.2 调度",
+            "topic": "调度算法",
+            "items": [
+                  "FCFS",
+                  "SJF",
+                  "优先级调度",
+                  "时间片轮转",
+                  "多级队列"
+            ],
+            "wrongs": [
+                  "FIFO 页面置换",
+                  "RAID5",
+                  "索引分配"
+            ],
+            "fillPrompt": "时间片轮转调度常用于__________系统以改善交互响应。",
+            "fillAnswers": [
+                  "分时"
+            ],
+            "shortAnswer": "常见调度算法包括 FCFS、SJF、优先级、时间片轮转和多级队列等。"
+      },
+      {
+            "kind": "fact",
+            "scope": "final",
+            "id": "os049_turnaround",
+            "source": "4.2 调度",
+            "topic": "周转时间",
+            "fillPrompt": "周转时间等于进程完成时间减去__________时间。",
+            "fillAnswers": [
+                  "到达"
+            ],
+            "judgeTrue": "平均周转时间是评价调度算法的常用指标。",
+            "judgeFalse": "周转时间等于等待时间减去执行时间。",
+            "shortAnswer": "周转时间是从进程到达到完成的总时间，等于完成时间减到达时间。"
+      },
+      {
+            "kind": "fact",
+            "scope": "final",
+            "id": "os050_deadlock",
+            "source": "4.4 死锁",
+            "topic": "死锁",
+            "fillPrompt": "一组进程因互相等待对方占有的资源而都无法推进的状态称为__________。",
+            "fillAnswers": [
+                  "死锁"
+            ],
+            "judgeTrue": "资源死锁和通信死锁都可归入死锁问题。",
+            "judgeFalse": "只要有阻塞进程就一定发生死锁。",
+            "shortAnswer": "死锁是一组进程互相等待导致无法继续推进的状态。"
+      },
+      {
+            "kind": "list",
+            "scope": "final",
+            "id": "os051_deadlock_conditions",
+            "source": "4.4 死锁",
+            "topic": "死锁必要条件",
+            "items": [
+                  "互斥",
+                  "占有并等待",
+                  "不可抢占",
+                  "循环等待"
+            ],
+            "wrongs": [
+                  "公平调度",
+                  "时间片轮转",
+                  "页面置换"
+            ],
+            "fillPrompt": "死锁四个必要条件包括互斥、占有并等待、不可抢占和__________等待。",
+            "fillAnswers": [
+                  "循环"
+            ],
+            "shortAnswer": "死锁必要条件是互斥、占有并等待、不可抢占、循环等待，预防死锁可破坏其中之一。"
+      },
+      {
+            "kind": "fact",
+            "scope": "final",
+            "id": "os052_banker",
+            "source": "4.4 死锁",
+            "topic": "银行家算法",
+            "fillPrompt": "银行家算法属于死锁__________方法，要求预先知道进程最大资源需求。",
+            "fillAnswers": [
+                  "避免"
+            ],
+            "judgeTrue": "银行家算法通过安全性检查判断资源分配是否会进入不安全状态。",
+            "judgeFalse": "银行家算法不需要知道进程最大需求。",
+            "shortAnswer": "银行家算法是动态死锁避免算法，通过检查安全序列决定是否分配资源。"
+      },
+      {
+            "kind": "fact",
+            "scope": "final",
+            "id": "os053_io_layers",
+            "source": "5.IO 管理",
+            "topic": "I/O 软件层次",
+            "fillPrompt": "I/O 软件通常分为用户层、设备无关软件、设备驱动程序和__________处理程序等层次。",
+            "fillAnswers": [
+                  "中断"
+            ],
+            "judgeTrue": "设备驱动程序负责与具体设备寄存器交互。",
+            "judgeFalse": "检查设备寄存器通常由普通用户程序直接完成。",
+            "shortAnswer": "I/O 软件分层包括用户层、设备无关层、设备驱动和中断处理等，以屏蔽设备差异。"
+      },
+      {
+            "kind": "fact",
+            "scope": "final",
+            "id": "os054_driver",
+            "source": "5.IO 管理",
+            "topic": "设备驱动程序",
+            "fillPrompt": "设备驱动程序把通用 I/O 请求转换成对具体设备控制器__________的操作。",
+            "fillAnswers": [
+                  "寄存器"
+            ],
+            "judgeTrue": "驱动程序通常运行在内核态或内核受控环境中。",
+            "judgeFalse": "设备驱动程序只负责图形界面排版。",
+            "shortAnswer": "设备驱动程序了解设备细节，负责设置寄存器、启动设备并处理中断配合。"
+      },
+      {
+            "kind": "list",
+            "scope": "final",
+            "id": "os055_io_modes",
+            "source": "5.IO 管理",
+            "topic": "I/O 控制方式",
+            "items": [
+                  "程序查询",
+                  "中断驱动",
+                  "DMA",
+                  "通道"
+            ],
+            "wrongs": [
+                  "多级页表",
+                  "PV 操作",
+                  "银行家算法"
+            ],
+            "fillPrompt": "DMA 可以减少 CPU 逐字节搬运数据的开销，中文常称__________。",
+            "fillAnswers": [
+                  "直接内存访问"
+            ],
+            "shortAnswer": "I/O 控制方式包括程序查询、中断驱动、DMA 和通道等。"
+      },
+      {
+            "kind": "fact",
+            "scope": "final",
+            "id": "os056_buffer",
+            "source": "5.IO 管理",
+            "topic": "缓冲",
+            "fillPrompt": "缓冲技术通过在内存中设置缓冲区来协调 CPU 与设备速度__________。",
+            "fillAnswers": [
+                  "差异"
+            ],
+            "judgeTrue": "缓冲可减少速度不匹配带来的等待。",
+            "judgeFalse": "缓冲技术的目标是让所有设备速度完全相同。",
+            "shortAnswer": "缓冲用于平滑 CPU 与外设速度差异，减少等待并提高并发度。"
+      },
+      {
+            "kind": "fact",
+            "scope": "final",
+            "id": "os057_spooling",
+            "source": "5.IO 管理",
+            "topic": "SPOOLing",
+            "fillPrompt": "SPOOLing 技术用磁盘等共享设备模拟独占设备，典型应用是__________机。",
+            "fillAnswers": [
+                  "打印"
+            ],
+            "judgeTrue": "SPOOLing 可把独占设备改造成虚拟共享设备。",
+            "judgeFalse": "SPOOLing 只能用于 CPU 调度。",
+            "shortAnswer": "SPOOLing 通过输入井/输出井和守护进程，把慢速独占设备虚拟为可共享设备。"
+      },
+      {
+            "kind": "fact",
+            "scope": "final",
+            "id": "os058_disk_time",
+            "source": "6.1 磁盘管理",
+            "topic": "磁盘访问时间",
+            "fillPrompt": "磁盘访问时间通常包括寻道时间、旋转延迟和数据__________时间。",
+            "fillAnswers": [
+                  "传输"
+            ],
+            "judgeTrue": "平均旋转延迟通常按半圈时间估算。",
+            "judgeFalse": "磁盘访问时间只由 CPU 主频决定。",
+            "shortAnswer": "磁盘访问时间由寻道时间、旋转延迟和传输时间等组成。"
+      },
+      {
+            "kind": "fact",
+            "scope": "final",
+            "id": "os059_disk_scheduling",
+            "source": "6.1 磁盘管理",
+            "topic": "磁盘调度",
+            "fillPrompt": "SCAN 磁盘调度又常称为__________算法。",
+            "fillAnswers": [
+                  "电梯"
+            ],
+            "judgeTrue": "电梯算法按一个方向服务请求，到端点后再反向。",
+            "judgeFalse": "SCAN 算法总是随机选择磁道。",
+            "shortAnswer": "SCAN 类似电梯，磁臂沿一个方向处理请求，减少寻道开销并兼顾公平。"
+      },
+      {
+            "kind": "fact",
+            "scope": "final",
+            "id": "os060_bitmap",
+            "source": "6.1 磁盘管理",
+            "topic": "位示图",
+            "fillPrompt": "位示图用每个二进制位表示一个磁盘块的__________状态。",
+            "fillAnswers": [
+                  "空闲"
+            ],
+            "judgeTrue": "位示图适合管理磁盘块空闲情况。",
+            "judgeFalse": "位示图中每个字节只能表示一个磁盘块。",
+            "shortAnswer": "位示图用位记录磁盘块是否空闲，空间开销与块数成正比。"
+      },
+      {
+            "kind": "list",
+            "scope": "final",
+            "id": "os061_raid",
+            "source": "6.1 磁盘管理",
+            "topic": "RAID",
+            "items": [
+                  "条带化提高并行访问性能",
+                  "镜像提高可靠性",
+                  "奇偶校验提供冗余",
+                  "RAID5 分布式校验避免单校验盘瓶颈"
+            ],
+            "wrongs": [
+                  "条带化降低所有性能",
+                  "RAID5 不能容忍任何磁盘故障",
+                  "RAID6 与 RAID5 冗余能力完全相同"
+            ],
+            "fillPrompt": "RAID5 使用__________式奇偶校验以避免单独校验盘成为瓶颈。",
+            "fillAnswers": [
+                  "分布"
+            ],
+            "shortAnswer": "RAID 通过条带化、镜像和奇偶校验在性能与可靠性之间折中；RAID5 使用分布式校验。"
+      },
+      {
+            "kind": "fact",
+            "scope": "final",
+            "id": "os062_filesystem",
+            "source": "6.2 文件系统",
+            "topic": "文件系统",
+            "fillPrompt": "文件系统负责把磁盘块组织为文件和目录，并维护文件的__________数据。",
+            "fillAnswers": [
+                  "元"
+            ],
+            "judgeTrue": "目录本身也可以看作一种特殊文件。",
+            "judgeFalse": "文件系统只负责 CPU 寄存器分配。",
+            "shortAnswer": "文件系统管理文件、目录、空闲空间和元数据，为用户提供命名、存储、保护与访问接口。"
+      },
+      {
+            "kind": "list",
+            "scope": "final",
+            "id": "os063_file_alloc",
+            "source": "6.2 文件系统",
+            "topic": "文件逻辑组织/分配结构",
+            "items": [
+                  "连续文件顺序访问性能好但扩展困难",
+                  "链接文件空间利用率高但随机访问差",
+                  "索引文件支持随机访问和大文件",
+                  "索引结构需要额外索引块开销"
+            ],
+            "wrongs": [
+                  "连续文件最适合频繁增长",
+                  "链接文件随机访问最快",
+                  "索引文件不支持大文件"
+            ],
+            "fillPrompt": "适合大文件随机访问的典型结构是__________文件。",
+            "fillAnswers": [
+                  "索引"
+            ],
+            "shortAnswer": "连续文件适合连续访问，链接文件利于空间利用，索引文件适合随机访问和大文件。"
+      },
+      {
+            "kind": "fact",
+            "scope": "final",
+            "id": "os064_inode",
+            "source": "6.2 文件系统",
+            "topic": "inode",
+            "fillPrompt": "类 UNIX 文件系统中，inode 保存文件元数据和数据块索引，文件名通常保存在__________项中。",
+            "fillAnswers": [
+                  "目录"
+            ],
+            "judgeTrue": "硬链接共享同一个 inode 号。",
+            "judgeFalse": "软链接和目标文件必须共享同一个 inode。",
+            "shortAnswer": "inode 保存文件属性和块索引，目录项把文件名映射到 inode；硬链接共享 inode，软链接是独立文件。"
+      },
+      {
+            "kind": "fact",
+            "scope": "final",
+            "id": "os065_superblock",
+            "source": "6.2 文件系统",
+            "topic": "超级块",
+            "fillPrompt": "文件系统挂载时，内核会把该文件系统的__________块信息加载到内存。",
+            "fillAnswers": [
+                  "超级"
+            ],
+            "judgeTrue": "超级块记录文件系统总体布局和关键元数据。",
+            "judgeFalse": "挂载文件系统不需要读取任何元数据。",
+            "shortAnswer": "超级块保存文件系统类型、大小、块信息、空闲资源等总体元数据，挂载时需加载。"
+      },
+      {
+            "kind": "fact",
+            "scope": "final",
+            "id": "os066_path",
+            "source": "6.2 文件系统",
+            "topic": "路径解析",
+            "fillPrompt": "路径解析需要沿目录层次逐级查找目录项，最终定位目标文件的__________。",
+            "fillAnswers": [
+                  "inode"
+            ],
+            "judgeTrue": "目录项把名字映射到文件控制信息。",
+            "judgeFalse": "路径解析只需要 CPU 寄存器值。",
+            "shortAnswer": "路径解析从根目录或当前目录出发，逐级查找目录项，定位目标 inode 或文件控制块。"
+      },
+      {
+            "kind": "fact",
+            "scope": "final",
+            "id": "os067_mount",
+            "source": "6.2 文件系统",
+            "topic": "挂载",
+            "fillPrompt": "挂载是把一个文件系统接入到统一目录树的某个__________点。",
+            "fillAnswers": [
+                  "挂载"
+            ],
+            "judgeTrue": "挂载后可通过目录树访问该文件系统内容。",
+            "judgeFalse": "挂载会把所有文件复制到内存。",
+            "shortAnswer": "挂载将文件系统连接到目录树指定位置，使其成为统一命名空间的一部分。"
+      }
+];
+
+    function pushPointQuestions(point) {
+      const source = point.source || "知识点";
+      const scope = point.scope || "final";
+      if (point.kind === "fact") {
+        return [
+          { id: `${point.id}_fill`, scope, type: "fill", source, prompt: point.fillPrompt, answers: point.fillAnswers },
+          { id: `${point.id}_choice`, scope, type: "choice", source, prompt: `下列关于${point.topic}的说法正确的是（ ）。`, answer: "A", options: { A: point.judgeTrue, B: point.judgeFalse, C: `${point.topic}与操作系统资源管理无关。`, D: `${point.topic}只影响应用程序界面，不影响系统运行。` } },
+          { id: `${point.id}_judge_t`, scope, type: "judge", source, prompt: point.judgeTrue, answer: "对" },
+          { id: `${point.id}_judge_f`, scope, type: "judge", source, prompt: point.judgeFalse, answer: "错" },
+          { id: `${point.id}_short`, scope, type: "short", source, prompt: `简述${point.topic}。`, answer: point.shortAnswer, aliases: [point.shortAnswer] }
+        ];
+      }
+      if (point.kind === "list") {
+        const fillPrompt = point.fillPrompt || `${point.topic}包括__________。`;
+        const blankCount = (fillPrompt.match(/_{3,}/g) || []).length;
+        const fillAnswers = point.fillAnswers || (blankCount ? point.items.slice(0, blankCount) : point.items);
+        const trueText = `${point.topic}包括${point.items.join("、")}。`;
+        const falseText = `${point.topic}包括${(point.wrongs && point.wrongs[0]) || "无关内容"}。`;
+        const choiceOptions = {
+          A: point.items[0],
+          B: (point.wrongs && point.wrongs[0]) || "无关内容一",
+          C: (point.wrongs && point.wrongs[1]) || "无关内容二",
+          D: (point.wrongs && point.wrongs[2]) || "无关内容三"
+        };
+        const questions = [
+          { id: `${point.id}_judge_t`, scope, type: "judge", source, prompt: trueText, answer: "对" },
+          { id: `${point.id}_judge_f`, scope, type: "judge", source, prompt: falseText, answer: "错" },
+          { id: `${point.id}_choice`, scope, type: "choice", source, prompt: `下列属于${point.topic}的是（ ）。`, answer: "A", options: choiceOptions },
+          { id: `${point.id}_short`, scope, type: "short", source, prompt: `简述${point.topic}。`, answer: point.shortAnswer, aliases: [point.shortAnswer] }
+        ];
+        if (fillPrompt && fillAnswers.length) {
+          questions.unshift({ id: `${point.id}_fill`, scope, type: "fill", source, prompt: fillPrompt, answers: fillAnswers });
+        }
+        return questions;
+      }
+      if (point.kind === "essay") {
+        return [
+          { id: `${point.id}_essay`, scope, type: "essay", source, prompt: `结合知识点，论述${point.topic}。`, answer: point.answer, aliases: point.aliases || [] }
+        ];
+      }
+      return [];
+    }
+
+    KNOWLEDGE_POINTS.forEach((point) => {
+      QUESTION_BANK.push(...pushPointQuestions(point));
+    });
+
+    const TYPE_LABEL = {
+      all: "全部",
+      fill: "填空",
+      choice: "选择",
+      judge: "判断",
+      short: "简答",
+      essay: "论述",
+      mistakes: "错题"
+    };
+
+    const STORE_KEY = "os-quiz-state-v1";
+    const $ = (id) => document.getElementById(id);
+
+    let state = {
+      exam: "mid",
+      filter: "all",
+      order: "sequential",
+      index: 0,
+      input: "",
+      answered: {},
+      mistakes: {}
+    };
+
+    let queue = [];
+    let queueKey = "";
+
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORE_KEY) || "{}");
+        state = { ...state, ...saved };
+        if (!["mid", "final"].includes(state.exam)) state.exam = "mid";
+        if (!["sequential", "random"].includes(state.order)) state.order = "sequential";
+        if (!Object.keys(TYPE_LABEL).includes(state.filter)) state.filter = "all";
+      } catch (_) {
+        saveState();
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORE_KEY, JSON.stringify(state));
+    }
+
+    function shuffle(items) {
+      const copy = [...items];
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function isStartupQuestion(q) {
+      return String(q.source || "").startsWith("2 启动");
+    }
+
+    function scopedQuestions() {
+      return QUESTION_BANK.filter((q) => {
+        if (state.exam === "mid") return q.scope === "mid";
+        return !isStartupQuestion(q);
+      });
+    }
+
+    function buildQueue(keepCurrentId, force = false) {
+      let items = scopedQuestions();
+      if (state.filter === "mistakes") {
+        items = items.filter((q) => state.mistakes[q.id]);
+      } else if (state.filter !== "all") {
+        items = items.filter((q) => q.type === state.filter);
+      }
+      const nextKey = `${state.exam}|${state.filter}|${state.order}|${items.map((q) => q.id).join("|")}`;
+      if (!force && queueKey === nextKey && queue.length) {
+        if (keepCurrentId) {
+          const found = queue.findIndex((q) => q.id === keepCurrentId);
+          state.index = found >= 0 ? found : 0;
+        } else if (state.index >= queue.length) {
+          state.index = 0;
+        }
+        return;
+      }
+      queueKey = nextKey;
+      queue = state.order === "random" ? shuffle(items) : [...items];
+      if (keepCurrentId) {
+        const found = queue.findIndex((q) => q.id === keepCurrentId);
+        state.index = found >= 0 ? found : 0;
+      } else if (state.index >= queue.length) {
+        state.index = 0;
+      }
+    }
+
+    function normalizeExact(text) {
+      return String(text || "")
+        .trim()
+        .toLowerCase()
+        .replace(/[，。、“”‘’；;：:,.!?！？（）()\[\]【】《》<>]/g, "")
+        .replace(/\s+/g, "");
+    }
+
+    function normalizeSimilarity(text) {
+      return normalizeExact(text).replace(/[的地得]/g, "");
+    }
+
+    function splitFill(text) {
+      return String(text || "")
+        .trim()
+        .split(/[\s,，;；、/|]+/)
+        .filter(Boolean);
+    }
+
+    function answerText(q) {
+      if (q.type === "fill") return q.answers.join(" ");
+      return q.answer;
+    }
+
+    function levenshtein(a, b) {
+      if (a === b) return 0;
+      if (!a.length) return b.length;
+      if (!b.length) return a.length;
+      let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+      let curr = new Array(b.length + 1);
+      for (let i = 1; i <= a.length; i += 1) {
+        curr[0] = i;
+        for (let j = 1; j <= b.length; j += 1) {
+          const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+          curr[j] = Math.min(curr[j - 1] + 1, prev[j] + 1, prev[j - 1] + cost);
+        }
+        [prev, curr] = [curr, prev];
+      }
+      return prev[b.length];
+    }
+
+    function similarity(user, refs) {
+      const source = normalizeSimilarity(user);
+      if (!source) return 0;
+      return refs.reduce((best, ref) => {
+        const target = normalizeSimilarity(ref);
+        const distance = levenshtein(source, target);
+        const score = 1 - distance / Math.max(source.length, target.length, 1);
+        return Math.max(best, score);
+      }, 0);
+    }
+
+    function grade(q, value) {
+      if (q.type === "choice" || q.type === "judge") {
+        return { correct: value === q.answer, detail: "" };
+      }
+      if (q.type === "fill") {
+        const parts = splitFill(value);
+        const byParts = parts.length === q.answers.length && q.answers.every((ans, i) => normalizeExact(ans) === normalizeExact(parts[i]));
+        const byWhole = normalizeExact(value) === q.answers.map(normalizeExact).join("");
+        return { correct: byParts || byWhole, detail: "" };
+      }
+      const score = similarity(value, [q.answer, ...(q.aliases || [])]);
+      return { correct: score >= 0.85, detail: `相似度 ${Math.round(score * 100)}%` };
+    }
+
+    function markAnswered(q, value, result) {
+      state.answered[q.id] = { value, correct: result.correct, at: Date.now(), detail: result.detail || "" };
+      if (result.correct) {
+        delete state.mistakes[q.id];
+      } else {
+        state.mistakes[q.id] = true;
+      }
+      saveState();
+    }
+
+    function escapeHtml(text) {
+      return String(text || "").replace(/[&<>"']/g, (ch) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#39;"
+      })[ch]);
+    }
+
+    function setFeedback(result, q) {
+      const feedback = $("feedback");
+      feedback.className = `feedback ${result.correct ? "good" : "bad"}`;
+      feedback.innerHTML = `${result.correct ? "判定正确" : "判定错误"}${result.detail ? "，" + result.detail : ""}<span class="answer">参考答案：${escapeHtml(answerText(q))}</span>`;
+    }
+
+    function currentQuestion() {
+      return queue[state.index];
+    }
+
+    function renderTabs() {
+      $("typeTabs").innerHTML = Object.keys(TYPE_LABEL).map((type) => (
+        `<button class="tab ${state.filter === type ? "active" : ""}" type="button" data-type="${type}">${TYPE_LABEL[type]}</button>`
+      )).join("");
+    }
+
+    function renderAnswerArea(q) {
+      const saved = state.answered[q.id];
+      const savedValue = saved ? saved.value : "";
+      if (q.type === "choice") {
+        $("checkBtn").style.display = "none";
+        $("answerArea").innerHTML = `<div class="options">${Object.entries(q.options).map(([key, text]) => (
+          `<button class="option-btn ${savedValue === key ? "selected" : ""}" type="button" data-value="${key}">
+            <span class="letter">${key}</span><span>${escapeHtml(text)}</span>
+          </button>`
+        )).join("")}</div>`;
+        return;
+      }
+      if (q.type === "judge") {
+        $("checkBtn").style.display = "none";
+        $("answerArea").innerHTML = `<div class="options">
+          <button class="option-btn ${savedValue === "对" ? "selected" : ""}" type="button" data-value="对"><span class="letter">对</span><span>判断为正确</span></button>
+          <button class="option-btn ${savedValue === "错" ? "selected" : ""}" type="button" data-value="错"><span class="letter">错</span><span>判断为错误</span></button>
+        </div>`;
+        return;
+      }
+      $("checkBtn").style.display = "";
+      const tag = q.type === "fill" ? "input" : "textarea";
+      const placeholder = q.type === "fill" ? "多空答案用空格隔开" : "按要点作答，相似度达到 85% 判对";
+      $("answerArea").innerHTML = tag === "input"
+        ? `<input class="answer-box" id="textAnswer" value="${escapeHtml(savedValue)}" placeholder="${placeholder}">`
+        : `<textarea class="answer-box" id="textAnswer" placeholder="${placeholder}">${escapeHtml(savedValue)}</textarea>`;
+    }
+
+    function renderMistakes() {
+      const scoped = scopedQuestions();
+      const mistakeIds = Object.keys(state.mistakes).filter((id) => scoped.some((q) => q.id === id));
+      $("mistakeCount").textContent = String(mistakeIds.length);
+      if (!mistakeIds.length) {
+        $("mistakes").innerHTML = `<p class="empty">还没有错题。</p>`;
+        return;
+      }
+      $("mistakes").innerHTML = mistakeIds.slice(0, 24).map((id) => {
+        const q = QUESTION_BANK.find((item) => item.id === id);
+        if (!q) return "";
+        return `<button class="mistake-btn" type="button" data-id="${q.id}"><strong>${TYPE_LABEL[q.type]}</strong> ${escapeHtml(q.prompt).slice(0, 56)}</button>`;
+      }).join("");
+    }
+
+    function renderStats() {
+      const scoped = scopedQuestions();
+      const scopedIds = new Set(scoped.map((q) => q.id));
+      const answered = Object.entries(state.answered).filter(([id]) => scopedIds.has(id)).map(([, item]) => item);
+      const right = answered.filter((item) => item.correct).length;
+      $("doneCount").textContent = String(answered.length);
+      $("rightRate").textContent = answered.length ? `${Math.round(right / answered.length * 100)}%` : "0%";
+      $("totalCount").textContent = String(queue.length);
+      $("progressBar").style.width = scoped.length ? `${Math.min(100, answered.length / scoped.length * 100)}%` : "0";
+      renderMistakes();
+    }
+
+    function renderQuestion() {
+      renderTabs();
+      syncModeButtons();
+      buildQueue();
+      const q = currentQuestion();
+      renderStats();
+      if (!q) {
+        $("typeBadge").textContent = TYPE_LABEL[state.filter] || "题目";
+        $("sourceBadge").textContent = "无题目";
+        $("counter").textContent = "0 / 0";
+        $("prompt").textContent = "当前分类没有题目。";
+        $("answerArea").innerHTML = "";
+        $("feedback").className = "feedback";
+        $("feedback").textContent = "换一个题型或清空错题后再试。";
+        return;
+      }
+      $("typeBadge").textContent = TYPE_LABEL[q.type];
+      $("sourceBadge").textContent = q.source;
+      $("counter").textContent = `${state.index + 1} / ${queue.length}`;
+      $("prompt").textContent = q.prompt;
+      renderAnswerArea(q);
+      const saved = state.answered[q.id];
+      if (saved) {
+        setFeedback({ correct: saved.correct, detail: saved.detail }, q);
+      } else {
+        $("feedback").className = "feedback";
+        $("feedback").textContent = q.type === "fill" ? "填空题多空请用空格隔开。" : "选择、判断会自动判题；简答和论述按参考答案相似度判定。";
+      }
+      document.querySelectorAll(".option-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const value = btn.dataset.value;
+          const result = grade(q, value);
+          markAnswered(q, value, result);
+          renderQuestion();
+          document.querySelectorAll(".option-btn").forEach((option) => {
+            if (option.dataset.value === q.answer) option.classList.add("correct");
+            if (option.dataset.value === value && !result.correct) option.classList.add("wrong");
+          });
+        });
+      });
+    }
+
+    function checkCurrent() {
+      const q = currentQuestion();
+      if (!q) return;
+      let value = "";
+      if (q.type === "choice" || q.type === "judge") {
+        const selected = document.querySelector(".option-btn.selected");
+        value = selected ? selected.dataset.value : "";
+      } else {
+        value = $("textAnswer").value;
+      }
+      const result = grade(q, value);
+      markAnswered(q, value, result);
+      setFeedback(result, q);
+      renderStats();
+    }
+
+    function move(delta) {
+      if (!queue.length) return;
+      state.index = (state.index + delta + queue.length) % queue.length;
+      saveState();
+      renderQuestion();
+    }
+
+    function bindEvents() {
+      $("examTabs").addEventListener("click", (event) => {
+        const btn = event.target.closest("[data-exam]");
+        if (!btn) return;
+        state.exam = btn.dataset.exam;
+        state.index = 0;
+        queueKey = "";
+        saveState();
+        syncModeButtons();
+        renderQuestion();
+      });
+      $("typeTabs").addEventListener("click", (event) => {
+        const btn = event.target.closest("[data-type]");
+        if (!btn) return;
+        state.filter = btn.dataset.type;
+        state.index = 0;
+        queueKey = "";
+        saveState();
+        renderQuestion();
+      });
+      $("orderTabs").addEventListener("click", (event) => {
+        const btn = event.target.closest("[data-order]");
+        if (!btn) return;
+        state.order = btn.dataset.order;
+        syncModeButtons();
+        state.index = 0;
+        queueKey = "";
+        saveState();
+        renderQuestion();
+      });
+      $("prevBtn").addEventListener("click", () => move(-1));
+      $("nextBtn").addEventListener("click", () => move(1));
+      $("checkBtn").addEventListener("click", checkCurrent);
+      $("answerBtn").addEventListener("click", () => {
+        const q = currentQuestion();
+        if (!q) return;
+        $("feedback").className = "feedback";
+        $("feedback").innerHTML = `参考答案：<span class="answer">${escapeHtml(answerText(q))}</span>`;
+      });
+      $("resetBtn").addEventListener("click", () => {
+        if (!confirm("确认清空刷题记录和错题本？")) return;
+        state.answered = {};
+        state.mistakes = {};
+        state.index = 0;
+        queueKey = "";
+        saveState();
+        renderQuestion();
+      });
+      $("mistakeModeBtn").addEventListener("click", () => {
+        state.filter = state.filter === "mistakes" ? "all" : "mistakes";
+        state.index = 0;
+        queueKey = "";
+        saveState();
+        renderQuestion();
+      });
+      $("mistakes").addEventListener("click", (event) => {
+        const btn = event.target.closest("[data-id]");
+        if (!btn) return;
+        state.filter = "all";
+        queueKey = "";
+        buildQueue(btn.dataset.id, true);
+        saveState();
+        renderQuestion();
+      });
+    }
+
+    function syncModeButtons() {
+      document.querySelectorAll("#examTabs .mode-btn").forEach((item) => item.classList.toggle("active", item.dataset.exam === state.exam));
+      document.querySelectorAll("#orderTabs .mode-btn").forEach((item) => item.classList.toggle("active", item.dataset.order === state.order));
+      $("mistakeModeBtn").classList.toggle("active", state.filter === "mistakes");
+    }
+
+    loadState();
+    syncModeButtons();
+    buildQueue();
+    bindEvents();
+    renderQuestion();
+  </script>
+</body>
+</html>

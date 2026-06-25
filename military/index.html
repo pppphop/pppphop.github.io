@@ -130,7 +130,8 @@
     }
 
     .tab.active,
-    .mode-btn.active {
+    .mode-btn.active,
+    .plain-btn.active {
       background: var(--ink);
       color: #fff;
       border-color: var(--ink);
@@ -1193,6 +1194,7 @@
     };
 
     let queue = [];
+    let queueKey = "";
 
     function loadState() {
       try {
@@ -1216,13 +1218,24 @@
       return copy;
     }
 
-    function buildQueue(keepCurrentId) {
+    function buildQueue(keepCurrentId, force = false) {
       let items = QUESTION_BANK;
       if (state.filter === "mistakes") {
         items = QUESTION_BANK.filter((q) => state.mistakes[q.id]);
       } else if (state.filter !== "all") {
         items = QUESTION_BANK.filter((q) => q.type === state.filter);
       }
+      const nextKey = `${state.filter}|${state.order}|${items.map((q) => q.id).join("|")}`;
+      if (!force && queueKey === nextKey && queue.length) {
+        if (keepCurrentId) {
+          const found = queue.findIndex((q) => q.id === keepCurrentId);
+          state.index = found >= 0 ? found : 0;
+        } else if (state.index >= queue.length) {
+          state.index = 0;
+        }
+        return;
+      }
+      queueKey = nextKey;
       queue = state.order === "random" ? shuffle(items) : [...items];
       if (keepCurrentId) {
         const found = queue.findIndex((q) => q.id === keepCurrentId);
@@ -1334,7 +1347,7 @@
     function renderQuestion() {
       buildQueue(currentQuestion()?.id);
       renderTabs();
-      document.querySelectorAll("[data-order]").forEach((btn) => btn.classList.toggle("active", btn.dataset.order === state.order));
+      syncModeButtons();
 
       const q = currentQuestion();
       if (!q) {
@@ -1415,9 +1428,15 @@
       const q = QUESTION_BANK.find((item) => item.id === id);
       if (!q) return;
       state.filter = state.mistakes[id] ? "mistakes" : q.type;
-      buildQueue(id);
+      queueKey = "";
+      buildQueue(id, true);
       saveState();
       renderQuestion();
+    }
+
+    function syncModeButtons() {
+      document.querySelectorAll("#orderTabs .mode-btn").forEach((btn) => btn.classList.toggle("active", btn.dataset.order === state.order));
+      $("mistakeModeBtn").classList.toggle("active", state.filter === "mistakes");
     }
 
     document.addEventListener("click", (event) => {
@@ -1425,6 +1444,7 @@
       if (typeButton) {
         state.filter = typeButton.dataset.type;
         state.index = 0;
+        queueKey = "";
         saveState();
         renderQuestion();
         return;
@@ -1434,6 +1454,7 @@
       if (orderButton) {
         state.order = orderButton.dataset.order;
         state.index = 0;
+        queueKey = "";
         saveState();
         renderQuestion();
         return;
@@ -1471,6 +1492,7 @@
       state.answered = {};
       state.mistakes = {};
       state.index = 0;
+      queueKey = "";
       saveState();
       renderQuestion();
     });
@@ -1478,6 +1500,7 @@
     $("mistakeModeBtn").addEventListener("click", () => {
       state.filter = state.filter === "mistakes" ? "all" : "mistakes";
       state.index = 0;
+      queueKey = "";
       saveState();
       renderQuestion();
     });
