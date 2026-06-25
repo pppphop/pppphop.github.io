@@ -912,7 +912,7 @@
       { id: "s01", type: "short", source: "模拟卷A/去年回忆", prompt: "简述公民的国防义务。（至少答 4 点）", answer: "兵役义务；接受国防教育的义务；保护国防设施的义务；保守国防秘密的义务；协助国防活动的义务。", aliases: ["兵役义务 接受国防教育 保护国防设施 保守国防秘密 协助国防活动"], keyPoints: ["兵役义务", "接受国防教育的义务", "保护国防设施的义务", "保守国防秘密的义务", "协助国防活动的义务"], minPoints: 4 },
       { id: "s02", type: "short", source: "模拟卷A", prompt: "简述国际战略形势的总体表现。（答 4 点）", answer: "世界多极化进程加快；经济全球化进程出现波折；大国战略博弈更加激烈；全球性问题和挑战空前增多。", aliases: ["世界多极化加快 经济全球化波折 大国战略博弈激烈 全球性问题和挑战增多"] },
       { id: "s03", type: "short", source: "模拟卷A", prompt: "简述毛泽东军事思想的主要内容。（至少答 4 点）", answer: "战争观和军事方法论；人民军队思想；人民战争思想；人民战争的战略战术思想；国防建设思想。", aliases: ["战争观和军事方法论 人民军队思想 人民战争思想 人民战争战略战术思想 国防建设思想"], keyPoints: ["战争观和军事方法论", "人民军队思想", "人民战争思想", "人民战争的战略战术思想", "国防建设思想"], minPoints: 4 },
-      { id: "s04", type: "short", source: "模拟卷A/去年回忆", prompt: "简述信息化战争的基本特征。（至少答 4 点）", answer: "信息化武器装备系统成为战场主导；信息成为战斗力的倍增器；战场网络化、一体化；一体化联合作战成为基本作战形式；制信息权成为争夺的制高点。", aliases: ["信息化武器装备主导战场 信息成为战斗力倍增器 战场网络化一体化 一体化联合作战 制信息权"], keyPoints: ["信息化武器装备系统成为战场主导", "信息成为战斗力的倍增器", "战场网络化、一体化", "一体化联合作战成为基本作战形式", "制信息权成为争夺的制高点"], minPoints: 4 },
+      { id: "s04", type: "short", source: "模拟卷A/去年回忆", prompt: "简述信息化战争的基本特征。（至少答 4 点）", answer: "信息化武器装备系统成为战场主导；信息成为战斗力的倍增器；战场网络化、一体化；一体化联合作战成为基本作战形式；制信息权成为争夺的制高点。", aliases: ["信息化武器装备主导战场 信息成为战斗力倍增器 战场网络化一体化 一体化联合作战 制信息权"], keyPoints: [["信息化武器装备系统成为战场主导", "信息化武器装备主导战场"], ["信息成为战斗力的倍增器", "信息成为战斗力的放大器"], ["战场网络化、一体化", "战场网络化和一体化"], ["一体化联合作战成为基本作战形式", "一体化协同作战成为基本作战形态", "一体化联合作战成为基本作战形态", "一体化协同作战成为基本作战形式"], ["制信息权成为争夺的制高点"]], minPoints: 4 },
       { id: "s05", type: "short", source: "模拟卷A", prompt: "简述指挥信息系统的主要分系统类型。（答 4 点）", answer: "指挥控制系统；情报系统；通信系统；导航定位系统。", aliases: ["指挥控制系统 情报系统 通信系统 导航定位系统"] },
       { id: "s06", type: "short", source: "去年回忆/OCR教材", prompt: "简述新时代中国军队的使命任务。（答 4 点）", answer: "为巩固中国共产党领导和社会主义制度提供战略支撑；为捍卫国家主权、统一、领土完整提供战略支撑；为维护国家海外利益提供战略支撑；为促进世界和平与发展提供战略支撑。", aliases: ["巩固党的领导和社会主义制度 捍卫国家主权统一领土完整 维护国家海外利益 促进世界和平与发展"] },
       { id: "s07", type: "short", source: "去年回忆/OCR教材", prompt: "简述国防动员的主要内容。（答 5 点）", answer: "武装力量动员；国民经济动员；人民防空动员；交通战备动员；政治动员。", aliases: ["武装力量动员 国民经济动员 人民防空动员 交通战备动员 政治动员"] },
@@ -1625,15 +1625,25 @@
       }, 0);
     }
 
+    function splitAnswerFragments(text) {
+      return String(text || "")
+        .split(/[\s,，;；、/|。.!！?？\n\r]+/)
+        .filter(Boolean);
+    }
+
     function gradeKeyPoints(user, keyPoints, minPoints) {
       const source = normalizeSimilarity(user);
       if (!source) return { hit: 0, total: keyPoints.length, correct: false };
+      const fragments = splitAnswerFragments(user);
       const hit = keyPoints.reduce((count, point) => {
-        const target = normalizeSimilarity(point);
-        if (!target) return count;
-        if (source.includes(target)) return count + 1;
-        const closeEnough = similarity(user, [point]) >= 0.85;
-        return count + (closeEnough ? 1 : 0);
+        const candidates = Array.isArray(point) ? point : [point];
+        const matched = candidates.some((candidate) => {
+          const target = normalizeSimilarity(candidate);
+          if (!target) return false;
+          if (source.includes(target)) return true;
+          return fragments.some((fragment) => similarity(fragment, [candidate]) >= 0.85);
+        });
+        return count + (matched ? 1 : 0);
       }, 0);
       return { hit, total: keyPoints.length, correct: hit >= minPoints };
     }
@@ -1649,14 +1659,16 @@
         const correct = byParts || byWhole;
         return { correct, detail: "" };
       }
+      let pointResult = null;
       if (q.keyPoints && q.minPoints) {
-        const pointResult = gradeKeyPoints(value, q.keyPoints, q.minPoints);
+        pointResult = gradeKeyPoints(value, q.keyPoints, q.minPoints);
         if (pointResult.correct) {
           return { correct: true, detail: `命中要点 ${pointResult.hit}/${pointResult.total}` };
         }
       }
       const score = similarity(value, [q.answer, ...(q.aliases || [])]);
-      return { correct: score >= 0.85, detail: `相似度 ${Math.round(score * 100)}%` };
+      const pointDetail = pointResult ? `命中要点 ${pointResult.hit}/${pointResult.total}；` : "";
+      return { correct: score >= 0.85, detail: `${pointDetail}相似度 ${Math.round(score * 100)}%` };
     }
 
     function markAnswered(q, value, result) {
@@ -1737,7 +1749,11 @@
       }
 
       if (saved) {
-        setFeedback({ correct: saved.correct, detail: saved.detail }, q);
+        const refreshed = grade(q, saved.value);
+        if (refreshed.correct !== saved.correct || refreshed.detail !== saved.detail) {
+          markAnswered(q, saved.value, refreshed);
+        }
+        setFeedback(refreshed, q);
       }
       renderStats();
     }
