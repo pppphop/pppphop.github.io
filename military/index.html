@@ -292,6 +292,59 @@
       line-height: 1.7;
     }
 
+    .recite-board {
+      display: grid;
+      gap: 16px;
+    }
+
+    .recite-card {
+      scroll-margin-top: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.34);
+      border-radius: 8px;
+      background: rgba(248, 250, 252, 0.72);
+      padding: 14px;
+    }
+
+    .recite-card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+
+    .recite-card .source {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .recite-card .recite-prompt {
+      margin: 0 0 12px;
+      line-height: 1.7;
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .recite-card textarea.answer-box {
+      min-height: 130px;
+    }
+
+    .recite-answer {
+      display: none;
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px dashed rgba(31, 122, 140, 0.28);
+      background: #f1fbfc;
+      color: var(--ink);
+      line-height: 1.75;
+      white-space: pre-wrap;
+    }
+
+    .show-recites .recite-answer {
+      display: block;
+    }
+
     .feedback {
       min-height: 74px;
       margin-top: 14px;
@@ -820,6 +873,7 @@
         <button class="mode-btn active" type="button" data-order="sequential">顺序</button>
         <button class="mode-btn" type="button" data-order="random">随机</button>
       </div>
+      <button class="plain-btn" type="button" id="reciteModeBtn">默写模式</button>
       <button class="danger-btn" type="button" id="resetBtn">清空记录</button>
     </section>
 
@@ -868,11 +922,11 @@
       { id: "f04", type: "fill", source: "模拟卷A", prompt: "中国国防历史的启示中，__________是国防巩固的根本。", answers: ["政治昌明"] },
       { id: "f05", type: "fill", source: "模拟卷A", prompt: "扩张型国防奉行霸权主义、强权政治和__________型战略。", answers: ["进攻"] },
       { id: "f06", type: "fill", source: "模拟卷A", prompt: "自卫型国防以维护国家安全、防止和抵御__________为目的。", answers: ["外敌侵略"] },
-      { id: "f07", type: "fill", source: "模拟卷A", prompt: "《中华人民共和国国防法》是指导和规范我国__________活动的基本法律依据。", answers: ["国防"] },
+      { id: "f07", type: "fill", source: "模拟卷A", prompt: "指导和规范我国国防活动的基本法律依据是《中华人民共和国__________》。", answers: ["国防法"] },
       { id: "f08", type: "fill", source: "模拟卷A", prompt: "兵役分为现役和__________两种。", answers: ["预备役"] },
       { id: "f09", type: "fill", source: "模拟卷A", prompt: "年满 18 周岁的男性公民，应当被征集服现役；当年未被征集的，在__________周岁以前仍可以被征集服现役。", answers: ["22"] },
       { id: "f10", type: "fill", source: "模拟卷A", prompt: "国防动员主要包括武装力量动员、国民经济动员、人民防空动员、交通战备动员和__________动员。", answers: ["政治"] },
-      { id: "f11", type: "fill", source: "模拟卷A", prompt: "总体国家安全观的关键是“__________”。", answers: ["总体"] },
+      { id: "f11", type: "fill", source: "模拟卷A", prompt: "总体国家安全观的核心要义集中体现为“__________”。", answers: ["十个坚持"] },
       { id: "f12", type: "fill", source: "模拟卷A", prompt: "总体国家安全观坚持以__________安全为宗旨。", answers: ["人民"] },
       { id: "f13", type: "fill", source: "模拟卷A", prompt: "新兴领域国家安全包括网络空间安全、外层空间安全、国际海底区域安全、极地安全和__________安全。", answers: ["生物"] },
       { id: "f14", type: "fill", source: "模拟卷A", prompt: "国际战略形势的总体表现之一是大国战略博弈更加__________。", answers: ["激烈"] },
@@ -1023,8 +1077,8 @@
         topic: "主要国防法规",
         items: ["国防法", "兵役法", "国防教育法", "国防动员法", "人民防空法", "军事设施保护法", "预备役人员法", "中国人民解放军文职人员条例"],
         wrongs: ["民法典", "消费者权益保护法", "劳动合同法"],
-        fillPrompt: "主要国防法规包括__________、__________、__________、__________、__________、__________、__________、《中国人民解放军文职人员条例》。",
-        fillAnswers: ["国防法", "兵役法", "国防教育法", "国防动员法", "人民防空法", "军事设施保护法", "预备役人员法"],
+        fillPrompt: "主要国防法规包括《国防法》《兵役法》《国防教育法》《国防动员法》《人民防空法》《军事设施保护法》《预备役人员法》和《__________》。",
+        fillAnswers: ["中国人民解放军文职人员条例"],
         shortAnswer: "主要国防法规包括国防法、兵役法、国防教育法、国防动员法、人民防空法、军事设施保护法、预备役人员法和《中国人民解放军文职人员条例》。"
       },
       {
@@ -1075,8 +1129,8 @@
         id: "c15_edu",
         source: "提纲 P16",
         topic: "接受国防教育的义务",
-        fillPrompt: "《国防教育法》第15条进一步规定，高等学校、高级中学和相当于高级中学的学校应当将课堂教学与军事训练相结合，对学生进行__________。",
-        fillAnswers: ["国防教育"],
+        fillPrompt: "《国防教育法》第15条规定，高等学校、高级中学等学校应当将课堂教学与__________相结合，对学生进行国防教育。",
+        fillAnswers: ["军事训练"],
         judgeTrue: "高等学校、高级中学和相当于高级中学的学校应当将课堂教学与军事训练相结合，对学生进行国防教育。",
         judgeFalse: "高等学校可以不开展国防教育，只需学生自学即可。",
         shortAnswer: "《国防教育法》规定，高等学校、高级中学和相当于高级中学的学校应当将课堂教学与军事训练相结合，对学生进行国防教育。"
@@ -1501,6 +1555,46 @@
       QUESTION_BANK.push(...pushOutlineQuestions(point));
     });
 
+    function dedupeQuestions() {
+      const seen = new Set();
+      for (let i = QUESTION_BANK.length - 1; i >= 0; i -= 1) {
+        const q = QUESTION_BANK[i];
+        const key = `${q.type}|${normalizeExact(q.prompt).replace(/[的地得]/g, "")}`;
+        if (seen.has(key)) {
+          QUESTION_BANK.splice(i, 1);
+        } else {
+          seen.add(key);
+        }
+      }
+    }
+
+    dedupeQuestions();
+
+    function buildReciteBank() {
+      return OUTLINE_POINTS.map((point) => {
+        const source = point.source || "军理提纲";
+        const answer = point.shortAnswer || point.answer || (point.fillAnswers || []).join(" ");
+        if (point.kind === "fact" && point.fillPrompt) {
+          return {
+            id: `recite_${point.id}`,
+            source,
+            title: point.topic,
+            prompt: point.fillPrompt,
+            answer
+          };
+        }
+        return {
+          id: `recite_${point.id}`,
+          source,
+          title: point.topic,
+          prompt: point.kind === "essay" ? `论述${point.topic}。` : `默写${point.topic}。`,
+          answer
+        };
+      });
+    }
+
+    const RECITE_BANK = buildReciteBank();
+
     const TYPE_LABEL = {
       all: "全部",
       fill: "填空",
@@ -1515,12 +1609,15 @@
     const $ = (id) => document.getElementById(id);
 
     let state = {
+      view: "quiz",
       filter: "all",
       order: "sequential",
       index: 0,
       input: "",
       answered: {},
-      mistakes: {}
+      mistakes: {},
+      reciteDrafts: {},
+      reciteShowAnswers: false
     };
 
     let queue = [];
@@ -1549,13 +1646,13 @@
     }
 
     function buildQueue(keepCurrentId, force = false) {
-      let items = QUESTION_BANK;
-      if (state.filter === "mistakes") {
+      let items = state.view === "recite" ? RECITE_BANK : QUESTION_BANK;
+      if (state.view !== "recite" && state.filter === "mistakes") {
         items = QUESTION_BANK.filter((q) => state.mistakes[q.id]);
-      } else if (state.filter !== "all") {
+      } else if (state.view !== "recite" && state.filter !== "all") {
         items = QUESTION_BANK.filter((q) => q.type === state.filter);
       }
-      const nextKey = `${state.filter}|${state.order}|${items.map((q) => q.id).join("|")}`;
+      const nextKey = `${state.view}|${state.filter}|${state.order}|${items.map((q) => q.id).join("|")}`;
       if (!force && queueKey === nextKey && queue.length) {
         if (keepCurrentId) {
           const found = queue.findIndex((q) => q.id === keepCurrentId);
@@ -1566,7 +1663,7 @@
         return;
       }
       queueKey = nextKey;
-      queue = state.order === "random" ? shuffle(items) : [...items];
+      queue = state.view === "recite" ? [...items] : state.order === "random" ? shuffle(items) : [...items];
       if (keepCurrentId) {
         const found = queue.findIndex((q) => q.id === keepCurrentId);
         state.index = found >= 0 ? found : 0;
@@ -1697,7 +1794,44 @@
       return queue[state.index] || null;
     }
 
+    function saveReciteDrafts() {
+      document.querySelectorAll("[data-recite-input]").forEach((input) => {
+        state.reciteDrafts[input.dataset.reciteInput] = input.value;
+      });
+      saveState();
+    }
+
+    function renderRecitePage() {
+      const items = queue.length ? queue : RECITE_BANK;
+      $("checkBtn").disabled = false;
+      $("checkBtn").textContent = "保存默写";
+      $("answerBtn").textContent = state.reciteShowAnswers ? "隐藏答案" : "显示答案";
+      $("orderTabs").style.display = "none";
+      $("prevBtn").style.display = "none";
+      $("nextBtn").style.display = "none";
+      $("typeBadge").textContent = "默写";
+      $("sourceBadge").textContent = "军理提纲";
+      $("counter").textContent = `${items.length} 个知识点`;
+      $("prompt").textContent = "军理提纲默写版";
+      $("answerArea").innerHTML = `<div class="recite-board ${state.reciteShowAnswers ? "show-recites" : ""}">${items.map((item, index) => `
+        <section class="recite-card" id="${item.id}">
+          <h3>${index + 1}. ${escapeHtml(item.title)}</h3>
+          <p class="source">${escapeHtml(item.source)}</p>
+          <p class="recite-prompt">${escapeHtml(item.prompt)}</p>
+          <textarea class="answer-box" data-recite-input="${item.id}" placeholder="在这里默写这一段">${escapeHtml(state.reciteDrafts[item.id] || "")}</textarea>
+          <div class="recite-answer">参考答案：${escapeHtml(item.answer)}</div>
+        </section>
+      `).join("")}</div>`;
+      $("feedback").className = "feedback";
+      $("feedback").textContent = "整页默写，滚轮往下刷。写完可保存草稿，再显示答案自查。";
+      renderStats();
+    }
+
     function renderTabs() {
+      if (state.view === "recite") {
+        $("typeTabs").innerHTML = `<button class="tab active" type="button">默写提纲 ${RECITE_BANK.length}</button>`;
+        return;
+      }
       const types = ["all", "fill", "choice", "judge", "short", "essay"];
       $("typeTabs").innerHTML = types.map((type) => {
         const count = type === "all" ? QUESTION_BANK.length : QUESTION_BANK.filter((q) => q.type === type).length;
@@ -1709,6 +1843,11 @@
       buildQueue(currentQuestion()?.id);
       renderTabs();
       syncModeButtons();
+
+      if (state.view === "recite") {
+        renderRecitePage();
+        return;
+      }
 
       const q = currentQuestion();
       if (!q) {
@@ -1724,6 +1863,11 @@
         return;
       }
 
+      $("prevBtn").style.display = "";
+      $("nextBtn").style.display = "";
+      $("orderTabs").style.display = "";
+      $("checkBtn").textContent = "判题";
+      $("answerBtn").textContent = "看答案";
       $("checkBtn").disabled = q.type === "choice" || q.type === "judge";
       $("typeBadge").textContent = TYPE_LABEL[q.type];
       $("sourceBadge").textContent = q.source;
@@ -1761,6 +1905,20 @@
     }
 
     function renderStats() {
+      if (state.view === "recite") {
+        const drafted = RECITE_BANK.filter((q) => state.reciteDrafts[q.id]);
+        $("doneCount").textContent = drafted.length;
+        $("rightRate").textContent = "自检";
+        $("totalCount").textContent = queue.length;
+        $("mistakeCount").textContent = "0";
+        $("progressBar").style.width = queue.length ? `${Math.round((drafted.length / queue.length) * 100)}%` : "0%";
+        $("mistakeModeBtn").style.display = "none";
+        document.querySelector(".mini-title").textContent = "默写目录";
+        $("mistakes").innerHTML = RECITE_BANK.map((item) => `<button class="mistake-btn" type="button" data-rec-goto="${item.id}">${escapeHtml(item.title)}</button>`).join("");
+        return;
+      }
+      $("mistakeModeBtn").style.display = "";
+      document.querySelector(".mini-title").textContent = "错题本";
       const relevantIds = new Set(queue.map((q) => q.id));
       const answered = Object.entries(state.answered).filter(([id]) => relevantIds.has(id));
       const correct = answered.filter(([, item]) => item.correct).length;
@@ -1792,6 +1950,7 @@
     function gotoQuestion(id) {
       const q = QUESTION_BANK.find((item) => item.id === id);
       if (!q) return;
+      state.view = "quiz";
       state.filter = state.mistakes[id] ? "mistakes" : q.type;
       queueKey = "";
       buildQueue(id, true);
@@ -1799,14 +1958,26 @@
       renderQuestion();
     }
 
+    function gotoRecite(id) {
+      state.view = "recite";
+      saveState();
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
     function syncModeButtons() {
       document.querySelectorAll("#orderTabs .mode-btn").forEach((btn) => btn.classList.toggle("active", btn.dataset.order === state.order));
       $("mistakeModeBtn").classList.toggle("active", state.filter === "mistakes");
+      $("reciteModeBtn").classList.toggle("active", state.view === "recite");
+      $("reciteModeBtn").textContent = state.view === "recite" ? "返回刷题" : "默写模式";
     }
 
     document.addEventListener("click", (event) => {
       const typeButton = event.target.closest("[data-type]");
       if (typeButton) {
+        state.view = "quiz";
         state.filter = typeButton.dataset.type;
         state.index = 0;
         queueKey = "";
@@ -1834,25 +2005,53 @@
       const mistakeButton = event.target.closest("[data-goto]");
       if (mistakeButton) {
         gotoQuestion(mistakeButton.dataset.goto);
+        return;
+      }
+
+      const reciteButton = event.target.closest("[data-rec-goto]");
+      if (reciteButton) {
+        gotoRecite(reciteButton.dataset.recGoto);
       }
     });
 
     $("checkBtn").addEventListener("click", () => {
+      if (state.view === "recite") {
+        saveReciteDrafts();
+        saveState();
+        $("feedback").className = "feedback good";
+        $("feedback").textContent = "已保存整页默写草稿。";
+        renderStats();
+        return;
+      }
       const input = $("answerInput");
       submitValue(input ? input.value : "");
     });
 
     $("answerBtn").addEventListener("click", () => {
+      if (state.view === "recite") {
+        saveReciteDrafts();
+        state.reciteShowAnswers = !state.reciteShowAnswers;
+        saveState();
+        renderQuestion();
+        return;
+      }
       const q = currentQuestion();
       if (!q) return;
       $("feedback").className = "feedback";
-      $("feedback").innerHTML = `<span class="answer">参考答案：${escapeHtml(answerText(q))}</span>`;
+      $("feedback").innerHTML = `<span class="answer">参考答案：${escapeHtml(state.view === "recite" ? q.answer : answerText(q))}</span>`;
     });
 
     $("prevBtn").addEventListener("click", () => move(-1));
     $("nextBtn").addEventListener("click", () => move(1));
 
     $("resetBtn").addEventListener("click", () => {
+      if (state.view === "recite") {
+        if (!confirm("清空默写草稿？")) return;
+        state.reciteDrafts = {};
+        saveState();
+        renderQuestion();
+        return;
+      }
       if (!confirm("清空当前刷题记录？")) return;
       state.answered = {};
       state.mistakes = {};
@@ -1863,7 +2062,19 @@
     });
 
     $("mistakeModeBtn").addEventListener("click", () => {
+      if (state.view === "recite") return;
       state.filter = state.filter === "mistakes" ? "all" : "mistakes";
+      state.index = 0;
+      queueKey = "";
+      saveState();
+      renderQuestion();
+    });
+
+    $("reciteModeBtn").addEventListener("click", () => {
+      if (state.view === "recite") {
+        saveReciteDrafts();
+      }
+      state.view = state.view === "recite" ? "quiz" : "recite";
       state.index = 0;
       queueKey = "";
       saveState();
@@ -1872,8 +2083,12 @@
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
-        const input = $("answerInput");
-        if (input) submitValue(input.value);
+        if (state.view === "recite") {
+          $("checkBtn").click();
+        } else {
+          const input = $("answerInput");
+          if (input) submitValue(input.value);
+        }
       }
     });
 
