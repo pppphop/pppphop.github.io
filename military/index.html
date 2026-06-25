@@ -1,0 +1,1497 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>军理背记刷题</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --panel: #ffffff;
+      --panel-2: #eef6f8;
+      --ink: #132238;
+      --muted: #64748b;
+      --line: #d9e2ec;
+      --accent: #1f7a8c;
+      --accent-2: #315f9d;
+      --good: #1f8a5b;
+      --bad: #c2413b;
+      --warn: #a86b14;
+      --shadow: 0 18px 45px rgba(19, 34, 56, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #eef6f8 0, var(--bg) 360px);
+      letter-spacing: 0;
+    }
+
+    button, input, textarea, select {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+    }
+
+    .app {
+      width: min(1120px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 24px 0 36px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      min-width: 0;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(26px, 5vw, 44px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .brand p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .home-link {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+
+    .tabs,
+    .mode-switch {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tab,
+    .mode-btn,
+    .plain-btn,
+    .primary-btn,
+    .danger-btn {
+      min-height: 38px;
+      padding: 0 13px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .tab:hover,
+    .mode-btn:hover,
+    .plain-btn:hover,
+    .primary-btn:hover,
+    .danger-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .tab.active,
+    .mode-btn.active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    .primary-btn {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .danger-btn {
+      color: var(--bad);
+      border-color: rgba(194, 65, 59, 0.35);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .quiz-panel,
+    .side-panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .quiz-panel {
+      min-height: 560px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .question-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 20px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .badge-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      background: var(--panel-2);
+      color: var(--accent);
+      border: 1px solid rgba(31, 122, 140, 0.18);
+    }
+
+    .badge.source {
+      color: var(--accent-2);
+      background: #eef3fb;
+      border-color: rgba(49, 95, 157, 0.18);
+    }
+
+    .counter {
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .question-body {
+      padding: 22px 20px 18px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .prompt {
+      margin: 0 0 18px;
+      font-size: clamp(20px, 3.2vw, 26px);
+      line-height: 1.55;
+      font-weight: 700;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .option-btn {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 36px minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+      min-height: 54px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      text-align: left;
+    }
+
+    .option-btn .letter {
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #edf2f7;
+      font-weight: 700;
+    }
+
+    .option-btn.selected {
+      border-color: var(--accent);
+      background: #f1fbfc;
+    }
+
+    .option-btn.correct {
+      border-color: rgba(31, 138, 91, 0.6);
+      background: #eefaf4;
+    }
+
+    .option-btn.wrong {
+      border-color: rgba(194, 65, 59, 0.55);
+      background: #fff1f1;
+    }
+
+    .answer-box {
+      width: 100%;
+      min-height: 50px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--ink);
+      background: #fff;
+      resize: vertical;
+      outline: none;
+    }
+
+    .answer-box:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(31, 122, 140, 0.12);
+    }
+
+    textarea.answer-box {
+      min-height: 150px;
+      line-height: 1.7;
+    }
+
+    .feedback {
+      min-height: 74px;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px dashed var(--line);
+      background: #f8fafc;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .feedback.good {
+      color: var(--good);
+      border-color: rgba(31, 138, 91, 0.35);
+      background: #f0fbf6;
+    }
+
+    .feedback.bad {
+      color: var(--bad);
+      border-color: rgba(194, 65, 59, 0.35);
+      background: #fff5f4;
+    }
+
+    .feedback .answer {
+      display: block;
+      margin-top: 6px;
+      color: var(--ink);
+      word-break: break-word;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0 20px 20px;
+    }
+
+    .side-panel {
+      padding: 16px;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .metric {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 24px;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .progress-shell {
+      height: 10px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      overflow: hidden;
+      margin: 8px 0 18px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--accent), var(--good));
+      transition: width 0.2s ease;
+    }
+
+    .mini-title {
+      margin: 16px 0 8px;
+      font-size: 15px;
+      color: var(--ink);
+    }
+
+    .mistakes {
+      display: grid;
+      gap: 8px;
+      max-height: 260px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .mistake-btn {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      padding: 10px;
+      text-align: left;
+      line-height: 1.45;
+    }
+
+    .empty {
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      height: 24px;
+      padding: 0 7px;
+      border: 1px solid var(--line);
+      border-bottom-width: 2px;
+      border-radius: 6px;
+      background: #fff;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 860px) {
+      .topbar,
+      .toolbar,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        align-items: stretch;
+      }
+
+      .home-link {
+        width: fit-content;
+      }
+
+      .toolbar {
+        display: grid;
+      }
+
+      .grid {
+        display: grid;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .app {
+        width: min(100% - 18px, 1120px);
+        padding-top: 14px;
+      }
+
+      .toolbar,
+      .question-head,
+      .question-body,
+      .actions,
+      .side-panel {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .question-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .tab,
+      .mode-btn,
+      .plain-btn,
+      .primary-btn,
+      .danger-btn {
+        flex: 1 1 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <h1>军理背记刷题</h1>
+        <p>提纲重点、模拟卷与去年回忆合并题库</p>
+      </div>
+      <a class="home-link" href="/">返回博客</a>
+    </header>
+
+    <section class="toolbar" aria-label="刷题控制">
+      <div class="tabs" id="typeTabs"></div>
+      <div class="mode-switch" id="orderTabs">
+        <button class="mode-btn active" type="button" data-order="sequential">顺序</button>
+        <button class="mode-btn" type="button" data-order="random">随机</button>
+      </div>
+      <button class="danger-btn" type="button" id="resetBtn">清空记录</button>
+    </section>
+
+    <section class="grid">
+      <article class="quiz-panel">
+        <div class="question-head">
+          <div class="badge-row">
+            <span class="badge" id="typeBadge"></span>
+            <span class="badge source" id="sourceBadge"></span>
+          </div>
+          <span class="counter" id="counter"></span>
+        </div>
+        <div class="question-body">
+          <p class="prompt" id="prompt"></p>
+          <div id="answerArea"></div>
+          <div class="feedback" id="feedback"></div>
+        </div>
+        <div class="actions">
+          <button class="plain-btn" type="button" id="prevBtn">上一题</button>
+          <button class="primary-btn" type="button" id="checkBtn">判题</button>
+          <button class="plain-btn" type="button" id="answerBtn">看答案</button>
+          <button class="primary-btn" type="button" id="nextBtn">下一题</button>
+        </div>
+      </article>
+
+      <aside class="side-panel">
+        <div class="metric-grid">
+          <div class="metric"><strong id="doneCount">0</strong><span>已做</span></div>
+          <div class="metric"><strong id="rightRate">0%</strong><span>正确率</span></div>
+          <div class="metric"><strong id="totalCount">0</strong><span>当前题量</span></div>
+          <div class="metric"><strong id="mistakeCount">0</strong><span>错题</span></div>
+        </div>
+        <div class="progress-shell" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+        <button class="plain-btn" type="button" id="mistakeModeBtn">只刷错题</button>
+        <h2 class="mini-title">错题本</h2>
+        <div class="mistakes" id="mistakes"></div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const QUESTION_BANK = [
+      { id: "f01", type: "fill", source: "模拟卷A", prompt: "国防的行为主体是__________，基本内容包括国防建设和__________两个方面。", answers: ["国家", "国防斗争"] },
+      { id: "f02", type: "fill", source: "模拟卷A", prompt: "中国古代最早的国防始于__________朝。", answers: ["夏"] },
+      { id: "f03", type: "fill", source: "模拟卷A", prompt: "中国现代国防具有政治性、防御性、人民性和__________性等鲜明特点。", answers: ["自主"] },
+      { id: "f04", type: "fill", source: "模拟卷A", prompt: "中国国防历史的启示中，__________是国防巩固的根本。", answers: ["政治昌明"] },
+      { id: "f05", type: "fill", source: "模拟卷A", prompt: "扩张型国防奉行霸权主义、强权政治和__________型战略。", answers: ["进攻"] },
+      { id: "f06", type: "fill", source: "模拟卷A", prompt: "自卫型国防以维护国家安全、防止和抵御__________为目的。", answers: ["外敌侵略"] },
+      { id: "f07", type: "fill", source: "模拟卷A", prompt: "《中华人民共和国国防法》是指导和规范我国__________活动的基本法律依据。", answers: ["国防"] },
+      { id: "f08", type: "fill", source: "模拟卷A", prompt: "兵役分为现役和__________两种。", answers: ["预备役"] },
+      { id: "f09", type: "fill", source: "模拟卷A", prompt: "年满 18 周岁的男性公民，应当被征集服现役；当年未被征集的，在__________周岁以前仍可以被征集服现役。", answers: ["22"] },
+      { id: "f10", type: "fill", source: "模拟卷A", prompt: "国防动员主要包括武装力量动员、国民经济动员、人民防空动员、交通战备动员和__________动员。", answers: ["政治"] },
+      { id: "f11", type: "fill", source: "模拟卷A", prompt: "总体国家安全观的关键是“__________”。", answers: ["总体"] },
+      { id: "f12", type: "fill", source: "模拟卷A", prompt: "总体国家安全观坚持以__________安全为宗旨。", answers: ["人民"] },
+      { id: "f13", type: "fill", source: "模拟卷A", prompt: "新兴领域国家安全包括网络空间安全、外层空间安全、国际海底区域安全、极地安全和__________安全。", answers: ["生物"] },
+      { id: "f14", type: "fill", source: "模拟卷A", prompt: "国际战略形势的总体表现之一是大国战略博弈更加__________。", answers: ["激烈"] },
+      { id: "f15", type: "fill", source: "模拟卷A", prompt: "《孙子兵法》的作者是春秋时期伟大军事家__________。", answers: ["孙武"] },
+      { id: "f16", type: "fill", source: "模拟卷A", prompt: "军事思想的基本特征包括政治性、实践性、时代性、民族性、继承性和__________性。", answers: ["创造"] },
+      { id: "f17", type: "fill", source: "模拟卷A", prompt: "新军事革命是 20 世纪末期以来在世界范围内发生的一场以__________为核心的全面而深刻的军事革命。", answers: ["信息化"] },
+      { id: "f18", type: "fill", source: "模拟卷A", prompt: "机械化战争的基本特征包括机动速度快、火力毁伤重、战场范围广和战争__________大。", answers: ["消耗"] },
+      { id: "f19", type: "fill", source: "模拟卷A", prompt: "信息化战争是信息时代战争的基本__________。", answers: ["形态"] },
+      { id: "f20", type: "fill", source: "模拟卷A", prompt: "指挥信息系统是以__________网络为核心的军事信息系统。", answers: ["计算机"] },
+
+      { id: "c01", type: "choice", source: "模拟卷A", prompt: "下列关于国防定义的表述，正确的是（  ）。", answer: "C", options: { A: "国防只包括军队作战活动", B: "国防只发生在战争状态下", C: "国防是国家为防备和抵抗侵略、保卫国家安全和发展利益所进行的军事及相关活动", D: "国防主要是个人自发组织的防卫活动" } },
+      { id: "c02", type: "choice", source: "模拟卷A", prompt: "下列不属于公民国防义务的是（  ）。", answer: "D", options: { A: "兵役义务", B: "接受国防教育的义务", C: "保护国防设施的义务", D: "获得经济损失补偿的权利" } },
+      { id: "c03", type: "choice", source: "模拟卷A", prompt: "依照宪法和有关法律，发布动员令的是（  ）。", answer: "B", options: { A: "全国人大常委会", B: "国家主席", C: "国务院", D: "中央军委" } },
+      { id: "c04", type: "choice", source: "模拟卷A", prompt: "中华人民共和国的武装力量由中国人民解放军、中国人民武装警察部队和（  ）组成。", answer: "A", options: { A: "民兵", B: "预备役学校", C: "国防教育机构", D: "军事科研单位" } },
+      { id: "c05", type: "choice", source: "模拟卷A", prompt: "下列属于中国武装力量使命任务的是（  ）。", answer: "A", options: { A: "维护国家海外利益", B: "放弃战备训练", C: "只承担国内治安任务", D: "以扩张领土为目标" } },
+      { id: "c06", type: "choice", source: "模拟卷A", prompt: "下列不属于新兴领域国家安全的是（  ）。", answer: "D", options: { A: "网络空间安全", B: "外层空间安全", C: "极地安全", D: "校园体育安全" } },
+      { id: "c07", type: "choice", source: "模拟卷A", prompt: "国际战略形势的总体表现不包括（  ）。", answer: "D", options: { A: "世界多极化进程加快", B: "经济全球化进程出现波折", C: "大国战略博弈更加激烈", D: "全球性问题和挑战已经消失" } },
+      { id: "c08", type: "choice", source: "模拟卷A", prompt: "下列哪一项属于全球性问题和挑战？（  ）", answer: "A", options: { A: "恐怖主义威胁不减", B: "战略军备与军控领域博弈完全停止", C: "网络犯罪不再出现", D: "难民问题已经彻底解决" } },
+      { id: "c09", type: "choice", source: "模拟卷A", prompt: "党在新时代的强军目标是建设一支（  ）的人民军队。", answer: "A", options: { A: "听党指挥、能打胜仗、作风优良", B: "规模最大、装备最多、训练最少", C: "重视经济、轻视战备、弱化纪律", D: "只重技术、不重政治、不重作风" } },
+      { id: "c10", type: "choice", source: "模拟卷A", prompt: "从军事层面看，战争的本质是（  ）。", answer: "A", options: { A: "保存自己、消灭敌人", B: "扩大贸易、促进投资", C: "民间竞争、文化交流", D: "单纯技术竞赛" } },
+      { id: "c11", type: "choice", source: "模拟卷A", prompt: "新军事革命的主要标志不包括（  ）。", answer: "D", options: { A: "信息化武器系统逐渐主宰战场", B: "知识密集型的信息化军队出现", C: "一体化联合作战成为基本作战形式", D: "冷兵器重新成为战场主导" } },
+      { id: "c12", type: "choice", source: "模拟卷A", prompt: "中国特色军事变革的基本目标是（  ）。", answer: "A", options: { A: "建设信息化军队", B: "建设机械化农业", C: "完全脱离国家发展战略", D: "放弃改革创新" } },
+      { id: "c13", type: "choice", source: "模拟卷A", prompt: "下列不属于机械化战争基本特征的是（  ）。", answer: "D", options: { A: "机动速度快", B: "火力毁伤重", C: "战场范围广", D: "制信息权成为争夺的制高点" } },
+      { id: "c14", type: "choice", source: "模拟卷A", prompt: "下列属于信息化战争基本特征的是（  ）。", answer: "A", options: { A: "信息成为战斗力的倍增器", B: "战场完全局限于陆地", C: "作战形式以单军种独立行动为主", D: "信息化武器装备退出战场" } },
+      { id: "c15", type: "choice", source: "模拟卷A/去年回忆", prompt: "下列哪一项不属于空战武器平台组成？（  ）", answer: "D", options: { A: "战斗机", B: "轰炸机", C: "电子战飞机", D: "坦克" } },
+
+      { id: "j01", type: "judge", source: "模拟卷A", prompt: "国防的行为主体是国家。", answer: "对" },
+      { id: "j02", type: "judge", source: "模拟卷A", prompt: "国防义务与国防权利是对立统一的关系。", answer: "对" },
+      { id: "j04", type: "judge", source: "模拟卷A", prompt: "平时政治动员主要表现为国防教育。", answer: "对" },
+      { id: "j05", type: "judge", source: "模拟卷A", prompt: "总体国家安全观的核心要义集中体现为“十个坚持”。", answer: "对" },
+      { id: "j06", type: "judge", source: "模拟卷A", prompt: "《孙子兵法》的作者是孙武。", answer: "对" },
+      { id: "j07", type: "judge", source: "模拟卷A", prompt: "毛泽东军事思想的主要内容不包括人民战争思想。", answer: "错" },
+      { id: "j08", type: "judge", source: "模拟卷A", prompt: "战争的基本特点包括激烈的暴力对抗、快速地流动变化、充满盖然性或偶然性。", answer: "对" },
+      { id: "j09", type: "judge", source: "模拟卷A", prompt: "信息化战争以体系对抗为主要形式。", answer: "对" },
+      { id: "j10", type: "judge", source: "模拟卷A", prompt: "指挥信息系统中的指挥控制系统、情报系统、通信系统和导航定位系统具有重要作用。", answer: "对" },
+
+      { id: "s01", type: "short", source: "模拟卷A/去年回忆", prompt: "简述公民的国防义务。（至少答 4 点）", answer: "兵役义务；接受国防教育的义务；保护国防设施的义务；保守国防秘密的义务；协助国防活动的义务。", aliases: ["兵役义务 接受国防教育 保护国防设施 保守国防秘密 协助国防活动"] },
+      { id: "s02", type: "short", source: "模拟卷A", prompt: "简述国际战略形势的总体表现。（答 4 点）", answer: "世界多极化进程加快；经济全球化进程出现波折；大国战略博弈更加激烈；全球性问题和挑战空前增多。", aliases: ["世界多极化加快 经济全球化波折 大国战略博弈激烈 全球性问题和挑战增多"] },
+      { id: "s03", type: "short", source: "模拟卷A", prompt: "简述毛泽东军事思想的主要内容。（至少答 4 点）", answer: "战争观和军事方法论；人民军队思想；人民战争思想；人民战争的战略战术思想；国防建设思想。", aliases: ["战争观和军事方法论 人民军队思想 人民战争思想 人民战争战略战术思想 国防建设思想"] },
+      { id: "s04", type: "short", source: "模拟卷A/去年回忆", prompt: "简述信息化战争的基本特征。（至少答 4 点）", answer: "信息化武器装备系统成为战场主导；信息成为战斗力的倍增器；战场网络化、一体化；一体化联合作战成为基本作战形式；制信息权成为争夺的制高点。", aliases: ["信息化武器装备主导战场 信息成为战斗力倍增器 战场网络化一体化 一体化联合作战 制信息权"] },
+      { id: "s05", type: "short", source: "模拟卷A", prompt: "简述指挥信息系统的主要分系统类型。（答 4 点）", answer: "指挥控制系统；情报系统；通信系统；导航定位系统。", aliases: ["指挥控制系统 情报系统 通信系统 导航定位系统"] },
+      { id: "s06", type: "short", source: "去年回忆/OCR教材", prompt: "简述新时代中国军队的使命任务。（答 4 点）", answer: "为巩固中国共产党领导和社会主义制度提供战略支撑；为捍卫国家主权、统一、领土完整提供战略支撑；为维护国家海外利益提供战略支撑；为促进世界和平与发展提供战略支撑。", aliases: ["巩固党的领导和社会主义制度 捍卫国家主权统一领土完整 维护国家海外利益 促进世界和平与发展"] },
+      { id: "s07", type: "short", source: "去年回忆/OCR教材", prompt: "简述国防动员的主要内容。（答 5 点）", answer: "武装力量动员；国民经济动员；人民防空动员；交通战备动员；政治动员。", aliases: ["武装力量动员 国民经济动员 人民防空动员 交通战备动员 政治动员"] },
+      { id: "s08", type: "short", source: "去年回忆/OCR教材", prompt: "简述全球性问题和挑战空前增多的表现。（答 4 点）", answer: "恐怖主义威胁不减；网络安全威胁和网络犯罪频发；难民问题愈演愈烈；大国在战略军备与军控领域博弈加剧。", aliases: ["恐怖主义 网络安全 网络犯罪 难民问题 战略军备与军控博弈"] },
+
+      { id: "e01", type: "essay", source: "模拟卷A/提纲重点", prompt: "结合提纲内容，论述中国国防时代内涵的新变化。", answer: "可围绕“四个拓展”作答：范围拓展，生存安全和发展安全、传统安全和非传统安全相互交织；目标拓展，从打赢战争到遏制战争，从争取和平到维护和平；任务拓展，实现巩固内部安全与防范外来威胁的统一，应对传统安全威胁和新型安全挑战的统一；手段拓展，在立足打赢信息化局部战争基础上，配合政治、经济、外交、文化、法律等手段，实现国家综合安全。", aliases: ["范围拓展 生存安全和发展安全 传统安全和非传统安全 目标拓展 打赢战争 遏制战争 任务拓展 内部安全 外来威胁 手段拓展 政治经济外交文化法律 国家综合安全"] },
+      { id: "e02", type: "essay", source: "模拟卷A/去年回忆", prompt: "结合国际战略形势和信息化战争特点，论述新时代我国面临的安全挑战及加强国防和军队建设的必要性。", answer: "国际战略形势表现为世界多极化进程加快、经济全球化出现波折、大国战略博弈更加激烈、全球性问题和挑战增多；全球性问题包括恐怖主义、网络犯罪和恐怖组织活动、难民问题、战略军备与军控博弈；信息化战争中信息化武器装备成为战场主导，信息成为战斗力倍增器，战场网络化和一体化，一体化联合作战成为基本作战形式，制信息权成为制高点；因此必须坚持总体国家安全观，加强国防建设和信息化军队建设，提高应对多样化安全威胁、维护国家主权安全发展利益的能力。", aliases: ["世界多极化 经济全球化波折 大国战略博弈 全球性问题 恐怖主义 网络犯罪 难民 战略军备军控 信息化武器装备 信息战斗力倍增器 网络化一体化 联合作战 制信息权 总体国家安全观 国防建设 信息化军队"] }
+    ];
+
+    const OUTLINE_POINTS = [
+      {
+        kind: "fact",
+        id: "c01_def",
+        source: "提纲 P2",
+        topic: "国防定义",
+        fillPrompt: "国防是指国家为防备和抵抗侵略，制止武装颠覆和分裂，保卫国家主权、统一、领土完整、安全和发展利益所进行的__________，以及与军事有关的政治、经济、外交、科技、教育等方面的活动。",
+        fillAnswers: ["军事活动"],
+        judgeTrue: "国防是指国家为防备和抵抗侵略，制止武装颠覆和分裂，保卫国家主权、统一、领土完整、安全和发展利益所进行的军事活动，以及与军事有关的政治、经济、外交、科技、教育等方面的活动。",
+        judgeFalse: "国防只是军队作战活动。",
+        shortAnswer: "国防是国家为防备和抵抗侵略、制止武装颠覆和分裂，保卫国家主权、统一、领土完整、安全和发展利益所进行的军事活动，以及与军事有关的政治、经济、外交、科技、教育等方面的活动。"
+      },
+      {
+        kind: "list",
+        id: "c02_content",
+        source: "提纲 P2",
+        topic: "国防的基本内容",
+        items: ["国防建设", "国防斗争"],
+        wrongs: ["国际贸易", "文化娱乐", "民事诉讼"],
+        fillPrompt: "国防的基本内容包括__________和__________两个方面。",
+        shortAnswer: "国防的基本内容包括国防建设和国防斗争两个方面。"
+      },
+      {
+        kind: "list",
+        id: "c03_role",
+        source: "提纲 P3",
+        topic: "国防的地位作用",
+        items: ["国家生存与发展的安全保障", "国家独立自主的前提", "国家繁荣富强的重要条件"],
+        wrongs: ["经济全球化的唯一动力", "文艺创作的根本标准", "个人生活的可选项目"],
+        fillPrompt: "国防是国家__________、__________、__________的重要条件。",
+        fillAnswers: ["生存与发展的安全保障", "独立自主的前提", "繁荣富强"],
+        shortAnswer: "国防是国家生存与发展的安全保障，是国家独立自主的前提，也是国家繁荣富强的重要条件。"
+      },
+      {
+        kind: "list",
+        id: "c04_type",
+        source: "提纲 P4",
+        topic: "国防类型",
+        items: ["扩张型国防", "自卫型国防"],
+        wrongs: ["观赏型国防", "服务型国防", "消费型国防"],
+        fillPrompt: "国防类型分为__________和__________两种。",
+        shortAnswer: "国防分为扩张型国防和自卫型国防。"
+      },
+      {
+        kind: "fact",
+        id: "c05_history",
+        source: "提纲 P5",
+        topic: "中国古代最早的国防",
+        fillPrompt: "中国古代最早的国防始于__________朝。",
+        fillAnswers: ["夏"],
+        judgeTrue: "中国古代最早的国防始于夏朝。",
+        judgeFalse: "中国古代最早的国防始于秦朝。",
+        shortAnswer: "中国古代最早的国防始于夏朝。"
+      },
+      {
+        kind: "list",
+        id: "c06_modern_traits",
+        source: "提纲 P5",
+        topic: "中国现代国防特点",
+        items: ["政治性", "防御性", "人民性", "自主性"],
+        wrongs: ["殖民性", "封闭性", "掠夺性"],
+        fillPrompt: "中国现代国防具有政治性、防御性、人民性和__________性等鲜明特点。",
+        fillAnswers: ["自主"],
+        shortAnswer: "中国现代国防具有政治性、防御性、人民性和自主性等鲜明特点；政治性表现为坚持党的绝对领导。"
+      },
+      {
+        kind: "list",
+        id: "c07_history_insight",
+        source: "提纲 P5",
+        topic: "中国国防历史启示",
+        items: ["政治昌明是国防巩固的根本", "经济发展是国防强大的基础", "国家统一和民族团结是国防强大的前提"],
+        wrongs: ["闭关锁国是国防强大的根本", "单纯依赖装备是唯一出路", "扩张领土是强国前提"],
+        fillPrompt: "中国国防历史的启示是：__________，__________，__________。",
+        shortAnswer: "政治昌明是国防巩固的根本，经济发展是国防强大的基础，国家统一和民族团结是国防强大的前提。"
+      },
+      {
+        kind: "essay",
+        id: "c08_four_extend",
+        source: "提纲 P9",
+        topic: "中国国防时代内涵的新变化",
+        answer: "可围绕“四个拓展”作答：范围拓展，生存安全和发展安全、传统安全和非传统安全相互交织；目标拓展，从打赢战争到遏制战争，从争取和平到维护和平；任务拓展，实现巩固内部安全与防范外来威胁的统一，应对传统安全威胁和新型安全挑战的统一；手段拓展，在立足打赢信息化局部战争基础上，配合政治、经济、外交、文化、法律等手段，实现国家综合安全。",
+        aliases: ["范围拓展 生存安全 发展安全 目标拓展 打赢战争 遏制战争 任务拓展 手段拓展 政治 经济 外交 文化 法律 综合安全"]
+      },
+      {
+        kind: "fact",
+        id: "c09_regime",
+        source: "提纲 P11",
+        topic: "国防法规体系",
+        fillPrompt: "国防法规体系是指国家和军队现行国防法律规范按照层次和门类构成的有机__________。",
+        fillAnswers: ["整体"],
+        judgeTrue: "国防法规体系是指国家和军队现行国防法律规范按照层次和门类构成的有机整体。",
+        judgeFalse: "国防法规体系只是单一的军队内部规章。",
+        shortAnswer: "国防法规体系是国家和军队现行国防法律规范按照层次和门类构成的有机整体。"
+      },
+      {
+        kind: "list",
+        id: "c10_laws",
+        source: "提纲 P14",
+        topic: "主要国防法规",
+        items: ["国防法", "兵役法", "国防教育法", "国防动员法", "人民防空法", "军事设施保护法", "预备役人员法", "中国人民解放军文职人员条例"],
+        wrongs: ["民法典", "消费者权益保护法", "劳动合同法"],
+        fillPrompt: "主要国防法规包括__________、__________、__________、__________、__________、__________、__________、《中国人民解放军文职人员条例》。",
+        fillAnswers: ["国防法", "兵役法", "国防教育法", "国防动员法", "人民防空法", "军事设施保护法", "预备役人员法"],
+        shortAnswer: "主要国防法规包括国防法、兵役法、国防教育法、国防动员法、人民防空法、军事设施保护法、预备役人员法和《中国人民解放军文职人员条例》。"
+      },
+      {
+        kind: "list",
+        id: "c11_duties",
+        source: "提纲 P16",
+        topic: "公民的国防义务",
+        items: ["兵役义务", "接受国防教育的义务", "保护国防设施的义务", "保守国防秘密的义务", "协助国防活动的义务"],
+        wrongs: ["免除兵役的权利", "拒绝国防教育的权利", "参与考试加分的权利"],
+        fillPrompt: "公民的国防义务包括兵役义务、接受国防教育的义务、保护国防设施的义务、保守国防秘密的义务和__________的义务。",
+        fillAnswers: ["协助国防活动"],
+        shortAnswer: "公民的国防义务包括兵役义务、接受国防教育的义务、保护国防设施的义务、保守国防秘密的义务、协助国防活动的义务。"
+      },
+      {
+        kind: "list",
+        id: "c12_rights",
+        source: "提纲 P16",
+        topic: "公民的国防权利",
+        items: ["对国防建设提出建议的权利", "对危害国防行为进行制止或检举的权利", "获得经济损失补偿的权利"],
+        wrongs: ["拒绝履行义务的权利", "擅自发布动员令的权利", "逃避国防教育的权利"],
+        fillPrompt: "公民的国防权利包括对国防建设提出建议、对危害国防行为进行制止或检举，以及获得__________的权利。",
+        fillAnswers: ["经济损失补偿"],
+        shortAnswer: "公民的国防权利包括对国防建设提出建议的权利、对危害国防行为进行制止或检举的权利、获得经济损失补偿的权利。"
+      },
+      {
+        kind: "fact",
+        id: "c13_relation",
+        source: "提纲 P20",
+        topic: "国防义务和国防权利关系",
+        fillPrompt: "国防义务与国防权利是__________统一的关系。",
+        fillAnswers: ["对立"],
+        judgeTrue: "国防义务与国防权利是对立统一的关系。",
+        judgeFalse: "国防义务与国防权利是彼此独立、互不相关的关系。",
+        shortAnswer: "国防义务与国防权利是对立统一的关系。"
+      },
+      {
+        kind: "list",
+        id: "c14_conscription",
+        source: "提纲 P16",
+        topic: "兵役和征集年龄",
+        items: ["现役", "预备役"],
+        wrongs: ["学籍", "工龄", "户籍"],
+        fillPrompt: "兵役分为__________和__________两种。",
+        shortAnswer: "兵役分为现役和预备役两种；年满18周岁的男性公民应当被征集服现役，当年未被征集的，在22周岁以前仍可被征集服现役，普通高校毕业生征集年龄可放宽至24周岁，研究生可放宽至26周岁。"
+      },
+      {
+        kind: "fact",
+        id: "c15_edu",
+        source: "提纲 P16",
+        topic: "接受国防教育的义务",
+        fillPrompt: "《国防教育法》第15条进一步规定，高等学校、高级中学和相当于高级中学的学校应当将课堂教学与军事训练相结合，对学生进行__________。",
+        fillAnswers: ["国防教育"],
+        judgeTrue: "高等学校、高级中学和相当于高级中学的学校应当将课堂教学与军事训练相结合，对学生进行国防教育。",
+        judgeFalse: "高等学校可以不开展国防教育，只需学生自学即可。",
+        shortAnswer: "《国防教育法》规定，高等学校、高级中学和相当于高级中学的学校应当将课堂教学与军事训练相结合，对学生进行国防教育。"
+      },
+      {
+        kind: "fact",
+        id: "c16_order",
+        source: "提纲 P16",
+        topic: "动员令",
+        fillPrompt: "依照宪法和有关法律，发布动员令的是__________。",
+        fillAnswers: ["国家主席"],
+        judgeTrue: "依照宪法和有关法律，发布动员令的是国家主席。",
+        judgeFalse: "依照宪法和有关法律，发布动员令的是地方政府。",
+        shortAnswer: "依照宪法和有关法律，发布动员令的是国家主席。"
+      },
+      {
+        kind: "fact",
+        id: "c17_strategy",
+        source: "提纲 P30",
+        topic: "国防战略",
+        fillPrompt: "国防战略是指筹划和指导国防建设与斗争全局的方略，是国家战略的__________部分。",
+        fillAnswers: ["组成"],
+        judgeTrue: "国防战略是指筹划和指导国防建设与斗争全局的方略，是国家战略的组成部分。",
+        judgeFalse: "国防战略与国家战略没有关系。",
+        shortAnswer: "国防战略是筹划和指导国防建设与斗争全局的方略，是国家战略的组成部分。"
+      },
+      {
+        kind: "list",
+        id: "c19_military_nature",
+        source: "提纲 P38",
+        topic: "新时代中国军队使命任务",
+        items: ["为巩固中国共产党领导和社会主义制度提供战略支撑", "为捍卫国家主权、统一、领土完整提供战略支撑", "为维护国家海外利益提供战略支撑", "为促进世界和平与发展提供战略支撑"],
+        wrongs: ["放弃战备训练", "只承担国内治安任务", "以扩张领土为目标"],
+        fillPrompt: "进入新时代，党和人民赋予中国军队的使命任务包括为巩固中国共产党领导和社会主义制度、为捍卫国家主权统一领土完整、为维护国家海外利益、为__________提供战略支撑。",
+        fillAnswers: ["促进世界和平与发展"],
+        shortAnswer: "新时代中国军队的使命任务是为巩固中国共产党领导和社会主义制度、捍卫国家主权统一领土完整、维护国家海外利益、促进世界和平与发展提供战略支撑。"
+      },
+      {
+        kind: "list",
+        id: "c19_force_tasks",
+        source: "提纲 P38-P40",
+        topic: "中国武装力量主要行动任务",
+        items: ["维护国家领土主权和海洋权益", "保持常备不懈的战备状态", "开展实战化军事训练", "维护重大安全领域利益", "遂行反恐维稳", "维护海外权益", "参加抢险救灾"],
+        wrongs: ["放弃战备训练", "只承担国内治安任务", "以扩张领土为目标"],
+        fillPrompt: "中国武装力量主要行动任务包括维护国家领土主权和海洋权益、保持常备不懈的战备状态、开展实战化军事训练、维护重大安全领域利益、遂行反恐维稳、维护海外权益和__________。",
+        fillAnswers: ["参加抢险救灾"],
+        shortAnswer: "中国武装力量主要行动任务包括维护国家领土主权和海洋权益、保持常备不懈的战备状态、开展实战化军事训练、维护重大安全领域利益、遂行反恐维稳、维护海外权益、参加抢险救灾。"
+      },
+      {
+        kind: "list",
+        id: "c20_force_composition",
+        source: "提纲 P40",
+        topic: "中国武装力量组成",
+        items: ["中国人民解放军", "中国人民武装警察部队", "民兵"],
+        wrongs: ["公安机关", "海关总署", "消防救援队"],
+        fillPrompt: "中华人民共和国的武装力量由中国人民解放军、中国人民武装警察部队和__________组成。",
+        fillAnswers: ["民兵"],
+        shortAnswer: "中华人民共和国的武装力量由中国人民解放军、中国人民武装警察部队和民兵组成。"
+      },
+      {
+        kind: "fact",
+        id: "c21_militia",
+        source: "提纲 P46",
+        topic: "中国民兵",
+        fillPrompt: "中国民兵是不脱离生产的__________武装组织，是中华人民共和国武装力量的组成部分，是中国人民解放军的助手和后备力量。",
+        fillAnswers: ["群众性"],
+        judgeTrue: "中国民兵是不脱离生产的群众性武装组织，是中华人民共和国武装力量的组成部分，是中国人民解放军的助手和后备力量。",
+        judgeFalse: "中国民兵是全日制职业军队。",
+        shortAnswer: "中国民兵是不脱离生产的群众性武装组织，是中华人民共和国武装力量的组成部分，是中国人民解放军的助手和后备力量。"
+      },
+      {
+        kind: "fact",
+        id: "c22_mobilization",
+        source: "提纲 P49",
+        topic: "国防动员",
+        fillPrompt: "国防动员是指国家为应对战争或者其他安全威胁，使社会诸领域的全部或者部分由平时状态转入战时状态或者__________的活动。",
+        fillAnswers: ["紧急状态"],
+        judgeTrue: "国防动员是指国家为应对战争或者其他安全威胁，使社会诸领域的全部或者部分由平时状态转入战时状态或者紧急状态的活动。",
+        judgeFalse: "国防动员只在全国进入战争状态后才开始。",
+        shortAnswer: "国防动员是国家为应对战争或者其他安全威胁，使社会诸领域的全部或者部分由平时状态转入战时状态或者紧急状态的活动。"
+      },
+      {
+        kind: "list",
+        id: "c23_mobilization_items",
+        source: "提纲 P51",
+        topic: "国防动员的内容",
+        items: ["武装力量动员", "国民经济动员", "人民防空动员", "交通战备动员", "政治动员"],
+        wrongs: ["体育动员", "旅游动员", "校园动员"],
+        fillPrompt: "国防动员主要包括武装力量动员、国民经济动员、人民防空动员、交通战备动员和__________动员。",
+        fillAnswers: ["政治"],
+        shortAnswer: "国防动员主要包括武装力量动员、国民经济动员、人民防空动员、交通战备动员和政治动员。"
+      },
+      {
+        kind: "fact",
+        id: "c24_peace_mobilization",
+        source: "提纲 P51",
+        topic: "政治动员",
+        fillPrompt: "平时政治动员主要表现为__________；战时政治动员主要包括国内政治动员和外交舆论宣传。",
+        fillAnswers: ["国防教育"],
+        judgeTrue: "平时政治动员主要表现为国防教育；战时政治动员主要包括国内政治动员和外交舆论宣传。",
+        judgeFalse: "平时政治动员主要表现为外交谈判。",
+        shortAnswer: "平时政治动员主要表现为国防教育；战时政治动员主要包括国内政治动员和外交舆论宣传。"
+      },
+      {
+        kind: "list",
+        id: "c25_overall_security",
+        source: "提纲 P63",
+        topic: "总体国家安全观",
+        items: ["一个总体", "十个坚持"],
+        wrongs: ["一个口号", "八个统一", "三个转变"],
+        fillPrompt: "理解总体国家安全观，关键是要深刻把握“__________”和“十个坚持”。",
+        fillAnswers: ["一个总体"],
+        shortAnswer: "理解总体国家安全观，关键是要深刻把握“一个总体”和“十个坚持”；总体国家安全观的关键是“总体”。"
+      },
+      {
+        kind: "list",
+        id: "c26_security_fields",
+        source: "提纲 P80",
+        topic: "新兴领域国家安全",
+        items: ["网络空间安全", "外层空间安全", "国际海底区域安全", "极地安全", "生物安全"],
+        wrongs: ["校园体育安全", "交通秩序安全", "宿舍卫生安全"],
+        fillPrompt: "新兴领域国家安全包括网络空间安全、外层空间安全、国际海底区域安全、极地安全和__________安全。",
+        fillAnswers: ["生物"],
+        shortAnswer: "新兴领域国家安全包括网络空间安全、外层空间安全、国际海底区域安全、极地安全和生物安全。"
+      },
+      {
+        kind: "list",
+        id: "c27_intl_pattern",
+        source: "提纲 P88",
+        topic: "国际战略形势总体表现",
+        items: ["世界多极化进程加快", "经济全球化进程出现波折", "大国战略博弈更加激烈", "全球性问题和挑战空前增多"],
+        wrongs: ["全球一体化已经完成", "所有冲突已经消失", "冷战格局完全复原"],
+        fillPrompt: "国际战略形势的总体表现包括世界多极化进程加快、经济全球化进程出现波折、大国战略博弈更加激烈和__________。",
+        fillAnswers: ["全球性问题和挑战空前增多"],
+        shortAnswer: "国际战略形势的总体表现包括世界多极化进程加快、经济全球化进程出现波折、大国战略博弈更加激烈和全球性问题和挑战空前增多。"
+      },
+      {
+        kind: "list",
+        id: "c28_global_challenge",
+        source: "提纲 P92",
+        topic: "全球性问题和挑战",
+        items: ["恐怖主义威胁不减", "网络犯罪与黑客攻击频发", "难民问题愈演愈烈", "大国在战略军备与军控领域博弈加剧"],
+        wrongs: ["海洋污染已彻底解决", "网络犯罪不再出现", "难民问题已经消失"],
+        fillPrompt: "全球性问题和挑战主要包括恐怖主义威胁不减、网络犯罪与黑客攻击频发、难民问题愈演愈烈和__________。",
+        fillAnswers: ["大国在战略军备与军控领域博弈加剧"],
+        shortAnswer: "全球性问题和挑战主要包括恐怖主义威胁不减、网络犯罪与黑客攻击频发、难民问题愈演愈烈和大国在战略军备与军控领域博弈加剧。"
+      },
+      {
+        kind: "list",
+        id: "c29_military_thought_traits",
+        source: "提纲 P102",
+        topic: "军事思想基本特征",
+        items: ["政治性", "实践性", "时代性", "民族性", "继承性", "创造性"],
+        wrongs: ["商业性", "娱乐性", "偶然性"],
+        fillPrompt: "军事思想的基本特征包括政治性、实践性、时代性、民族性、继承性和__________性。",
+        fillAnswers: ["创造"],
+        shortAnswer: "军事思想的基本特征包括政治性、实践性、时代性、民族性、继承性和创造性。"
+      },
+      {
+        kind: "fact",
+        id: "c30_sunwu",
+        source: "提纲 P102",
+        topic: "《孙子兵法》作者",
+        fillPrompt: "《孙子兵法》的作者是春秋时期伟大军事家__________。",
+        fillAnswers: ["孙武"],
+        judgeTrue: "《孙子兵法》的作者是春秋时期伟大军事家孙武。",
+        judgeFalse: "《孙子兵法》的作者是孙膑。",
+        shortAnswer: "《孙子兵法》的作者是春秋时期伟大军事家孙武。"
+      },
+      {
+        kind: "list",
+        id: "c31_chinese_ancient_thought",
+        source: "提纲 P126",
+        topic: "中国古代军事思想代表作",
+        items: ["《孙子兵法》", "《吴子》", "《司马法》", "《尉缭子》", "《六韬》"],
+        wrongs: ["《战国策》", "《聊斋志异》", "《红楼梦》"],
+        fillPrompt: "中国古代军事思想代表作包括《孙子兵法》、__________、《司马法》、《尉缭子》、《六韬》。",
+        fillAnswers: ["《吴子》"],
+        shortAnswer: "中国古代军事思想代表作包括《孙子兵法》《吴子》《司马法》《尉缭子》《六韬》；其中《孙子兵法》最早、影响最大、流传最广。"
+      },
+      {
+        kind: "list",
+        id: "c32_mao_thought",
+        source: "提纲 P137",
+        topic: "毛泽东军事思想主要内容",
+        items: ["战争观和军事方法论", "人民军队思想", "人民战争思想", "人民战争的战略战术思想", "国防建设思想"],
+        wrongs: ["商业竞争思想", "全球化市场思想", "单纯技术决定论"],
+        fillPrompt: "毛泽东军事思想主要内容包括战争观和军事方法论、人民军队思想、人民战争思想、人民战争的战略战术思想和__________。",
+        fillAnswers: ["国防建设思想"],
+        shortAnswer: "毛泽东军事思想主要内容包括战争观和军事方法论、人民军队思想、人民战争思想、人民战争的战略战术思想和国防建设思想。"
+      },
+      {
+        kind: "fact",
+        id: "c33_new_army_goal",
+        source: "提纲 P177",
+        topic: "新时代强军目标",
+        fillPrompt: "党在新时代的强军目标是建设一支听党指挥、__________、作风优良的人民军队。",
+        fillAnswers: ["能打胜仗"],
+        judgeTrue: "党在新时代的强军目标是建设一支听党指挥、能打胜仗、作风优良的人民军队。",
+        judgeFalse: "党在新时代的强军目标是建设一支规模最大、装备最多的人民军队。",
+        shortAnswer: "党在新时代的强军目标是建设一支听党指挥、能打胜仗、作风优良的人民军队。"
+      },
+      {
+        kind: "fact",
+        id: "c33_modernization_timetable",
+        source: "提纲 P177",
+        topic: "国防和军队现代化时间表",
+        fillPrompt: "到2035年基本实现国防和军队__________，到本世纪中叶把人民军队全面建成世界一流军队。",
+        fillAnswers: ["现代化"],
+        judgeTrue: "到2035年基本实现国防和军队现代化，到本世纪中叶把人民军队全面建成世界一流军队。",
+        judgeFalse: "到2035年全面建成世界一流军队，到本世纪中叶开始国防和军队现代化。",
+        shortAnswer: "到2035年基本实现国防和军队现代化，到本世纪中叶把人民军队全面建成世界一流军队。"
+      },
+      {
+        kind: "list",
+        id: "c34_new_army_goals",
+        source: "提纲 P177",
+        topic: "新时代强军目标内容",
+        items: ["强国必须强军", "确保党对军队绝对领导", "明确军队要准备打仗", "明确作风优良是我军鲜明特色和政治优势", "坚持政治建军、改革强军、科技强军、人才强军、依法治军", "明确改革是强军的必由之路", "明确军民融合发展是兴国之举、强军之策"],
+        wrongs: ["只重技术不重政治", "只重经济不重战备", "只追求规模不追求质量"],
+        fillPrompt: "新时代强军目标包括强国必须强军、确保党对军队绝对领导、明确军队要准备打仗、明确作风优良是我军鲜明特色和政治优势、坚持政治建军改革强军科技强军人才强军依法治军、明确改革是强军的必由之路和__________。",
+        fillAnswers: ["明确军民融合发展是兴国之举、强军之策"],
+        shortAnswer: "新时代强军目标包括强国必须强军、确保党对军队绝对领导、明确军队要准备打仗、明确作风优良是我军鲜明特色和政治优势、坚持政治建军改革强军科技强军人才强军依法治军、明确改革是强军的必由之路、明确军民融合发展是兴国之举强军之策。"
+      },
+      {
+        kind: "fact",
+        id: "c35_war_essence",
+        source: "提纲 P185",
+        topic: "战争的本质",
+        fillPrompt: "从军事层面看，战争的本质是__________、消灭敌人。",
+        fillAnswers: ["保存自己"],
+        judgeTrue: "从军事层面看，战争的本质是保存自己、消灭敌人。",
+        judgeFalse: "从军事层面看，战争的本质是扩大贸易、促进投资。",
+        shortAnswer: "从军事层面看，战争的本质是保存自己、消灭敌人。"
+      },
+      {
+        kind: "list",
+        id: "c36_war_features",
+        source: "提纲 P186",
+        topic: "战争基本特点",
+        items: ["激烈的暴力对抗", "快速地流动变化", "充满盖然性或偶然性"],
+        wrongs: ["永久和平", "绝对静止", "完全透明"],
+        fillPrompt: "战争的基本特点包括激烈的暴力对抗、快速地流动变化和__________。",
+        shortAnswer: "战争的基本特点包括激烈的暴力对抗、快速地流动变化和充满盖然性或偶然性。"
+      },
+      {
+        kind: "fact",
+        id: "c37_new_revolution",
+        source: "提纲 P192",
+        topic: "新军事革命",
+        fillPrompt: "新军事革命是 20 世纪末期以来在世界范围内发生的一场以__________为核心的全面而深刻的军事革命。",
+        fillAnswers: ["信息化"],
+        judgeTrue: "新军事革命是 20 世纪末期以来在世界范围内发生的一场以信息化为核心的全面而深刻的军事革命。",
+        judgeFalse: "新军事革命是以冷兵器复兴为核心的军事革命。",
+        shortAnswer: "新军事革命是 20 世纪末期以来在世界范围内发生的一场以信息化为核心的全面而深刻的军事革命。"
+      },
+      {
+        kind: "list",
+        id: "c38_new_revolution_markers",
+        source: "提纲 P192",
+        topic: "新军事革命主要标志",
+        items: ["信息化武器系统逐渐主宰战场", "知识密集型的信息化军队出现", "一体化联合作战成为基本作战形式", "军事理论及其体系彻底革新", "信息化战争最终取代机械化战争"],
+        wrongs: ["冷兵器重新成为战场主导", "单兵独立作战重新回归", "传统步兵完全退出战场"],
+        fillPrompt: "新军事革命主要标志包括信息化武器系统逐渐主宰战场、知识密集型的信息化军队出现、一体化联合作战成为基本作战形式、军事理论及其体系彻底革新以及__________。",
+        fillAnswers: ["信息化战争最终取代机械化战争"],
+        shortAnswer: "新军事革命主要标志包括信息化武器系统逐渐主宰战场、知识密集型的信息化军队出现、一体化联合作战成为基本作战形式、军事理论及其体系彻底革新以及信息化战争最终取代机械化战争。"
+      },
+      {
+        kind: "list",
+        id: "c39_china_transformation",
+        source: "提纲 P201",
+        topic: "中国特色军事变革主要方面",
+        items: ["发展方向是信息化", "基本目标是建设信息化军队", "基本途径是机械化与信息化复合发展", "发展步骤与国家发展战略相适应", "根本动力是改革创新", "根本保证是坚持中国共产党的绝对领导"],
+        wrongs: ["完全脱离国家发展战略", "只追求机械化不顾信息化", "放弃改革创新"],
+        fillPrompt: "中国特色军事变革的基本目标是建设__________。",
+        fillAnswers: ["信息化军队"],
+        shortAnswer: "中国特色军事变革的发展方向是信息化，基本目标是建设信息化军队，基本途径是机械化与信息化复合发展，发展步骤与国家发展战略相适应，根本动力是改革创新，根本保证是坚持中国共产党的绝对领导。"
+      },
+      {
+        kind: "list",
+        id: "c40_mechanized_features",
+        source: "提纲 P208",
+        topic: "机械化战争基本特征",
+        items: ["机动速度快", "火力毁伤重", "战场范围广", "战争消耗大"],
+        wrongs: ["制信息权成为制高点", "以网络节点为核心", "认知域成为主要战场"],
+        fillPrompt: "机械化战争的基本特征包括机动速度快、火力毁伤重、战场范围广和战争__________大。",
+        fillAnswers: ["消耗"],
+        shortAnswer: "机械化战争的基本特征包括机动速度快、火力毁伤重、战场范围广和战争消耗大。"
+      },
+      {
+        kind: "fact",
+        id: "c41_info_war",
+        source: "提纲 P223",
+        topic: "信息化战争概念",
+        fillPrompt: "依托网络化信息系统，使用信息化武器装备及相应作战方法，在陆海空天和网络电磁等空间及认知领域进行的以体系对抗为主要形式的战争，是信息时代战争的基本__________。",
+        fillAnswers: ["形态"],
+        judgeTrue: "依托网络化信息系统，使用信息化武器装备及相应作战方法，在陆海空天和网络电磁等空间及认知领域进行的以体系对抗为主要形式的战争，是信息时代战争的基本形态。",
+        judgeFalse: "信息化战争就是没有硝烟的和平行动。",
+        shortAnswer: "信息化战争是依托网络化信息系统，使用信息化武器装备及相应作战方法，在陆海空天和网络电磁等空间及认知领域进行的以体系对抗为主要形式的战争，是信息时代战争的基本形态。"
+      },
+      {
+        kind: "list",
+        id: "c42_info_war_features",
+        source: "提纲 P228",
+        topic: "信息化战争基本特征",
+        items: ["信息化武器装备系统成为战场主导", "信息成为战斗力的倍增器", "战场网络化、一体化", "一体化联合作战成为基本作战形式", "制信息权成为争夺的制高点"],
+        wrongs: ["单一军种独立行动成为主流", "战场范围只局限于陆地", "信息化武器装备退出战场"],
+        fillPrompt: "信息化战争的基本特征包括信息化武器装备系统成为战场主导、信息成为战斗力的倍增器、战场网络化和一体化、__________以及制信息权成为争夺的制高点。",
+        fillAnswers: ["一体化联合作战成为基本作战形式"],
+        shortAnswer: "信息化战争的基本特征包括信息化武器装备系统成为战场主导、信息成为战斗力的倍增器、战场网络化和一体化、一体化联合作战成为基本作战形式、制信息权成为争夺的制高点。"
+      },
+      {
+        kind: "list",
+        id: "c43_weapons",
+        source: "提纲 P257",
+        topic: "信息化装备分类",
+        items: ["信息化主战武器系统", "信息系统"],
+        wrongs: ["生活消费系统", "教育管理系统", "民用运输系统"],
+        fillPrompt: "信息化装备按功能可分为信息化主战武器系统和__________两大类。",
+        shortAnswer: "信息化装备按功能可分为信息化主战武器系统和信息系统两大类。"
+      },
+      {
+        kind: "list",
+        id: "c44_platforms",
+        source: "提纲 P263",
+        topic: "信息化作战平台分类",
+        items: ["陆战武器平台", "海战武器平台", "空战武器平台"],
+        wrongs: ["轨道运输平台", "校园演示平台", "民航服务平台"],
+        fillPrompt: "信息化作战平台主要包括__________、__________和__________。",
+        shortAnswer: "信息化作战平台主要包括陆战武器平台、海战武器平台和空战武器平台。"
+      },
+      {
+        kind: "list",
+        id: "c45_air_platform",
+        source: "提纲 P272",
+        topic: "空战武器平台组成",
+        items: ["战斗机", "轰炸机", "电子战飞机", "运输机"],
+        wrongs: ["坦克", "潜艇", "导弹车"],
+        fillPrompt: "空战武器平台主要由__________、__________、__________和运输机组成。",
+        fillAnswers: ["战斗机", "轰炸机", "电子战飞机"],
+        shortAnswer: "空战武器平台主要由战斗机、轰炸机、电子战飞机和运输机组成。"
+      },
+      {
+        kind: "fact",
+        id: "c46_cis",
+        source: "提纲 P276-P288",
+        topic: "指挥信息系统",
+        fillPrompt: "指挥信息系统是以__________网络为核心的军事信息系统。",
+        fillAnswers: ["计算机"],
+        judgeTrue: "指挥信息系统是以计算机网络为核心的军事信息系统。",
+        judgeFalse: "指挥信息系统是以手工通信为核心的军事信息系统。",
+        shortAnswer: "指挥信息系统是以计算机网络为核心的军事信息系统。"
+      },
+      {
+        kind: "list",
+        id: "c47_cis_subsystems",
+        source: "提纲 P276-P288",
+        topic: "指挥信息系统分系统类型",
+        items: ["指挥控制系统", "情报系统", "通信系统", "导航定位系统"],
+        wrongs: ["饮食系统", "娱乐系统", "财务系统"],
+        fillPrompt: "指挥信息系统的主要分系统类型包括指挥控制系统、情报系统、通信系统和__________系统。",
+        fillAnswers: ["导航定位"],
+        shortAnswer: "指挥信息系统的主要分系统类型包括指挥控制系统、情报系统、通信系统和导航定位系统。"
+      },
+      {
+        kind: "list",
+        id: "c48_new_weapon",
+        source: "提纲 P289-P298",
+        topic: "新概念武器种类",
+        items: ["激光技术和激光武器", "微波武器", "粒子束武器", "动能武器", "非致命武器"],
+        wrongs: ["冷兵器", "手工武器", "礼炮武器"],
+        fillPrompt: "新概念武器种类包括激光技术和激光武器、微波武器、粒子束武器、动能武器和__________。",
+        fillAnswers: ["非致命武器"],
+        shortAnswer: "新概念武器种类包括激光技术和激光武器、微波武器、粒子束武器、动能武器和非致命武器。"
+      }
+    ];
+
+    function pushOutlineQuestions(point) {
+      const source = point.source || "军理提纲";
+      if (point.kind === "fact") {
+        return [
+          { id: `${point.id}_fill`, type: "fill", source, prompt: point.fillPrompt, answers: point.fillAnswers },
+          { id: `${point.id}_judge_t`, type: "judge", source, prompt: point.judgeTrue, answer: "对" },
+          { id: `${point.id}_judge_f`, type: "judge", source, prompt: point.judgeFalse, answer: "错" },
+          { id: `${point.id}_short`, type: "short", source, prompt: `简述${point.topic}。`, answer: point.shortAnswer, aliases: [point.shortAnswer] }
+        ];
+      }
+      if (point.kind === "list") {
+        const fillPrompt = point.fillPrompt || `${point.topic}包括__________。`;
+        const blankCount = (fillPrompt.match(/_{3,}/g) || []).length;
+        const fillAnswers = point.fillAnswers || (blankCount ? point.items.slice(0, blankCount) : point.items);
+        const trueText = `${point.topic}包括${point.items.join("、")}。`;
+        const falseText = `${point.topic}包括${(point.wrongs && point.wrongs[0]) || "其他内容"}。`;
+        const choiceOptions = {
+          A: point.items[0],
+          B: (point.wrongs && point.wrongs[0]) || "无关内容一",
+          C: (point.wrongs && point.wrongs[1]) || "无关内容二",
+          D: (point.wrongs && point.wrongs[2]) || "无关内容三"
+        };
+        const questions = [
+          { id: `${point.id}_judge_t`, type: "judge", source, prompt: trueText, answer: "对" },
+          { id: `${point.id}_judge_f`, type: "judge", source, prompt: falseText, answer: "错" },
+          { id: `${point.id}_choice`, type: "choice", source, prompt: `下列属于${point.topic}的是（ ）。`, answer: "A", options: choiceOptions },
+          { id: `${point.id}_short`, type: "short", source, prompt: `简述${point.topic}。`, answer: point.shortAnswer, aliases: [point.shortAnswer] }
+        ];
+        if (!point.noFill && fillPrompt && fillAnswers.length) {
+          questions.unshift({ id: `${point.id}_fill`, type: "fill", source, prompt: fillPrompt, answers: fillAnswers });
+        }
+        return questions;
+      }
+      if (point.kind === "essay") {
+        return [
+          { id: `${point.id}_essay`, type: "essay", source, prompt: `结合提纲内容，论述${point.topic}。`, answer: point.answer, aliases: point.aliases || [] }
+        ];
+      }
+      return [];
+    }
+
+    OUTLINE_POINTS.forEach((point) => {
+      QUESTION_BANK.push(...pushOutlineQuestions(point));
+    });
+
+    const TYPE_LABEL = {
+      all: "全部",
+      fill: "填空",
+      choice: "选择",
+      judge: "判断",
+      short: "简答",
+      essay: "论述",
+      mistakes: "错题"
+    };
+
+    const STORE_KEY = "military-quiz-state-v1";
+    const $ = (id) => document.getElementById(id);
+
+    let state = {
+      filter: "all",
+      order: "sequential",
+      index: 0,
+      input: "",
+      answered: {},
+      mistakes: {}
+    };
+
+    let queue = [];
+
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORE_KEY) || "{}");
+        state = { ...state, ...saved };
+      } catch (_) {
+        saveState();
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORE_KEY, JSON.stringify(state));
+    }
+
+    function shuffle(items) {
+      const copy = [...items];
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function buildQueue(keepCurrentId) {
+      let items = QUESTION_BANK;
+      if (state.filter === "mistakes") {
+        items = QUESTION_BANK.filter((q) => state.mistakes[q.id]);
+      } else if (state.filter !== "all") {
+        items = QUESTION_BANK.filter((q) => q.type === state.filter);
+      }
+      queue = state.order === "random" ? shuffle(items) : [...items];
+      if (keepCurrentId) {
+        const found = queue.findIndex((q) => q.id === keepCurrentId);
+        state.index = found >= 0 ? found : 0;
+      } else if (state.index >= queue.length) {
+        state.index = 0;
+      }
+    }
+
+    function normalizeExact(text) {
+      return String(text || "")
+        .trim()
+        .toLowerCase()
+        .replace(/[，。、“”‘’；;：:,.!?！？（）()\[\]【】《》<>]/g, "")
+        .replace(/\s+/g, "");
+    }
+
+    function normalizeSimilarity(text) {
+      return normalizeExact(text).replace(/[的地得]/g, "");
+    }
+
+    function splitFill(text) {
+      return String(text || "")
+        .trim()
+        .split(/[\s,，;；、/|]+/)
+        .filter(Boolean);
+    }
+
+    function answerText(q) {
+      if (q.type === "fill") return q.answers.join(" ");
+      return q.answer;
+    }
+
+    function levenshtein(a, b) {
+      if (a === b) return 0;
+      if (!a.length) return b.length;
+      if (!b.length) return a.length;
+      let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+      let curr = new Array(b.length + 1);
+      for (let i = 1; i <= a.length; i += 1) {
+        curr[0] = i;
+        for (let j = 1; j <= b.length; j += 1) {
+          const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+          curr[j] = Math.min(curr[j - 1] + 1, prev[j] + 1, prev[j - 1] + cost);
+        }
+        [prev, curr] = [curr, prev];
+      }
+      return prev[b.length];
+    }
+
+    function similarity(user, refs) {
+      const source = normalizeSimilarity(user);
+      if (!source) return 0;
+      return refs.reduce((best, ref) => {
+        const target = normalizeSimilarity(ref);
+        const distance = levenshtein(source, target);
+        const score = 1 - distance / Math.max(source.length, target.length, 1);
+        return Math.max(best, score);
+      }, 0);
+    }
+
+    function grade(q, value) {
+      if (q.type === "choice" || q.type === "judge") {
+        return { correct: value === q.answer, detail: "" };
+      }
+      if (q.type === "fill") {
+        const parts = splitFill(value);
+        const byParts = parts.length === q.answers.length && q.answers.every((ans, i) => normalizeExact(ans) === normalizeExact(parts[i]));
+        const byWhole = normalizeExact(value) === q.answers.map(normalizeExact).join("");
+        const correct = byParts || byWhole;
+        return { correct, detail: "" };
+      }
+      const score = similarity(value, [q.answer, ...(q.aliases || [])]);
+      return { correct: score >= 0.85, detail: `相似度 ${Math.round(score * 100)}%` };
+    }
+
+    function markAnswered(q, value, result) {
+      state.answered[q.id] = { value, correct: result.correct, at: Date.now(), detail: result.detail || "" };
+      if (result.correct) {
+        delete state.mistakes[q.id];
+      } else {
+        state.mistakes[q.id] = true;
+      }
+      saveState();
+    }
+
+    function setFeedback(result, q) {
+      const feedback = $("feedback");
+      feedback.className = `feedback ${result.correct ? "good" : "bad"}`;
+      feedback.innerHTML = `${result.correct ? "判定正确" : "判定错误"}${result.detail ? "，" + result.detail : ""}<span class="answer">参考答案：${escapeHtml(answerText(q))}</span>`;
+    }
+
+    function escapeHtml(text) {
+      return String(text).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[ch]));
+    }
+
+    function currentQuestion() {
+      return queue[state.index] || null;
+    }
+
+    function renderTabs() {
+      const types = ["all", "fill", "choice", "judge", "short", "essay"];
+      $("typeTabs").innerHTML = types.map((type) => {
+        const count = type === "all" ? QUESTION_BANK.length : QUESTION_BANK.filter((q) => q.type === type).length;
+        return `<button class="tab ${state.filter === type ? "active" : ""}" type="button" data-type="${type}">${TYPE_LABEL[type]} ${count}</button>`;
+      }).join("");
+    }
+
+    function renderQuestion() {
+      buildQueue(currentQuestion()?.id);
+      renderTabs();
+      document.querySelectorAll("[data-order]").forEach((btn) => btn.classList.toggle("active", btn.dataset.order === state.order));
+
+      const q = currentQuestion();
+      if (!q) {
+        $("typeBadge").textContent = TYPE_LABEL[state.filter] || "题库";
+        $("sourceBadge").textContent = "无题目";
+        $("counter").textContent = "0 / 0";
+        $("prompt").textContent = state.filter === "mistakes" ? "错题本是空的。" : "当前分类没有题目。";
+        $("answerArea").innerHTML = "";
+        $("feedback").className = "feedback";
+        $("feedback").textContent = "换一个分类继续刷。";
+        $("checkBtn").disabled = true;
+        renderStats();
+        return;
+      }
+
+      $("checkBtn").disabled = q.type === "choice" || q.type === "judge";
+      $("typeBadge").textContent = TYPE_LABEL[q.type];
+      $("sourceBadge").textContent = q.source;
+      $("counter").textContent = `${state.index + 1} / ${queue.length}`;
+      $("prompt").textContent = q.prompt;
+
+      const saved = state.answered[q.id];
+      $("feedback").className = "feedback";
+      $("feedback").textContent = "作答后自动记录进度。";
+
+      if (q.type === "choice") {
+        $("answerArea").innerHTML = `<div class="options">${Object.entries(q.options).map(([letter, text]) => {
+          const cls = saved ? (letter === q.answer ? " correct" : saved.value === letter ? " wrong" : "") : "";
+          return `<button class="option-btn${cls}" type="button" data-choice="${letter}"><span class="letter">${letter}</span><span>${escapeHtml(text)}</span></button>`;
+        }).join("")}</div>`;
+      } else if (q.type === "judge") {
+        $("answerArea").innerHTML = `<div class="options">${["对", "错"].map((text) => {
+          const cls = saved ? (text === q.answer ? " correct" : saved.value === text ? " wrong" : "") : "";
+          return `<button class="option-btn${cls}" type="button" data-choice="${text}"><span class="letter">${text}</span><span>${text}</span></button>`;
+        }).join("")}</div>`;
+      } else if (q.type === "fill") {
+        $("answerArea").innerHTML = `<input class="answer-box" id="answerInput" autocomplete="off" placeholder="多个空用空格分隔" value="${escapeHtml(saved?.value || "")}">`;
+      } else {
+        $("answerArea").innerHTML = `<textarea class="answer-box" id="answerInput" placeholder="在这里作答">${escapeHtml(saved?.value || "")}</textarea>`;
+      }
+
+      if (saved) {
+        setFeedback({ correct: saved.correct, detail: saved.detail }, q);
+      }
+      renderStats();
+    }
+
+    function renderStats() {
+      const relevantIds = new Set(queue.map((q) => q.id));
+      const answered = Object.entries(state.answered).filter(([id]) => relevantIds.has(id));
+      const correct = answered.filter(([, item]) => item.correct).length;
+      const mistakes = QUESTION_BANK.filter((q) => state.mistakes[q.id]);
+      $("doneCount").textContent = answered.length;
+      $("rightRate").textContent = answered.length ? `${Math.round((correct / answered.length) * 100)}%` : "0%";
+      $("totalCount").textContent = queue.length;
+      $("mistakeCount").textContent = mistakes.length;
+      $("progressBar").style.width = queue.length ? `${Math.round((answered.length / queue.length) * 100)}%` : "0%";
+      $("mistakes").innerHTML = mistakes.length ? mistakes.map((q) => `<button class="mistake-btn" type="button" data-goto="${q.id}">${TYPE_LABEL[q.type]}：${escapeHtml(q.prompt)}</button>`).join("") : `<p class="empty">暂时没有错题。</p>`;
+      $("mistakeModeBtn").classList.toggle("active", state.filter === "mistakes");
+    }
+
+    function submitValue(value) {
+      const q = currentQuestion();
+      if (!q) return;
+      const result = grade(q, value);
+      markAnswered(q, value, result);
+      renderQuestion();
+    }
+
+    function move(delta) {
+      if (!queue.length) return;
+      state.index = (state.index + delta + queue.length) % queue.length;
+      saveState();
+      renderQuestion();
+    }
+
+    function gotoQuestion(id) {
+      const q = QUESTION_BANK.find((item) => item.id === id);
+      if (!q) return;
+      state.filter = state.mistakes[id] ? "mistakes" : q.type;
+      buildQueue(id);
+      saveState();
+      renderQuestion();
+    }
+
+    document.addEventListener("click", (event) => {
+      const typeButton = event.target.closest("[data-type]");
+      if (typeButton) {
+        state.filter = typeButton.dataset.type;
+        state.index = 0;
+        saveState();
+        renderQuestion();
+        return;
+      }
+
+      const orderButton = event.target.closest("[data-order]");
+      if (orderButton) {
+        state.order = orderButton.dataset.order;
+        state.index = 0;
+        saveState();
+        renderQuestion();
+        return;
+      }
+
+      const choiceButton = event.target.closest("[data-choice]");
+      if (choiceButton) {
+        submitValue(choiceButton.dataset.choice);
+        return;
+      }
+
+      const mistakeButton = event.target.closest("[data-goto]");
+      if (mistakeButton) {
+        gotoQuestion(mistakeButton.dataset.goto);
+      }
+    });
+
+    $("checkBtn").addEventListener("click", () => {
+      const input = $("answerInput");
+      submitValue(input ? input.value : "");
+    });
+
+    $("answerBtn").addEventListener("click", () => {
+      const q = currentQuestion();
+      if (!q) return;
+      $("feedback").className = "feedback";
+      $("feedback").innerHTML = `<span class="answer">参考答案：${escapeHtml(answerText(q))}</span>`;
+    });
+
+    $("prevBtn").addEventListener("click", () => move(-1));
+    $("nextBtn").addEventListener("click", () => move(1));
+
+    $("resetBtn").addEventListener("click", () => {
+      if (!confirm("清空当前刷题记录？")) return;
+      state.answered = {};
+      state.mistakes = {};
+      state.index = 0;
+      saveState();
+      renderQuestion();
+    });
+
+    $("mistakeModeBtn").addEventListener("click", () => {
+      state.filter = state.filter === "mistakes" ? "all" : "mistakes";
+      state.index = 0;
+      saveState();
+      renderQuestion();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+        const input = $("answerInput");
+        if (input) submitValue(input.value);
+      }
+    });
+
+    loadState();
+    buildQueue();
+    renderQuestion();
+  </script>
+</body>
+</html>
