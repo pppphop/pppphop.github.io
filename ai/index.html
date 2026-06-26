@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 对话</title>
+  <style>
+    :root {
+      --bg: #edf2f7;
+      --panel: rgba(255, 255, 255, 0.74);
+      --panel-strong: rgba(255, 255, 255, 0.92);
+      --line: rgba(148, 163, 184, 0.34);
+      --ink: #1f2937;
+      --muted: #64748b;
+      --accent: #2f6f73;
+      --accent-soft: rgba(47, 111, 115, 0.12);
+      --danger: #b42318;
+      --shadow: 0 24px 70px rgba(31, 41, 55, 0.13);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(47, 111, 115, 0.13) 0, rgba(47, 111, 115, 0) 34%),
+        linear-gradient(225deg, rgba(93, 107, 145, 0.12) 0, rgba(93, 107, 145, 0) 36%),
+        linear-gradient(180deg, #f3f7f8 0, var(--bg) 52%, #e7edf3 100%);
+      letter-spacing: 0;
+    }
+
+    button, textarea { font: inherit; }
+    button { border: 0; cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+
+    .app {
+      width: min(1080px, calc(100% - 28px));
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 26px 0;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 16px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 44px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .home-link,
+    .plain-btn,
+    .primary-btn,
+    .mode-btn {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--ink);
+      backdrop-filter: blur(14px);
+    }
+
+    .primary-btn {
+      background: rgba(31, 41, 55, 0.94);
+      color: #fff;
+      border-color: rgba(31, 41, 55, 0.94);
+    }
+
+    .mode-btn.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: rgba(47, 111, 115, 0.3);
+      font-weight: 700;
+    }
+
+    .chat-shell {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+
+    .sidebar {
+      padding: 18px;
+      border-right: 1px solid var(--line);
+      background: rgba(248, 250, 252, 0.56);
+    }
+
+    .side-title {
+      margin: 0 0 10px;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .modes {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .hint {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .chat-main {
+      min-width: 0;
+      min-height: 640px;
+      display: grid;
+      grid-template-rows: 1fr auto;
+    }
+
+    .messages {
+      min-height: 0;
+      padding: 22px;
+      overflow-y: auto;
+    }
+
+    .message {
+      max-width: 82%;
+      margin: 0 0 14px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-strong);
+      line-height: 1.75;
+      white-space: pre-wrap;
+    }
+
+    .message.user {
+      margin-left: auto;
+      background: rgba(47, 111, 115, 0.1);
+      border-color: rgba(47, 111, 115, 0.24);
+    }
+
+    .message.error {
+      color: var(--danger);
+      border-color: rgba(180, 35, 24, 0.3);
+      background: rgba(255, 241, 242, 0.9);
+    }
+
+    .composer {
+      padding: 14px;
+      border-top: 1px solid var(--line);
+      background: rgba(248, 250, 252, 0.62);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 96px;
+      resize: vertical;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(148, 163, 184, 0.44);
+      background: #fff;
+      color: var(--ink);
+      line-height: 1.7;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(47, 111, 115, 0.12);
+    }
+
+    .composer-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .status {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 820px) {
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .chat-shell { grid-template-columns: 1fr; }
+      .sidebar { border-right: 0; border-bottom: 1px solid var(--line); }
+      .modes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .message { max-width: 100%; }
+      .chat-main { min-height: 560px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <h1>AI 对话</h1>
+        <p class="subtitle">复习时直接问，也可以让它解释错题、整理提纲、模拟追问。</p>
+      </div>
+      <a class="home-link" href="/quiz/">返回刷题中心</a>
+    </header>
+
+    <section class="chat-shell">
+      <aside class="sidebar">
+        <p class="side-title">对话模式</p>
+        <div class="modes" id="modes">
+          <button class="mode-btn active" type="button" data-mode="study">学习答疑</button>
+          <button class="mode-btn" type="button" data-mode="quiz">刷题陪练</button>
+          <button class="mode-btn" type="button" data-mode="general">普通对话</button>
+        </div>
+        <p class="hint">它不会自动读取你所有博客内容。涉及具体题目时，把题干、你的答案或参考答案一起贴进来，效果会更稳。</p>
+      </aside>
+
+      <section class="chat-main">
+        <div class="messages" id="messages"></div>
+        <form class="composer" id="chatForm">
+          <textarea id="chatInput" placeholder="输入问题。Ctrl + Enter 发送，例如：帮我把这道军理简答题按要点批改一下。"></textarea>
+          <div class="composer-actions">
+            <span class="status" id="status">对话记录保存在当前浏览器。</span>
+            <div>
+              <button class="plain-btn" type="button" id="clearBtn">清空</button>
+              <button class="primary-btn" type="submit" id="sendBtn">发送</button>
+            </div>
+          </div>
+        </form>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const AI_CHAT_URL = "https://quiz-ai-grader.washerockey.workers.dev/";
+    const STORE_KEY = "quiz-ai-chat-state-v1";
+    const MODE_PROMPTS = {
+      study: "你是用户博客里的学习助手。回答要适合大学生复习，简洁、准确、分点清楚。遇到课程知识点，优先帮助用户理解、背诵和辨析易错点。",
+      quiz: "你是刷题陪练老师。请围绕题干、学生答案、参考答案做讲解，可以追问、改写答案、指出漏点。不要无根据编造考试范围。",
+      general: "你是一个可靠、友好的中文 AI 助手。回答自然、清晰，必要时给出可执行步骤。"
+    };
+
+    const state = loadState();
+    const messages = document.getElementById("messages");
+    const input = document.getElementById("chatInput");
+    const statusEl = document.getElementById("status");
+    const sendBtn = document.getElementById("sendBtn");
+
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORE_KEY) || "{}");
+        return {
+          mode: saved.mode || "study",
+          messages: Array.isArray(saved.messages) ? saved.messages.slice(-30) : [
+            { role: "assistant", content: "可以开始问我。比如贴一道题，让我帮你看要点、改成标准答案，或者让它变成更好背的版本。" }
+          ]
+        };
+      } catch (_) {
+        return { mode: "study", messages: [] };
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORE_KEY, JSON.stringify({
+        mode: state.mode,
+        messages: state.messages.slice(-30)
+      }));
+    }
+
+    function html(text) {
+      return String(text || "").replace(/[&<>"']/g, (ch) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      }[ch]));
+    }
+
+    function render() {
+      document.querySelectorAll(".mode-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.mode === state.mode);
+      });
+      messages.innerHTML = state.messages.map((item) =>
+        `<div class="message ${item.role === "user" ? "user" : item.error ? "error" : "assistant"}">${html(item.content)}</div>`
+      ).join("");
+      messages.scrollTop = messages.scrollHeight;
+      saveState();
+    }
+
+    function summarizeApiError(status, data) {
+      const detail = data?.detail || data;
+      const message = detail?.error?.message || detail?.error || detail?.message || data?.error || "";
+      return `AI 对话失败${status ? " " + status : ""}${message ? "：" + message : ""}`;
+    }
+
+    async function sendMessage(text) {
+      state.messages.push({ role: "user", content: text });
+      render();
+      statusEl.textContent = "AI 正在回复...";
+      sendBtn.disabled = true;
+
+      try {
+        const response = await fetch(AI_CHAT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            mode: "chat",
+            system: MODE_PROMPTS[state.mode],
+            messages: state.messages.filter((item) => item.role === "user" || item.role === "assistant").slice(-12)
+          })
+        });
+        const data = await response.json().catch(() => null);
+        if (!response.ok) throw new Error(summarizeApiError(data?.status || response.status, data));
+        const content = data?.reply || data?.result || data?.content || "AI 没有返回内容。";
+        state.messages.push({ role: "assistant", content });
+        statusEl.textContent = "回复完成。";
+      } catch (error) {
+        state.messages.push({ role: "assistant", error: true, content: error.message || String(error) });
+        statusEl.textContent = "对话失败，请检查 Worker 是否已升级为双模式。";
+      } finally {
+        sendBtn.disabled = false;
+        render();
+      }
+    }
+
+    document.getElementById("modes").addEventListener("click", (event) => {
+      const btn = event.target.closest(".mode-btn");
+      if (!btn) return;
+      state.mode = btn.dataset.mode;
+      render();
+    });
+
+    document.getElementById("chatForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = "";
+      sendMessage(text);
+    });
+
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+        event.preventDefault();
+        document.getElementById("chatForm").requestSubmit();
+      }
+    });
+
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      if (!confirm("清空当前 AI 对话记录？")) return;
+      state.messages = [{ role: "assistant", content: "对话已清空。继续问吧。" }];
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>
