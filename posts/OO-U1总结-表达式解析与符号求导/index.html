@@ -1,0 +1,1537 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pppphop">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本单元题面第一次作业题面 第二次作业题面 第三次作业题面  OO U1总结：从单变量解析到多元符号求导的架构演进本单元的核心任务是实现一个表达式解析与化简程序。历经三次迭代，需求从最初的单变量括号展开，逐步升级为支持嵌套指数函数、自定义函数调用、选择式因子，最终扩展至双变量及符号求偏导。这一过程不仅是对 Java 语法的熟悉，更是对面向对象设计思想的深度实践。 一、 程序结构与基于度量的分析在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OO U1总结：表达式解析与符号求导">
+<meta property="og:url" content="http://example.com/posts/OO-U1%E6%80%BB%E7%BB%93-%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%A7%A3%E6%9E%90%E4%B8%8E%E7%AC%A6%E5%8F%B7%E6%B1%82%E5%AF%BC/index.html">
+<meta property="og:site_name" content="zhp的博客">
+<meta property="og:description" content="本单元题面第一次作业题面 第二次作业题面 第三次作业题面  OO U1总结：从单变量解析到多元符号求导的架构演进本单元的核心任务是实现一个表达式解析与化简程序。历经三次迭代，需求从最初的单变量括号展开，逐步升级为支持嵌套指数函数、自定义函数调用、选择式因子，最终扩展至双变量及符号求偏导。这一过程不仅是对 Java 语法的熟悉，更是对面向对象设计思想的深度实践。 一、 程序结构与基于度量的分析在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/posts/OO-U1%E6%80%BB%E7%BB%93-%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%A7%A3%E6%9E%90%E4%B8%8E%E7%AC%A6%E5%8F%B7%E6%B1%82%E5%AF%BC/U1.drawio.png">
+<meta property="article:published_time" content="2026-04-02T12:00:00.000Z">
+<meta property="article:modified_time" content="2026-06-27T05:34:25.232Z">
+<meta property="article:author" content="pppphop">
+<meta property="article:tag" content="OO">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/posts/OO-U1%E6%80%BB%E7%BB%93-%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%A7%A3%E6%9E%90%E4%B8%8E%E7%AC%A6%E5%8F%B7%E6%B1%82%E5%AF%BC/U1.drawio.png">
+  
+  
+  
+  <title>OO U1总结：表达式解析与符号求导 - zhp的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/blog-polish.css?v=20260627-oo-gap.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zhp的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              
+              <a class="nav-link dropdown-parent-link" target="_self" href="/quiz/" role="button"
+                  aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>刷题</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/military/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>军理刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ethics/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>思修刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/os/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>OS刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/history/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>史纲刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ai/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>AI 对话</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="OO U1总结：表达式解析与符号求导"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-02 20:00" pubdate>
+          2026年4月2日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          63 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">OO U1总结：表达式解析与符号求导</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <div class="oo-unit-topic-spacer"></div>
+
+<h2 id="本单元题面"><a href="#本单元题面" class="headerlink" title="本单元题面"></a>本单元题面</h2><a class="btn" href="/files/面向对象设计与构造第一次作业.html"  title="fas fa-file-alt" target="_blank">第一次作业题面</a>
+<a class="btn" href="/files/面向对象设计与构造第二次作业.html"  title="fas fa-file-alt" target="_blank">第二次作业题面</a>
+<a class="btn" href="/files/面向对象设计与构造第三次作业.html"  title="fas fa-file-alt" target="_blank">第三次作业题面</a>
+<hr>
+<h1 id="OO-U1总结：从单变量解析到多元符号求导的架构演进"><a href="#OO-U1总结：从单变量解析到多元符号求导的架构演进" class="headerlink" title="OO U1总结：从单变量解析到多元符号求导的架构演进"></a>OO U1总结：从单变量解析到多元符号求导的架构演进</h1><p>本单元的核心任务是实现一个表达式解析与化简程序。历经三次迭代，需求从最初的单变量括号展开，逐步升级为支持嵌套指数函数、自定义函数调用、选择式因子，最终扩展至双变量及符号求偏导。这一过程不仅是对 Java 语法的熟悉，更是对面向对象设计思想的深度实践。</p>
+<h2 id="一、-程序结构与基于度量的分析"><a href="#一、-程序结构与基于度量的分析" class="headerlink" title="一、 程序结构与基于度量的分析"></a>一、 程序结构与基于度量的分析</h2><p>在本单元的最终代码中，我采用了典型的递归下降与抽象语法树（AST）相结合的架构。</p>
+<h2 id="1-代码规模与经典-OO-度量分析"><a href="#1-代码规模与经典-OO-度量分析" class="headerlink" title="1. 代码规模与经典 OO 度量分析"></a>1. 代码规模与经典 OO 度量分析</h2><p>基于最终的作业代码，我使用Metrics插件对核心类进行了分析：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>类</th>
+<th>OCavg</th>
+<th>OCmax</th>
+<th>WMC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DerivationFactor</td>
+<td>2.5</td>
+<td>4.0</td>
+<td>5.0</td>
+</tr>
+<tr>
+<td>ExpFactor</td>
+<td>1.5</td>
+<td>2.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Expr</td>
+<td>1.5</td>
+<td>3.0</td>
+<td>6.0</td>
+</tr>
+<tr>
+<td>FuncFactor</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>Lexer</td>
+<td>4.0</td>
+<td>10.0</td>
+<td>12.0</td>
+</tr>
+<tr>
+<td>MainClass</td>
+<td>2.5</td>
+<td>5.0</td>
+<td>15.0</td>
+</tr>
+<tr>
+<td>Mono</td>
+<td>2.857142857142857</td>
+<td>11.0</td>
+<td>20.0</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>Parser</td>
+<td>3.111111111111111</td>
+<td>7.0</td>
+<td>28.0</td>
+</tr>
+<tr>
+<td>Poly</td>
+<td>3.9375</td>
+<td>8.0</td>
+<td>63.0</td>
+</tr>
+<tr>
+<td>SelectFactor</td>
+<td>1.5</td>
+<td>2.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Term</td>
+<td>1.5</td>
+<td>3.0</td>
+<td>6.0</td>
+</tr>
+<tr>
+<td>Variable</td>
+<td>2.0</td>
+<td>3.0</td>
+<td>4.0</td>
+</tr>
+<tr>
+<td>Total</td>
+<td></td>
+<td></td>
+<td>169.0</td>
+</tr>
+<tr>
+<td>Average</td>
+<td>2.7704918032786887</td>
+<td>4.615384615384615</td>
+<td>13.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>类名</strong></th>
+<th><strong>属性数</strong></th>
+<th><strong>方法数</strong></th>
+<th><strong>平均方法规模(LOC)</strong></th>
+<th><strong>核心方法圈复杂度(CC)</strong></th>
+<th><strong>类总代码规模(LOC)</strong></th>
+<th><strong>耦合度</strong></th>
+<th><strong>内聚度</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Lexer</code></td>
+<td>3</td>
+<td>3</td>
+<td>15</td>
+<td><code>next</code>: 8</td>
+<td>~60</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td><code>Parser</code></td>
+<td>2</td>
+<td>8</td>
+<td>15</td>
+<td><code>parseFactor</code>: 10</td>
+<td>~140</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td><code>Poly</code></td>
+<td>1</td>
+<td>11</td>
+<td>20</td>
+<td><code>substitute</code>: 6, <code>mul</code>: 4</td>
+<td>~180</td>
+<td>高</td>
+<td>中</td>
+</tr>
+<tr>
+<td><code>Mono</code></td>
+<td>3</td>
+<td>5</td>
+<td>12</td>
+<td><code>toString</code>: 8</td>
+<td>~90</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td><code>Expr</code> / <code>Term</code></td>
+<td>2</td>
+<td>4</td>
+<td>8</td>
+<td><code>toPoly</code>: 2</td>
+<td>~40</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td><code>SelectFactor</code>等</td>
+<td>2~4</td>
+<td>2</td>
+<td>6</td>
+<td><code>toPoly</code>: 2</td>
+<td>~30</td>
+<td>低</td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>OCavg</strong>：类中所有方法的平均圈复杂度（Average Operation Complexity），反映该类内部各个方法的平均逻辑分支复杂程度。 </p>
+<p><strong>OCmax</strong>：类中所有方法的最大圈复杂度（Maximum Operation Complexity），代表该类中最复杂、最难维护的那个方法的复杂度。</p>
+<p> <strong>WMC</strong>：类的总加权方法复杂度（Weighted Methods per Class），通常是类中所有方法圈复杂度之和，用于衡量一个类的整体规模和复杂性。</p>
+<p><strong>内聚与耦合情况点评：</strong></p>
+<ul>
+<li><p><strong>高内聚低耦合：</strong> <code>Expr</code>, <code>Term</code> 以及 <code>Factor</code> 接口的众多实现类（如 <code>ExpFactor</code>, <code>DerivationFactor</code>, <code>SelectFactor</code> 等）具有极高的内聚度。它们只负责保存自身的语法结构，并对外提供统一的 <code>toPoly()</code> 接口。它们相互之间通过接口耦合，符合依赖倒置原则。比如 <code>SelectFactor</code> 的条件判断直接复用了 <code>pa.sub(pb).isEmpty()</code>，非常优雅。</p>
+</li>
+<li><p><strong>复杂度与耦合的集中点（<code>Poly</code> 与 <code>Parser</code>）：</strong> <code>Parser</code> 集中了所有的语法规则解析逻辑，随着文法增加，<code>parseFactor</code> 的 <code>if-else</code> 分支逐渐增多，圈复杂度不可避免地上升。</p>
+<p><code>Poly</code> 是计算核心，负责多项式的加减乘、代入（<code>substitute</code>）以及 GCD 提取。它与 <code>Mono</code> 存在强耦合，承担了较重的计算逻辑。</p>
+</li>
+</ul>
+<h2 id="2-架构类图与设计考虑"><a href="#2-架构类图与设计考虑" class="headerlink" title="2. 架构类图与设计考虑"></a>2. 架构类图与设计考虑</h2><p>架构图如下，文字解释见本节最后</p>
+<img src="/posts/OO-U1%E6%80%BB%E7%BB%93-%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%A7%A3%E6%9E%90%E4%B8%8E%E7%AC%A6%E5%8F%B7%E6%B1%82%E5%AF%BC/U1.drawio.png" srcset="/img/loading.gif" lazyload class="" title="U1.drawio">
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>CogC</th>
+<th>ev(G)</th>
+<th>iv(G)</th>
+<th>v(G)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DerivationFactor.DerivationFactor(String, Factor)</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>ExpFactor.ExpFactor(Factor, BigInteger)</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Expr.Expr()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Expr.addTerm(Term)</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Expr.setExponent(BigInteger)</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>FuncFactor.FuncFactor(Factor, Poly)</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>FuncFactor.toPoly()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Lexer.Lexer(String)</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Lexer.peek()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>MainClass.parseNormalFunc(String, Map)</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>MainClass.preprocess(String)</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Mono.Mono(BigInteger, BigInteger, Poly)</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Mono.getExpPoly()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Mono.getExpX()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Mono.getExpY()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Number.Number(BigInteger)</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Number.toPoly()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Parser.Parser(Lexer, Map)</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Parser.parseDerivationFactor()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Parser.parseSelectFactor()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Poly.Poly()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Poly.hashCode()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Poly.isEmpty()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>SelectFactor.SelectFactor(Factor, Factor, Factor, Factor)</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Term.Term()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Term.addFactor(Factor)</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Term.setNegative()</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Variable.Variable(String, BigInteger)</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>ExpFactor.toPoly()</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>2.0</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>MainClass.collapseSigns(String)</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>MainClass.generateRecurSequence(String, Map)</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>Mono.hashCode()</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>Parser.parseFuncFactor()</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>Parser.parseTerm()</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>Poly.divide(BigInteger)</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>SelectFactor.toPoly()</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>2.0</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>Expr.toPoly()</td>
+<td>2.0</td>
+<td>2.0</td>
+<td>3.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Poly.add(Poly)</td>
+<td>2.0</td>
+<td>1.0</td>
+<td>3.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Poly.equals(Object)</td>
+<td>2.0</td>
+<td>3.0</td>
+<td>1.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Variable.toPoly()</td>
+<td>2.0</td>
+<td>1.0</td>
+<td>3.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>DerivationFactor.toPoly()</td>
+<td>3.0</td>
+<td>4.0</td>
+<td>4.0</td>
+<td>4.0</td>
+</tr>
+<tr>
+<td>MainClass.main(String[])</td>
+<td>3.0</td>
+<td>2.0</td>
+<td>3.0</td>
+<td>4.0</td>
+</tr>
+<tr>
+<td>Mono.equals(Object)</td>
+<td>3.0</td>
+<td>3.0</td>
+<td>3.0</td>
+<td>5.0</td>
+</tr>
+<tr>
+<td>Parser.parseNumber()</td>
+<td>3.0</td>
+<td>1.0</td>
+<td>4.0</td>
+<td>4.0</td>
+</tr>
+<tr>
+<td>Parser.parseOptExp()</td>
+<td>3.0</td>
+<td>2.0</td>
+<td>3.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Poly.addTerm(Mono, BigInteger)</td>
+<td>3.0</td>
+<td>2.0</td>
+<td>2.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>Poly.sub(Poly)</td>
+<td>3.0</td>
+<td>2.0</td>
+<td>3.0</td>
+<td>4.0</td>
+</tr>
+<tr>
+<td>Term.toPoly()</td>
+<td>3.0</td>
+<td>3.0</td>
+<td>2.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>MainClass.parseRecurFunc(String, String, String, Map)</td>
+<td>5.0</td>
+<td>1.0</td>
+<td>4.0</td>
+<td>5.0</td>
+</tr>
+<tr>
+<td>Poly.mul(Poly)</td>
+<td>5.0</td>
+<td>2.0</td>
+<td>4.0</td>
+<td>5.0</td>
+</tr>
+<tr>
+<td>Poly.pow(BigInteger)</td>
+<td>6.0</td>
+<td>2.0</td>
+<td>4.0</td>
+<td>5.0</td>
+</tr>
+<tr>
+<td>Poly.getgcd()</td>
+<td>7.0</td>
+<td>2.0</td>
+<td>4.0</td>
+<td>6.0</td>
+</tr>
+<tr>
+<td>Poly.substitute(Poly)</td>
+<td>7.0</td>
+<td>1.0</td>
+<td>5.0</td>
+<td>5.0</td>
+</tr>
+<tr>
+<td>Poly.toString()</td>
+<td>8.0</td>
+<td>6.0</td>
+<td>5.0</td>
+<td>7.0</td>
+</tr>
+<tr>
+<td>Parser.parseExpr()</td>
+<td>9.0</td>
+<td>1.0</td>
+<td>7.0</td>
+<td>8.0</td>
+</tr>
+<tr>
+<td>Poly.formatTerm(BigInteger, Mono, boolean)</td>
+<td>9.0</td>
+<td>1.0</td>
+<td>7.0</td>
+<td>7.0</td>
+</tr>
+<tr>
+<td>Parser.parseFactor()</td>
+<td>10.0</td>
+<td>7.0</td>
+<td>10.0</td>
+<td>10.0</td>
+</tr>
+<tr>
+<td>Poly.derive(String)</td>
+<td>11.0</td>
+<td>1.0</td>
+<td>8.0</td>
+<td>8.0</td>
+</tr>
+<tr>
+<td>Lexer.next()</td>
+<td>13.0</td>
+<td>2.0</td>
+<td>9.0</td>
+<td>13.0</td>
+</tr>
+<tr>
+<td>Mono.toString()</td>
+<td>18.0</td>
+<td>2.0</td>
+<td>9.0</td>
+<td>12.0</td>
+</tr>
+<tr>
+<td>Poly.toFactorString()</td>
+<td>19.0</td>
+<td>8.0</td>
+<td>7.0</td>
+<td>16.0</td>
+</tr>
+<tr>
+<td>Total</td>
+<td>167.0</td>
+<td>100.0</td>
+<td>161.0</td>
+<td>193.0</td>
+</tr>
+<tr>
+<td>Average</td>
+<td>2.737704918032787</td>
+<td>1.639344262295082</td>
+<td>2.639344262295082</td>
+<td>3.1639344262295084</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>CogC</strong>：认知复杂度（Cognitive Complexity），衡量代码对人类阅读和理解的困难程度，嵌套结构越深、控制流越不直观，该值越高。 </p>
+<p><strong>ev(G)</strong>：基本圈复杂度（Essential Cyclomatic Complexity），衡量代码中非结构化控制流（如随意使用的 break、continue、return 等）的复杂程度。 </p>
+<p><strong>iv(G)</strong>：设计复杂度（Design Complexity），衡量一个方法调用其他方法时的控制流耦合程度，反映该方法与其他模块的交互复杂性。 </p>
+<p><strong>v(G)</strong>：McCabe 圈复杂度（Cyclomatic Complexity），衡量方法内部独立执行路径的数量，即 <code>if/for/while</code> 等条件分支的总数加一。</p>
+<p><strong>设计考虑与自我点评：</strong></p>
+<p><strong>优点（分离解析与计算）：</strong> 整个系统被严格切分为“解析层（Parser + Lexer）”和“计算底座（Poly + Mono 模型）”。上层的 <code>Factor</code> 无论多么复杂，只要实现了 <code>toPoly()</code>，底层数学模型都不需要关心它是怎么来的。</p>
+<p><strong>优点（规范的底层模型）：</strong> 采用 <code>Map&lt;Mono, BigInteger&gt;</code> 存储多项式。配合重写 <code>Mono</code> 的 <code>equals</code> 和 <code>hashCode</code>，实现了在 <code>addTerm</code> 时自动完成同类项合并（$O(1)$ 查找），天然保持了多项式的最简形式。</p>
+<p><strong>缺点：</strong> <code>Poly</code> 类有些过于臃肿。输出格式化（<code>toString</code>、提取 gcd 等）和核心的代数运算混杂在一个类中，如果后续还要支持更复杂的输出格式，应当将其抽离为一个独立的 <code>Printer</code> 类。</p>
+<p><strong>文字解释：</strong></p>
+<h4 id="i、-解析与控制层（Parsing-amp-Control-Module）"><a href="#i、-解析与控制层（Parsing-amp-Control-Module）" class="headerlink" title="i、 解析与控制层（Parsing &amp; Control Module）"></a>i、 解析与控制层（Parsing &amp; Control Module）</h4><p>这部分类的设计遵循了<strong>单一职责原则 </strong>，将输入处理、词法提取和语法树构建严格解耦。</p>
+<p><strong><code>MainClass</code>（主控与预处理）</strong></p>
+<p><strong>设计考虑：</strong> 作为程序的入口，它专门负责流程编排和 I/O 交互。为了减轻后续解析器的负担，设计了 <code>preprocess</code> 和 <code>collapseSigns</code> 方法进行字符串级别的预处理（如去除空白符、合并连续的正负号）。此外，将自定义函数（普通函数和递推函数）的解析逻辑集中在此处，并在解析主表达式前构建好 <code>functions</code> 字典，确保了解析过程的环境隔离。</p>
+<p><strong><code>Lexer</code>（词法分析器）</strong></p>
+<p><strong>设计考虑：</strong> 充当解析过程中的“分词器”。它的存在将复杂的长字符串抽象为一个个具有独立语义的 Token（如算子、数字、变量）。这种设计隔离了底层字符串操作的指针移动逻辑，使得语法解析器不需要关心字符是如何拼接的，提高了代码的可维护性和复用性。</p>
+<p><strong><code>Parser</code>（语法分析器）</strong></p>
+<p><strong>设计考虑：</strong> 采用了<strong>递归下降子程序法（Recursive Descent）</strong>。将表达式的文法拆解为 <code>parseExpr</code>、<code>parseTerm</code> 和 <code>parseFactor</code> 等独立方法，完美映射了形式语言的文法规则。通过引入 <code>functions</code> 字典，使得语法树在构建阶段就能直接绑定对应的函数逻辑。当未来文法规则扩展时，只需在对应层级添加解析分支，符合开闭原则 。</p>
+<h4 id="ii、-抽象语法树层（AST-Abstract-Syntax-Tree-Module）"><a href="#ii、-抽象语法树层（AST-Abstract-Syntax-Tree-Module）" class="headerlink" title="ii、 抽象语法树层（AST - Abstract Syntax Tree Module）"></a>ii、 抽象语法树层（AST - Abstract Syntax Tree Module）</h4><p>该模块是面向对象特性的核心体现，深度运用了<strong>组合模式（Composite Pattern）\</strong>和*<em>多态机制*</em>。</p>
+<p><strong><code>Factor</code>（因子接口）</strong></p>
+<p><strong>设计考虑：</strong> 系统的核心抽象。定义了统一的行为契约 <code>toPoly()</code>，使得所有具体的表达式节点（无论多复杂）最终都可以被转化为标准的多项式（Poly）。这为上层的表达式求值提供了极大的便利，调用方无需关心具体的因子类型，利用<strong>多态</strong>即可完成统一处理。</p>
+<p><strong><code>Expr</code>（表达式节点）</strong></p>
+<p><strong>设计考虑：</strong> 作为组合模式中的“容器节点”，代表多个 <code>Term</code> 的加减组合。内部使用 <code>ArrayList&lt;Term&gt;</code> 来管理子节点，并维护了自己的指数属性（Exponent）。其 <code>toPoly()</code> 方法负责将内部项求和后再进行次幂运算，封装了表达式级别的数学逻辑。</p>
+<p><strong><code>Term</code>（项节点）</strong></p>
+<p><strong>设计考虑：</strong> 同样属于“容器节点”，代表多个 <code>Factor</code> 的乘积组合。通过 <code>addFactor()</code> 动态聚合不同的因子。考虑到项级别的负号问题，设计了 <code>setNegative()</code> 方法巧妙地向列表中追加一个 <code>-1</code> 的 <code>Number</code> 因子，简化了符号计算的复杂度。</p>
+<p><strong><code>Number</code>（常数因子节点）</strong></p>
+<p><strong>设计考虑：</strong> 语法树的“叶子节点”。封装了 <code>BigInteger</code> 类型的常数。在向多项式转化时，将其自身映射为一个指数全为 0 的单项式，保证了多项式引擎计算的统一性。</p>
+<p><strong><code>Variable</code>（变量因子节点）</strong></p>
+<p><strong>设计考虑：</strong> 语法树的“叶子节点”，代表自变量 <code>x</code> 或 <code>y</code>。通过内部状态 <code>name</code> 区分变量类型，在转化时精准地将指数分配给对应变量所在的单项式维度。</p>
+<p><strong><code>ExpFactor</code>（指数函数因子）</strong></p>
+<p><strong>设计考虑：</strong> 封装了 <code>exp(...)</code> 的逻辑。设计上将括号内的参数抽象为一个独立的 <code>Factor</code>，体现了递归嵌套的架构思想。在计算时，先将内部参数转为多项式，再整体包裹为以 <code>exp</code> 为底的指数形式。</p>
+<p><strong><code>FuncFactor</code>（自定义函数因子）</strong></p>
+<p><strong>设计考虑：</strong> 充当了函数调用的代理节点。内部不仅保存了实参（<code>args</code>），还直接持有从字典中获取的函数定义（<code>funcPoly</code>）。在求值阶段，直接调用底层的代入替换方法（<code>substitute</code>），将解析与计算完美分离。</p>
+<p><strong><code>DerivationFactor</code>（求导算子因子）</strong></p>
+<p><strong>设计考虑：</strong> 封装了偏导数（<code>dx</code>, <code>dy</code>）和梯度（<code>grad</code>）算子的逻辑。内部组合了一个目标表达式（<code>expr</code>）。通过将求导操作延迟到 <code>toPoly()</code> 阶段，直接复用底层多项式强大的求导机制，避免了在树节点层面上进行复杂的链式求导。</p>
+<p><strong><code>SelectFactor</code>（条件选择因子）</strong></p>
+<p><strong>设计考虑：</strong> 专门处理三元条件分支 <code>[(A==B)?C:D]</code>。在类内部保存四个独立的分支因子，在 <code>toPoly()</code> 时动态计算 A 和 B 的多项式差值。如果差值为空（即相等），则走 C 分支，否则走 D 分支，实现了逻辑判断在多项式层面的平滑过渡。</p>
+<h4 id="iii、-底层数学引擎层（Mathematical-Engine-Module）"><a href="#iii、-底层数学引擎层（Mathematical-Engine-Module）" class="headerlink" title="iii、 底层数学引擎层（Mathematical Engine Module）"></a>iii、 底层数学引擎层（Mathematical Engine Module）</h4><p>该模块负责最终代数运算，设计上追求数据的规范化表示和不可变性特征。</p>
+<p><strong><code>Poly</code>（多项式类）</strong></p>
+<p><strong>设计考虑：</strong> 这是整个计算体系的核心引擎。使用 <code>Map&lt;Mono, BigInteger&gt;</code>（单项式到系数的映射）来存储数据，这种设计天然实现了<strong>同类项的自动合并</strong>，极大地优化了计算效率。提供了高内聚的代数运算方法（加、减、乘、乘方、求导、代入）。其设计保证了只要语法树能转化为 <code>Poly</code>，任何复杂的嵌套计算都能被正确降维。</p>
+<p><strong><code>Mono</code>（单项式类）</strong></p>
+<p><strong>设计考虑：</strong> 充当哈希表中的 Key，代表最基础的代数单元 <code>x^a * y^b * exp(Poly)</code>。为了确保放入 <code>HashMap</code> 的安全性，严格重写了 <code>equals()</code> 和 <code>hashCode()</code>。通过缓存字符串表示（<code>strCache</code>）和哈希值（<code>hashCache</code>），大幅度降低了在高频对象比较和打印过程中的性能消耗。</p>
+<h2 id="二、-架构设计体验与演进"><a href="#二、-架构设计体验与演进" class="headerlink" title="二、 架构设计体验与演进"></a>二、 架构设计体验与演进</h2><h3 id="1-架构的逐步成型与重构体验"><a href="#1-架构的逐步成型与重构体验" class="headerlink" title="1. 架构的逐步成型与重构体验"></a>1. 架构的逐步成型与重构体验</h3><p><strong>第一次作业：</strong> 确立了 <code>Lexer -&gt; Parser -&gt; AST -&gt; Poly</code> 的单向数据流。最初底层只需考虑 $x$ 的指数和系数。</p>
+<p><strong>第二次作业：</strong> 引入 <code>exp</code> 和自定义函数。架构的优势显现：我只需新增 <code>ExpFactor</code> 和 <code>FuncFactor</code>，并在底层的项结构中引入 <code>Mono</code> 类（包含 <code>expX</code> 和 <code>expPoly</code>）。函数代入直接转化为数学上的 <code>funcPoly.substitute(args.toPoly())</code> 操作，实现了符号计算降维打击，完全规避了字符串替换的括号灾难。无需进行伤筋动骨的重构。</p>
+<p><strong>第三次作业：</strong> 引入双变量和求偏导。在底层扩展属性，并在 <code>Poly</code> 中新增 <code>derive(String var)</code> 方法。AST 层的 <code>DerivationFactor</code> 只需要无脑调用内部表达式对应 Poly 的 <code>derive</code> 即可，充分体现分治思想体现。</p>
+<h3 id="2-新迭代情景与可扩展性分析"><a href="#2-新迭代情景与可扩展性分析" class="headerlink" title="2. 新迭代情景与可扩展性分析"></a>2. 新迭代情景与可扩展性分析</h3><p><strong>新情景设定：</strong> 假设还有第四次作业，要求支持三角函数 <code>sin(因子)</code> 和 <code>cos(因子)</code>，以及应用 $\sin^2(x) + \cos^2(x) = 1$ 的化简。</p>
+<p><strong>可扩展性说明：</strong></p>
+<p>当前架构具有极强的扩展性。我只需：</p>
+<ol>
+<li>在 AST 层新增 <code>SinFactor</code> 和 <code>CosFactor</code>。</li>
+<li>在底层 <code>Mono</code> 中新增 <code>Poly sinPoly</code> 和 <code>Poly cosPoly</code> 属性。</li>
+<li>三角函数的解析和合并可以直接复用当前 <code>expPoly</code> 的处理逻辑（依靠重写 <code>hashCode</code>）。唯独三角恒等式的化简需要在 <code>Poly</code> 的合并逻辑中增加一次特殊的遍历尝试提取公因式，整体架构完全承接得住。</li>
+</ol>
+<hr>
+<h2 id="三、-Bug-分析与修复"><a href="#三、-Bug-分析与修复" class="headerlink" title="三、 Bug 分析与修复"></a>三、 Bug 分析与修复</h2><h4 id="1-第二次作业：缺少记忆化导致的-TLE"><a href="#1-第二次作业：缺少记忆化导致的-TLE" class="headerlink" title="1. 第二次作业：缺少记忆化导致的 TLE"></a>1. 第二次作业：缺少记忆化导致的 TLE</h4><p><strong>问题特征与测试用例：</strong> 在第二次作业的互测中，遇到了严重的 TLE（运行超时）问题。导致超时的典型测试用例如下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-number">1</span><br><span class="hljs-function"><span class="hljs-title">f</span><span class="hljs-params">(x)</span></span>=<span class="hljs-built_in">exp</span>(<span class="hljs-built_in">exp</span>(<span class="hljs-built_in">exp</span>(<span class="hljs-built_in">exp</span>(<span class="hljs-built_in">exp</span>(<span class="hljs-built_in">exp</span>(<span class="hljs-attribute">x</span>)^<span class="hljs-number">2</span>)^<span class="hljs-number">2</span>)^<span class="hljs-number">2</span>)^<span class="hljs-number">2</span>)^<span class="hljs-number">2</span>)^<span class="hljs-number">2</span><br><span class="hljs-function"><span class="hljs-title">f</span><span class="hljs-params">(f(f(f(x)</span></span>)))<br></code></pre></td></tr></table></figure>
+<p><strong>问题所在的类和方法：</strong> <code>Mono</code> 类的 <code>toString()</code> 方法（以及连带的 <code>hashCode()</code> 等频繁调用的底层方法）。</p>
+<p><strong>出现问题的原因：</strong> 在面对极深层次的 <code>exp</code> 嵌套和多次函数代入时，多项式展开后会产生海量结构相同或相似的 <code>Mono</code>（单项式）对象。在未进行优化前，每次调用多项式的打印或是将其存入 <code>HashMap</code> 时，<code>Mono</code> 都会重新走一遍极度复杂的字符串拼接逻辑（递归调用内部 <code>expPoly</code> 的 <code>toString</code>）。这种<strong>重复计算</strong>导致时间开销呈指数级爆炸。</p>
+<p><strong>更好的设计与修复：</strong> 在第三次作业中，我引入了<strong>记忆化（Caching）机制</strong>。由于 <code>Mono</code> 本质上是一个不可变对象（Immutable），一旦构造完成，其状态就不再改变。因此，我在 <code>Mono</code> 类中新增了 <code>private String strCache = null;</code> 和 <code>private int hashCache = 0;</code>。在 <code>toString()</code> 方法开头直接判断 <code>if (strCache != null) &#123; return strCache; &#125;</code>。这个符合面向对象“状态封装”的设计，直接将复杂度从重复递归降到了 $O(1)$ 的读取，完美解决了 TLE。</p>
+<h4 id="2-第三次作业：快速幂算法中的冗余计算导致的-TLE"><a href="#2-第三次作业：快速幂算法中的冗余计算导致的-TLE" class="headerlink" title="2. 第三次作业：快速幂算法中的冗余计算导致的 TLE"></a>2. 第三次作业：快速幂算法中的冗余计算导致的 TLE</h4><p><strong>问题特征与测试用例：</strong> 在第三次作业中，虽然加入了记忆化，但在面对项数极多的多项式相乘时，依然出现了 TLE。杀手用例如下：</p>
+<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gml"><span class="hljs-number">0</span><br><span class="hljs-number">0</span><br>(<span class="hljs-number">9</span>+<span class="hljs-variable language_">x</span>)*(<span class="hljs-number">9</span>+<span class="hljs-variable language_">y</span>)*(<span class="hljs-number">9</span>+<span class="hljs-variable language_">x</span>^<span class="hljs-number">2</span>)*(<span class="hljs-number">9</span>+<span class="hljs-variable language_">y</span>^<span class="hljs-number">2</span>)*(<span class="hljs-number">9</span>+<span class="hljs-variable language_">x</span>^<span class="hljs-number">4</span>)*(<span class="hljs-number">9</span>+<span class="hljs-variable language_">y</span>^<span class="hljs-number">4</span>)*(<span class="hljs-number">9</span>+<span class="hljs-variable language_">x</span>^<span class="hljs-number">8</span>)*(<span class="hljs-number">9</span>+<span class="hljs-variable language_">y</span>^<span class="hljs-number">8</span>)*(<span class="hljs-number">9</span>+<span class="hljs-built_in">exp</span>(<span class="hljs-variable language_">x</span>)+<span class="hljs-built_in">exp</span>(<span class="hljs-variable language_">y</span>))*(<span class="hljs-number">9</span>+<span class="hljs-built_in">exp</span>(<span class="hljs-variable language_">x</span>^<span class="hljs-number">2</span>))+dx(<span class="hljs-variable language_">x</span>^<span class="hljs-number">2</span>)<br></code></pre></td></tr></table></figure>
+<p><strong>问题所在的类和方法：</strong> <code>Poly</code> 类的 <code>pow(BigInteger n)</code> 方法。</p>
+<p><strong>出现问题的原因：</strong> 在实现多项式的快速幂时，我使用了经典的 <code>while</code> 循环移位算法。Bug 出在循环的最后一步：当 <code>exp</code> 已经被右移为 0（即 <code>exp.compareTo(BigInteger.ZERO) == 0</code>）时，程序依然会“惯性”地执行一次 <code>base = base.mul(base);</code>。对于上述测试用例，多项式相乘后的项数是呈组合数级增长的。最后一次毫无必要的 <code>base</code> 自乘，实际上是在对两个极其庞大的多项式进行笛卡尔积运算，时间消耗巨大。</p>
+<p><strong>更好的设计与修复：</strong> 修复方式非常简单但极为关键，只需在底数自乘前加一个条件判断：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">exp = exp.shiftRight(<span class="hljs-number">1</span>);<br><span class="hljs-comment">// 修复点：如果指数已经为0，坚决不再进行昂贵的 base 自乘运算</span><br><span class="hljs-keyword">if</span> (exp.compareTo(BigInteger.ZERO) &gt; <span class="hljs-number">0</span>) &#123; <br>    base = base.mul(base);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>从设计角度反思，这提醒我在处理底层基础类（如 <code>Poly</code>）的运算时，必须对<strong>边界条件</strong>（特别是循环退出前的最后一次操作）保持极高的敏感度，避免“无用功”。</p>
+<h4 id="3-Bug-方法与无-Bug-方法的复杂度差异分析"><a href="#3-Bug-方法与无-Bug-方法的复杂度差异分析" class="headerlink" title="3. Bug 方法与无 Bug 方法的复杂度差异分析"></a>3. Bug 方法与无 Bug 方法的复杂度差异分析</h4><p><strong>差异对比：</strong> 对比上述出现过 Bug 的 <code>Poly.pow()</code>、<code>Mono.toString()</code> 方法，与那些几乎从未出错的简单方法（如 <code>Number.toPoly()</code> 或 <code>Term.setNegative()</code>），最大的差异在于<strong>代码行数</strong>与<strong>控制分支数目（圈复杂度）</strong>。出错的方法往往包含了复杂的 <code>while</code> 循环、深层的 <code>if-else</code> 分支以及隐式的递归调用。圈复杂度过高导致我在编写时很难在脑海中穷举所有执行路径，例如 <code>pow</code> 循环结束时的那一次多余执行。</p>
+<p><strong>降低复杂度的方式：</strong></p>
+<p>1.<strong>提炼方法（Extract Method）：</strong> 将复杂的逻辑拆解。例如 <code>Mono.toString()</code> 中拼接 x、拼接 y、处理 exp 的逻辑可以分别拆成小方法。</p>
+<p>2.<strong>快速失败/提前返回（Early Return）：</strong> 就像 <code>strCache</code> 的优化一样，在方法开头处理掉特殊情况和缓存命中，减少嵌套深度，这能极大地降低后续阅读和维护的负担。</p>
+<hr>
+<h2 id="四、-互测与发现-Bug-的策略"><a href="#四、-互测与发现-Bug-的策略" class="headerlink" title="四、 互测与发现 Bug 的策略"></a>四、 互测与发现 Bug 的策略</h2><p>在三次作业的互测环节中，我主要采用了<strong>“AI 静态代码审查 + 自身痛点复用 + 构造极端边界 + 同学交流互换”</strong>的综合策略，取得了非常精准的 Hack 效果。</p>
+<h4 id="1-借助大模型进行静态代码审查"><a href="#1-借助大模型进行静态代码审查" class="headerlink" title="1. 借助大模型进行静态代码审查"></a>1. 借助大模型进行静态代码审查</h4><p>拿到同房间同学的代码后，我不会立刻盲目跑评测机，而是先将对方的核心解析类（如解析器和因子类）喂给 AI，辅助我快速理解对方的架构，并寻找潜在的逻辑漏洞。比如检查对方的条件表达式判定是否完善，或者解析连续符号时会不会数组越界。这种白盒找 Bug 的方式往往能一针见血。</p>
+<h4 id="2-利用自己被-Hack-的点“反向输出”"><a href="#2-利用自己被-Hack-的点“反向输出”" class="headerlink" title="2. 利用自己被 Hack 的点“反向输出”"></a>2. 利用自己被 Hack 的点“反向输出”</h4><p>我在开发和强测中踩过的性能陷阱，往往也是房间里其他同学的盲区。例如我在第二次和第三次作业中遭遇了因为缺少记忆化和多余的自乘导致的 TLE，我便直接将导致我超时的杀手级数据投入互测房间：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-number">1</span><br><span class="hljs-function"><span class="hljs-title">f</span><span class="hljs-params">(x)</span></span>=<span class="hljs-built_in">exp</span>(<span class="hljs-built_in">exp</span>(<span class="hljs-built_in">exp</span>(<span class="hljs-built_in">exp</span>(<span class="hljs-built_in">exp</span>(<span class="hljs-built_in">exp</span>(<span class="hljs-attribute">x</span>)^<span class="hljs-number">2</span>)^<span class="hljs-number">2</span>)^<span class="hljs-number">2</span>)^<span class="hljs-number">2</span>)^<span class="hljs-number">2</span>)^<span class="hljs-number">2</span><br><span class="hljs-number">0</span><br><span class="hljs-function"><span class="hljs-title">f</span><span class="hljs-params">(f(f(f(x)</span></span>)))<br></code></pre></td></tr></table></figure>
+<p>如果对方的代码没有像我在 <code>Mono</code> 类里那样做好缓存，或者在处理多项式快速幂时没有剔除冗余计算，这个极深层次的 <code>exp</code> 嵌套用例会直接让对方运行超时TLE。</p>
+<h4 id="3-构造极端边界数据：针对选择因子的“惰性求值”"><a href="#3-构造极端边界数据：针对选择因子的“惰性求值”" class="headerlink" title="3. 构造极端边界数据：针对选择因子的“惰性求值”"></a>3. 构造极端边界数据：针对选择因子的“惰性求值”</h4><p>针对第二次作业的选择因子 <code>[(条件)?表达式1:表达式2]</code>，我专门构造了包含巨大计算量的边界测试点：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stata">1<br><span class="hljs-built_in">f</span>(x)=x+2*x^2+3*x^3+4*x^4+8*x^8*<span class="hljs-built_in">exp</span>(x)<br>[(x==1)?<span class="hljs-built_in">f</span>(<span class="hljs-built_in">f</span>(<span class="hljs-built_in">f</span>(<span class="hljs-built_in">f</span>(<span class="hljs-built_in">f</span>(<span class="hljs-built_in">f</span>(<span class="hljs-built_in">f</span>(<span class="hljs-built_in">f</span>(<span class="hljs-built_in">f</span>(x))))))))):<span class="hljs-built_in">f</span>((x+1))]<br></code></pre></td></tr></table></figure>
+<p>在我的 <code>SelectFactor</code> 类设计中，我采用了<strong>“惰性求值”</strong>的策略：先计算 <code>pa.sub(pb).isEmpty()</code>，如果为真才 <code>return cc.toPoly()</code>，否则 <code>return dd.toPoly()</code>。但很多同学在解析时会提前把 true 和 false 两个分支的多项式全都展开计算一遍。当条件为假时，去强行展开 9 层嵌套的 <code>f(x)</code> 会产生天文数字级的项，从而直接 TLE。</p>
+<h4 id="4-与同学讨论交换数据点：聚焦复杂嵌套与递推"><a href="#4-与同学讨论交换数据点：聚焦复杂嵌套与递推" class="headerlink" title="4. 与同学讨论交换数据点：聚焦复杂嵌套与递推"></a>4. 与同学讨论交换数据点：聚焦复杂嵌套与递推</h4><p>通过与同学交流，我们发现互相交换极端数据点能极大地拓宽测试覆盖面。在第三次作业中，我重点收集并测试了以下两类非常容易出错的嵌套场景：</p>
+<p><strong>递推函数与对象相等性判断结合：</strong></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">0</span><br><span class="hljs-attribute">1</span><br><span class="hljs-attribute">f</span>&#123;<span class="hljs-number">0</span>&#125;(x)=(x+<span class="hljs-number">1</span>)^<span class="hljs-number">2</span><br><span class="hljs-attribute">f</span>&#123;<span class="hljs-number">1</span>&#125;(x)=(x+<span class="hljs-number">1</span>)^<span class="hljs-number">2</span><br><span class="hljs-attribute">f</span>&#123;n&#125;(x)=<span class="hljs-number">1</span>*f&#123;n-<span class="hljs-number">1</span>&#125;(x)+<span class="hljs-number">1</span>*f&#123;n-<span class="hljs-number">2</span>&#125;(x)<span class="hljs-meta"></span><br><span class="hljs-meta">[(f&#123;5&#125;((x+y))==f&#123;5&#125;((x+y)))?x:y]</span><br></code></pre></td></tr></table></figure>
+<p>这个用例不仅考验了对方对递推函数的处理能力（我的 <code>MainClass</code> 中采用了自底向上的文本替换生成 <code>f2</code> 到 <code>f5</code>，非常稳健），还极限施压了底层类的 <code>equals</code> 方法。如果对方的多项式合并存在一丝缺陷，这个判断就会出错。</p>
+<p><strong>括号匹配与解析器：</strong></p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scheme"><span class="hljs-number">0</span><br><span class="hljs-number">0</span><br>[(<span class="hljs-name">0==0</span>)?exp([(<span class="hljs-name">0==0</span>)?1:0]):1]<br></code></pre></td></tr></table></figure>
+<p>这个用例将选择因子 <code>[...]</code> 嵌套进了 <code>exp()</code> 中，再套入外层选择因子。它专门用来攻击那些不用正规递归下降，而是试图用简单的字符串截取来解析括号的代码。状态机稍微错乱，就会抛出异常。</p>
+<h2 id="五、-性能优化经验"><a href="#五、-性能优化经验" class="headerlink" title="五、 性能优化经验"></a>五、 性能优化经验</h2><p>在表达式化简这部分，我没有去追求那些极其复杂且容易出错的深度化简，比如选择最短的因式，而是贯彻了<strong>“高性价比”</strong>的原则。我所做的优化主要集中在两个方面：<strong>提取最大公约数（GCD）</strong> 和 <strong>正项提前</strong>。</p>
+<h4 id="1-做了什么优化，怎么做的"><a href="#1-做了什么优化，怎么做的" class="headerlink" title="1. 做了什么优化，怎么做的"></a>1. 做了什么优化，怎么做的</h4><p><strong>提取指数中的最大公约数（GCD 提取）：</strong></p>
+<p>在处理 <code>exp(...)</code> 时，由于指数的运算法则 $e^{a \cdot b} = (e^a)^b$，如果内部多项式的各项系数存在大于 1 的最大公约数，我们可以将其提取到外部作为整个 <code>exp</code> 块的指数。</p>
+<p><strong>实现方式：</strong> 在 <code>Mono</code> 类的 <code>toString()</code> 方法中，我实现了比较逻辑。首先生成默认的 <code>bestExp = &quot;exp(&quot; + expPoly.toFactorString() + &quot;)&quot;</code>，然后计算 <code>expPoly</code> 的 <code>gcd</code>。如果 <code>gcd &gt; 1</code>，则生成提取后的字符串 <code>reducedStr = &quot;exp(&quot; + reducedPoly.toFactorString() + &quot;)^&quot; + gcd</code>。最后，严格比较两者的字符串长度 <code>if (reducedStr.length() &lt; bestExp.length())</code>，只在真实验证长度变短时才采用新形式。</p>
+<p><strong>正项提前：</strong></p>
+<p>在多项式输出时，如果第一项带有负号，会白白多占一个字符。根据加法交换律，将任意一个系数为正的项移到首位输出，就可以省略首位的 <code>+</code> 号，同时避免首位是 <code>-</code> 号的情况。</p>
+<p><strong>实现方式：</strong> 在底层多项式的 <code>toString</code> 遍历逻辑中，优先寻找并打印第一个正系数项，然后再按序输出其余项。</p>
+<h4 id="2-优化能否保证代码的简洁性与正确性"><a href="#2-优化能否保证代码的简洁性与正确性" class="headerlink" title="2. 优化能否保证代码的简洁性与正确性"></a>2. 优化能否保证代码的简洁性与正确性</h4><p><strong>完全能保证。</strong></p>
+<p><strong>关于正确性：</strong> 这两种优化策略在数学上都是绝对等价的变形。正项提前利用了加法交换律，提取 GCD 利用了指数幂的运算法则。同时，我在提取 GCD 时加入了<strong>长度贪心判断</strong>，确保只有在字符数实质减少时才替换，避免了弄巧成拙，如提取 2 之后反而多出了 <code>^2</code> 导致总长度增加的边界情况。</p>
+<p><strong>关于代码简洁性：</strong> 这正是这种策略被称为“高性价比”的原因。相较于在 AST阶段进行极其复杂的节点重构，我的优化完全后置于对象向字符串转换的 <code>toString()</code> 阶段。底层的数据存储结构，如多项式的项集、指数因子完全保持原样，无需引入额外的维护状态。这使得核心架构保持了极高的内聚性和清爽度，极大地降低了引入新 Bug 的风险。</p>
+<h2 id="六、-大模型（AI）使用情况"><a href="#六、-大模型（AI）使用情况" class="headerlink" title="六、 大模型（AI）使用情况"></a>六、 大模型（AI）使用情况</h2><h3 id="1-自身-AI-使用情况"><a href="#1-自身-AI-使用情况" class="headerlink" title="1. 自身 AI 使用情况"></a>1. 自身 AI 使用情况</h3><p>在三次作业中，我大概有 40% 的代码是借助 AI 辅助生成的。不过最核心的递归下降解析逻辑和底层求导的数学推导，我都是自己纯手打的，毕竟这些硬骨头得自己啃才能真正掌握架构。</p>
+<p>在<strong>正确性</strong>方面，AI 主要充当了我的主要是写之前ai给出架构步骤，和写完后debug。每次迭代动手敲代码前，我都会先让大模型帮我理清整体的架构步骤，看看怎么把表达式、项、因子合理分层。等代码写完，如果遇到一些死活查不出来的逻辑 bug 或者空指针，我就会把出问题的代码段和测试数据扔给它帮忙定位，效果往往还不错。</p>
+<p>在<strong>性能优化</strong>方面，我主要是把跑得慢的方法发给 AI，让它给我提优化建议。虽然最后权衡了实现难度，我只挑了提取 $gcd$ 和正项提前这种高性价比的策略，但它确实给了我不少关于如何减少多项式对象创建、如何做方法级缓存的思路启发。</p>
+<h3 id="2-互测房间内的-AI-观察"><a href="#2-互测房间内的-AI-观察" class="headerlink" title="2. 互测房间内的 AI 观察"></a>2. 互测房间内的 AI 观察</h3><p>在互测环节中，我发现房间内的玉衡星可能在作业中大量使用了 AI 或是自动代码生成工具。</p>
+<p>在阅读该同学的代码时，我在main中看到了这样一行注释：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//TIP 要&lt;b&gt;运行&lt;/b&gt;代码，请按 &lt;shortcut actionId=&quot;Run&quot;/&gt; 或</span><br><span class="hljs-comment">// 点击装订区域中的 &lt;icon src=&quot;AllIcons.Actions.Execute&quot;/&gt; 图标。</span><br></code></pre></td></tr></table></figure>
+<p>我怀疑是直接复制的或者vibe coding的，忘记删了，最后甚至没有完整看一遍。</p>
+<hr>
+<h2 id="七、-心得体会"><a href="#七、-心得体会" class="headerlink" title="七、 心得体会"></a>七、 心得体会</h2><p>第一单元这三次作业熬下来，我最大的感触就是千万不要太钻牛角尖去卷性能分。很多时候为了哪怕一丁点多项式的化简，很容易就把最基础的正确性给搞崩了。我回过头去盘点了一下，我在这几次作业里踩坑甚至直接 TLE 的地方，追根溯源全是因为我强行去做性能优化惹的祸。稳扎稳打拿满正确性才是王道，本末倒置真的得不偿失。</p>
+<p>还有个惨痛的教训就是做架构的时候切忌过度设计。刚开始写的时候总想着未雨绸缪，给未来可能出现的需求留足接口，搞了一大堆花里胡哨的冗余设计。结果到了下一次迭代一看，不仅新需求完全不按套路出牌，之前写的那些冗余代码反而成了极其庞大的累赘，不仅读起来费劲，最后还得自己一行一行删掉重构，纯粹是给自己增加工作量。简单直接、够用就好，这才是最实用的代码哲学。</p>
+<p>最后不得不感叹现在的 AI 确实极其发达，写代码一定要学会充分利用大模型来给自己当外脑。说实话我这次就吃了个大亏，第三次作业里那个导致我超时的 base = base.mul(base); 的致命 bug，其实 AI 帮我做代码静态检查的时候早就明明白白地指出来了，但我当时没当回事根本没听。如果在查错的时候能多给 AI 一点信任，认真看看它给的反馈，我绝对能少走很多弯路。接下来的学习中我一定会更加虚心且高效地利用好这个强大的帮手。</p>
+<hr>
+<h2 id="八、-未来方向建议"><a href="#八、-未来方向建议" class="headerlink" title="八、 未来方向建议"></a>八、 未来方向建议</h2><p>整体来说我觉得第一单元现在的课程安排和节奏就已经挺好的了，难度递进比较合理，也没有什么大毛病。不过如果在细节上能稍微优化一下，体验一定会更好。</p>
+<p>关于互测环节的冷却时间，我强烈建议可以适当缩短一点。半个小时的冷却期感觉还是太多了，有时候看别人的代码刚有了个绝妙的 hack 思路，或者刚捏造出一个极具杀伤力的边界数据想要赶紧去验证一下，结果系统提示还在冷却中，只能硬生生干等，挺打断思路和测试节奏的。如果能缩短这个时间，大家互测的积极性和流畅度应该都会提高不少。</p>
+<p>另外就是第一单元的第一次作业，对刚接触这种量级项目的同学来说确实有点难以下手，很容易看着空白屏幕发呆。虽然之前安排了上机代码填空的练习，但那上面的代码结构和我们真正做作业要从零开始写的架构并不完全吻合，参考起来还是有门槛。我建议或许可以在第一次作业的指导书里，直接给大家提供一个大致的伪代码框架，或者稍微提示一下几个核心类该怎么交互。这样应该能很大程度上缓解大家开荒期的焦虑感，也能在一开始就帮大家把面向对象的思维给引导到正确的路子上。</p>
+<hr>
+<h2 id="九、-思考题（选做）"><a href="#九、-思考题（选做）" class="headerlink" title="九、 思考题（选做）"></a>九、 思考题（选做）</h2><p><strong>1. 如何检查输入是否符合要求？</strong></p>
+<p>结合预处理与解析器双重校验。首先在 <code>Lexer</code> 预处理阶段，用正则检查是否出现了非法字符或非法连续符号（如 <code>***</code>），以及空格是否出现在了非法位置（如带符号整数内部：<code>[+-]\s+\d</code>）。其次，在 <code>Parser</code> 递归下降解析时，如果遇到了不符合任何文法分支的 Token 序列，直接抛出自定义异常（如 <code>WrongFormatException</code>）。</p>
+<p><strong>2. 如何精确计算一个合法输入的 cost？</strong></p>
+<p>可以完美复用现有的 AST 结构。在 <code>Factor</code> 接口中新增一个 <code>getCost()</code> 方法声明，让所有具体节点实现它。在 <code>Parser</code> 解析生成 AST 树后，不调用 <code>toPoly()</code>，而是自顶向下递归调用 <code>getCost()</code>。例如 <code>Expr.getCost()</code> 就是对其下所有 <code>Term.getCost()</code> 求和；对于 <code>ExpFactor.getCost()</code> 则返回 <code>arg.getCost() + 1</code>，严格按照指导书的代价函数规则进行递归累加计算即可。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/OO/" class="category-chain-item">OO</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/OO/" class="print-no-link">#OO</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>OO U1总结：表达式解析与符号求导</div>
+      <div>http://example.com/posts/OO-U1总结-表达式解析与符号求导/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>pppphop</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/OO-U2%E6%80%BB%E7%BB%93-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%94%B5%E6%A2%AF%E7%B3%BB%E7%BB%9F/" title="OO U2总结：多线程电梯系统">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">OO U2总结：多线程电梯系统</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/2025-2026%E6%A6%82%E7%8E%87%E4%B8%8E%E6%95%B0%E7%90%86%E6%A8%A1%E5%9E%8B%E6%9C%9F%E6%9C%AB%E8%AF%95%E5%8D%B7%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88/" title="2025-2026概率与数理模型期末试卷参考答案">
+                        <span class="hidden-mobile">2025-2026概率与数理模型期末试卷参考答案</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/index-math.js?v=20260625-polish.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

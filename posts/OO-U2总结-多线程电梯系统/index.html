@@ -1,0 +1,808 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pppphop">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本单元题面第五次作业题面 第六次作业题面 第七次作业题面  面向对象第二单元总结：多线程电梯系统的架构演进与并发控制实践在本单元的三次迭代作业中，我们经历了从单台指定电梯（HW5）到多台自由调度电梯（HW6），再到引入双轿厢与复杂避让机制（HW7）的完整过程。多线程的并发安全与系统性能的动态平衡是本单元的核心挑战。本文将结合这三次作业的迭代经验，对同步机制、调度策略、调试方法及层次化设计进行深">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OO U2总结：多线程电梯系统">
+<meta property="og:url" content="http://example.com/posts/OO-U2%E6%80%BB%E7%BB%93-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%94%B5%E6%A2%AF%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="zhp的博客">
+<meta property="og:description" content="本单元题面第五次作业题面 第六次作业题面 第七次作业题面  面向对象第二单元总结：多线程电梯系统的架构演进与并发控制实践在本单元的三次迭代作业中，我们经历了从单台指定电梯（HW5）到多台自由调度电梯（HW6），再到引入双轿厢与复杂避让机制（HW7）的完整过程。多线程的并发安全与系统性能的动态平衡是本单元的核心挑战。本文将结合这三次作业的迭代经验，对同步机制、调度策略、调试方法及层次化设计进行深">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/posts/OO-U2%E6%80%BB%E7%BB%93-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%94%B5%E6%A2%AF%E7%B3%BB%E7%BB%9F/%E6%9E%B6%E6%9E%84%E5%9B%BE.png">
+<meta property="article:published_time" content="2026-04-30T12:00:00.000Z">
+<meta property="article:modified_time" content="2026-06-27T05:34:27.216Z">
+<meta property="article:author" content="pppphop">
+<meta property="article:tag" content="OO">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/posts/OO-U2%E6%80%BB%E7%BB%93-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%94%B5%E6%A2%AF%E7%B3%BB%E7%BB%9F/%E6%9E%B6%E6%9E%84%E5%9B%BE.png">
+  
+  
+  
+  <title>OO U2总结：多线程电梯系统 - zhp的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/blog-polish.css?v=20260627-oo-gap.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zhp的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              
+              <a class="nav-link dropdown-parent-link" target="_self" href="/quiz/" role="button"
+                  aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>刷题</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/military/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>军理刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ethics/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>思修刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/os/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>OS刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/history/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>史纲刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ai/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>AI 对话</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="OO U2总结：多线程电梯系统"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-30 20:00" pubdate>
+          2026年4月30日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          23 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">OO U2总结：多线程电梯系统</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <div class="oo-unit-topic-spacer"></div>
+
+<h2 id="本单元题面"><a href="#本单元题面" class="headerlink" title="本单元题面"></a>本单元题面</h2><a class="btn" href="/files/面向对象设计与构造第五次作业指导书.html"  title="fas fa-file-alt" target="_blank">第五次作业题面</a>
+<a class="btn" href="/files/面向对象设计与构造第六次作业指导书.html"  title="fas fa-file-alt" target="_blank">第六次作业题面</a>
+<a class="btn" href="/files/面向对象设计与构造第七次作业指导书.html"  title="fas fa-file-alt" target="_blank">第七次作业题面</a>
+<hr>
+<h1 id="面向对象第二单元总结：多线程电梯系统的架构演进与并发控制实践"><a href="#面向对象第二单元总结：多线程电梯系统的架构演进与并发控制实践" class="headerlink" title="面向对象第二单元总结：多线程电梯系统的架构演进与并发控制实践"></a>面向对象第二单元总结：多线程电梯系统的架构演进与并发控制实践</h1><p>在本单元的三次迭代作业中，我们经历了从单台指定电梯（HW5）到多台自由调度电梯（HW6），再到引入双轿厢与复杂避让机制（HW7）的完整过程。多线程的并发安全与系统性能的动态平衡是本单元的核心挑战。本文将结合这三次作业的迭代经验，对同步机制、调度策略、调试方法及层次化设计进行深度总结。</p>
+<h2 id="一、-同步块的设置与锁的选择"><a href="#一、-同步块的设置与锁的选择" class="headerlink" title="一、 同步块的设置与锁的选择"></a>一、 同步块的设置与锁的选择</h2><p>在多线程环境中，锁的粒度与对象的选择直接决定了系统的正确性与吞吐量。在三次作业的演进中，我的锁机制也经历了由简入繁的过程。</p>
+<h3 id="1-锁的对象与粒度演进"><a href="#1-锁的对象与粒度演进" class="headerlink" title="1. 锁的对象与粒度演进"></a>1. 锁的对象与粒度演进</h3><ul>
+<li><strong>HW5（基础阶段）</strong>：由于输入指令已经指定了电梯，系统仅需实现基础的生产者-消费者模型。我将锁直接加在 MainQueue 和 SubQueue 内部的集合操作方法上（如 addRequest 和 takeRequest）。这种粗粒度的方法锁在并发度较低时有效保证了数据的原子性。</li>
+<li><strong>HW6 &amp; HW7（动态调度阶段）</strong>：引入自由调度后，共享资源变多。我引入了全局状态板 ElevatorStatusBoard，将锁的粒度细化。调度器读取状态时仅对状态板的局部快照加锁，而不再直接锁定各个电梯的内部队列。</li>
+<li><strong>HW7（物理资源竞争阶段）</strong>：双轿厢模式下出现了针对换乘层（F2）的物理资源互斥。为此，我专门设计了 Coordinator 协作类。此时锁的对象不再是数据结构，而是代表物理空间占用状态的变量 f2Occupied，实现了针对特定楼层的排他性访问。</li>
+</ul>
+<h3 id="2-锁与同步块中处理语句的关系"><a href="#2-锁与同步块中处理语句的关系" class="headerlink" title="2. 锁与同步块中处理语句的关系"></a>2. 锁与同步块中处理语句的关系</h3><p>在编写同步块时，我严格恪守<strong>“锁内仅处理内存共享状态，耗时 I/O 与执行逻辑置于锁外”</strong>的原则。<br>在具体的 Wait-Notify 机制中，我将条件判断与业务逻辑深度绑定。例如，在 SubQueue.waitIfEmpty() 的同步块中，我不仅检查队列是否为空、是否结束，还<strong>特别加入了 !evadeRequest（避让请求标志）</strong>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">while</span> (requests.isEmpty() &amp;&amp; maintTask == <span class="hljs-literal">null</span> &amp;&amp; ... &amp;&amp; !isEnd &amp;&amp; !evadeRequest) &#123;<br>    wait();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这意味着，一旦系统要求电梯让出 F2 楼层，无论电梯是否正在因空载而挂机阻塞，setEvadeRequest(true) 调用的 <code>notifyAll()</code> 都能立刻打破<code>wait()</code> 循环，强制电梯进入避让逻辑。这种将控制信号与同步条件结合的设计，极大提高了线程响应速度。同时，诸如<code>Thread.sleep()</code>和输出语句严禁放入同步块，避免了全局性能雪崩。</p>
+<h2 id="二、-调度器设计与调度策略分析"><a href="#二、-调度器设计与调度策略分析" class="headerlink" title="二、 调度器设计与调度策略分析"></a>二、 调度器设计与调度策略分析</h2><h3 id="1-调度器与线程的交互模式"><a href="#1-调度器与线程的交互模式" class="headerlink" title="1. 调度器与线程的交互模式"></a>1. 调度器与线程的交互模式</h3><p>系统采用了分离的调度架构。在 HW5 中，<code>Dispatcher</code> 仅作为简单的分发器；而在 HW6 与 HW7 中，调度器真正成为了系统的枢纽。<br>在交互上，调度器并不直接干预电梯线程的执行逻辑，而是通过<strong>黑板模式 (Blackboard Pattern)</strong> 进行弱耦合通信。调度器从 <code>MainQueue</code> 获取请求，读取 <code>ElevatorStatusBoard</code> 上的全局快照进行算分，随后将请求压入目标电梯的 <code>SubQueue</code> 中。电梯线程独立轮询自身的队列并向状态板同步最新状态。这种机制彻底解除了调度与执行之间的强同步依赖。</p>
+<h3 id="2-适应多性能指标的调度策略"><a href="#2-适应多性能指标的调度策略" class="headerlink" title="2. 适应多性能指标的调度策略"></a>2. 适应多性能指标的调度策略</h3><p>为了在运行时间与耗电量之间取得最优解，我在分配与执行阶段分别设计了贪心策略：</p>
+<ul>
+<li><strong>调度分配阶段（动态 Cost 计算）</strong>：<br>调度器在分派请求时，依据公式 $Cost = 距离成本 + 负载成本$ 寻找最优电梯。<br>距离成本评估电梯当前运行方向与乘客请求的顺路程度（不顺路则施加大额惩罚值）；负载成本由 <code>(轿厢内人数 + 队列排队人数) * 2</code> 计算得出。乘系数 2 的原因在于，每增加一名乘客，预期将增加一次停靠（开关门时间等效于运行两层楼），这在算分阶段精准量化了时间与电量成本，实现了天然的负载均衡。</li>
+<li><strong>物理执行阶段（多维权重进门策略）</strong>：<br>当电梯开门允许候乘队列上车时，我摒弃了“先来后到”规则，采用了多维优先级的贪心排序。第一优先级为乘客体重升序，第二优先级为目标距离升序。在额定 400kg 的载重限制下，优先接纳体重较轻、路程较短的乘客，最大化了单次开关门的客流吞吐率，有效减少了电梯的无效启停次数。</li>
+</ul>
+<h2 id="三、-典型-Bug-分析与多线程-Debug-方法"><a href="#三、-典型-Bug-分析与多线程-Debug-方法" class="headerlink" title="三、 典型 Bug 分析与多线程 Debug 方法"></a>三、 典型 Bug 分析与多线程 Debug 方法</h2><h3 id="1-典型-Bug-回溯"><a href="#1-典型-Bug-回溯" class="headerlink" title="1. 典型 Bug 回溯"></a>1. 典型 Bug 回溯</h3><p>得益于前期基础架构的稳固，HW5 在强测与互测中均未出现 Bug。但在 HW6 与 HW7 的极端压力测试中，暴露出了一些深层问题：</p>
+<ul>
+<li><strong>资源挤兑引发的系统超时（HW6）</strong>：在互测中，当遭受“多台电梯被强行置入检修，随后瞬间并发大量请求”的攻击时，前期代码缺乏队列容量上限控制，导致所有请求被堆积在唯一存活的电梯队列中，引发严重超时。修复方案是在 <code>SubQueue</code> 中施加容量硬约束，满载后拒绝接收，迫使调度器休眠重试。</li>
+<li><strong>幽灵般的提前退出（HW7）</strong>：引入双轿厢改造任务后，主线程极易发生误判。当输入流关闭且普通乘客清零时，系统可能直接关闭，而此时某些电梯正在执行 <code>UPDATE</code>，尚未将需要重新分配的乘客退回主队列。最终通过在全局引入 <code>taskCount</code> 变量，严格追踪所有特种生命周期任务，才封堵了这一漏洞。</li>
+</ul>
+<h3 id="2-多线程程序的-Debug-方法"><a href="#2-多线程程序的-Debug-方法" class="headerlink" title="2. 多线程程序的 Debug 方法"></a>2. 多线程程序的 Debug 方法</h3><p>多线程并发 Bug 往往难以在本地稳定复现。传统的单步断点调试会破坏线程原有的执行时序，掩盖真实死锁。<br>我的主要调试手段分为两种：<br>其一，<strong>静态查错</strong>。利用一些有针对性的提示词，使用ai辅助debug。例如：</p>
+<blockquote>
+<p>这是我们oo第七次作业，是在第五、六次作业基础上的迭代作业，请仔细读题，阅读代码，请帮我检查代码是否有错，有无bug与各种隐患，如TLE，线程安全，稳定性，错误输出，策略错误，检修超时，某限时的操作超时等</p>
+</blockquote>
+<p>其二，<strong>搭建评测机</strong>。利用ai搭建的评测机，精准判断时间戳等是否有误。</p>
+<h2 id="四、-线程安全与层次化设计"><a href="#四、-线程安全与层次化设计" class="headerlink" title="四、 线程安全与层次化设计"></a>四、 线程安全与层次化设计</h2><p>在迭代过程中，层次化设计的价值不仅体现在代码的扩展性上，更在于它是保障线程安全的底层逻辑。</p>
+<img src="/posts/OO-U2%E6%80%BB%E7%BB%93-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%94%B5%E6%A2%AF%E7%B3%BB%E7%BB%9F/%E6%9E%B6%E6%9E%84%E5%9B%BE.png" srcset="/img/loading.gif" lazyload class="" title="架构图">
+<ul>
+<li><strong>业务逻辑的极致剥离</strong>：如果将寻道逻辑、时序记录和物理动作全部糅合在 <code>Elevator</code> 类中，势必需要设置错综复杂的全局锁。在我的设计中，电梯本身被彻底“掏空”，寻道决策被抽取到 <code>Strategy</code> 类，而指导书严苛的 RECEIVE 时序验证则被封装进 <code>ReceiveTracker</code> 类。各组件之间仅通过局部锁与方法接口通信，降低了死锁风险。</li>
+<li><strong>复杂流程的状态机化</strong>：针对临时检修与双轿厢转换，系统引入了有限状态机（FSM）。状态转移遵循严格的路径（如 <code>NORMAL</code> -&gt; <code>UP_ACCEPT</code> -&gt; <code>UPDATE</code> -&gt; <code>DOUBLE</code>）。在状态切换的边缘，系统统一执行“强制清客”与“重置起点”操作，将滞留乘客打包退回调度大厅。这种设计避免了碎片化的 <code>if-else</code> 判断，极大提升了并发状态下的系统鲁棒性。</li>
+</ul>
+<h2 id="五、-大模型的使用心得"><a href="#五、-大模型的使用心得" class="headerlink" title="五、 大模型的使用心得"></a>五、 大模型的使用心得</h2><p>在本单元的开发中，我使用了大语言模型Gemini 3.1 pro作为辅助开发工具。</p>
+<p><strong>1. 人机分工模式</strong><br>我坚持“人类主导架构，大模型辅助推演”的原则。系统的核心类结构、状态机定义及锁的控制粒度均由我独立设计。大模型主要承担逻辑推演的职责，作为验证多线程并发假想的沙盒。</p>
+<p><strong>2. 大模型在复杂任务中的优势</strong><br>在处理幽灵死锁时，大模型拥有强大的状态排列组合分析能力。我总结出了一套高效的<strong>提示词工程（Prompt Engineering）</strong>：首先进行“上下文前置投喂”，将指导书特定的业务规则（如“部件检修开始时强制清空 RECEIVE”）明确告知大模型；随后进行“代码分块”，仅提交涉及死锁的互斥类代码，避免大模型产生逻辑幻觉；最后采用“假设性提问”，引导大模型顺着我设想的执行路径进行验证。这套方法极大缩短了排查死锁锁粒度问题的时间。</p>
+<p><strong>3. 遇到的困难与感受</strong><br>大模型并非银弹。如果在开发初期直接要求大模型审查整个工程的数百行代码，它往往会给出似是而非的修改建议，甚至破坏原本正常的线程安全机制。因此，使用大模型的核心能力在于开发者的“精准提问”与“边界划定”。它是一个优秀的结对编程助手，但最终的代码审查权和架构决策权必须掌握在开发者手中。</p>
+<h2 id="六、-真实体验与建议"><a href="#六、-真实体验与建议" class="headerlink" title="六、 真实体验与建议"></a>六、 真实体验与建议</h2><p>第二单元的学习曲线陡峭而充实。从第一单元串行思维到本单元并发思维的跨越，初期伴随着对死锁与超时的阵痛。极度考验开发者对于时序控制的敏感度与排错耐心。但随着架构在一次次重构中趋于稳定，亲眼见证系统在高压并发下有条不紊地完成换乘与调度，这种工程实践的成就感是巨大的。</p>
+<p><strong>对课程组的建议：</strong><br>1.希望指导书发布时能更加严谨，不用后续再补充通知，这可能导致代码写了一半需要修改，比较让人头疼；</p>
+<p>2.hw6的中测有点过弱，而强测有很多同质bug能触发的点，导致同学可能通过中测而强测因为一个bug几乎拿0分，这一点确实有点不太合适</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/OO/" class="category-chain-item">OO</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/OO/" class="print-no-link">#OO</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>OO U2总结：多线程电梯系统</div>
+      <div>http://example.com/posts/OO-U2总结-多线程电梯系统/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>pppphop</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/OO-U3%E6%80%BB%E7%BB%93-JML%E8%A7%84%E6%A0%BC%E5%8C%96%E8%AE%BE%E8%AE%A1/" title="OO U3总结：JML规格化设计">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">OO U3总结：JML规格化设计</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/OO-U1%E6%80%BB%E7%BB%93-%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%A7%A3%E6%9E%90%E4%B8%8E%E7%AC%A6%E5%8F%B7%E6%B1%82%E5%AF%BC/" title="OO U1总结：表达式解析与符号求导">
+                        <span class="hidden-mobile">OO U1总结：表达式解析与符号求导</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/index-math.js?v=20260625-polish.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,1020 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pppphop">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="面向对象设计与构造第14次作业本次作业入口需提交：1.一阶类图（uml_pre.mdj）；2.类名输出文件（Main.java）。若缺少文件，可能会导致评测失败。本次作业入口需提交：1.代码；2.一阶类图的uml配置路径文件（config.yml）；3.二阶类图（uml_ultimate.mdj）（若二阶类图重构，还需提交“重构说明.md”）；4.状态图。若缺少某个文件，则会扣除对应的分数。 第一">
+<meta property="og:type" content="website">
+<meta property="og:title" content="面向对象设计与构造第14次作业">
+<meta property="og:url" content="http://example.com/files/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%84%E9%80%A0%E7%AC%AC14%E6%AC%A1%E4%BD%9C%E4%B8%9A.html">
+<meta property="og:site_name" content="zhp的博客">
+<meta property="og:description" content="面向对象设计与构造第14次作业本次作业入口需提交：1.一阶类图（uml_pre.mdj）；2.类名输出文件（Main.java）。若缺少文件，可能会导致评测失败。本次作业入口需提交：1.代码；2.一阶类图的uml配置路径文件（config.yml）；3.二阶类图（uml_ultimate.mdj）（若二阶类图重构，还需提交“重构说明.md”）；4.状态图。若缺少某个文件，则会扣除对应的分数。 第一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://laiang8086-test.oss-cn-beijing.aliyuncs.com/images/image-20230507090704316.png">
+<meta property="og:image" content="https://s21.ax1x.com/2024/05/26/pklh4R1.png">
+<meta property="article:published_time" content="2026-06-27T00:11:25.798Z">
+<meta property="article:modified_time" content="2026-06-27T00:11:25.798Z">
+<meta property="article:author" content="pppphop">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://laiang8086-test.oss-cn-beijing.aliyuncs.com/images/image-20230507090704316.png">
+  
+  
+  
+  <title>面向对象设计与构造第14次作业 - zhp的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/blog-polish.css?v=20260627-oo-gap.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zhp的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              
+              <a class="nav-link dropdown-parent-link" target="_self" href="/quiz/" role="button"
+                  aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>刷题</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/military/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>军理刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ethics/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>思修刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/os/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>OS刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/history/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>史纲刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ai/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>AI 对话</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="面向对象设计与构造第14次作业"></span>
+          
+        </div>
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+<article class="page-content">
+  <h1 id="面向对象设计与构造第14次作业"><a href="#面向对象设计与构造第14次作业" class="headerlink" title="面向对象设计与构造第14次作业"></a>面向对象设计与构造第14次作业</h1><p>本次作业入口需提交：1.一阶类图（uml_pre.mdj）；2.类名输出文件（Main.java）。<strong>若缺少文件，可能会导致评测失败。</strong><br>本次作业入口需提交：1.代码；2.一阶类图的uml配置路径文件（config.yml）；3.二阶类图（uml_ultimate.mdj）（若二阶类图重构，还需提交“重构说明.md”）；4.状态图。<strong>若缺少某个文件，则会扣除对应的分数。</strong></p>
+<h2 id="第一部分：训练目标"><a href="#第一部分：训练目标" class="headerlink" title="第一部分：训练目标"></a>第一部分：训练目标</h2><p>本次作业以一个图书馆管理系统为背景，锻炼同学们<strong>对程序架构的设计和抽象能力，以及UML建模能力</strong>（包括类图、状态图）。</p>
+<h2 id="第二部分：预备知识"><a href="#第二部分：预备知识" class="headerlink" title="第二部分：预备知识"></a>第二部分：预备知识</h2><p>同学们需要掌握 <strong>UML 图</strong>的相关知识以及 <strong>StarUML 的使用方法</strong>。这里给出一些<strong>参考资料</strong>。</p>
+<p>[第四单元手册] <a target="_blank" rel="noopener" href="http://gitlab.oo.buaa.edu.cn/2026_oo_public/officialpackage/u4_hw14/">http://gitlab.oo.buaa.edu.cn/2026_oo_public/officialpackage/u4_hw14/</a></p>
+<p>同学亦可参阅OO工具链教程的文末部分：</p>
+<p>[OO工具链教程] <a target="_blank" rel="noopener" href="http://gitlab.oo.buaa.edu.cn/2026_oo_public/course_system_guidebook/">http://gitlab.oo.buaa.edu.cn/2026_oo_public/course_system_guidebook/</a></p>
+<h2 id="第三部分：题目描述"><a href="#第三部分：题目描述" class="headerlink" title="第三部分：题目描述"></a>第三部分：题目描述</h2><p>在一所小型图书馆中，用户借阅图书需要遵守一定的规章制度。我们需要你模拟一个小型的图书管理系统，完成图书馆所支持的相关业务。</p>
+<p>图书馆里的所有图书按照 <strong>“类别号-序列号”</strong> 的形式编制<strong>ISBN号</strong>（同学们可以理解为 ISBN 国际标准书号的简化形式，即一本书的ISBN号是唯一的，它的所有副本的ISBN号都是相同的）。图书分 A 、B 、C 三类，由类别号标识，每种类别可能包含多个图书。每个ISBN号的图书可能具有多个副本（具有不同副本号）。图书馆中具体的某一本图书由唯一的“<strong>类别号-序列号-副本号</strong>”形式编制<strong>书号</strong>。对于不同类别的书，有不同的借阅数量限制。</p>
+<p>图书馆的运行分为两个时段：白天<strong>开馆</strong>，夜晚<strong>闭馆</strong>。开馆时，图书管理系统需要处理用户的<strong>各种请求</strong>，依据图书馆的<strong>运行规则</strong>决定是否批准用户的请求；闭馆时，图书馆内部依据需要<strong>整理各部门的图书</strong>，以满足接下来可能处理的各种请求。</p>
+<p>在上次作业中，开馆时图书管理系统需要处理的请求包括：借书、还书、查询、预约和取书。</p>
+<p>本次作业新增的情况有：精品书架，评分，阅读，归还。</p>
+<h3 id="一、流程描述"><a href="#一、流程描述" class="headerlink" title="一、流程描述"></a>一、流程描述</h3><h4 id="重要概念说明"><a href="#重要概念说明" class="headerlink" title="重要概念说明"></a>重要概念说明</h4><ul>
+<li><p>开馆</p>
+<p>：</p>
+<ul>
+<li>是一个<strong>时段</strong>，指的是<strong>从07:00到21:00</strong>（24小时制）这一段时间。这个时段一般可以进行除<strong>整理流程</strong>外的各种流程。</li>
+</ul>
+</li>
+<li><p>闭馆</p>
+<p>：</p>
+<ul>
+<li>是一个<strong>时段</strong>，指的是<strong>从21:00到次日07:00</strong>（24小时制）这一段时间。</li>
+</ul>
+</li>
+<li><p>开馆前整理</p>
+<p>：</p>
+<ul>
+<li>是一个<strong>时段</strong>，指的是<strong>从06:00到07:00</strong>（24小时制）这一段时间。这个时段要进行一次<strong>整理流程</strong>。</li>
+</ul>
+</li>
+<li><p>闭馆后整理</p>
+<p>：</p>
+<ul>
+<li>是一个<strong>时段</strong>，指的是<strong>从21:00到22:00</strong>（24小时制）这一段时间。这个时段要进行一次<strong>整理流程</strong>。</li>
+</ul>
+</li>
+<li><p>书架</p>
+<ul>
+<li>是<strong>普通书架</strong>和精品书架的总称。</li>
+</ul>
+</li>
+<li><p>图书在架</p>
+<ul>
+<li>是指<strong>书架</strong>持有对应ISBN号的任一副本。</li>
+</ul>
+</li>
+</ul>
+<h4 id="借阅流程"><a href="#借阅流程" class="headerlink" title="借阅流程"></a>借阅流程</h4><p>若一位用户来到图书馆借阅某图书，按照如下规则来进行处理：</p>
+<ol>
+<li>若欲借阅的图书无余本在架，借阅失败；</li>
+<li>若欲借阅的图书为 <strong>A 类图书</strong>，借阅失败（ A 类图书无法借阅）；</li>
+<li>若欲借阅的图书为 <strong>B 类或 C 类图书</strong>，若符合<strong>图书借阅数量限制</strong>则借阅成功，该用户从此刻起持有该书；否则借阅失败，图书仍留在<strong>书架</strong>。</li>
+</ol>
+<h5 id="图书借阅数量限制"><a href="#图书借阅数量限制" class="headerlink" title="图书借阅数量限制"></a>图书借阅数量限制</h5><ul>
+<li>A 类书：不可借阅，不可预约。</li>
+<li>B 类书：一人同一时刻仅能持有一个 B 类书的副本。</li>
+<li>C 类书：对于每一个ISBN号，一人同一时刻仅能持有一个具有该ISBN号的图书副本。</li>
+</ul>
+<h4 id="还书流程"><a href="#还书流程" class="headerlink" title="还书流程"></a>还书流程</h4><p>若一位用户来到图书馆归还某图书，则该用户会前往<strong>借还处</strong>，还书立即成功，从此刻起，借还处持有该书，用户不再持有该书。</p>
+<h4 id="预约流程"><a href="#预约流程" class="headerlink" title="预约流程"></a>预约流程</h4><p>若一位用户需要预约某图书，则该用户需要前往<strong>预约处</strong>登记。</p>
+<ol>
+<li><p>该用户必须满足下述要求才可以预约成功：</p>
+<ul>
+<li>预约的书不是 A 类书（规定 A 类书无法预约）。</li>
+<li>若已经持有一本 B 类书，则无法再预约任何 B 类书。</li>
+<li>若已经持有<strong>某ISBN号</strong>的 C 类书，则不能预约<strong>该ISBN号</strong>的 C 类书。</li>
+<li>若此前已经预定过图书且<strong>还未成功取书</strong>，则预约失败。</li>
+</ul>
+</li>
+<li><p>预约成功后，图书馆可在此后的整理流程中选择将书送至预约处，送至预约处的图书需要指定是为了满足哪个用户的预约请求而送达的，具体输出格式见后。</p>
+</li>
+<li><p>图书送至预约处后，若在</p>
+<p>开馆前整理</p>
+<p>中送达，则从</p>
+<p>当日</p>
+<p>起为该用户保留</p>
+</li>
+</ol>
+<p>   5</p>
+<p>   天；若在</p>
+<p>   闭馆后整理</p>
+<p>   中送达，从</p>
+<p>   次日</p>
+<p>   起为该用户保留</p>
+<p>   5</p>
+<p>   天。在此期间，该书不能在整理流程中移动。保留期第 5 天闭馆后，该书不再视作为该用户保留，视为</p>
+<p>   预约失效</p>
+<p>   。该书</p>
+<p>   自该次闭馆后整理起</p>
+<p>   ，图书馆可对该书进行整理。从</p>
+<p>   次日</p>
+<p>   起，预约该书的用户将无法取走该书。</p>
+<ul>
+<li>例如，1月1日开馆前整理中送达，则1月5日闭馆后，该书不再为用户保留；1月1日闭馆后整理中送达，则1月6日闭馆后，该书不再为用户保留。</li>
+<li>“<strong>预约失效</strong>”概念说明：指预约的图书送达预约处后，超过规定的保留期限，该书不再为用户保留的状态。此时，用户的预约状态被取消，图书馆可对该书进行整理，用户无法再取走该书。</li>
+</ul>
+<h4 id="取书流程"><a href="#取书流程" class="headerlink" title="取书流程"></a>取书流程</h4><p>用户只能去预约处取书。</p>
+<ol>
+<li>该用户必须满足下述要求才可以取书成功：<ul>
+<li>预约处存在一本为该用户预留的图书。</li>
+<li>该书ISBN号与用户<strong>要取图书的ISBN号相同</strong>。</li>
+<li>取书后该用户持有的书仍然<strong>满足借阅数量限制</strong>。</li>
+</ul>
+</li>
+<li>该用户取书成功后，由用户持有该书，且该用户对于该书的一个成功预约视作完成，不再生效。<strong>若取书失败</strong>，图书不发生移动。</li>
+<li>取书时，对于用户要取的这本书，如果预约处存在多本副本，只能取走<strong>整理操作时指定给该用户预留</strong>的图书副本。</li>
+</ol>
+<h4 id="阅读流程"><a href="#阅读流程" class="headerlink" title="阅读流程"></a>阅读流程</h4><p>若一位用户来到图书馆<strong>阅读</strong>某图书，按照如下规则来进行处理：</p>
+<ol>
+<li>若欲阅读的图书无余本在架，阅读失败；</li>
+<li>若该用户存在当日阅读后未归还的图书，阅读失败；</li>
+<li>若欲阅读的图书在架，则该用户会从<strong>书架</strong>上取走图书，前往<strong>阅览室</strong>阅读，该书视为从普通书架/精品书架移动到阅览室，<strong>不能再被任何人借阅</strong>，用户阅读成功。</li>
+</ol>
+<h4 id="归还流程"><a href="#归还流程" class="headerlink" title="归还流程"></a>归还流程</h4><p>若一位用户在当日已经成功阅读了某图书，在当日闭馆前可以选择归还，则该用户会前往<strong>借还处</strong>，阅读归还立即成功，从此刻起，<strong>借还处</strong>持有该书，<strong>阅览室</strong>不再持有该书。</p>
+<p><strong>注意</strong>：用户可以选择不主动归还图书，图书始终留在阅览室直到整理流程中被归还到书架。</p>
+<h4 id="评分流程"><a href="#评分流程" class="headerlink" title="评分流程"></a>评分流程</h4><p>若用户要对某ISBN号进行评分，可前往<strong>评分处</strong>进行评分，可选项<strong>有且仅有</strong>0(分)、1(分)、2(分)、3(分)、4(分)、5(分)六种。</p>
+<ul>
+<li>某ISBN号的得分是所有对其评分的<strong>平均值</strong>（向下取整）。</li>
+<li>所有ISBN号初始得分为0分。</li>
+</ul>
+<h4 id="精品书架"><a href="#精品书架" class="headerlink" title="精品书架"></a>精品书架</h4><p>ISBN号得分<strong>不小于4分</strong>的所有副本视为精品图书，其余图书为非精品图书。每次<strong>开馆前整理</strong>后，精品图书都应移动或保留至<strong>精品书架</strong>，非精品图书移动或保留至<strong>普通书架</strong>。精品图书仍可被借阅、预约。</p>
+<ul>
+<li>例如，1月2日这一天，A-0001首次被评分为5分，下一次有输入的开馆时间为1月5日，且从1月2日开始到1月5日之前该ISBN号仅被评分过这一次，则2026-01-05的开馆整理后，所有ISBN号为A-0001的副本都应被放到<strong>精品书架</strong>，其他非精品图书都应被放到<strong>普通书架</strong>。</li>
+<li>如果没有图书被视为精品图书，则本次开馆整理后精品书架为空。</li>
+</ul>
+<h4 id="查询流程"><a href="#查询流程" class="headerlink" title="查询流程"></a>查询流程</h4><p>若用户需要查询图书馆内某本书的历史移动轨迹信息，可前往<strong>自助查询机</strong>处查询：</p>
+<ul>
+<li>输入“<strong>类别号-序列号-副本号</strong>”，查询某<strong>副本</strong>的历史移动轨迹。</li>
+<li>可移动的状态包括：<strong>普通书架</strong>、精品书架、阅览室、借还处、预约处、用户。</li>
+</ul>
+<h4 id="整理流程"><a href="#整理流程" class="headerlink" title="整理流程"></a>整理流程</h4><p>每次<strong>开馆前整理</strong>和每次<strong>闭馆后整理</strong>，系统都有一次机会整理各处的图书。整理的目的是为了满足请求，此时系统可以在不违反<strong>图书移动限制</strong>的情况下移动图书馆内的可在整理流程中移动的图书。</p>
+<p>我们对整理流程中图书的移动进行如下限制：</p>
+<ol>
+<li>在一次整理流程中，每本图书仅能<strong>移动一次</strong>（<strong>终点为预约处</strong>的移动不计入次数限制）；</li>
+<li>在<strong>开馆前整理</strong>后，借还处不应该有书，预约处不应该有逾期的书，阅览室不应有书；</li>
+<li>不可以为没有预定特定图书的用户预留该图书（即为该用户将该图书送至预约处）；</li>
+<li>自由考虑使用何种策略为预约预留图书（没有特别限制，但建议以提高借阅成功率为目的），但是不允许无条件拒绝为预约预留图书。</li>
+</ol>
+<h5 id="图书移动限制"><a href="#图书移动限制" class="headerlink" title="图书移动限制"></a>图书移动限制</h5><p>任何可以<strong>引起图书位置变化</strong>的操作，该书数量的变化<strong>符合实际</strong>（一次移动仅可以改变单一副本的位置，本次作业中<strong>任何时候图书总数不变</strong>）。</p>
+<p>具体的，此次作业中，可以引起图书位置变化的操作如下：</p>
+<ul>
+<li>用户借阅书架图书成功：普通/精品书架 -&gt; 用户</li>
+<li>用户取书：预约处 -&gt; 用户</li>
+<li>用户还书：用户 -&gt; 借还处</li>
+<li>用户阅读：普通/精品书架 -&gt; 阅览室</li>
+<li>用户归还：阅览室 -&gt; 借还处</li>
+<li>整理时的图书转运：借还处，普通书架，精品书架，预约处，阅览室这五个位置中从一个位置到另一个位置</li>
+</ul>
+<h3 id="二、作业要求"><a href="#二、作业要求" class="headerlink" title="二、作业要求"></a>二、作业要求</h3><p>本次作业需要同学们设计并实现一个符合上述情景描述的图书馆模拟系统。需要完成的内容分为三部分：</p>
+<ol>
+<li>设计程序架构，绘制并提交 <strong>UML 类图</strong>。</li>
+<li>设计图书的状态，绘制并提交<strong>状态图</strong>。</li>
+<li>根据所设计的架构进行编程实现，并提交<strong>程序代码</strong>。</li>
+</ol>
+<h2 id="第四部分：输入输出"><a href="#第四部分：输入输出" class="headerlink" title="第四部分：输入输出"></a>第四部分：输入输出</h2><h3 id="一、程序输入"><a href="#一、程序输入" class="headerlink" title="一、程序输入"></a>一、程序输入</h3><p>程序输入由<strong>两部分</strong>组成：<strong>图书馆初始书目信息</strong>和<strong>用户请求动态信息</strong>。</p>
+<p>输入第一行为一个正整数 n，代表图书馆中共有 n 种不同的图书，1≤n≤100。</p>
+<p>接下来 n 行每行对应一种书的详细信息，格式为“<strong>类别号-序列号 副本数</strong>”，例如 “B-0001 10” 代表 B 类下序号为 0001 的书（即ISBN号为B-0001的书）馆藏 10 个副本。序列号为<strong>四位数字</strong>。输入保证不存在相同的 “类别号-序列号”，不同类别号下可以存在相同的序列号，每个ISBN号的书最多 10 个副本。<strong>副本号从1开始依递增顺序编号</strong>，例如 “B-0001 10” 代表十本书的编号为 B-0001-01, B-0001-02, …, B-0001-10。</p>
+<p>接下来若干行每行对应一条动态信息，格式为”<strong>[YYYY-mm-dd] OPEN</strong>“和”<strong>[YYYY-mm-dd] CLOSE</strong>“之间的若干条”<strong>[YYYY-mm-dd] &lt;学号&gt; &lt;操作&gt; &lt;类别号-序列号[-副本号]&gt;</strong>“，代表在日期为 [YYYY-mm-dd] 的当天，用户 &lt;学号&gt; 对图书 &lt;类别号-序列号[-副本号]&gt; 进行 &lt;操作&gt;，除开馆指令和闭馆指令，设评测给定的指令条数为m，1≤m≤200。</p>
+<p><strong>请注意，初始数据点是给评测机的原始输入，并不等于同学们的程序实际接收到的输入。但我们保证同学们的程序接收到的输入，输入指令中操作的图书编号，一定在图书馆中存在</strong>。</p>
+<p>在评测数据中，所有请求指令都位于当日的开馆指令和闭馆指令之间，对于没有任何指令的日期，评测数据可能省略开闭馆指令。形式化的限制如下：</p>
+<ul>
+<li>数据的所有指令时间严格不减（不可能出现时间倒流的情况）。</li>
+<li>对于任意开馆指令 A ，存在且仅存在一条相同日期的闭馆指令 B ，且 B 位于 A 之后；对于任意闭馆指令 P ，存在且仅存在一条相同日期的开馆指令 Q ，且 Q 位于 P 之前。</li>
+<li>对于任意请求指令 Q ，保证存在相同日期的开馆指令位于 Q 之前，保证存在相同日期的闭馆指令位于 Q 之后。</li>
+</ul>
+<p><strong>具体的 &lt;操作&gt; 种类</strong>：</p>
+<ul>
+<li>queried：查询。</li>
+<li>borrowed：借书。</li>
+<li>ordered：预约书。</li>
+<li>returned：还书。</li>
+<li>picked：取书。</li>
+<li>read：阅读。</li>
+<li>restored：归还。</li>
+<li>graded：评分。</li>
+</ul>
+<p>所有请求指令均已按时间先后顺序排序。也即同一日期的全部信息，可理解为按照输入出现的顺序依次从早到晚发生。 <strong>在图书馆第1天开馆前</strong>，图书馆的所有书本均位于<strong>书架</strong>上。</p>
+<p>所有输入事件在 [2026-01-01] 至 [2026-12-31] 之间发生，保证日期合法。</p>
+<p><strong>输入信息展示如下</strong>：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>输入</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>图书馆开馆时输入</td>
+<td>“[YYYY-mm-dd] OPEN”</td>
+</tr>
+<tr>
+<td>图书馆闭馆时输入</td>
+<td>“[YYYY-mm-dd] CLOSE”</td>
+</tr>
+<tr>
+<td>用户查询图书历史移动轨迹信息时输入</td>
+<td>“[YYYY-mm-dd] &lt;学号&gt; queried &lt;类别号-序列号-副本号&gt;”</td>
+</tr>
+<tr>
+<td>用户借书时输入</td>
+<td>“[YYYY-mm-dd] &lt;学号&gt; borrowed &lt;类别号-序列号&gt;”</td>
+</tr>
+<tr>
+<td>用户预约时输入</td>
+<td>“[YYYY-mm-dd] &lt;学号&gt; ordered &lt;类别号-序列号&gt;”</td>
+</tr>
+<tr>
+<td>用户还书时输入</td>
+<td>“[YYYY-mm-dd] &lt;学号&gt; returned &lt;类别号-序列号-副本号&gt;”</td>
+</tr>
+<tr>
+<td>用户取书时输入</td>
+<td>“[YYYY-mm-dd] &lt;学号&gt; picked &lt;类别号-序列号&gt;”</td>
+</tr>
+<tr>
+<td>用户阅读时输入</td>
+<td>“[YYYY-mm-dd] &lt;学号&gt; read &lt;类别号-序列号&gt;”</td>
+</tr>
+<tr>
+<td>用户归还时输入</td>
+<td>“[YYYY-mm-dd] &lt;学号&gt; restored &lt;类别号-序列号-副本号&gt;”</td>
+</tr>
+<tr>
+<td>用户评分时输入</td>
+<td>“[YYYY-mm-dd] &lt;学号&gt; graded &lt;类别号-序列号&gt; &lt;分数&gt;”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>借书、预约等指令格式为&lt;<strong>类别号-序列号</strong>&gt;，代表<strong>该ISBN号的书</strong></li>
+<li>查询、还书等指令输入格式为&lt;<strong>类别号-序列号-副本号</strong>&gt;，代表<strong>该书号的某一本书</strong></li>
+<li>评分等指令输入格式中含有&lt;<strong>分数</strong>&gt;，有且仅有<strong>0(分)、1(分)、2(分)、3(分)、4(分)、5(分</strong>)六种</li>
+</ul>
+<p><strong>注意</strong>：评测详情中的<strong>stdin</strong>不是完整的输入，使用官方包的同学可以从<strong>stderr</strong>获取你的程序接收到的完整输入，不使用官方包自行处理输入输出的同学可以根据需要向stderr打印信息，或根据输出反推输入。</p>
+<h3 id="二、程序输出"><a href="#二、程序输出" class="headerlink" title="二、程序输出"></a>二、程序输出</h3><p>当程序运行时发生表格中出现的场景时，要求输出相应信息。每条信息占一行。</p>
+<p><strong>开馆时</strong>：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户查询图书历史移动轨迹信息时输出</td>
+<td>“[YYYY-mm-dd] &lt;类别号-序列号-副本号&gt; moving trace: &lt;接下来的行数&gt;” “&lt;序号&gt; [YYYY-mm-dd] from &lt;起点&gt; to &lt;终点&gt;”(每次状态转移占据一行输出)</td>
+</tr>
+<tr>
+<td>用户借书成功时输出</td>
+<td>“[YYYY-mm-dd] [accept] &lt;学号&gt; borrowed &lt;类别号-序列号-副本号&gt;”</td>
+</tr>
+<tr>
+<td>用户借书失败时输出</td>
+<td>“[YYYY-mm-dd] [reject] &lt;学号&gt; borrowed &lt;类别号-序列号&gt;”</td>
+</tr>
+<tr>
+<td>用户预约成功时输出</td>
+<td>“[YYYY-mm-dd] [accept] &lt;学号&gt; ordered &lt;类别号-序列号&gt;”</td>
+</tr>
+<tr>
+<td>用户预约失败时输出</td>
+<td>“[YYYY-mm-dd] [reject] &lt;学号&gt; ordered &lt;类别号-序列号&gt;”</td>
+</tr>
+<tr>
+<td>用户还书成功时输出</td>
+<td>“[YYYY-mm-dd] [accept] &lt;学号&gt; returned &lt;类别号-序列号-副本号&gt;”</td>
+</tr>
+<tr>
+<td>用户取书成功时输出</td>
+<td>“[YYYY-mm-dd] [accept] &lt;学号&gt; picked &lt;类别号-序列号-副本号&gt;”</td>
+</tr>
+<tr>
+<td>用户取书失败时输出</td>
+<td>“[YYYY-mm-dd] [reject] &lt;学号&gt; picked &lt;类别号-序列号&gt;”</td>
+</tr>
+<tr>
+<td>用户阅读成功时输出</td>
+<td>“[YYYY-mm-dd] [accept] &lt;学号&gt; read &lt;类别号-序列号-副本号&gt;”</td>
+</tr>
+<tr>
+<td>用户阅读失败时输出</td>
+<td>“[YYYY-mm-dd] [reject] &lt;学号&gt; read &lt;类别号-序列号&gt;”</td>
+</tr>
+<tr>
+<td>用户归还成功时输出</td>
+<td>“[YYYY-mm-dd] [accept] &lt;学号&gt; restored &lt;类别号-序列号-副本号&gt;”</td>
+</tr>
+<tr>
+<td>用户评分成功时输出</td>
+<td>“[YYYY-mm-dd] [accept] &lt;学号&gt; graded &lt;类别号-序列号&gt; &lt;分数&gt;”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>要求输出按照时间先后顺序排序。也即同一日期的全部信息，输出的顺序应与事件发生的先后顺序相同。</p>
+<p>某日处理开馆后请求的输出，只应出现在当日开馆后，当日闭馆前。</p>
+<p>借阅、取书、阅读成功时输出的副本号可以满足其他条件下任意指定，<strong>保证后续对应的还书、归还指令的副本号与之相同</strong></p>
+<p><strong>查询时</strong>：</p>
+<p>接收到查询指令后，需要输出一个整数k作为该图书的历史移动轨迹的条目数，接下来输出k行，每行一条图书的历史移动轨迹。</p>
+<p>本次作业中，我们规定图书历史移动的所有可能经过的位置只能为如下六种：</p>
+<ul>
+<li>bookshelf (简写作 bs) ：普通书架</li>
+<li>treasured bookshelf（简写作tbs）：精品书架</li>
+<li>borrow and return office (简写作 bro) ：借还处</li>
+<li>appointment office (简写作 ao) ：预约处</li>
+<li>reading room（简写作rr）：阅览室</li>
+<li>user ：用户</li>
+</ul>
+<p><strong>整理时</strong>：</p>
+<p>接收到开馆指令OPEN和闭馆指令CLOSE以后，需要输出一个整数k作为准备进行的图书移动次数，接下来输出k行，每行一条图书移动信息。（虽然<strong>开馆前整理</strong>的输出在”开馆指令OPEN”这条输入之后，但是我们仍认为在时间上，<strong>开馆前整理</strong>在开馆指令前。）</p>
+<p>本次作业中，我们规定图书移动的起点和终点只能为如下五种：</p>
+<ul>
+<li>bookshelf (简写作 bs) ：普通书架</li>
+<li>treasured bookshelf（简写作tbs）：精品书架</li>
+<li>borrow and return office (简写作 bro) ：借还处</li>
+<li>appointment office (简写作 ao) ：预约处</li>
+<li>reading room（简写作rr）：阅览室</li>
+</ul>
+<p><strong>注意：起点和终点不能相同</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>图书移动，终点不为预约处</td>
+<td>“[YYYY-mm-dd] move &lt;类别号-序列号-副本号&gt; from &lt;起点&gt; to &lt;终点&gt;”</td>
+</tr>
+<tr>
+<td>图书移动，终点为预约处</td>
+<td>“[YYYY-mm-dd] move &lt;类别号-序列号-副本号&gt; from &lt;起点&gt; to &lt;终点&gt; for &lt;学号&gt;”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>图书转运路径的输出，应当紧接在开馆后和闭馆后。</p>
+<p>终点为预约处的整理操作输出的副本号可以满足其他条件下任意指定，<strong>后续对应的成功取书输出的副本号应与之相同</strong>。</p>
+<h3 id="三、评测保证"><a href="#三、评测保证" class="headerlink" title="三、评测保证"></a>三、评测保证</h3><p>本单元对程序正确性的检查采用<strong>交互式评测</strong>。具体的，我们的测试数据点只给出<strong>借阅请求</strong>、<strong>预约请求</strong>、<strong>阅读请求</strong>、<strong>查询请求</strong>和 <strong>评分请求</strong>，而<strong>还书请求</strong>、<strong>取书请求</strong>和 <strong>归还请求</strong> 依据同学们的输出情况动态生成，以检测同学们的程序是否能够正确处理不同情况的请求。</p>
+<ul>
+<li>评测机保证一定是针对拥有某书的相应用户来生成该书的还书请求。对每条成功的借阅请求和成功的取书请求，<strong>至多生成 1 条</strong>对应的还书请求。</li>
+<li>评测机保证一定是某个用户对某书的预约成功之后才生成该书的取书请求，但不确定该请求发出时<strong>相应的图书是否送达预约处</strong>，以及<strong>相应的预约是否失效</strong>。对每条预约请求，<strong>至多生成 2 条</strong>取书请求。</li>
+<li>评测机保证一定是针对正在阅读某书的相应用户来生成该书的归还请求，<strong>至多生成 1 条</strong>对应的归还请求。</li>
+</ul>
+<h3 id="四、样例"><a href="#四、样例" class="headerlink" title="四、样例"></a>四、样例</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>输入</th>
+<th>输出</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 B-0000 2 [2026-01-06] OPEN [2026-01-06] 24370001 borrowed B-0000 [2026-01-06] 24370001 returned B-0000-01 [2026-01-06] 24370001 graded B-0000 5 [2026-01-06] CLOSE [2026-01-09] OPEN [2026-01-09] 24370001 queried B-0000-01 [2026-01-09] 24370001 queried B-0000-02 [2026-01-09] CLOSE</td>
+<td>0 [2026-01-06] [accept] 24370001 borrowed B-0000-01 [2026-01-06] [accept] 24370001 returned B-0000-01 [2026-01-06] [accept] 24370001 graded B-0000 5 0 2 [2026-01-09] move B-0000-01 from bro to tbs [2026-01-09] move B-0000-02 from bs to tbs [2026-01-09] B-0000-01 moving trace: 3 1 [2026-01-06] from bs to user 2 [2026-01-07] from user to bro 3 [2026-01-09] from bro to tbs [2026-01-09] B-0000-02 moving trace: 1 1 [2026-01-07] from bs to tbs 0</td>
+<td>展示精品书架和评分的相关流程</td>
+</tr>
+<tr>
+<td>1 A-0000 2 [2026-01-05] OPEN [2026-01-05] 23370001 read A-0000 [2026-01-05] 23370001 restored A-0000-01 [2026-01-05] CLOSE [2026-01-06] OPEN [2026-01-06] 23370001 read A-0000 [2026-01-06] 23370001 read A-0000 [2026-01-06] CLOSE [2026-01-09] OPEN [2026-01-09] 23370001 queried A-0000-01 [2026-01-09] CLOSE</td>
+<td>0 [2026-01-05] [accept] 23370001 read A-0000-01 [2026-01-05] [accept] 23370001 restored A-0000-01 0 1 [2026-01-06] move A-0000-01 from bro to bs [2026-01-06] [accept] 23370001 read A-0000-02 [2026-01-06] [reject] 23370001 read A-0000 1 [2026-01-06] move A-0000-02 from rr to bs 0 [2026-01-09] A-0000-01 moving trace: 3 1 [2026-01-05] from bs to rr 2 [2026-01-05] from rr to bro 3 [2026-01-06] from bro to bs hbs 0</td>
+<td>展示阅读和归还的相关流程</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="第五部分：类图与状态图评测标准"><a href="#第五部分：类图与状态图评测标准" class="headerlink" title="第五部分：类图与状态图评测标准"></a>第五部分：类图与状态图评测标准</h2><h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><ul>
+<li><p>类图需要进行<strong>两个阶段</strong>的提交和评测：</p>
+<ul>
+<li><p><strong>第一阶段</strong>需要提交一阶类图和类名输出文件。<strong>一阶类图</strong>是在代码编写前进行架构设计时完成，目的是帮助同学们学会利用类图进行正向化建模。第一阶段评测内容为对一阶类图的<strong>类图正确性基本检验(R1)\</strong>和*<em>语义完整性检查<strong>。一阶类图命名为“</strong>uml_pre.mdj<strong>“，提交到“</strong>第十三次作业（第一阶段）<strong>”的评测部分，</strong>开放和截止时间均在代码开始提交之前<strong>（具体请见评测部分）。类名输出文件内容如下，命名为</strong>Main.java<strong>。本次提交后会返回</strong>一阶类图的uml配置路径<strong>，将路径写到文件中，并命名为</strong>config.yml*</em>，用于第二阶段的提交（具体要求见下）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//类名输出文件内容样例，其中输出内容需要替换为自己设计的所有类名，用英文逗号隔开</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;MainClass,LibraryManager,User&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>第二阶段</strong>需要提交一阶类图的uml配置路径、二阶类图及其他文件（具体要求见指导书顶部）。<strong>二阶类图</strong>是在代码完成过程中对于一阶类图进行相应修正，目的是在代码具体实现过程中保持类图和代码的一致性。第二阶段评测内容为对二阶类图的<strong>R1-R5的全面检验</strong>和<strong>语义完整性检查</strong>，以及两阶类图的<strong>相似度检查</strong>。二阶类图命名为“<strong>uml_ultimate.mdj</strong>“，提交到“<strong>第十三次作业（第二阶段）</strong>”的评测部分，与代码、一阶类图的uml配置路径文件config.yml及其他文件一起提交。注意，若二阶类图有重构情况，需要<strong>额外提交重构说明文件</strong>。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>以下是类图所有的评测标准：</strong></p>
+<p><strong>一、类图基本信息的检查：</strong></p>
+<ul>
+<li>R1：类图正确性基本检验<ul>
+<li>类图中的所有元素，除 direction 为 return 的 UMLParameter ，UMLAssociation ，UMLAssociationEnd ，UMLGeneralization ，UMLInterfaceRealization 外，其余元素的 name 字段不能为空。</li>
+<li>不能含有重名的类。</li>
+<li>不能有循环继承。</li>
+<li>任何一个类或接口不能重复继承另外一个类或接口。</li>
+<li>接口的所有属性和方法均需要为 public 。</li>
+</ul>
+</li>
+<li>R2：类图与程序一致性检验（类内部对应关系）（Class 正确性检验）<ul>
+<li>类图与程序能互相找到名字相同的类。</li>
+<li>类图中每个类的属性：考察它们是否与程序中类的属性的<strong>名字、可见性、类型</strong>一致。</li>
+<li>类图中每个类的方法：考察它们是否与程序中类的方法的<strong>名字、可见性、返回值类型</strong>一致。</li>
+</ul>
+</li>
+<li>R3：类图与程序一致性检验（类内部对应关系）（Interface 正确性检验）<ul>
+<li>与 R2 中检测 class 的条目一致。</li>
+</ul>
+</li>
+<li>R4：类图与程序一致性检验（类内部对应关系）（Enum 正确性检验）<ul>
+<li>与 R2 中检测 class 的条目一致。</li>
+<li>额外的，类图中所定义的<strong>枚举项</strong>要求与代码中相应枚举类所定义<strong>枚举项</strong>名称相同，且是一一对应。</li>
+</ul>
+</li>
+<li>R5：针对关系的类图与程序一致性检查<ul>
+<li>类图中的<strong>继承、实现、关联</strong>关系应和代码实现中的关系保持一致，即同时存在或同时不存在。</li>
+</ul>
+</li>
+</ul>
+<p>关于 UML 类图和程序一致性的检查，有以下说明：</p>
+<ul>
+<li>对于所提交的 UML 类图和所提交程序<ul>
+<li>设类图中的设计单元集合为 MC ，程序中的实现单元集合为 CC</li>
+<li>“单元”包括 class ，interface ，enum class</li>
+</ul>
+</li>
+<li>对于 MC 中任意一个单元 Ma<ul>
+<li>Ma 中属性个数或方法个数不少于 1</li>
+<li>CC 中一定存在一个单元 Ca 与 Ma 相对应，且 Ma 中属性数目不少于 Ca 中属性数目的 60% ，同时 Ma 中方法数目不少于 Ca 中方法数目的 60%</li>
+</ul>
+</li>
+<li>对于 CC 中的任意一个单元 Ca<ul>
+<li>MC 中必然存在一个单元 Ma 与之相对应</li>
+</ul>
+</li>
+<li>对于 MC 中任意两个单元Ma和Mb的关系 Rab<ul>
+<li>CC 中必然有对应的两个单元 Ca 和 Cb ，且 Ca 和 Cb 同样具有相同的关系 Rab ，反之亦然</li>
+</ul>
+</li>
+</ul>
+<p>对于关联关系的补充说明：</p>
+<ul>
+<li>在程序中，如若一个设计单元 Ca 的成员属性引用了设计单元 Cb ，我们认为 Ca 、Cb 之间存在关联关系。</li>
+<li>在 UML 类图中的关联关系，既可以通过设计单元的属性引用隐式描述（属性类型是设计单元），也可以用 UMLAssociation 来显式描述。</li>
+<li>建议在画图时，将重要的关联关系使用 UMLAssociation 进行描述，更便于理解设计单元之间的关系。</li>
+</ul>
+<p><strong>二、语义完整性检查</strong></p>
+<ol>
+<li><p><strong>关键词覆盖率</strong>：为了保证所设计类图内容有效，我们提供以下词库，希望同学们<strong>参考词库中的关键词</strong>来设计类图的整体架构，<strong>尽量覆盖关键词</strong>；</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">key_words = &#123;<span class="hljs-string">&quot;borrow&quot;</span>, <span class="hljs-string">&quot;return&quot;</span>,  <span class="hljs-string">&quot;order&quot;</span>, <span class="hljs-string">&quot;pick&quot;</span>, <span class="hljs-string">&quot;query&quot;</span>, <span class="hljs-string">&quot;arrange&quot;</span>, <span class="hljs-string">&quot;library&quot;</span>, <span class="hljs-string">&quot;book&quot;</span>, <span class="hljs-string">&quot;bookcopy&quot;</span>, <span class="hljs-string">&quot;isbn&quot;</span>, <span class="hljs-string">&quot;open&quot;</span>, <span class="hljs-string">&quot;close&quot;</span>, <span class="hljs-string">&quot;bookshelf&quot;</span>, <span class="hljs-string">&quot;appointment office&quot;</span>, <span class="hljs-string">&quot;borrow and return office&quot;</span>, <span class="hljs-string">&quot;limit&quot;</span>, <span class="hljs-string">&quot;move&quot;</span>, <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;book category&quot;</span>, <span class="hljs-string">&quot;moving trace&quot;</span>, <span class="hljs-string">&quot;read&quot;</span>, <span class="hljs-string">&quot;restore&quot;</span>, <span class="hljs-string">&quot;grade&quot;</span>, <span class="hljs-string">&quot;treasured bookshelf&quot;</span>, <span class="hljs-string">&quot;reading room&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>核心类设计</strong>：对于题目描述中<strong>涉及较多信息的主要实体</strong>（如用户、图书、地点等），我们希望同学们设计对应的类，类图中<strong>尽量包含所有核心类</strong>；</p>
+</li>
+<li><p><strong>核心类的属性与方法设计</strong>：对于题目描述中<strong>主要实体对应的关键信息</strong>，我们希望同学们在对应核心类中设计对应<strong>属性或方法</strong>。我们会检查上述词库中的关键词所在位置是否合理，即每个关键词需要出现在<strong>适当的类名、类的属性名或方法名</strong>中。该部分设计可参考下方提示的<strong>重点考查关系</strong>，并鼓励同学们在此基础上进行补充完善。</p>
+</li>
+</ol>
+<p><strong>提示：</strong></p>
+<ol>
+<li><p>可以考虑建立一个类专门处理各个请求，管理各个地点类；地点类要尽量包含对应的功能关键词。</p>
+</li>
+<li><p>重点考查关系</p>
+<p>：</p>
+<ul>
+<li>图书馆的地点类属性，图书馆的移动、管理、开闭馆方法；</li>
+<li>各个地点对应的处理请求方法；</li>
+<li>图书的ISBN号属性。</li>
+</ul>
+</li>
+</ol>
+<p><strong>三、两次类图相似度检查</strong></p>
+<p>为了防止第一阶段提交一阶类图时存在提交“空图”等偷懒行为，我们规定<strong>两阶类图差异不得过大</strong>，并会进行相似度检查。若二阶类图存在重构情况，请与二阶类图一起<strong>提交重构说明文件</strong>，命名为“<strong>重构说明.md</strong>”。</p>
+<p>若两阶类图相似度低于60%，且未提交重构说明文件或重构说明文件不合格，<strong>一阶类图不给分</strong>；其他情况按评分细则正常给分。</p>
+<h3 id="状态图"><a href="#状态图" class="headerlink" title="状态图"></a>状态图</h3><p>本次作业中，我们要求同学们自行设计图书的状态并绘制状态图。状态图通常在<strong>类图和代码框架设计后</strong>、<strong>具体代码实现前</strong>进行设计，本次作业<strong>仅需</strong>在<strong>第二阶段提交入口</strong>中提交<strong>一次</strong>状态图即可。状态图的评测规则如下：</p>
+<ul>
+<li>R1：状态图正确性基本检验<ul>
+<li>状态图中只能有一个起始状态和0到1个终止状态</li>
+<li>起始状态只能有外出迁移，终止状态只能有进入迁移</li>
+</ul>
+</li>
+<li>R2：Trigger与Guard检验<ul>
+<li>除了起始状态的外出迁移，所有状态转移中Trigger和Guard至少要存在一个</li>
+<li>任意一个迁移的Guard所涉及的变量，都必须是程序中某个类的成员变量</li>
+<li>从一个状态转移到不同状态的Guard条件必须互斥（无论Trigger是否相同）</li>
+<li><strong>状态图中迁移的Trigger必须和程序中有@Trigger注解的方法一一对应</strong>（具体要求见后）</li>
+</ul>
+</li>
+<li>R3：状态转移路径检验<ul>
+<li>任意一个状态S，必然存在一条迁移路径（起点为起始状态，终点为S）</li>
+<li>任意一个状态S，必然存在一条路径迁移到终止状态（如果有）</li>
+<li>针对每个状态S，从起始状态到S的所有简单路径都必须有解<ul>
+<li>路径有解：该路径上所有转移的Guard在一起（逻辑与）有解</li>
+<li>简单路径：路径中所有迁移循环走0次或1次</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>关于程序中注解的添加方法说明</strong></p>
+<p>对于程序中涉及到状态转移的方法，请按如下格式添加注解（需要使用官方包）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Trigger(from = &quot;S1&quot;, to = &#123; &quot;S2&quot;, &quot;S3&quot; &#125;)</span><br><span class="hljs-meta">@Trigger(from = &quot;S2&quot;, to = &quot;S3&quot;)</span><br><span class="hljs-keyword">void</span> <span class="hljs-title function_">triggerMethod</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-comment">// some code here...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>该示例表示了triggerMethod是一个触发器， 可以将状态从S1转移到S2或S3（根据某些其他条件（guard））， 也可以将状态从S2转移到S3。</p>
+<p><strong>关于状态图中Trigger和程序中有@Trigger注解方法一一对应的说明</strong></p>
+<ul>
+<li>出现在注解中<code>from</code>和<code>to</code>中的状态名称，必须与状态图中某个状态的name相同，约定起始状态名为<code>InitState</code>，终止状态名为<code>FinalState</code>。</li>
+<li>注解中涉及到的任意一条状态转移路径，在状态图中，都存在一条路径，使得该路径的起始状态与终止状态和注解中的路径一致，trigger函数名与注解标注的函数名一致。</li>
+<li>图中任意一个迁移的Trigger，都对应程序中的一个添加@Trigger注解的方法，使得Trigger名与方法名一致。</li>
+</ul>
+<p><strong>关于Trigger方法和Guard条件的填写说明</strong></p>
+<ol>
+<li><p>对于Trigger方法，只需要填写成形如<code>funcName()</code>形式。<strong>不需要填写所在类名和方法名中的参数</strong>，以免造成评测失败。（在starUML软件中，括号容易在画布中填写失败，可以在右下方<code>EDITORS</code>中的<code>Properties</code>中填写括号）</p>
+</li>
+<li><p><strong>请注意，添加Trigger时，请右键Transition，点击add Trigger，修改Trigger的name字段，而非Transition的name字段</strong></p>
+<p><img src="https://laiang8086-test.oss-cn-beijing.aliyuncs.com/images/image-20230507090704316.png" srcset="/img/loading.gif" lazyload alt="image-20230507090704316"></p>
+</li>
+<li><p>对于Guard条件表达式，按一般的C语言条件表达式形式填写即可，请填写在Transition的guard字段。其具体形式化约束符合如下的文法：</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash">条件表达式 Cond → LOrExp<br>逻辑或表达式 LOrExp → LAndExp | LOrExp <span class="hljs-string">&#x27;||&#x27;</span> LAndExp<br>逻辑与表达式 LAndExp → EqExp | LAndExp <span class="hljs-string">&#x27;&amp;&amp;&#x27;</span> EqExp<br>相等性表达式 EqExp → RelExp | EqExp (<span class="hljs-string">&#x27;==&#x27;</span> | <span class="hljs-string">&#x27;!=&#x27;</span>) RelExp<br>关系表达式 RelExp → AddExp | RelExp (<span class="hljs-string">&#x27;&lt;&#x27;</span> | <span class="hljs-string">&#x27;&gt;&#x27;</span> | <span class="hljs-string">&#x27;&lt;=&#x27;</span> | <span class="hljs-string">&#x27;&gt;=&#x27;</span>) AddExp<br>加减表达式 AddExp → MulExp | AddExp (<span class="hljs-string">&#x27;+&#x27;</span> | <span class="hljs-string">&#x27;−&#x27;</span>) MulExp <br>乘除模表达式 MulExp → UnaryExp | MulExp (<span class="hljs-string">&#x27;*&#x27;</span> | <span class="hljs-string">&#x27;/&#x27;</span> | <span class="hljs-string">&#x27;%&#x27;</span>) UnaryExp <br>单目运算符 UnaryOp → <span class="hljs-string">&#x27;+&#x27;</span> | <span class="hljs-string">&#x27;−&#x27;</span> | <span class="hljs-string">&#x27;!&#x27;</span><br>一元表达式 UnaryExp → PrimaryExp | UnaryOp UnaryExp<br>数值 Number → IntConst<br>基本表达式 PrimaryExp → <span class="hljs-string">&#x27;(&#x27;</span> Exp <span class="hljs-string">&#x27;)&#x27;</span> | LVal | Number<br>表达式 Exp → LOrExp<br>左值 Lval 在本次作业中可以简单理解为变量名（当然在编译理论中它的含义并非如此）<br>IntConst → DecimalConst | 0<br>DecimalConst → NonzeroDigit | DecimalConst Digit<br>NonzeroDigit → 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9<br>Digit → 0 | NonzeroDigit<br></code></pre></td></tr></table></figure>
+<ol>
+<li>由于文法的限制，故对于对象的相等，简单用<code>==</code>代替<code>equals()</code>方法即可。</li>
+<li>Guard条件中使用的变量忽略类型（无论是基本数据类型还是自定义类）。</li>
+<li>无论是Trigger方法还是Guard条件中涉及的变量，忽略其私有性问题。（即不区分<code>public</code>，<code>private</code>，<code>protected</code>）</li>
+<li>Guard条件中不允许仅出现一个左值<code>Lval</code>。</li>
+<li>为避免Guard条件过于复杂导致可行域解算耗时太长，Guard条件表达式不得超过40个字符长度。</li>
+<li><strong>同学们需要小心在画布上被删掉的状态仍然保留在模型框中。如果要删除的话一定要保证模型框（MODEL EXPLORER）中也删除完毕，不然可能出现未知的状态不可达。</strong></li>
+</ol>
+<p><strong>温馨提示</strong></p>
+<p>上述评测规则和填写说明，一方面是为了检查你的状态图<strong>设计的合理性</strong>，一方面是为了检查你的状态图和你的程序<strong>这两者的一致性</strong>。但同时应该明白，状态图本身仍然<strong>以示意为主</strong>，所以在设计状态图时，尽量不要在状态图中直接使用通常出现在程序代码中的语言字眼（比如在Guard条件中直接使用通常在代码中出现的if判断条件语句），这样可能会使你在完成状态图时遇到困难。事实上，你需要做的是具体分析源码中<strong>哪些方法和变量体现了你写程序前的对状态和状态转移的设计</strong>。如果不存在这样的方法和变量，你也可以在程序中合理定义一些较为过渡性的方法和中间变量来辅助表达。</p>
+<h3 id="提示与注意"><a href="#提示与注意" class="headerlink" title="提示与注意"></a><strong>提示与注意</strong></h3><p><strong>文件保存</strong></p>
+<ul>
+<li>请将所绘制的类图保存在 <strong>uml_pre.mdj / uml_ultimate.mdj</strong> 文件中，并放在提交的<strong>根目录</strong>下（比如说与通常存放 Java 源代码 src 文件夹同级），否则将导致评测失败。</li>
+<li>类名输出文件 <strong>Main.java</strong> ，一阶类图的uml配置路径 <strong>config.yml</strong> 和重构说明.md文件（若有），均放在提交的<strong>根目录</strong>下（比如说与通常存放 Java 源代码 src 文件夹同级），否则将导致评测失败。</li>
+<li><strong>请确保类图对应的 UMLModel 的 name 字段为 Model</strong> ，否则会导致评测失败。</li>
+<li>请将<strong>状态图模型</strong>直接放在<strong>MODEL EXPLORER</strong>根节点下，并保持<code>StateMachine1</code>和<code>StatechartDiagram1</code>的命名不变。（一种操作方法是，右击<code>uml</code>，点取<code>Add Diagram</code>，并再选择<code>Statechart Diagram</code>），否则会导致评测失败。</li>
+</ul>
+<p><img src="https://s21.ax1x.com/2024/05/26/pklh4R1.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><strong>使用 UML 进行设计</strong></p>
+<ul>
+<li>完成作业时应先做好相应的设计，先绘制 UML 类图（<strong>作为一阶类图提交在第一阶段入口处</strong>），再实现具体代码。当然，代码变化后可以回头更新 UML 图（<strong>作为二阶类图提交在第二阶段入口处</strong>），但不应该在完成代码后直接照着代码来画 UML 图，那样就失去了设计建模的意义。</li>
+<li>为了保证同学们写代码时的灵活性，在实现具体代码时，可以根据需要在代码中添加 UML 类图中未指明的<strong>属性和方法</strong>，但 UML 图中的属性和方法应在程序中进行实现，具体检查方法请见前文说明。<strong>注意，不要为了画图方便刻意减少代码中类和方法的数量，也不要试图钻规则的空子，请同学们认真完成作业。</strong></li>
+<li>UML 建模工具一般都采用了模型和视图相分离的管理方式，即类图中看到的内容实际是对模型的观察。因此，在类图中简单删除一个要素并不一定导致模型发生变化。在完成本次作业过程中，建议同学们要注意阅读 mdj 代码检查各字段是否符合预期，例如检查是否存在仅删去视图未删去元素本身的情况。建议在右侧<strong>模型框</strong>（<strong>MODEL EXPLORER</strong>）中删除元素。</li>
+<li>对于 UML 类图中的方法参数，请保证其在 mdj 文件中的先后顺序与程序中的一致。另外，除了构造方法，每一个方法的 RETURN 类参数应有且仅有一个。</li>
+</ul>
+<p><strong>图评测评分细则</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>图文件</th>
+<th>评测要点</th>
+<th>评分标准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一阶类图</td>
+<td>类图正确性基本检验(R1)</td>
+<td>对应评测规则下的每一点均占有一定分数</td>
+</tr>
+<tr>
+<td>二阶类图</td>
+<td>R1-R5的全面检验</td>
+<td>对应评测规则下的每一点均占有一定分数</td>
+</tr>
+<tr>
+<td>两阶类图</td>
+<td>语义完整性检查的关键词覆盖率</td>
+<td>关键词覆盖率越高，得分越多，覆盖率&gt;=80%即可得到满分</td>
+</tr>
+<tr>
+<td>两阶类图</td>
+<td>语义完整性检查的核心类设计</td>
+<td>该部分评测结果仅供参考，主要用于指导同学们正向建模，不限制同学们的架构设计，但核心类的缺失可能影响其他部分得分，后续考虑增加更多评测</td>
+</tr>
+<tr>
+<td>两阶类图</td>
+<td>语义完整性检查的核心类属性与方法设计</td>
+<td>可以参考评测输出结果辅助建模，完善类图设计。需要注意的是，重点方法和属性的缺失可能会影响其他部分得分</td>
+</tr>
+<tr>
+<td>二阶类图</td>
+<td>相似度检查</td>
+<td>相似度检查结果直接影响到一阶类图得分。若两阶类图相似度低于60%，且未提交重构说明文件或重构说明文件不合格，一阶类图不给分，其他情况按评分细则正常给分</td>
+</tr>
+<tr>
+<td>状态图</td>
+<td>R1-R3的检验</td>
+<td>对应评测规则下的每一点均占有一定分数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>注：\</strong>图评测*<em>只进行公测，不进行强测<strong>，最终得分根据</strong>最后一次提交的公测结果*</em>评定。现有说明如下：</p>
+<ul>
+<li>公测中的各个图评测检查项，显示的“<strong>是否通过</strong>”<strong>信息不是最终评分依据</strong>，每个检查项会给出具体的<strong>解释信息</strong>，具体分数评定会依据<strong>解释信息</strong>和上方的<strong>图评测评分细则</strong>。</li>
+<li>请同学们在公测中仔细查看解释信息，并根据提示进行修复完善。</li>
+<li>请不要过度依赖评测机，发现错误原因后及时修改同质 bug ，避免因超出无代价提交次数而扣分。</li>
+</ul>
+<p>由于对于 UML 图的检查以及对于设计的评判较为复杂灵活，本评测仅为判断同学们设计合理的必要条件。即通过评测的 UML 图和程序在此次作业中即被认为通过，但不代表同学的设计和实现没有其它隐藏问题，也不代表就已经是十分优秀的设计。鼓励同学们在完成作业的基础上，进一步了解 UML 图更多规则，以及学习一些设计模式。</p>
+<h5 id="Q：第一阶段作业入口未按时提交怎么办？"><a href="#Q：第一阶段作业入口未按时提交怎么办？" class="headerlink" title="Q：第一阶段作业入口未按时提交怎么办？"></a>Q：第一阶段作业入口未按时提交怎么办？</h5><p>A：扣除一阶类图所有分数，在第二阶段提交时，不需要提交一阶类图的uml配置路径文件。</p>
+<h5 id="Q：第二阶段提交时，想对类图进行重构怎么办？"><a href="#Q：第二阶段提交时，想对类图进行重构怎么办？" class="headerlink" title="Q：第二阶段提交时，想对类图进行重构怎么办？"></a>Q：第二阶段提交时，想对类图进行重构怎么办？</h5><p>A：在第二阶段提交时，可以在完成二阶类图时进行重构，并提交重构说明文件，若助教审核通过（重构理由合理），则仍可以按评分细则正常得分。注意，助教审核是后期人工审核，不会立即反馈结果。</p>
+<h5 id="Q：如果第二阶段入口没有提交一阶类图的uml配置路径文件怎么处理？"><a href="#Q：如果第二阶段入口没有提交一阶类图的uml配置路径文件怎么处理？" class="headerlink" title="Q：如果第二阶段入口没有提交一阶类图的uml配置路径文件怎么处理？"></a>Q：如果第二阶段入口没有提交一阶类图的uml配置路径文件怎么处理？</h5><p>A：第二阶段不进行相似度评测，第一阶段类图评分归零，其余正常评测。</p>
+<h5 id="Q：如果第二阶段入口没有提交二阶类图怎么处理？"><a href="#Q：如果第二阶段入口没有提交二阶类图怎么处理？" class="headerlink" title="Q：如果第二阶段入口没有提交二阶类图怎么处理？"></a>Q：如果第二阶段入口没有提交二阶类图怎么处理？</h5><p>A：不进行第二阶段类图所有评测，两阶类图评分均归零。</p>
+<h2 id="第六部分：提示与警示"><a href="#第六部分：提示与警示" class="headerlink" title="第六部分：提示与警示"></a>第六部分：提示与警示</h2><h3 id="一、提示"><a href="#一、提示" class="headerlink" title="一、提示"></a>一、提示</h3><p>同学们可以使用课程组提供的官方包完成输入输出解析，格式化输出等功能。官方包的公开方法均写有Java Doc注释，可以在IDEA中查看。官方包详细使用说明敬见课程公共发布区官方包文件夹。</p>
+<p>对于交互式评测，使用官方包时，一次读入方法，必须调用且仅调用一次输出方法。</p>
+<p>本单元聚焦于UML正向建模与设计，且不安排互测，也没有性能分。同学们无需刻意考虑各种边界情况，只需自行设计合理的图书整理策略与系统运行逻辑，不存在明显不合常理的行为，即可通过评测。</p>
+<h3 id="二、警示"><a href="#二、警示" class="headerlink" title="二、警示"></a>二、警示</h3><p>请不要hack评测机！oo课程组感谢大家做出的贡献！</p>
+
+
+  
+
+</article>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/index-math.js?v=20260625-polish.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

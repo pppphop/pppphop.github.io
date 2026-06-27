@@ -1,0 +1,678 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pppphop">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="面向对象设计与构造第六次作业指导书 提示：  本次作业官方包已经放在 http:&#x2F;&#x2F;gitlab.oo.buaa.edu.cn&#x2F;2026_oo_public&#x2F;officialpackage&#x2F;u2_hw6 本次作业的新增内容有： 取消“乘客请求指定电梯”约束，需要自行设计电梯分配策略。 新增“临时检修”请求。 修改RECEIVE约束部分。 修改乘客请求格式；修改测试数据约束。   具体内容见指导书对">
+<meta property="og:type" content="website">
+<meta property="og:title" content="面向对象设计与构造第六次作业指导书">
+<meta property="og:url" content="http://example.com/files/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%84%E9%80%A0%E7%AC%AC%E5%85%AD%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%8C%87%E5%AF%BC%E4%B9%A6.html">
+<meta property="og:site_name" content="zhp的博客">
+<meta property="og:description" content="面向对象设计与构造第六次作业指导书 提示：  本次作业官方包已经放在 http:&#x2F;&#x2F;gitlab.oo.buaa.edu.cn&#x2F;2026_oo_public&#x2F;officialpackage&#x2F;u2_hw6 本次作业的新增内容有： 取消“乘客请求指定电梯”约束，需要自行设计电梯分配策略。 新增“临时检修”请求。 修改RECEIVE约束部分。 修改乘客请求格式；修改测试数据约束。   具体内容见指导书对">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-06-27T00:11:25.811Z">
+<meta property="article:modified_time" content="2026-06-27T00:11:25.811Z">
+<meta property="article:author" content="pppphop">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>面向对象设计与构造第六次作业指导书 - zhp的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/blog-polish.css?v=20260627-oo-gap.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zhp的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              
+              <a class="nav-link dropdown-parent-link" target="_self" href="/quiz/" role="button"
+                  aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>刷题</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/military/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>军理刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ethics/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>思修刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/os/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>OS刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/history/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>史纲刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ai/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>AI 对话</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="面向对象设计与构造第六次作业指导书"></span>
+          
+        </div>
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+<article class="page-content">
+  <h1 id="面向对象设计与构造第六次作业指导书"><a href="#面向对象设计与构造第六次作业指导书" class="headerlink" title="面向对象设计与构造第六次作业指导书"></a>面向对象设计与构造第六次作业指导书</h1><blockquote>
+<p><strong>提示：</strong></p>
+<ul>
+<li>本次作业官方包已经放在 <a target="_blank" rel="noopener" href="http://gitlab.oo.buaa.edu.cn/2026_oo_public/officialpackage/u2_hw6">http://gitlab.oo.buaa.edu.cn/2026_oo_public/officialpackage/u2_hw6</a></li>
+<li>本次作业的新增内容有：<ul>
+<li>取消“乘客请求指定电梯”约束，需要自行设计电梯分配策略。</li>
+<li>新增“临时检修”请求。</li>
+<li>修改RECEIVE约束部分。</li>
+<li>修改乘客请求格式；修改测试数据约束。</li>
+</ul>
+</li>
+<li>具体内容见指导书对应部分。</li>
+</ul>
+</blockquote>
+<h2 id="第一部分：训练目标"><a href="#第一部分：训练目标" class="headerlink" title="第一部分：训练目标"></a>第一部分：训练目标</h2><ul>
+<li>掌握多线程的基本知识，如线程的创建、线程的互斥与协作、wait/notify机制等。</li>
+<li>掌握生产者-消费者模式，能设计简单的多线程程序。</li>
+</ul>
+<h2 id="第二部分：题目概况"><a href="#第二部分：题目概况" class="headerlink" title="第二部分：题目概况"></a>第二部分：题目概况</h2><p>本单元以某公司大楼的目的选层电梯系统为背景。</p>
+<p><strong>目的选层电梯系统的运行流程：</strong></p>
+<ol>
+<li>进入电梯前，乘客输入目标楼层；</li>
+<li>系统根据设定的策略指定最合适的电梯来服务，将结果告知乘客；</li>
+<li>乘客进入指定电梯后，无需再次按楼层按钮，电梯会自动将其送至目标楼层。</li>
+</ol>
+<p>在三次迭代作业中，你需要根据需求与正确性约束，设计多线程程序来模拟该电梯系统的运行。</p>
+<p>系统从标准输入中读入乘客请求信息（起点层、终点楼层），请求调度器会根据此时电梯运行状态将乘客请求合理分配给某部电梯。被分配请求的电梯会经过上下行，开关门，乘客进入/离开电梯等动作将乘客从起点层运送到终点层。</p>
+<p>请求的输入通过课程组提供的输入接口来定时投放请求，你需要调用课程组提供的接口进行输入输出。接口的具体细节见第四部分-输入/输出接口和相关文档。</p>
+<p>单部电梯的运行策略与电梯系统的调度策略均可任意指定。也就是说，在任意时刻，电梯的上下行动、开关门操作都可以自定义，只要保证在电梯系统运行时间不超过题目要求时间上限的前提下将所有的乘客送至目的地即可。电梯运行的具体介绍见第三部分。</p>
+<h2 id="第三部分：电梯运行（改动）"><a href="#第三部分：电梯运行（改动）" class="headerlink" title="第三部分：电梯运行（改动）"></a>第三部分：电梯运行（改动）</h2><h3 id="功能概述（改动）"><a href="#功能概述（改动）" class="headerlink" title="功能概述（改动）"></a>功能概述（改动）</h3><p>对于每个乘客请求，需要调度电梯将其完成，并将必要的运行信息通过输出接口进行输出。</p>
+<p>具体而言，你需要控制电梯上下行，开关门的动作以及控制乘客进出电梯来将乘客从起点层运送到终点层。在控制电梯运行的过程中需要满足所有系统运行约束，如运行速度、电梯载重等，运行约束的具体细节见本部分的系统运行约束一节。</p>
+<p><strong>在本次作业中：</strong></p>
+<ul>
+<li>我们不再为每个乘客请求指定电梯。你需要先通过输出 <code>RECEIVE</code> 信息表示乘客被分派给哪个电梯，然后调度指定的电梯来接送对应乘客。<strong>（改动）</strong></li>
+<li><strong>（新增）</strong> 我们新增了临时检修请求。电梯会在正常运行时接收到临时检修请求，你需要合理安排当前未完成的乘客请求，并在限定时间内按规定流程调度电梯完成检修，在完成检修后电梯恢复正常运行（具体见本部分-临时检修一节）。</li>
+</ul>
+<h3 id="电梯系统默认参数"><a href="#电梯系统默认参数" class="headerlink" title="电梯系统默认参数"></a>电梯系统默认参数</h3><ul>
+<li><strong>可到达楼层</strong>：地下B4-B1层，地上F1-F7层，共11层</li>
+<li><strong>初始位置</strong>：F1层</li>
+<li><strong>数量</strong>：6部</li>
+<li><strong>编号</strong>：6部电梯的id依次为1-6</li>
+<li><strong>移动速度</strong>：0.4s/层</li>
+<li><strong>额定载重量</strong>：400kg</li>
+<li><strong>开关门</strong>：开门到关门之间的间隔不小于0.4s</li>
+</ul>
+<h3 id="电梯载重说明"><a href="#电梯载重说明" class="headerlink" title="电梯载重说明"></a>电梯载重说明</h3><p>在现实情境中，电梯开门时允许轿厢内乘客暂时超过载重限制。当轿厢内乘客总体重超过载重时无法关门，此时会有乘客出电梯，等到符合载重限制才能出发。我们的作业要求与此相同，允许开门时暂时超过载重限制，只需保证关门时轿厢符合载重限制即可。电梯系统的全部6部电梯载重均为400kg。</p>
+<h3 id="RECEIVE约束说明（改动）"><a href="#RECEIVE约束说明（改动）" class="headerlink" title="RECEIVE约束说明（改动）"></a>RECEIVE约束说明（改动）</h3><p>为避免出现多部电梯接送同一乘客造成资源浪费的情况，我们引入 <code>RECEIVE</code> 约束，要求在乘客被分配给某一电梯后输出相应 <code>RECEIVE</code> 信息。</p>
+<p>本次作业不再为乘客请求指定电梯，需要自行设计电梯分配策略。因此需要在 <code>RECEIVE</code> 信息中输出每个乘客被分配给了哪个电梯运送。电梯运行受到 <code>RECEIVE</code> 的约束，简单来说必须保证电梯在做出任何动作时都必须有未完成的 <code>RECEIVE</code>。具体要求见本部分的系统运行约束一节。</p>
+<h3 id="临时检修（新增）"><a href="#临时检修（新增）" class="headerlink" title="临时检修（新增）"></a>临时检修（新增）</h3><p>为了按需检修电梯系统，有时会派出检修工人来检修电梯。这一过程称为临时检修，临时检修的核心过程主要分为部件检修和验收测试两部分。</p>
+<h4 id="检修流程"><a href="#检修流程" class="headerlink" title="检修流程"></a>检修流程</h4><p>为了避免歧义，我们将引入检修后的电梯运行模式建模为状态机，电梯初始的默认状态为NORMAL状态。 每次临时检修时，电梯状态都须按下表顺序进行转移 (<code>NORMAL</code> -&gt; <code>ACCEPT</code> -&gt; <code>REPAIR</code> -&gt; <code>TEST</code> -&gt; <code>NORMAL</code>)。在每个状态中，电梯都依次需要完成“电梯行为流程”的每一项。每个状态行为流程的最后一条都是状态转移标志(用 <code>*</code> 表示)，即电梯在完成这一条行为流程的时刻进入下一状态。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>电梯状态</strong></th>
+<th><strong>转移到此状态的标志</strong></th>
+<th><strong>电梯行为流程</strong></th>
+<th><strong>电梯行为额外约束</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NORMAL</strong> (默认状态)</td>
+<td>1. 初始状态 2. 程序输出 <code>MAINT-END</code> (上一次检修结束)</td>
+<td>1. 正常运行，直到收到检修指令 *2. 收到检修指令，程序输出 <code>MAINT-ACCEPT</code> (官方包自动输出)</td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>REP_ACCEPT</strong> (收到检修指令状态)</td>
+<td>程序输出 <code>MAINT-ACCEPT</code> (输入检修指令后，官方包自动输出)</td>
+<td>1. 电梯运行到F1层，准备接受检修 2. 轿厢内所有普通乘客都下电梯（无普通乘客则省略） *3. 检修工从F1层进入轿厢中，然后电梯关门，随后程序输出部件检修开始信息 <code>MAINT1-BEGIN</code></td>
+<td>1. 在检修工进入电梯时，电梯内必须没有任何普通乘客 2. 从检修工进入电梯到程序输出 <code>MAINT1-BEGIN</code> 期间，电梯不允许移动、开门、进出乘客（只允许关门一次） 3. 输出 <code>MAINT1-BEGIN</code> 时，电梯必须处于REP_ACCEPT状态，必须处于关门状态 4. 见本小节-额外说明-REP_ACCEPT状态特殊约束</td>
+</tr>
+<tr>
+<td><strong>REPAIR</strong> (部件检修状态)</td>
+<td>程序输出 <code>MAINT1-BEGIN</code> (部件检修开始信息)</td>
+<td>1. 由工人检修电梯部件，电梯等待至少 $T_{stop} = 1s$ *2. 程序输出验收测试开始信息 <code>MAINT2-BEGIN</code></td>
+<td>1. 在输出 <code>MAINT1-BEGIN</code> 时刻（进入REPAIR状态时刻），电梯此前的所有RECEIVE结束（仅RECEIVE结束，相应乘客请求仍需完成） 2. 该状态下电梯处于静默状态，禁止移动、开关门、进出乘客 3. 该状态下电梯禁止RECEIVE乘客，禁止输出该电梯RECEIVE信息 4. 输出 <code>MAINT2-BEGIN</code> 时，电梯必须处于REPAIR状态</td>
+</tr>
+<tr>
+<td><strong>TEST</strong> (验收测试状态)</td>
+<td>程序输出 <code>MAINT2-BEGIN</code> (验收测试开始信息)</td>
+<td>1. 电梯速度调整为0.2s/层 2. 从F1层直接驶向临时检修指令中指定的目标楼层 3. 从目标楼层直接驶回F1层 4. 电梯速度恢复默认值0.4s/层 5. 在F1层，电梯开门并让检修工下电梯，然后电梯关门 *6. 程序输出检修结束信息 <code>MAINT-END</code></td>
+<td>1. 该状态下电梯移动速度为0.2s/层，该状态结束后速度恢复原值 2. 该状态下电梯必须按规定路线移动 3. 该状态下电梯只能在F1层开门，且只能开门关门一次，并必须在这次开关门期间让检修工下电梯 4. 该状态下乘客不能进入电梯 5. 该状态下电梯禁止RECEIVE乘客，禁止输出该电梯RECEIVE信息 6. 输出 <code>MAINT-END</code> 时，电梯必须处于TEST状态</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="额外说明"><a href="#额外说明" class="headerlink" title="额外说明"></a>额外说明</h4><p><strong>REP_ACCEPT状态特殊约束：</strong></p>
+<p>在表格中REP_ACCEPT状态的第一项行为是“电梯运行到F1层，准备接受检修”。但我们不强制要求电梯在接收到检修指令后立即前往F1层，也不强制要求电梯在到达F1层后就进入后续行为流程(让所有普通乘客下电梯，让检修工上电梯)。即进入REP_ACCEPT状态时，电梯的运行仍然自由，程序可自行决定电梯何时前往F1接收检修。程序可以先正常运送乘客一段时间，中途可以正常经过F1层，也可以正常在F1层开关门、上下乘客。只要检修工不上电梯，电梯就依然处于REP_ACCEPT阶段。</p>
+<p>程序不能无限拖延检修开始时间，必须满足检修时间约束。检修时间约束规定了整个检修流程的最长时间，受此限制电梯必须在一定的时间内完成REP_ACCEPT状态的三项流程，进入下一状态。</p>
+<p><strong>检修时间约束：</strong></p>
+<p>输出 <code>MAINT-ACCEPT</code> 和 <code>MAINT-END</code> 之间的时间记为检修响应时间 $T<em>{complete}$，$T</em>{complete}$ 不得超过7s。除此之外，我们不对收到 <code>MAINT-ACCEPT</code> 后电梯何时前往F1层接收检修做硬性约束。可以选择在收到 <code>MAINT-ACCEPT</code> 后立即前往F1层，也可以选择先进行一些其他的电梯调度行为再前往F1层。只要满足 $T_{complete} \le 7s$ 的约束即可。</p>
+<h4 id="检修工人"><a href="#检修工人" class="headerlink" title="检修工人"></a>检修工人</h4><ul>
+<li>检修工人在上下电梯时的输出信息与普通乘客完全一致。并同样遵循相同电梯运行规则（如必须在电梯开门时上电梯、上下电梯时乘客和轿厢需要处于同一层等）。</li>
+<li>检修工人的id在检修指令中给出，起点层和终点层均固定为F1，体重不给出（保证每个检修工体重都小于电梯载重限制）。</li>
+<li>检修工人上电梯前无需输出 <code>RECEIVE</code>。</li>
+<li>检修工人不计入性能分计算。</li>
+</ul>
+<h4 id="缩写说明"><a href="#缩写说明" class="headerlink" title="缩写说明"></a>缩写说明</h4><p>在本节中输出信息使用了缩写，如 <code>MAINT-ACCEPT</code>，省略了时间戳和电梯ID。完整的输出信息格式见第四部分-输出说明。</p>
+<h4 id="RECEIVE说明"><a href="#RECEIVE说明" class="headerlink" title="RECEIVE说明"></a>RECEIVE说明</h4><p>在 <code>MAINT-END</code> 时“解除禁止电梯RECEIVE请求的限制”表示从此刻起，电梯可以正常RECEIVE乘客请求。但不会自动恢复在 <code>MAINT1-BEGIN</code> 时强制结束的RECEIVE。也就是说从 <code>MAINT1-BEGIN</code> 时刻起，程序就需要将这些原本RECEIVE给待检修电梯的乘客请求重新进行RECEIVE了。程序既可以让其他正常运行电梯RECEIVE这些乘客，也可以等待当前电梯检修完成后RECEIVE这些乘客。</p>
+<h3 id="系统运行约束（改动）"><a href="#系统运行约束（改动）" class="headerlink" title="系统运行约束（改动）"></a>系统运行约束（改动）</h3><ul>
+<li><strong>电梯移动约束</strong><ul>
+<li>电梯在两层楼之间移动应满足移动时间约束。</li>
+<li>电梯移动过程中必须处于关门状态。</li>
+<li>电梯只能在大楼的楼层范围内移动。</li>
+</ul>
+</li>
+<li><strong>电梯开关门状态约束</strong><ul>
+<li>初始时所有电梯为关门状态。</li>
+<li>程序运行结束时所有电梯必须处于关门状态。</li>
+<li>开门状态下才能关门，关门状态下才能开门。</li>
+<li>开门到关门之间的间隔不小于0.4s。</li>
+</ul>
+</li>
+<li><strong>RECEIVE约束（改动）</strong><ul>
+<li>在本次作业中，输入请求不再为每个乘客指定电梯，需要电梯系统给乘客分派电梯并通过 <code>RECEIVE</code> 输出。</li>
+<li>乘客进入电梯必须在输出该乘客的 <code>RECEIVE</code> 信息之后（注意中途下电梯的乘客也需要重新输出 <code>RECEIVE</code> 信息才可上电梯）。</li>
+<li>电梯移动必须在该电梯当前有未结束的 <code>RECEIVE</code> 时才能移动。这里的移动指开始移动，即 $t<em>{arrive时刻} - t</em>{每层移动时间}$ 时刻。</li>
+<li>程序不能RECEIVE已经从目标层离开的乘客，不能RECEIVE上一次RECEIVE未结束的乘客。</li>
+<li>程序输出某一乘客的 <code>RECEIVE</code> 信息时刻，相应的RECEIVE开始。</li>
+<li>程序输出某一乘客下电梯信息时刻，相应的RECEIVE结束（在目标层或中途下电梯均视为RECEIVE结束）。</li>
+<li><strong>（新增）</strong> 电梯部件检修开始时(<code>MAINT1-BEGIN</code>)，该电梯此时所有RECEIVE结束。</li>
+<li><strong>（新增）</strong> 从电梯部件检修开始时刻(<code>MAINT1-BEGIN</code>)到电梯验收测试结束时刻(<code>MAINT-END</code>)，该电梯不允许输出任何RECEIVE信息。</li>
+</ul>
+</li>
+<li><strong>电梯检修约束（新增）</strong><ul>
+<li>电梯只有在收到检修指令时才能进行检修。</li>
+<li>电梯检修过程中必须满足本部分-临时检修中的所有要求。</li>
+</ul>
+</li>
+<li><strong>乘客进出约束</strong><ul>
+<li>乘客默认不在电梯里，电梯开门状态下才能进出电梯，且只能进入同层的电梯。</li>
+<li>乘客只有在电梯内才能出电梯，只有在电梯外才能进电梯。</li>
+<li>开门状态下乘客进出电梯不花费时间。</li>
+<li>乘客只能进入当前RECEIVE的电梯。</li>
+</ul>
+</li>
+<li><strong>乘客运送约束</strong><ul>
+<li>系统运行中乘客可以中途下电梯，系统结束时到达目的地即可。</li>
+<li>系统结束时必须完成全部乘客请求。</li>
+<li>系统结束时不能有乘客困在电梯里。</li>
+</ul>
+</li>
+<li><strong>电梯载重约束</strong><ul>
+<li>电梯为开门状态时，允许轿厢内乘客体重暂时大于额定载重量。</li>
+<li>电梯为关门状态时，须满足轿厢内乘客体重之和小于等于额定载重量。</li>
+</ul>
+</li>
+<li><strong>运行时间约束</strong><ul>
+<li>程序运行时间不能超过 $T<em>{max}$。公测、强测、互测的 $T</em>{max}$ 规则介绍见第四部分-数据限制。</li>
+</ul>
+</li>
+<li><strong>输出限制</strong><ul>
+<li>对每个乘客请求，均须输出相应RECEIVE信息。</li>
+<li>电梯每次移动后到达新楼层时须输出相应信息。</li>
+<li>电梯每次开门、关门时均须输出相应信息。</li>
+<li>乘客每次进入、离开电梯时均须输出相应信息。</li>
+<li>在临时检修期间，部件检修开始（检修开始）、验收测试开始和验收测试结束（检修结束）时均须输出相应信息。</li>
+<li>运行时的任意时刻须满足输出时间戳非减限制。</li>
+</ul>
+</li>
+</ul>
+<h2 id="第四部分：输入-输出说明（改动）"><a href="#第四部分：输入-输出说明（改动）" class="headerlink" title="第四部分：输入/输出说明（改动）"></a>第四部分：输入/输出说明（改动）</h2><h3 id="输入-输出接口说明"><a href="#输入-输出接口说明" class="headerlink" title="输入/输出接口说明"></a>输入/输出接口说明</h3><p>本单元作业请使用课程组提供的输入输出接口进行输入输出，见本次作业公开仓库。</p>
+<p>输入接口提供了若干方法，通过调用方法可以直接获取所需数据对象。输出子程序接受一个字符串，并附上时间戳后再输出。详细的接口定义和使用方法见接口说明文档。</p>
+<p>程序的输入输出为实时交互，评测机可以做到在某个时间点投放一定量的输入。不需要考虑由于调用输入输出接口导致的时间上的差异，不需要对输入输出接口进行修改。</p>
+<h3 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h3><ul>
+<li><strong>乘客请求</strong>：<code>[时间戳]乘客ID-WEI-体重-FROM-起点层-TO-终点层</code></li>
+<li><strong>检修指令（新增）</strong>：<code>[时间戳]MAINT-电梯ID-检修工人ID-验收目标楼层</code></li>
+</ul>
+<h3 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h3><p>通过调用输出接口的每一次输出将自动附加时间戳于头部。请不要试图伪造时间戳。</p>
+<ul>
+<li>电梯接收分配：<code>[时间戳]RECEIVE-乘客ID-电梯ID</code></li>
+<li>电梯到达某一位置：<code>[时间戳]ARRIVE-所在层-电梯ID</code></li>
+<li>电梯开始开门：<code>[时间戳]OPEN-所在层-电梯ID</code></li>
+<li>电梯完成关门：<code>[时间戳]CLOSE-所在层-电梯ID</code></li>
+<li>乘客进入电梯：<code>[时间戳]IN-乘客ID-所在层-电梯ID</code></li>
+<li>乘客离开电梯：<ul>
+<li>当前楼层是目标楼层：<code>[时间戳]OUT-S-乘客ID-所在层-电梯ID</code></li>
+<li>当前楼层不是目标楼层：<code>[时间戳]OUT-F-乘客ID-所在层-电梯ID</code></li>
+</ul>
+</li>
+<li><strong>临时检修输出（新增）</strong>：<ul>
+<li>检修指令接受：<code>[时间戳]MAINT-ACCEPT-电梯ID-检修工人ID-验收目标楼层</code> (由官方包自动输出)</li>
+<li>部件检修开始：<code>[时间戳]MAINT1-BEGIN-电梯ID</code></li>
+<li>验收测试开始：<code>[时间戳]MAINT2-BEGIN-电梯ID</code></li>
+<li>验收测试结束：<code>[时间戳]MAINT-END-电梯ID</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="数据限制（改动）"><a href="#数据限制（改动）" class="headerlink" title="数据限制（改动）"></a>数据限制（改动）</h3><p><strong>基本限制（改动）</strong></p>
+<ul>
+<li>可输入电梯系统的指令数：1~100条。</li>
+<li>每个输入请求具有唯一不重复的id（int范围内正整数）。</li>
+<li>乘客体重为 [50, 100] 范围内的正整数。</li>
+<li>保证不出现起点层和终点层相同的乘客请求。</li>
+<li><strong>（新增）</strong> 保证检修指令的验收目标楼层 $\in {B2, B1, F2, F3}$。</li>
+<li><strong>（新增）</strong> 保证同一电梯的两条MAINT指令至少间隔8s。</li>
+</ul>
+<p><strong>公测数据限制</strong></p>
+<p>标程运行时间 $T_{std}$：课程组标程使用ALS调度策略。</p>
+<p>公测中 $T<em>{max}$ 与 $T</em>{std}$ 的计算公式如下：</p>
+<script type="math/tex; mode=display">T_{max} = \max(T_{std} + 30, 1.3 \times T_{std})</script><p>对于中测和强测数据，$T_{max}$ 将会严格限制为通过上述公式计算得到的值。请不要试图用超长的 sleep 来回避线程安全停止的问题。</p>
+<p><strong>互测数据限制（改动）</strong></p>
+<ul>
+<li>系统时间上限 $T<em>{max}$：对于互测数据，$T</em>{max}$ 为180s。</li>
+<li><strong>（新增）</strong> 一部电梯最多只能进行一次临时调度。</li>
+<li>第一条指令的投喂时间在1s或以后，最后一条指令的输入时间不晚于50s。</li>
+<li>指令条数不超过70。</li>
+</ul>
+<h2 id="第五部分：样例（改动）"><a href="#第五部分：样例（改动）" class="headerlink" title="第五部分：样例（改动）"></a>第五部分：样例（改动）</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>序号</strong></th>
+<th><strong>输入</strong></th>
+<th><strong>输出</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>[1.0]MAINT-2-100-F2</code></td>
+<td><code>[ 1.0030]MAINT-ACCEPT-2-100-F2</code> <code>[ 1.0050]OPEN-F1-2</code> <code>[ 1.0060]IN-100-F1-2</code> <code>[ 1.4090]CLOSE-F1-2</code> <code>[ 1.4090]MAINT1-BEGIN-2</code> <code>[ 2.4130]MAINT2-BEGIN-2</code> <code>[ 2.6160]ARRIVE-F2-2</code> <code>[ 2.8220]ARRIVE-F1-2</code> <code>[ 2.8220]OPEN-F1-2</code> <code>[ 2.8220]OUT-S-100-F1-2</code> <code>[ 3.2270]CLOSE-F1-2</code> <code>[ 3.2270]MAINT-END-2</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>[1.0]98-WEI-65-FROM-B1-TO-F5</code> <code>[2.0]MAINT-1-100-F2</code></td>
+<td><code>[ 1.0020]RECEIVE-98-1</code> <code>[ 1.4050]ARRIVE-B1-1</code> <code>[ 1.4060]OPEN-B1-1</code> <code>[ 1.4060]IN-98-B1-1</code> <code>...</code> (略去部分中间输出) <code>&lt;br&gt;[ 6.8680]OUT-S-98-F5-1</code> <code>[ 7.2730]CLOSE-F5-1</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><em>(注：样例2较长，为节省版面做了缩略展示，详情请参考原文本)</em></p>
+<h2 id="第六部分：性能分"><a href="#第六部分：性能分" class="headerlink" title="第六部分：性能分"></a>第六部分：性能分</h2><p>在强测时，性能分将由三部分组成：系统运行时间，平均完成时间和系统耗电量。</p>
+<ul>
+<li><strong>系统运行时间</strong>：$T<em>{run} = \max(T</em>{real}, T_{final})$。</li>
+<li><strong>平均完成时间</strong>：$T<em>{avg} = \frac{\sum_i (T_i - T</em>{i0})}{N}$</li>
+<li><strong>系统耗电量</strong>：<ul>
+<li>每条ARRIVE信息耗电量 $W_{ARRIVE} = 0.4$</li>
+<li>每条OPEN/CLOSE信息耗电量 $W<em>{OPEN} = W</em>{CLOSE} = 0.1$</li>
+<li>系统的耗电量 $W = W<em>{OPEN}N</em>{OPEN} + W<em>{CLOSE}N</em>{CLOSE} + W<em>{ARRIVE}N</em>{ARRIVE}$</li>
+</ul>
+</li>
+</ul>
+<p><strong>性能分构成</strong>：</p>
+<p>设对于所有同学的数据，某一性能指标 $x$ 的平均值为 $x<em>{arg}$，最大值为 $x</em>{max}$，最小值为 $x_{min}$，则定义以下折算函数（$p = 0.10$）：</p>
+<script type="math/tex; mode=display">base_{min} = p \cdot x_{arg} + (1 - p) \cdot x_{min}</script><script type="math/tex; mode=display">base_{max} = p \cdot x_{arg} + (1 - p) \cdot x_{max}</script><script type="math/tex; mode=display">r(x) = \begin{cases} 1, & x \le base_{min} \\ \frac{base_{max} - x}{base_{max} - base_{min}}, & base_{min} < x \le base_{max} \\ 0, & x > base_{max} \end{cases}</script><p>最终性能分公式为：</p>
+<script type="math/tex; mode=display">s = 15 \times (0.3 \cdot r(T_{run}) + 0.3 \cdot r(T_{avg}) + 0.4 \cdot r(W))</script><h2 id="第七部分：实现提示"><a href="#第七部分：实现提示" class="headerlink" title="第七部分：实现提示"></a>第七部分：实现提示</h2><ul>
+<li>电梯的”运行策略”实际上可以抽象为从一组待选任务（如开关门、上下移动）当中选取一个来执行。可以先编写一个等候乘客表类，再编写一个策略类进行解耦。</li>
+<li>电梯的运行流程可以使用状态模式建模。</li>
+<li>在不违反课程规则的前提下，对电梯的捎带策略不做限制，鼓励自行探索相关算法。</li>
+<li>为了保证性能符合基本要求，请确保程序运行时间 $T \le T_{max}$。</li>
+</ul>
+<h2 id="第八部分：提示与警示"><a href="#第八部分：提示与警示" class="headerlink" title="第八部分：提示与警示"></a>第八部分：提示与警示</h2><ul>
+<li><p><strong>不存在轮询</strong>：为了避免轮询占用 CPU 资源，请使用 Wait-Notify 的方式编程。总 CPU 时间限制为 10s，超时判定为错误。</p>
+</li>
+<li><p><strong>接口与初始化</strong>：请在代码一开始就初始化时间戳，否则可能会出现和评测不一致的情况。</p>
+<p>Java</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">import</span> com.<span class="hljs-property">oocourse</span>.<span class="hljs-property">elevator1</span>.<span class="hljs-property">TimableOutput</span>;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MainClass</span> &#123;<br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">void</span> <span class="hljs-title function_">main</span>(<span class="hljs-params"><span class="hljs-title class_">String</span>[] args</span>) &#123;<br>    <span class="hljs-title class_">TimableOutput</span>.<span class="hljs-title function_">initStartTimestamp</span>();  <span class="hljs-comment">// 初始化时间戳</span><br>    <span class="hljs-comment">/*</span><br><span class="hljs-comment">      代码部分</span><br><span class="hljs-comment">    */</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>官方提供的输出包是线程安全的，无需进行同步控制。由于多线程调度存在随机性，本地运行和评测机结果可能存在差异，最终结果以评测机为准。</p>
+</li>
+<li><p><strong>警示</strong>：不要试图Hack评测机，不要伪造时间戳，不要抄袭。</p>
+</li>
+</ul>
+
+
+  
+
+</article>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/index-math.js?v=20260625-polish.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,868 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pppphop">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本单元题面规格化第一次作业题面 规格化第二次作业题面 规格化第三次作业题面  BUAA OO U3总结博客一、对 JML 与规格驱动开发的理解Unit3 的核心变化，是开发方式从“看自然语言描述写程序”转向“阅读接口规格并实现契约”。JML 给我的最大感受是：它把方法的可见行为拆成了几个相对清晰的部分，包括前置条件 requires、后置条件 ensures、副作用范围 assignable、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OO U3总结：JML规格化设计">
+<meta property="og:url" content="http://example.com/posts/OO-U3%E6%80%BB%E7%BB%93-JML%E8%A7%84%E6%A0%BC%E5%8C%96%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="zhp的博客">
+<meta property="og:description" content="本单元题面规格化第一次作业题面 规格化第二次作业题面 规格化第三次作业题面  BUAA OO U3总结博客一、对 JML 与规格驱动开发的理解Unit3 的核心变化，是开发方式从“看自然语言描述写程序”转向“阅读接口规格并实现契约”。JML 给我的最大感受是：它把方法的可见行为拆成了几个相对清晰的部分，包括前置条件 requires、后置条件 ensures、副作用范围 assignable、">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-28T12:00:00.000Z">
+<meta property="article:modified_time" content="2026-06-27T05:34:29.297Z">
+<meta property="article:author" content="pppphop">
+<meta property="article:tag" content="OO">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>OO U3总结：JML规格化设计 - zhp的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/blog-polish.css?v=20260627-oo-gap.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zhp的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              
+              <a class="nav-link dropdown-parent-link" target="_self" href="/quiz/" role="button"
+                  aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>刷题</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/military/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>军理刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ethics/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>思修刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/os/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>OS刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/history/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>史纲刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ai/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>AI 对话</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="OO U3总结：JML规格化设计"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-05-28 20:00" pubdate>
+          2026年5月28日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          49 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">OO U3总结：JML规格化设计</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <div class="oo-unit-topic-spacer"></div>
+
+<h2 id="本单元题面"><a href="#本单元题面" class="headerlink" title="本单元题面"></a>本单元题面</h2><a class="btn" href="/files/面向对象规格化设计系列第一次代码作业指导书.html"  title="fas fa-file-alt" target="_blank">规格化第一次作业题面</a>
+<a class="btn" href="/files/面向对象规格化设计系列第二次代码作业指导书.html"  title="fas fa-file-alt" target="_blank">规格化第二次作业题面</a>
+<a class="btn" href="/files/面向对象规格化设计系列第三次代码作业指导书.html"  title="fas fa-file-alt" target="_blank">规格化第三次作业题面</a>
+<hr>
+<h1 id="BUAA-OO-U3总结博客"><a href="#BUAA-OO-U3总结博客" class="headerlink" title="BUAA OO U3总结博客"></a>BUAA OO U3总结博客</h1><h2 id="一、对-JML-与规格驱动开发的理解"><a href="#一、对-JML-与规格驱动开发的理解" class="headerlink" title="一、对 JML 与规格驱动开发的理解"></a>一、对 JML 与规格驱动开发的理解</h2><p>Unit3 的核心变化，是开发方式从“看自然语言描述写程序”转向“阅读接口规格并实现契约”。JML 给我的最大感受是：它把方法的可见行为拆成了几个相对清晰的部分，包括前置条件 <code>requires</code>、后置条件 <code>ensures</code>、副作用范围 <code>assignable</code>、正常行为 <code>normal_behavior</code>、异常行为 <code>exceptional_behavior</code> 以及用于表达旧状态的 <code>\old</code>。这些内容本质上是在回答三个问题：调用者什么时候可以调用？实现者调用后必须保证什么？方法执行过程中允许改动哪些状态？</p>
+<p>相比自然语言，JML 的优势在于边界更明确。例如一个查询方法如果标注为 <code>pure</code> 或 <code>assignable \nothing</code>，就不能为了实现方便去偷偷修改可观察状态；一个删除方法如果在 <code>ensures</code> 里说明了删除对象、保留对象和返回值的关系，就不能只凭“看起来删掉了”来判断正确。在本单元中，我逐渐形成的做法是：先把规格翻译成状态变化表，再决定数据结构，而不是先写容器再让规格去适配实现。</p>
+<p>我也认识到，规格中的 <code>model</code> 字段不等同于必须照抄的实现字段。接口中可能用数组、集合或者序列来描述外部可见状态，但实现时可以使用 <code>HashMap</code>、<code>HashSet</code>、<code>LinkedList</code>、缓存变量等结构，只要最终满足规格所描述的可观察行为即可。因此，规格驱动开发并不是“机械翻译 JML”，而是“以 JML 为准绳选择实现策略”。</p>
+<p>另外，JML 中的异常规格也非常重要。三次作业中，很多异常类本身没有 JML，需要结合指导书和官方包文档理解。我的体会是：异常检查顺序、异常参数、异常前状态保持，都是规格的一部分。对于带有事务性质的方法，例如投币、购买勋章、评论清理，必须先完成所有合法性检查，再修改多个对象的状态，否则很容易出现“前半部分已经改了，后半部分抛异常”的不一致问题。</p>
+<h2 id="二、JUnit-测试经验总结"><a href="#二、JUnit-测试经验总结" class="headerlink" title="二、JUnit 测试经验总结"></a>二、JUnit 测试经验总结</h2><p>本单元每次都要求针对一个指定方法写 JUnit 测试。我最大的收获是，单元测试不能只测返回值，还要测完整契约。</p>
+<p>第一次作业测试 <code>queryMutualFollowingSum</code> 时，我没有直接相信被测方法本身，而是在测试中用双重循环重新计算互相关注对数，作为独立 oracle。为了覆盖常见错误，我构造了空图、单用户、单向关注、单个互关、非对称发散图、单向环、复杂互关图和取消关注后恢复等场景。这样可以发现把“总边数/2”误认为互关数、只统计入度/出度、取消关注后缓存不更新等错误。</p>
+<p>第二次作业测试 <code>clean_spam_comments</code> 时，我更加注意 <code>assignable</code> 和序列保持。我在调用前保存评论 ID、评论内容、播放数、点赞数、转发数、投币数、视频类型、上传者 ID，以及相邻视频的评论区快照。调用后不仅检查返回的删除数量和最大关键字出现次数，还检查未删除评论的顺序是否保持、其他字段是否被错误修改、其他视频是否受到影响。针对字符串匹配，我专门设计了 <code>a.b</code>、<code>a*b</code> 这类容易被正则误伤的用例，以及 <code>ababa</code> 中关键字 <code>aba</code> 的重叠出现，用来避免把 JML 的字面 substring 匹配误写成正则匹配或非重叠匹配。</p>
+<p>第三次作业测试 <code>recommend_Nth_up</code> 时，我的思路是把排序规则独立出来。测试中需要覆盖非法 rank、无视频、候选 UP 主不足、分数相同按 ID 取小、排除自己和已经关注的人、连续调用不改变用户状态等场景。推荐类方法看上去只是“返回一个 ID”，但它隐含了候选集合筛选、打分、排序、异常和纯净性多个方面，任何一个环节漏测都可能放过错误实现。</p>
+<p>总结下来，JUnit 测试最有效的模式有三点：第一，测试 oracle 要尽量独立于正式实现，避免复制同一个 bug；第二，要对调用前后的状态拍快照，尤其是纯查询方法和只允许局部修改的方法；第三，边界数据比大规模随机数据更容易发现规格理解错误，例如空集合、重复 ID、相同分数、重复转发、重叠字符串、并列最大值和 tie-break。</p>
+<h2 id="三、三次作业的迭代过程"><a href="#三、三次作业的迭代过程" class="headerlink" title="三、三次作业的迭代过程"></a>三、三次作业的迭代过程</h2><h3 id="1-第一次作业：社交网络与基础视频推送"><a href="#1-第一次作业：社交网络与基础视频推送" class="headerlink" title="1. 第一次作业：社交网络与基础视频推送"></a>1. 第一次作业：社交网络与基础视频推送</h3><p>第一次作业的主要任务是实现 <code>User</code>、<code>Network</code>、<code>Video</code> 三个类，维护用户、视频、关注关系、粉丝关系、接收视频列表，以及互相关注数、最短路径等查询。</p>
+<p>我的实现中，<code>Network</code> 维护了 <code>users</code> 和 <code>videos</code> 两个 <code>HashMap</code>，并额外维护 <code>outEdges</code> 和 <code>inEdges</code> 两张邻接表，分别表示“某人关注了哪些人”和“某人被哪些人关注”。这样做的原因是，关注图既要支持关注/取消关注，也要支持最短路查询和互相关注统计。如果完全依赖 <code>User</code> 内部容器反复遍历，会在高频查询时产生不必要的复杂度。</p>
+<p>对于 <code>queryMutualFollowingSum</code>，我没有在每次查询时重新双重循环统计，而是在 <code>followUser</code> 和 <code>unfollowUser</code> 中动态维护 <code>mutualFollowingSum</code>。当新建边 <code>id1 -&gt; id2</code> 时，如果反向边 <code>id2 -&gt; id1</code> 已经存在，则互关数加一；删除边时同理减一。因此查询可以做到 O(1)。对于 <code>queryShortestPath</code>，我使用 BFS，在有向关注图上查找最短路径。</p>
+<p><code>User</code> 中使用 <code>HashMap</code> 管理 following 和 followers，用 <code>LinkedList</code> 管理收到的视频列表，便于新上传视频头插；同时维护年龄段计数数组 <code>ageSegments</code>，使粉丝年龄比例查询不必每次遍历粉丝集合。</p>
+<h3 id="2-第二次作业：互动系统、硬币体系与评论清理"><a href="#2-第二次作业：互动系统、硬币体系与评论清理" class="headerlink" title="2. 第二次作业：互动系统、硬币体系与评论清理"></a>2. 第二次作业：互动系统、硬币体系与评论清理</h3><p>第二次作业在第一次基础上加入了硬币、观看历史、点赞记录、投币、转发、评论、粉丝勋章、视频热度和最长年龄下降序列等功能。相比第一次，第二次最大的挑战是多对象状态需要同时更新。例如投币成功时，投币用户的硬币数减少，视频的投币数增加，UP 主的硬币数增加，UP 主的贡献者记录也要更新；这些更新必须在所有异常检查之后统一发生。</p>
+<p>我的 <code>User</code> 新增了 <code>watchedVideoIds</code>、<code>likedVideoIds</code>、<code>medalUpIds</code> 和 <code>contributorMap</code>。对于最佳贡献者，我没有每次查询都遍历 <code>contributorMap</code>，而是在每次收到投币时维护 <code>bestContributorId</code> 和 <code>maxContribution</code>，并在贡献值相同的时候按较小 ID 更新。</p>
+<p><code>Video</code> 新增了分区类型、播放量、点赞数、转发数、投币数，以及评论 ID 和评论内容两个平行 <code>ArrayList</code>。为了快速判断评论 ID 是否重复，我额外维护 <code>commentIdSet</code>。评论清理使用迭代器同步删除 ID 和内容，并返回删除数量和被删评论中关键字最大出现次数。</p>
+<p>此外，第二次开始我明显感受到“规格正确”和“复杂度可接受”是两件事。比如视频分区查询如果每次遍历所有视频也能写对，但在强测中可能超时，所以我维护了 <code>typeVideos</code>。最短路查询也增加了缓存，但所有会改变关注图的操作都会清空缓存，避免读到过期结果。最长年龄下降序列则使用 DFS + DP 缓存，并在可能改变结果的图操作后失效。</p>
+<h3 id="3-第三次作业：智能推荐与结构拆分"><a href="#3-第三次作业：智能推荐与结构拆分" class="headerlink" title="3. 第三次作业：智能推荐与结构拆分"></a>3. 第三次作业：智能推荐与结构拆分</h3><p>第三次作业继续扩展系统，加入推荐视频、推荐第 N 个 UP 主、查询最有影响力 UP 主、查询用户画像、查询全局最佳贡献者等功能。此时如果继续把所有逻辑塞进 <code>Network</code>，类会变得过长且难以定位问题。因此我把代码拆分为三个主要部分：<code>Network</code> 作为接口门面，负责异常检查和对外方法；<code>SocialGraph</code> 负责关注图、互关数、最短路和最长下降序列；<code>RecommendationEngine</code> 负责推荐和贡献者统计。</p>
+<p>在 <code>User</code> 中，我新增了 <code>typeCounts</code> 来记录用户在各分区观看的视频数量，并维护用户上传的视频和分区影响力。观看视频时，不仅要从 receivedVideos 中删除该视频，还要加入观看历史，并增加对应分区的观看计数。推荐视频时，视频得分可以理解为视频热度与用户对该分区兴趣的乘积；推荐 UP 主时，则根据用户兴趣和 UP 主分区影响力进行加权求和。</p>
+<p>性能方面，第三次我做了两点优化。第一，UP 主影响力不再每次通过遍历其所有上传视频求和，而是在观看、点赞、取消点赞、投币、转发等热度变化点增量维护。第二，<code>recommendNthUp</code> 不再对所有候选人完整排序，而是用大小为 rank 的优先队列保留当前前 rank 名，把复杂度从全排序降到和 rank 相关的堆维护。这也让我认识到，JML 中的 <code>\sum</code>、<code>\max</code>、排序式描述往往表达的是数学结果，而不是要求实现必须用同样朴素的枚举方式。</p>
+<h2 id="四、如何发现迭代中的方法和容器变化"><a href="#四、如何发现迭代中的方法和容器变化" class="headerlink" title="四、如何发现迭代中的方法和容器变化"></a>四、如何发现迭代中的方法和容器变化</h2><p>我主要使用三步法发现变化。</p>
+<p>第一步是看指导书和接口中的 <code>Modify</code>、新增方法和构造方法变化。例如第二次 <code>Video</code> 构造方法新增 <code>type</code> 参数，<code>User</code> 新增 coins、watchedVideos、likedVideos、medals、contributors、contributions 等状态；第三次 <code>User</code> 又新增 typeCounts 和 videos，<code>Network</code> 新增智能推荐相关方法。</p>
+<p>第二步是看 JML 中新增的 <code>ensures</code>、<code>assignable</code> 和异常规格。如果某个后置条件开始引用一个新的状态量，就说明实现中需要新增容器或缓存。例如 <code>hasWatchedVideo</code>、<code>hasLikedVideo</code>、<code>containsComment</code>、<code>getInterest</code>、<code>getInfluence</code> 等方法都对应着新的可观察状态。</p>
+<p>第三步是用编译错误和回归测试辅助确认。方法签名变化会直接导致编译失败；行为变化则要靠旧测试回归和新增测试发现。例如第二次保留第一次关注图功能，第三次保留前两次所有指令，这要求新增功能不能破坏原有容器不变式。</p>
+<h2 id="五、如何发现性能瓶颈"><a href="#五、如何发现性能瓶颈" class="headerlink" title="五、如何发现性能瓶颈"></a>五、如何发现性能瓶颈</h2><p>说实话，其实写到那个<code>for</code>自己就能意识到这里性能可能有点问题，但是严谨来说，我的性能瓶颈排查主要来自两个方面：规格复杂度和调用频率。</p>
+<p>从规格复杂度看，只要 JML 中出现嵌套量词、全局 <code>\sum</code>、最大值、排序、路径存在性，就要警惕直接翻译造成高复杂度。例如互相关注数如果每次查询都双重遍历用户是 O(n²)，最短路径如果每次都 BFS 在大量重复查询下可能很慢，影响力如果每次都遍历所有视频也会在推荐场景中被放大。</p>
+<p>从调用频率看，强测通常会把查询类指令大量重复调用，所以适合用动态维护或缓存。我的处理方式是：互关数、年龄段人数、最佳贡献者、UP 主影响力采用增量维护；最短路径和最长下降序列采用缓存，但在图变化时失效；分区视频集合单独维护，避免每次查询遍历所有视频；推荐第 N 个 UP 主使用优先队列，避免全量排序。</p>
+<p>这也带来一个原则：缓存不能破坏规格。对于纯查询或只允许修改特定对象的方法，即使内部用了缓存，也必须确保不会改变任何外部可观察状态，并且在相关状态变化时及时失效。</p>
+<h2 id="六、Bug-与原因分析"><a href="#六、Bug-与原因分析" class="headerlink" title="六、Bug 与原因分析"></a>六、Bug 与原因分析</h2><p>本单元的 Bug 分析可以分为三类：提交前自测发现的问题、互测中发现的典型实现问题，以及性能风险与复杂度问题。</p>
+<h3 id="6-1-提交前自测发现的问题"><a href="#6-1-提交前自测发现的问题" class="headerlink" title="6.1 提交前自测发现的问题"></a>6.1 提交前自测发现的问题</h3><ol>
+<li><strong>对象相等语义理解错误</strong><ul>
+<li>第一次作业早期版本中，<code>Video.equals</code> 同时比较 <code>id</code> 和 <code>uploaderId</code>。</li>
+<li>修正思路：视频在网络中的唯一身份由 <code>videoId</code> 决定，规格容器的不变式和方法如 <code>containsVideo</code> 都围绕 ID 判断。最终 <code>Video.equals</code> 只比较 <code>getId()</code>。</li>
+</ul>
+</li>
+<li><strong>异常参数混淆</strong><ul>
+<li>第二次作业中，购买勋章时如果用户已经拥有该 UP 主勋章，曾错误抛出 <code>DuplicateMedalException(userId, videoId)</code>。</li>
+<li>修正思路：勋章绑定 UP 主而非视频，正确参数应为 <code>DuplicateMedalException(userId, upId)</code>。</li>
+</ul>
+</li>
+<li><strong>评论清理边界匹配错误</strong><ul>
+<li>在 <code>clean_spam_comments</code> 测试中，字面关键字匹配和非重叠匹配理解不当，导致 <code>a.b</code>、<code>a*b</code>、<code>ababa</code> 等边界用例出错。</li>
+<li>修正思路：按规格要求的字面匹配实现 oracle，确保重叠出现的关键字被正确统计和删除。</li>
+</ul>
+</li>
+<li><strong>异常顺序与事务一致性</strong><ul>
+<li>投币、购买勋章等方法中，若在检查异常前已修改部分对象状态，可能导致状态不一致。</li>
+<li>修正思路：先完成所有异常检查，再统一更新多个对象状态，确保事务一致性。</li>
+</ul>
+</li>
+</ol>
+<h3 id="6-2-互测中发现的典型问题"><a href="#6-2-互测中发现的典型问题" class="headerlink" title="6.2 互测中发现的典型问题"></a>6.2 互测中发现的典型问题</h3><ol>
+<li><strong>hw9 双向 BFS 写错</strong><ul>
+<li>部分实现没有正确维护双向搜索的前后关系，导致最短路径查询返回错误或陷入死循环。</li>
+</ul>
+</li>
+<li><strong>hw11 UpRecommender 排序溢出</strong><ul>
+<li>有实现使用 <code>return user1.getId() - user2.getId();</code> 比较用户 ID，由于 int 溢出，排序可能出错。</li>
+</ul>
+</li>
+<li><strong>特殊标识冲突</strong><ul>
+<li>有实现用 <code>-1</code> 作为标识值，但 <code>-1</code> 本身也是合法用户 ID，导致逻辑异常。</li>
+</ul>
+</li>
+<li><strong>异常输出顺序错误</strong><ul>
+<li>部分实现能抛出正确异常，但输出顺序不符合要求，影响测试判定。</li>
+</ul>
+</li>
+</ol>
+<h3 id="6-3-性能问题与复杂度风险"><a href="#6-3-性能问题与复杂度风险" class="headerlink" title="6.3 性能问题与复杂度风险"></a>6.3 性能问题与复杂度风险</h3><ol>
+<li><strong>重复遍历容器</strong><ul>
+<li>某些实现对视频列表、关注图、贡献者映射每次查询都全量遍历，容易在强测中超时。</li>
+</ul>
+</li>
+<li><strong>缓存与增量更新不当</strong><ul>
+<li>UP 主影响力、互关数、年龄段统计等若不增量维护，频繁查询时复杂度被放大。</li>
+</ul>
+</li>
+<li><strong>排序与全量扫描</strong><ul>
+<li>推荐第 N 个 UP 主或推荐视频，如果对所有候选完整排序而不是使用优先队列或部分排序，复杂度随用户数量急剧增加。</li>
+</ul>
+</li>
+<li><strong>最长下降序列和最短路径缓存</strong><ul>
+<li>缓存若未在关注图变化时失效，可能返回过期结果，违反纯查询或副作用约束。</li>
+</ul>
+</li>
+</ol>
+<h2 id="七、大模型使用体会"><a href="#七、大模型使用体会" class="headerlink" title="七、大模型使用体会"></a>七、大模型使用体会</h2><p>本单元我更适合把大模型当作“辅助阅读规格和生成测试思路”的工具，而不是直接生成最终代码的工具。它的优势在于可以快速把长 JML 翻译成自然语言、列出可能的边界条件、提醒某个方法需要检查哪些副作用，也可以帮助生成 JUnit 用例框架。</p>
+<p>但大模型的风险也很明显。第一，它容易给出“看起来正确”的朴素实现，比如按 JML 的数学表达直接遍历所有对象，却忽略强测中的性能压力。第二，它不一定知道课程官方包中异常参数、输出格式和扩展语义的细节。第三，它可能忽视容器架构，导致新增功能时不断在原类中堆字段和方法，而不是抽象出 <code>SocialGraph</code>、<code>RecommendationEngine</code> 这样的组件。</p>
+<p>因此我认为比较安全的使用方式是：让大模型帮助列测试清单、解释某段 JML、对照 requires/ensures/assignable 检查遗漏；最终实现仍然要自己结合官方接口、复杂度和评测限制判断。对于单元测试，可以让大模型先列边界场景，再由自己写独立 oracle 和状态快照检查。</p>
+<p>另外，大模型对于时间复杂度的优化很有用，可以严防TLE。</p>
+<h2 id="八、JML“击鼓传花”研讨课感悟"><a href="#八、JML“击鼓传花”研讨课感悟" class="headerlink" title="八、JML“击鼓传花”研讨课感悟"></a>八、JML“击鼓传花”研讨课感悟</h2><p>本次研讨课的游戏名为“规格传声筒”，规则类似“击鼓传花”或“传话游戏”。每组 6 到 7 人，每个人先写一个带有边界条件的初始方法签名与业务场景，然后依次经历 <strong>自然语言规格 → JML 规格 → 自然语言规格 → JML 规格 → 自然语言规格 → 最终 JML 规格</strong> 的多轮环状传递。传递过程中禁止使用 AI，所有回合结束后，再对比第一轮的初始自然语言规格和最后一轮的 JML 规格是否逻辑等价。评分重点包括逻辑同构、边界遗失、过度设计和业务畸变等。规格传声筒</p>
+<p>这次活动让我非常直观地感受到，规格在传递过程中很容易发生“语义漂移”。最开始的自然语言需求可能只是一个很小的方法，例如查询集合、更新状态、处理图关系或统计某类对象，但经过几轮 NL 和 JML 的相互翻译后，原来的边界条件、异常行为、修改范围甚至业务目标都有可能被改变。比如原本要求处理 <code>null</code>、空集合或重复元素，传到后面可能这些边界就消失了；原本只是查询方法，后面可能漏写 <code>assignable \nothing</code>；原本有异常行为，后面可能只剩下正常行为；原本的 tie-break 规则，也可能在传递中被忽略。</p>
+<p>我认为这个活动最有意义的地方在于，它暴露了自然语言和形式化规格之间的差距。自然语言的优点是易读，但很容易产生歧义；JML 的优点是精确，但写规格的人如果没有完全理解业务含义，也会把错误理解“形式化”下来。一旦错误被写进 JML，后续实现者往往会认为它就是正确契约，从而导致实现偏离最初需求。因此，形式化并不等于天然正确，形式化之前必须先保证需求理解正确。</p>
+<p>游戏中的几类扣分点也很贴近真实开发。所谓“边界遗失”，对应实际项目中常见的空容器、非法输入、重复对象、不可达路径等问题；“过度设计”则对应实现者或规格编写者加入了原需求没有要求的限制，例如额外限制数组长度、ID 范围或调用顺序；“业务畸变”更严重，意味着方法的核心功能在多次转述后已经变成了另一个问题。这些问题在本单元三次作业中也经常出现，例如异常顺序写错、用非法标识值代替合法 ID、把推荐排序规则理解错，或者忘记某个方法是纯查询。</p>
+<p>这次研讨课也让我重新理解了 JML 在团队协作中的价值。JML 不只是为了通过评测，也不是为了把代码写得更“形式化”，它真正的作用是帮助团队成员共享同一个契约。一个方法到底允许修改哪些对象、什么时候抛异常、返回值和旧状态有什么关系、并列情况下如何排序，这些内容如果只靠口头说明，很容易在多人协作中被误解；如果用 JML 明确下来，后续写代码、写测试和做评审时就都有了统一依据。</p>
+<p>同时，我也认识到，团队合作中不能只把 JML 当作最终结果，而应该把规格编写过程本身纳入评审。比较合理的流程应该是：先由需求提出者写出自然语言说明，明确正常行为、异常行为、边界条件和副作用；再由规格编写者写出 JML；然后由其他成员对照自然语言和 JML 检查是否等价。尤其要重点检查 <code>requires</code>、<code>ensures</code>、<code>assignable</code>、<code>signals</code>、<code>\old</code> 和量词表达式是否遗漏或过度约束。只有经过这种双向检查，JML 才能真正减少沟通成本，而不是制造新的误解。</p>
+<p>从本单元作业的角度看，“规格传声筒”也提醒我，写测试时不能只测试自己脑中的需求，而要测试规格中真正写出来的契约。如果规格中要求纯方法，就要检查调用前后状态不变；如果规格中要求异常时 <code>assignable \nothing</code>，就要检查抛异常后对象没有被部分修改；如果规格中有排序规则，就要专门构造并列情况；如果规格中有边界条件，就要测试空集合、重复元素、不可达路径、非法参数等情况。也就是说，测试本身也是对规格理解是否准确的一次验证。</p>
+<p>总的来说，这次研讨课让我意识到，软件开发中的很多 bug 并不是因为不会写代码，而是因为需求在传递、翻译和实现过程中被悄悄改变了。JML 的价值就在于尽量压缩这种“我以为”的空间，让需求、规格、实现和测试围绕同一个契约展开。以后在多人组队编程中，我会更加重视规格文档的唯一性、边界条件的显式记录、异常行为的完整描述，以及每次需求修改后的同步评审。</p>
+<h2 id="九、总结"><a href="#九、总结" class="headerlink" title="九、总结"></a>九、总结</h2><p>Unit3 让我把面向对象设计从“类和方法的组织”推进到“契约、状态和复杂度的组织”。第一次作业让我熟悉了用规格描述社交图；第二次作业让我意识到事务性操作和副作用控制的重要性；第三次作业则让我开始主动拆分模块、维护缓存并从复杂度角度理解 JML。</p>
+<p>最终我对规格驱动开发的理解是：JML 给出的是程序外部可观察行为的数学契约，真正的实现既要满足这个契约，也要在数据结构和复杂度上适应评测规模。好的实现不是简单把 JML 翻译成循环，而是在不改变规格语义的前提下，选择合适的容器、缓存和模块划分。好的测试也不是只看输出，而是把前置条件、后置条件、副作用和异常路径都纳入验证。这个单元之后，我会更加重视在编码前先读规格、在迭代中维护变化表、在提交前用测试检查契约完整性。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/OO/" class="category-chain-item">OO</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/OO/" class="print-no-link">#OO</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>OO U3总结：JML规格化设计</div>
+      <div>http://example.com/posts/OO-U3总结-JML规格化设计/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>pppphop</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年5月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/OO-U4%E6%80%BB%E7%BB%93-%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" title="OO U4总结：图书馆管理系统">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">OO U4总结：图书馆管理系统</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/OO-U2%E6%80%BB%E7%BB%93-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%94%B5%E6%A2%AF%E7%B3%BB%E7%BB%9F/" title="OO U2总结：多线程电梯系统">
+                        <span class="hidden-mobile">OO U2总结：多线程电梯系统</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/index-math.js?v=20260625-polish.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

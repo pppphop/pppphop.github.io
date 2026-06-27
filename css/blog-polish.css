@@ -132,6 +132,20 @@
   border: 1px solid rgba(148, 163, 184, 0.22);
 }
 
+.oo-unit-topic-spacer {
+  height: 3.5rem;
+}
+
+.markdown-body > .oo-unit-topic-spacer + h2 {
+  margin-top: 0;
+}
+
+.markdown-body > .oo-unit-topic-spacer + h2 + .btn,
+.markdown-body > .oo-unit-topic-spacer + h2 + .btn + .btn,
+.markdown-body > .oo-unit-topic-spacer + h2 + .btn + .btn + .btn {
+  margin: 0.25rem 0.35rem 0.35rem 0;
+}
+
 .tocbot-list,
 .tocbot-list ol {
   line-height: 1.65;

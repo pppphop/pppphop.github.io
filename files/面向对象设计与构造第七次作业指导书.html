@@ -1,0 +1,679 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pppphop">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="面向对象设计与构造第七次作业指导书 提示：本次作业官方包已经放在 http:&#x2F;&#x2F;gitlab.oo.buaa.edu.cn&#x2F;2026_oo_public&#x2F;officialpackage&#x2F;u2_hw7本次作业的新增内容有：  新增“双轿厢改造”与“双轿厢回收” 修改 RECEIVE 约束部分 修改测试数据约束；修改“实现提示”部分  具体内容见指导书对应部分。   第一部分：训练目标 掌握多线程的基">
+<meta property="og:type" content="website">
+<meta property="og:title" content="面向对象设计与构造第七次作业指导书">
+<meta property="og:url" content="http://example.com/files/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%84%E9%80%A0%E7%AC%AC%E4%B8%83%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%8C%87%E5%AF%BC%E4%B9%A6.html">
+<meta property="og:site_name" content="zhp的博客">
+<meta property="og:description" content="面向对象设计与构造第七次作业指导书 提示：本次作业官方包已经放在 http:&#x2F;&#x2F;gitlab.oo.buaa.edu.cn&#x2F;2026_oo_public&#x2F;officialpackage&#x2F;u2_hw7本次作业的新增内容有：  新增“双轿厢改造”与“双轿厢回收” 修改 RECEIVE 约束部分 修改测试数据约束；修改“实现提示”部分  具体内容见指导书对应部分。   第一部分：训练目标 掌握多线程的基">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-06-27T00:11:25.803Z">
+<meta property="article:modified_time" content="2026-06-27T00:11:25.803Z">
+<meta property="article:author" content="pppphop">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>面向对象设计与构造第七次作业指导书 - zhp的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/blog-polish.css?v=20260627-oo-gap.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zhp的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              
+              <a class="nav-link dropdown-parent-link" target="_self" href="/quiz/" role="button"
+                  aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>刷题</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/military/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>军理刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ethics/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>思修刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/os/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>OS刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/history/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>史纲刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ai/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>AI 对话</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="面向对象设计与构造第七次作业指导书"></span>
+          
+        </div>
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+<article class="page-content">
+  <h1 id="面向对象设计与构造第七次作业指导书"><a href="#面向对象设计与构造第七次作业指导书" class="headerlink" title="面向对象设计与构造第七次作业指导书"></a>面向对象设计与构造第七次作业指导书</h1><blockquote>
+<p><strong>提示：</strong>本次作业官方包已经放在 <code>http://gitlab.oo.buaa.edu.cn/2026_oo_public/officialpackage/u2_hw7</code><br><strong>本次作业的新增内容有：</strong></p>
+<ul>
+<li>新增“双轿厢改造”与“双轿厢回收”</li>
+<li>修改 RECEIVE 约束部分</li>
+<li>修改测试数据约束；修改“实现提示”部分</li>
+</ul>
+<p>具体内容见指导书对应部分。</p>
+</blockquote>
+<hr>
+<h2 id="第一部分：训练目标"><a href="#第一部分：训练目标" class="headerlink" title="第一部分：训练目标"></a>第一部分：训练目标</h2><ol>
+<li>掌握多线程的基本知识，如线程的创建、线程的互斥与协作、wait/notify机制等。</li>
+<li>掌握生产者-消费者模式，能设计简单的多线程程序。</li>
+</ol>
+<hr>
+<h2 id="第二部分：题目概况"><a href="#第二部分：题目概况" class="headerlink" title="第二部分：题目概况"></a>第二部分：题目概况</h2><p>本单元以某公司大楼的目的选层电梯系统为背景。</p>
+<p><strong>目的选层电梯系统的运行流程：</strong></p>
+<ol>
+<li>进入电梯前，乘客输入目标楼层；</li>
+<li>系统根据设定的策略指定最合适的电梯来服务，将结果告知乘客；</li>
+<li>乘客进入指定电梯后，无需再次按楼层按钮，电梯会自动将其送至目标楼层。</li>
+</ol>
+<p>在三次迭代作业中，你需要根据需求与正确性约束，设计多线程程序来模拟该电梯系统的运行。</p>
+<p>系统从标准输入中读入乘客请求信息（起点层、终点楼层），请求调度器会根据此时电梯运行状态将乘客请求合理分配给某部电梯。被分配请求的电梯会经过上下行，开关门，乘客进入/离开电梯等动作将乘客从起点层运送到终点层。</p>
+<p>请求的输入通过课程组提供的输入接口来定时投放请求，你需要调用课程组提供的接口进行输入输出。接口的具体细节见第四部分。</p>
+<p>单部电梯的运行策略与电梯系统的调度策略均可任意指定。也就是说，在任意时刻，电梯的上下行动、开关门操作都可以自定义，只要保证在电梯系统运行时间不超过题目要求时间上限的前提下将所有的乘客送至目的地即可。电梯运行的具体介绍见第三部分。</p>
+<hr>
+<h2 id="第三部分：电梯运行（改动）"><a href="#第三部分：电梯运行（改动）" class="headerlink" title="第三部分：电梯运行（改动）"></a>第三部分：电梯运行（改动）</h2><h3 id="功能概述"><a href="#功能概述" class="headerlink" title="功能概述"></a>功能概述</h3><p>对于每个乘客请求，需要调度电梯将其完成，并将必要的运行信息通过输出接口进行输出。具体而言，你需要控制电梯上下行，开关门的动作以及控制乘客进出电梯来将乘客从起点层运送到终点层。</p>
+<p>在控制电梯运行的过程中需要满足所有系统运行约束，如运行速度、电梯载重等，运行约束的具体细节见本部分的系统运行约束一节。</p>
+<p><strong>在本次作业中:</strong></p>
+<ul>
+<li><strong>不指定电梯</strong>：仍然不为每个乘客请求指定电梯。你需要先通过输出 RECEIVE 信息表示乘客被分派给哪个电梯，然后调度指定的电梯来接送对应乘客。</li>
+<li><strong>临时检修请求</strong>：与上一次作业要求一致。电梯会在正常运行时接收到临时检修请求，你需要合理安排当前未完成的乘客请求，并在限定时间内按规定流程调度电梯完成检修，在完成检修后电梯恢复正常运行。</li>
+<li><strong>（新增）双轿厢改造、双轿厢回收请求</strong>：本次作业中，每个电梯井道中初始时刻与前两次作业相同，只有一个主轿厢。此外每个井道有一个备用轿厢存放于F1层的暗室中。<ul>
+<li><strong>改造</strong>：电梯在正常运行时会接到双轿厢改造请求，你需要合理安排当前未完成的乘客请求，并在限定时间内按规定完成双轿厢改造，将位于暗室中的备用轿厢移动到电梯井中，完成改造后进入双轿厢模式运行。</li>
+<li><strong>回收</strong>：电梯在双轿厢模式运行时会接到双轿厢回收请求，你需要合理安排当前未完成的乘客请求，并在限定时间内按规定完成双轿厢回收，将位于电梯井中的备用轿厢回收到暗室中，完成回收后恢复正常运行。</li>
+<li>电梯在双轿厢模式下运行时要满足相应规定。</li>
+</ul>
+</li>
+</ul>
+<h3 id="电梯系统默认参数（改动）"><a href="#电梯系统默认参数（改动）" class="headerlink" title="电梯系统默认参数（改动）"></a>电梯系统默认参数（改动）</h3><h4 id="电梯系统基础参数"><a href="#电梯系统基础参数" class="headerlink" title="电梯系统基础参数"></a>电梯系统基础参数</h4><ul>
+<li><strong>主轿厢可到达楼层</strong>：地下 B4-B1 层，地上 F1-F7 层，共 11 层</li>
+<li><strong>主轿厢初始位置</strong>：F1 层（电梯井中）</li>
+<li><strong>主轿厢数量</strong>：6 部</li>
+<li><strong>编号</strong>：6 部主轿厢的 id 依次为 1-6</li>
+<li><strong>移动速度</strong>：0.4s/层</li>
+<li><strong>额定载重量</strong>：400kg</li>
+<li><strong>开关门</strong>：开门到关门之间的间隔不小于 0.4s</li>
+</ul>
+<h4 id="双轿厢相关参数（新增）"><a href="#双轿厢相关参数（新增）" class="headerlink" title="双轿厢相关参数（新增）"></a>双轿厢相关参数（新增）</h4><ul>
+<li><strong>备用轿厢数量</strong>：6 部</li>
+<li><strong>备用轿厢编号</strong>：6 部备用轿厢的 id 依次为 7-12，主轿厢 i 对应的备用轿厢编号为 i+6</li>
+<li><strong>备用轿厢初始位置</strong>：F1 层（暗室中）</li>
+<li><strong>换乘层</strong>：F2 层</li>
+<li><strong>双轿厢模式下可到达楼层</strong>：<ul>
+<li>主轿厢：F2-F7 层</li>
+<li>备用轿厢：B4-F2 层</li>
+</ul>
+</li>
+<li>移动速度、额定载重量、开关门时间均与单轿厢模式一致</li>
+</ul>
+<h4 id="电梯载重说明"><a href="#电梯载重说明" class="headerlink" title="电梯载重说明"></a>电梯载重说明</h4><p>允许开门时暂时超过载重限制，只需保证关门时轿厢符合载重限制即可。电梯系统的全部电梯（包括 6 部主轿厢和 6 部备用轿厢）的载重均为 400kg。</p>
+<h4 id="RECEIVE约束说明"><a href="#RECEIVE约束说明" class="headerlink" title="RECEIVE约束说明"></a>RECEIVE约束说明</h4><p>必须保证电梯在做出任何动作时都必须有未完成的 RECEIVE。需要在 RECEIVE 信息中输出每个乘客被分配给了哪个电梯运送。</p>
+<hr>
+<h3 id="临时检修"><a href="#临时检修" class="headerlink" title="临时检修"></a>临时检修</h3><h4 id="检修流程（微小改动）"><a href="#检修流程（微小改动）" class="headerlink" title="检修流程（微小改动）"></a>检修流程（微小改动）</h4><p>本次作业中 NORMAL 状态不仅可能由上一次检修结束转移而来，还可能由上一次双轿厢回收结束转移而来。每次临时检修时，电梯状态都须按下表顺序进行转移 (<code>NORMAL</code> -&gt; <code>ACCEPT</code> -&gt; <code>REPAIR</code> -&gt; <code>TEST</code> -&gt; <code>NORMAL</code>)。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">电梯状态</th>
+<th style="text-align:left">转移到此状态的标志</th>
+<th style="text-align:left">电梯行为流程</th>
+<th style="text-align:left">电梯行为额外约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>NORMAL</strong><br>(默认状态)</td>
+<td style="text-align:left">1. 初始状态<br>2. 输出 MAINT-END (上一次检修结束)<br>3. 输出 RECYCLE-END (上一次回收结束)</td>
+<td style="text-align:left">1. 正常运行，直到收到指令<br>*2. 收到指令，自动输出 MAINT-ACCEPT</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>REP_ACCEPT</strong><br>(收到检修指令)</td>
+<td style="text-align:left">程序输出 MAINT-ACCEPT</td>
+<td style="text-align:left">1. 运行到 F1 层，准备检修<br>2. 轿厢内普通乘客下电梯并关门<br>*3. 检修工进入，关门，输出 MAINT1-BEGIN</td>
+<td style="text-align:left">1. 检修工进入时无普通乘客<br>2. 期间只允许关门一次，禁移/禁开<br>3. 必须处于关门状态<br>4. 见下方特殊约束</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>REPAIR</strong><br>(部件检修状态)</td>
+<td style="text-align:left">程序输出 MAINT1-BEGIN</td>
+<td style="text-align:left">1. 检修等待至少 T_stop = 1s<br>*2. 输出 MAINT2-BEGIN</td>
+<td style="text-align:left">1. 此前所有 RECEIVE 结束<br>2. 静默状态 (禁移/禁开关门/禁出入)<br>3. 禁止 RECEIVE 新乘客<br>4. 须处于 REPAIR 状态</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>TEST</strong><br>(验收测试状态)</td>
+<td style="text-align:left">程序输出 MAINT2-BEGIN</td>
+<td style="text-align:left">1. 速度调为 0.2s/层<br>2. F1 -&gt; 目标楼层 -&gt; F1<br>3. 速度恢复 0.4s/层<br>4. F1层开门让工人下，关门<br>*5. 输出 MAINT-END</td>
+<td style="text-align:left">1. 速度 0.2s/层<br>2. 须按规定路线移动<br>3. 仅在 F1 开门一次让工人下<br>4. 禁进新乘客，禁 RECEIVE<br>5. 须处于 TEST 状态</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><em>(注：带 `</em>` 的步骤表示状态转移的标志)*</p>
+<h4 id="额外说明"><a href="#额外说明" class="headerlink" title="额外说明"></a>额外说明</h4><ul>
+<li><strong>REP_ACCEPT 状态特殊约束</strong>：进入该状态后电梯仍可自由运行，但检修响应时间 <code>T_complete</code>（输出 ACCEPT 到 END 之间的时间）不得超过 <strong>7s</strong>。</li>
+<li><strong>检修工人</strong>：遵循普通乘客规则（开门上下等），固定起点/终点为 F1，无需输出 RECEIVE，不计入性能分。</li>
+<li><strong>RECEIVE 说明</strong>：<code>MAINT1-BEGIN</code> 强制结束当前所有 RECEIVE，程序需将未完成请求重新进行 RECEIVE 分配。</li>
+</ul>
+<hr>
+<h3 id="双轿厢改造与回收（新增）"><a href="#双轿厢改造与回收（新增）" class="headerlink" title="双轿厢改造与回收（新增）"></a>双轿厢改造与回收（新增）</h3><p>同一电梯井的主轿厢和备用轿厢总是同时处于相同状态。</p>
+<h4 id="双轿厢改造流程-NORMAL-gt-UP-ACCEPT-gt-UPDATE-gt-DOUBLE"><a href="#双轿厢改造流程-NORMAL-gt-UP-ACCEPT-gt-UPDATE-gt-DOUBLE" class="headerlink" title="双轿厢改造流程 (NORMAL -&gt; UP_ACCEPT -&gt; UPDATE -&gt; DOUBLE)"></a>双轿厢改造流程 (<code>NORMAL</code> -&gt; <code>UP_ACCEPT</code> -&gt; <code>UPDATE</code> -&gt; <code>DOUBLE</code>)</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">电梯状态</th>
+<th style="text-align:left">转移到此状态的标志</th>
+<th style="text-align:left">电梯行为流程</th>
+<th style="text-align:left">电梯行为额外约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>NORMAL</strong></td>
+<td style="text-align:left">1. 初始状态<br>2. MAINT-END<br>3. RECYCLE-END</td>
+<td style="text-align:left">1. 正常运行<br>*2. 收到改造指令，输出 UPDATE-ACCEPT</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>UP_ACCEPT</strong></td>
+<td style="text-align:left">程序输出 UPDATE-ACCEPT</td>
+<td style="text-align:left">1. 主轿厢到 F3 层，准备改造<br>2. 乘客下电梯，关门<br>*3. 输出 UPDATE-BEGIN</td>
+<td style="text-align:left">1. 须处于关门状态<br>2. 见特殊约束</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>UPDATE</strong></td>
+<td style="text-align:left">程序输出 UPDATE-BEGIN</td>
+<td style="text-align:left">1. 等待至少 T_stop = 1s<br>*2. 输出 UPDATE-END</td>
+<td style="text-align:left">1. 此前 RECEIVE 结束<br>2. 禁新请求，处于静默<br>3. 须处于 UPDATE 状态</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>DOUBLE</strong></td>
+<td style="text-align:left">程序输出 UPDATE-END</td>
+<td style="text-align:left">1. 备用轿厢移动到井中 F1 层<br>2. 双轿厢模式正常运行</td>
+<td style="text-align:left">1. 主备均可 RECEIVE<br>2. 遵循双轿厢规则</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="双轿厢回收流程-DOUBLE-gt-REC-ACCEPT-gt-RECYCLE-gt-NORMAL"><a href="#双轿厢回收流程-DOUBLE-gt-REC-ACCEPT-gt-RECYCLE-gt-NORMAL" class="headerlink" title="双轿厢回收流程 (DOUBLE -&gt; REC_ACCEPT -&gt; RECYCLE -&gt; NORMAL)"></a>双轿厢回收流程 (<code>DOUBLE</code> -&gt; <code>REC_ACCEPT</code> -&gt; <code>RECYCLE</code> -&gt; <code>NORMAL</code>)</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">电梯状态</th>
+<th style="text-align:left">转移到此状态的标志</th>
+<th style="text-align:left">电梯行为流程</th>
+<th style="text-align:left">电梯行为额外约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>DOUBLE</strong></td>
+<td style="text-align:left">程序输出 UPDATE-END</td>
+<td style="text-align:left">1. 正常运行<br>*2. 收到回收指令，输出 RECYCLE-ACCEPT</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>REC_ACCEPT</strong></td>
+<td style="text-align:left">程序输出 RECYCLE-ACCEPT</td>
+<td style="text-align:left">1. 备用轿厢驶向 F1 层<br>2. 乘客下电梯，关门<br>3. 主轿厢正常运行<br>*4. 输出 RECYCLE-BEGIN</td>
+<td style="text-align:left">1. 见特殊约束</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>RECYCLE</strong></td>
+<td style="text-align:left">程序输出 RECYCLE-BEGIN</td>
+<td style="text-align:left">1. 备用轿厢 RECEIVE 结束<br>2. 等待至少 T_stop = 1s<br>*3. 输出 RECYCLE-END</td>
+<td style="text-align:left">1. 备用轿厢禁新请求并静默<br>2. 主轿厢在 F2 以上正常运行</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>NORMAL</strong></td>
+<td style="text-align:left">程序输出 RECYCLE-END</td>
+<td style="text-align:left">1. 备用轿厢回暗室<br>2. 主轿厢恢复单厢模式</td>
+<td style="text-align:left">1. 主轿厢恢复 B4-F7 运行<br>2. 备用轿厢静默停用</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="双轿厢运行规则"><a href="#双轿厢运行规则" class="headerlink" title="双轿厢运行规则"></a>双轿厢运行规则</h4><ul>
+<li>主轿厢范围 <code>F2 ~ F7</code>，备用轿厢范围 <code>B4 ~ F2</code>。</li>
+<li>两轿厢<strong>不能同时处于同一楼层</strong>，严禁相撞。</li>
+<li>电梯每次输出 <code>ARRIVE</code> 时刻所处楼层即变为新楼层（不考虑运动中间态）。</li>
+<li>（新增）双轿厢电梯可不受 RECEIVE 约束从换乘层 F2 移动一层以避让。</li>
+</ul>
+<h4 id="时间约束"><a href="#时间约束" class="headerlink" title="时间约束"></a>时间约束</h4><ul>
+<li><strong>改造时间约束</strong>：<code>UPDATE-ACCEPT</code> 到 <code>UPDATE-END</code> 之间的时间不得超过 <strong>6s</strong>。</li>
+<li><strong>回收时间约束</strong>：<code>RECYCLE-ACCEPT</code> 到 <code>RECYCLE-END</code> 之间的时间不得超过 <strong>6s</strong>。</li>
+</ul>
+<hr>
+<h3 id="系统运行约束（改动汇总）"><a href="#系统运行约束（改动汇总）" class="headerlink" title="系统运行约束（改动汇总）"></a>系统运行约束（改动汇总）</h3><ol>
+<li><strong>基本约束</strong>：关门状态下移动；开门到关门间隔不小于 0.4s；运行结束时必须全部关门并送达所有乘客。</li>
+<li><strong>RECEIVE 约束</strong>：<ul>
+<li>乘客进电梯必须在输出该乘客的 RECEIVE 之后（中途下车需重新 RECEIVE）。</li>
+<li>电梯移动必须有未结束的 RECEIVE（避让 F2 层除外）。</li>
+<li><code>MAINT1-BEGIN</code>、<code>UPDATE-BEGIN</code>、<code>RECYCLE-BEGIN</code> 会强制结束对应轿厢的所有 RECEIVE。</li>
+<li>暗室中的备用轿厢禁止 RECEIVE。</li>
+</ul>
+</li>
+<li><strong>载重</strong>：关门时必须 &lt;= 400kg。</li>
+</ol>
+<hr>
+<h2 id="第四部分：输入-输出说明（改动）"><a href="#第四部分：输入-输出说明（改动）" class="headerlink" title="第四部分：输入/输出说明（改动）"></a>第四部分：输入/输出说明（改动）</h2><p>请使用课程组提供的输入输出接口，严禁伪造时间戳。</p>
+<h3 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h3><ul>
+<li>乘客请求：<code>[时间戳]乘客ID-WEI-体重-FROM-起点层-TO-终点层</code></li>
+<li>检修指令：<code>[时间戳]MAINT-电梯ID-检修工人ID-验收目标楼层</code></li>
+<li>改造指令：<code>[时间戳]UPDATE-主轿厢电梯ID</code></li>
+<li>回收指令：<code>[时间戳]RECYCLE-备用轿厢电梯ID</code></li>
+</ul>
+<h3 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h3><ul>
+<li>接收分配：<code>[时间戳]RECEIVE-乘客ID-电梯ID</code></li>
+<li>到达/开门/关门：<code>[时间戳]ARRIVE/OPEN/CLOSE-所在层-电梯ID</code></li>
+<li>进/出电梯：<ul>
+<li>进：<code>[时间戳]IN-乘客ID-所在层-电梯ID</code></li>
+<li>出(到达目标)：<code>[时间戳]OUT-S-乘客ID-所在层-电梯ID</code></li>
+<li>出(未达目标)：<code>[时间戳]OUT-F-乘客ID-所在层-电梯ID</code></li>
+</ul>
+</li>
+<li>检修信息：<code>MAINT1-BEGIN</code> / <code>MAINT2-BEGIN</code> / <code>MAINT-END</code> (带电梯ID)</li>
+<li>改造信息：<code>UPDATE-BEGIN</code> / <code>UPDATE-END</code> (带主轿厢电梯ID)</li>
+<li>回收信息：<code>RECYCLE-BEGIN</code> / <code>RECYCLE-END</code> (带备用轿厢电梯ID)</li>
+</ul>
+<h3 id="数据限制（改动）"><a href="#数据限制（改动）" class="headerlink" title="数据限制（改动）"></a>数据限制（改动）</h3><ul>
+<li><strong>T_max 计算</strong>：<code>T_max = max(T_std + 30, 1.3 * T_std)</code> (中测和强测严格限制该时间)</li>
+<li>互测数据：<code>T_max</code> 统一为 120s。</li>
+<li>保证系统结束时启用的备用轿厢都会被回收。</li>
+<li>保证在合法状态下才会收到检修/改造/回收指令。</li>
+</ul>
+<hr>
+<h2 id="第五部分：样例"><a href="#第五部分：样例" class="headerlink" title="第五部分：样例"></a>第五部分：样例</h2><p>（详细样例输入输出请参考官方原文档的逐行比对，注意理解其中包含的改造、运行、回收的时序关系）。</p>
+<hr>
+<h2 id="第六部分：性能分"><a href="#第六部分：性能分" class="headerlink" title="第六部分：性能分"></a>第六部分：性能分</h2><p>总分 100 = 85 (功能) + 15 (性能)。<br>性能分由系统运行时间 (<code>T_run</code>)、平均完成时间 (<code>T_avg</code>) 和系统耗电量 (<code>W</code>) 组成。</p>
+<ul>
+<li><code>T_run = max(T_real, T_final)</code></li>
+<li><code>T_avg = Σ(T_i - T_i0) / N</code></li>
+<li><code>W = W_OPEN * N_OPEN + W_CLOSE * N_CLOSE + W_ARRIVE * N_ARRIVE</code><br><em>(其中 W_OPEN = W_CLOSE = 0.1, W_ARRIVE = 0.4)</em></li>
+</ul>
+<p>最终性能分公式为：<br><code>s = 15 * (0.3 * r(T_run) + 0.3 * r(T_avg) + 0.4 * r(W))</code><br><em>(其中 r(x) 为折算函数)</em></p>
+<hr>
+<h2 id="第七部分：实现提示"><a href="#第七部分：实现提示" class="headerlink" title="第七部分：实现提示"></a>第七部分：实现提示</h2><ol>
+<li><strong>策略与执行解耦</strong>：建议编写一个等候乘客表类和一个电梯策略类（分析并返回目标动作）。</li>
+<li><strong>状态模式建模</strong>：到达 -&gt; 开门 -&gt; 进出 -&gt; 关门 -&gt; 寻层 -&gt; 移动。</li>
+<li><strong>分配器</strong>：建议编写分派器线程作为后续作业的基础。</li>
+<li><strong>性能基准 (ALS 策略)</strong>：<ul>
+<li><strong>主请求</strong>：若空车，选最高优先级（最早到达）；若有人，选车内最高优先级。</li>
+<li><strong>被捎带请求</strong>：投喂时间 &lt;= 关门截止时间，且方向一致。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="第八部分：提示与警示"><a href="#第八部分：提示与警示" class="headerlink" title="第八部分：提示与警示"></a>第八部分：提示与警示</h2><ul>
+<li><strong>严禁轮询</strong>：总 CPU 时间限制 10s，请使用 <code>wait/notify</code> 机制编程。</li>
+<li><strong>初始化</strong>：请在代码一开始初始化时间戳：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.oocourse.elevator1.TimableOutput;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MainClass</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        TimableOutput.initStartTimestamp();  <span class="hljs-comment">// 初始化时间戳</span><br>        <span class="hljs-comment">/* 代码部分 */</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li>官方提供的输出包是线程安全的。</li>
+<li>多线程存在随机性，本地无法复现的 bug 以官方评测机为准。</li>
+<li><strong>警示</strong>：不要 Hacker 评测机，不要伪造时间戳，严禁抄袭。</li>
+</ul>
+<p>补充：</p>
+<p>【指导书说明】<br>请大家注意，在RECYCLE状态下，主轿厢的运行范围分别包括F2以及F2以上楼层。指导书此前在这里的表述有歧义，现已修正<br>【指导书说明】<br>指导书在双轿厢电梯不受RECEIVE约束离开换乘层方面的表述有歧义，现重新说明：电梯在双轿厢状态(DOUBLE，REC_ACCEPT，RECYCLE)无需RECEIVE即可移动一层离开换乘层。但这里的移动必须在RECYCLE状态结束前完成，即输出ARRIVE时电梯仍需处在上述三个状态中<br>本次仅修正了双轿厢电梯不受RECEIVE约束离开换乘层的表述，其他电梯移动相关的约束保持不变。指导书已同步更新，对于由此造成的不便我们深表歉意。若有同学因此需要补偿提交次数请联系助教</p>
+
+
+  
+
+</article>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/index-math.js?v=20260625-polish.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

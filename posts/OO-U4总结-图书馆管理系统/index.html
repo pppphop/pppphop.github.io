@@ -1,0 +1,936 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pppphop">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本单元题面第13次作业题面 第14次作业题面 第15次作业题面  从规格到模型：2026 OO 课程四个单元的架构与测试复盘一、引言OO 课程的四个单元并不是简单地把题目难度逐步提高，而是把“如何用面向对象方法控制复杂度”这件事拆成了几个层次：第一单元从表达式解析和化简开始，让我意识到对象划分要服务于语法结构；第二单元进入多线程电梯调度，迫使我把对象之间的协作、同步和生命周期作为设计重点；第三">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OO U4总结：图书馆管理系统">
+<meta property="og:url" content="http://example.com/posts/OO-U4%E6%80%BB%E7%BB%93-%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="zhp的博客">
+<meta property="og:description" content="本单元题面第13次作业题面 第14次作业题面 第15次作业题面  从规格到模型：2026 OO 课程四个单元的架构与测试复盘一、引言OO 课程的四个单元并不是简单地把题目难度逐步提高，而是把“如何用面向对象方法控制复杂度”这件事拆成了几个层次：第一单元从表达式解析和化简开始，让我意识到对象划分要服务于语法结构；第二单元进入多线程电梯调度，迫使我把对象之间的协作、同步和生命周期作为设计重点；第三">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/posts/OO-U4%E6%80%BB%E7%BB%93-%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20260618224046003.png">
+<meta property="og:image" content="http://example.com/posts/OO-U4%E6%80%BB%E7%BB%93-%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20260618224229506.png">
+<meta property="og:image" content="http://example.com/posts/OO-U4%E6%80%BB%E7%BB%93-%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20260618224650028.png">
+<meta property="article:published_time" content="2026-06-18T12:00:00.000Z">
+<meta property="article:modified_time" content="2026-06-27T05:34:31.357Z">
+<meta property="article:author" content="pppphop">
+<meta property="article:tag" content="OO">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/posts/OO-U4%E6%80%BB%E7%BB%93-%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20260618224046003.png">
+  
+  
+  
+  <title>OO U4总结：图书馆管理系统 - zhp的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/blog-polish.css?v=20260627-oo-gap.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zhp的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              
+              <a class="nav-link dropdown-parent-link" target="_self" href="/quiz/" role="button"
+                  aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>刷题</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/military/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>军理刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ethics/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>思修刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/os/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>OS刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/history/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>史纲刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ai/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>AI 对话</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="OO U4总结：图书馆管理系统"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-06-18 20:00" pubdate>
+          2026年6月18日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          43 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">OO U4总结：图书馆管理系统</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <div class="oo-unit-topic-spacer"></div>
+
+<h2 id="本单元题面"><a href="#本单元题面" class="headerlink" title="本单元题面"></a>本单元题面</h2><a class="btn" href="/files/面向对象设计与构造第13次作业.html"  title="fas fa-file-alt" target="_blank">第13次作业题面</a>
+<a class="btn" href="/files/面向对象设计与构造第14次作业.html"  title="fas fa-file-alt" target="_blank">第14次作业题面</a>
+<a class="btn" href="/files/面向对象设计与构造第15次作业.html"  title="fas fa-file-alt" target="_blank">第15次作业题面</a>
+<hr>
+<h1 id="从规格到模型：2026-OO-课程四个单元的架构与测试复盘"><a href="#从规格到模型：2026-OO-课程四个单元的架构与测试复盘" class="headerlink" title="从规格到模型：2026 OO 课程四个单元的架构与测试复盘"></a>从规格到模型：2026 OO 课程四个单元的架构与测试复盘</h1><h2 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h2><p>OO 课程的四个单元并不是简单地把题目难度逐步提高，而是把“如何用面向对象方法控制复杂度”这件事拆成了几个层次：第一单元从表达式解析和化简开始，让我意识到对象划分要服务于语法结构；第二单元进入多线程电梯调度，迫使我把对象之间的协作、同步和生命周期作为设计重点；第三单元以 JML 规格化设计为核心，让我学会从前置条件、后置条件和异常约束出发实现代码；第四单元则进一步要求先建模再开发，在图书馆管理系统中通过 UML 类图、状态图和顺序图完成正向建模。</p>
+<p>回顾整个课程，我最大的变化是：最初我更关注“怎么把功能写出来”，后来逐渐转向“如何先建立稳定的领域模型，再让代码沿着模型生长”。第四单元的三次作业尤其明显，它不再只是考察单个算法或单次迭代，而是要求我们在需求持续扩展时保持模型、代码和行为之间的一致性。</p>
+<h2 id="二、第四单元：正向建模与开发实践"><a href="#二、第四单元：正向建模与开发实践" class="headerlink" title="二、第四单元：正向建模与开发实践"></a>二、第四单元：正向建模与开发实践</h2><p>第四单元的背景是图书馆管理系统。三次作业分别在同一个领域上叠加需求：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>作业</th>
+<th>主要新增内容</th>
+<th>设计压力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第 13 次</td>
+<td>借书、还书、查询、预约、取书、开闭馆整理</td>
+<td>建立图书副本、读者、预约、书架和各办公室之间的基本协作</td>
+</tr>
+<tr>
+<td>第 14 次</td>
+<td>精品书架、评分、阅览室阅读与归还</td>
+<td>同一本书可能在普通书架、精品书架、阅览室等状态之间流动</td>
+</tr>
+<tr>
+<td>第 15 次</td>
+<td>信用分、借阅期限、续借、信用查询</td>
+<td>读者状态变复杂，行为限制不再只取决于持书数量，还取决于信用和日期</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>我的整体思路是把系统拆成三类对象。</p>
+<p>第一类是<strong>领域实体</strong>，例如 <code>BookCopy</code>、<code>Patron</code>、<code>Reservation</code>、<code>BookRating</code>。它们保存系统中稳定存在的状态，其中 <code>BookCopy</code> 负责记录单本图书副本的编号、ISBN、当前位置、持有者、预约人、预约过期日和流转轨迹；<code>Patron</code> 负责维护读者的持书情况、阅读状态、信用分和到期日；<code>Reservation</code> 表示一个学生对某类书的预约；<code>BookRating</code> 维护评分总和和评分次数。</p>
+<p>第二类是<strong>业务场所对象</strong>，例如 <code>Bookshelf</code>、<code>TreasuredBookshelf</code>、<code>BorrowAndReturnOffice</code>、<code>AppointmentOffice</code>、<code>ReadingRoom</code>、<code>RatingOffice</code>。这些类的职责比较单一，分别对应题面中的书架、精品书架、借还处、预约处、阅览室和评分处。这样做的好处是，每当新增一个业务场所或新增一类书籍流转规则时，不必把所有逻辑都塞进一个巨大的过程函数，而是先判断它属于哪个场所的职责。</p>
+<p>第三类是<strong>流程编排对象</strong>，也就是 <code>LibraryManager</code>。它不应该替代所有类完成业务细节，而是负责接收命令、识别命令类型、调用对应领域对象和场所对象，并在开馆/闭馆时统一整理图书。在我的最终代码中，<code>LibraryManager</code> 维护 <code>BookRepository</code>、普通书架、精品书架、借还处、预约处、阅览室、评分处、读者表和预约表，是整个系统的门面和调度中心。</p>
+<p>这种拆分的核心是：实体类维护状态，场所类表达局部业务动作，管理器类负责跨对象协作。随着作业从第 13 次迭代到第 15 次，需求增加主要体现在 <code>Patron</code>、<code>BookCopy</code> 和 <code>LibraryManager</code> 的扩展上，而不是推翻原有结构。</p>
+<h2 id="三、两阶类图在正向建模中的作用"><a href="#三、两阶类图在正向建模中的作用" class="headerlink" title="三、两阶类图在正向建模中的作用"></a>三、两阶类图在正向建模中的作用</h2><p>第四单元让我第一次比较完整地体会到“两阶类图”的价值。这里的“一阶类图”更像是编码前的设计承诺，它回答“系统应该有哪些核心类”“这些类大致负责什么”“对象之间是否存在明显的关联关系”。“二阶类图”则更接近最终代码模型，它需要把属性、方法、关联、多重性以及迭代后的新增对象补充完整，体现最终实现。</p>
+<p>一阶类图的作用主要是<strong>在动手写代码之前限制混乱</strong>。例如第 13 次作业如果直接编码，很容易把所有请求处理都写在 <code>Main</code> 或单个管理类里，最终导致借书、还书、预约、取书、整理全都耦合在一起。我在建模时先抽出了 <code>BookCopy</code>、<code>BookRepository</code>、<code>Patron</code>、<code>Reservation</code>、<code>Bookshelf</code>、<code>BorrowAndReturnOffice</code>、<code>AppointmentOffice</code>、<code>LibraryManager</code> 等角色，这使得后续代码有了清晰的落点：图书流转放在 <code>BookCopy.moveTo</code>，馆藏检索放在 <code>BookRepository</code>，读者借阅限制放在 <code>Patron</code>，日常请求调度放在 <code>LibraryManager</code>。</p>
+<p>二阶类图的作用是<strong>把实现后的真实架构沉淀下来</strong>。例如第 14 次新增精品书架和评分后，原有模型需要加入 <code>BookRating</code>、<code>TreasuredBookshelf</code>、<code>ReadingRoom</code>、<code>RatingOffice</code>。如果只在代码中临时增加逻辑，而不更新二阶类图，模型就会与实现脱节。第 15 次新增信用分、借阅期限和续借后，类名没有大规模增加，但 <code>Patron</code> 增加了 <code>creditScore</code>、<code>dueDates</code>、<code>overduePenaltyApplied</code> 等状态，<code>LibraryManager</code> 增加了 <code>handleRenew</code>、<code>handleQcs</code>、<code>updateAllPenalties</code> 等流程。这种变化也必须反映到二阶类图中，否则类图无法解释最终代码。</p>
+<p>我对两阶类图的理解可以概括为：一阶类图用于“定方向”，二阶类图用于“对齐实现”。一阶类图降低了开工时的随机性，二阶类图降低了迭代后的不可追踪性。正向建模并不是画完图就结束，而是让模型持续参与代码设计、迭代和复盘。</p>
+<p>下面是我hw13和hw15的类图。</p>
+<img src="/posts/OO-U4%E6%80%BB%E7%BB%93-%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20260618224046003.png" srcset="/img/loading.gif" lazyload class="" title="image-20260618224046003">
+<img src="/posts/OO-U4%E6%80%BB%E7%BB%93-%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20260618224229506.png" srcset="/img/loading.gif" lazyload class="" title="image-20260618224229506">
+<h2 id="四、第四单元架构设计与-UML—代码追踪关系"><a href="#四、第四单元架构设计与-UML—代码追踪关系" class="headerlink" title="四、第四单元架构设计与 UML—代码追踪关系"></a>四、第四单元架构设计与 UML—代码追踪关系</h2><h3 id="1-核心类的职责追踪"><a href="#1-核心类的职责追踪" class="headerlink" title="1. 核心类的职责追踪"></a>1. 核心类的职责追踪</h3><p>我的最终代码和二阶 UML 模型之间基本保持了一一对应关系，主要类的追踪关系如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>UML/代码类</th>
+<th>主要职责</th>
+<th>典型属性或方法</th>
+<th>追踪说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Main</code></td>
+<td>程序入口</td>
+<td><code>main</code></td>
+<td>只负责读取初始书籍和命令，将业务交给 <code>LibraryManager</code></td>
+</tr>
+<tr>
+<td><code>LibraryManager</code></td>
+<td>系统总控与流程编排</td>
+<td><code>handleCommand</code>、<code>handleBorrow</code>、<code>handleReturn</code>、<code>handlePick</code>、<code>handleRead</code>、<code>handleRenew</code>、<code>arrange</code></td>
+<td>对应 UML 中的中心控制类，关联各业务场所和读者/预约集合</td>
+</tr>
+<tr>
+<td><code>BookRepository</code></td>
+<td>馆藏管理与图书检索</td>
+<td><code>copiesByIsbn</code>、<code>copiesById</code>、<code>findBookshelfCopy</code>、<code>findArrangableCopyFor</code></td>
+<td>支持按 ISBN 和副本编号检索，是书籍数据的统一来源</td>
+</tr>
+<tr>
+<td><code>BookCopy</code></td>
+<td>单本图书副本状态</td>
+<td><code>state</code>、<code>holderId</code>、<code>reservedFor</code>、<code>expireCloseDate</code>、<code>moveTo</code>、<code>getTraces</code></td>
+<td>对应状态图中的图书流转对象，是状态变化和轨迹记录的核心</td>
+</tr>
+<tr>
+<td><code>Patron</code></td>
+<td>读者状态与借阅约束</td>
+<td><code>heldCopies</code>、<code>heldBCount</code>、<code>heldCIsbns</code>、<code>creditScore</code>、<code>dueDates</code>、<code>canHoldMore</code>、<code>canBorrowOrOrder</code></td>
+<td>读者规则集中在这里，避免在管理器中散落大量条件判断</td>
+</tr>
+<tr>
+<td><code>Reservation</code></td>
+<td>预约记录</td>
+<td><code>studentId</code>、<code>bookIsbn</code>、<code>assignedCopy</code></td>
+<td>将“发起预约”和“预约已分配到具体副本”分离</td>
+</tr>
+<tr>
+<td><code>Bookshelf</code></td>
+<td>普通书架操作</td>
+<td><code>borrow</code>、<code>read</code>、<code>query</code></td>
+<td>负责从普通书架上取可用副本</td>
+</tr>
+<tr>
+<td><code>TreasuredBookshelf</code></td>
+<td>精品书架判断</td>
+<td><code>containsBook</code>、<code>getBookState</code></td>
+<td>与评分系统联动，决定图书目标书架状态</td>
+</tr>
+<tr>
+<td><code>BorrowAndReturnOffice</code></td>
+<td>借还处操作</td>
+<td><code>returnBook</code>、<code>restoreBook</code>、<code>query</code></td>
+<td>承接归还后和阅读归还后的中转状态</td>
+</tr>
+<tr>
+<td><code>AppointmentOffice</code></td>
+<td>预约处操作</td>
+<td><code>order</code>、<code>pick</code>、<code>query</code></td>
+<td>负责预约分配后的取书动作</td>
+</tr>
+<tr>
+<td><code>ReadingRoom</code></td>
+<td>阅览室操作</td>
+<td><code>read</code>、<code>restore</code></td>
+<td>第 14 次新增，处理阅读与归还</td>
+</tr>
+<tr>
+<td><code>RatingOffice</code></td>
+<td>评分入口</td>
+<td><code>grade</code></td>
+<td>将评分动作与仓库中的评分数据连接起来</td>
+</tr>
+<tr>
+<td><code>BookRating</code></td>
+<td>评分数据</td>
+<td><code>scoreSum</code>、<code>scoreCount</code>、<code>getAverageScore</code>、<code>isTreasuredBook</code></td>
+<td>维护某 ISBN 的评分统计，并影响精品书架判断</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>从这个表可以看出，最终代码并没有偏离 UML 的核心设计：UML 中的类大多能在代码中找到同名实现，UML 中的关联关系也能在代码字段中找到对应。例如 <code>LibraryManager</code> 对 <code>repository</code>、<code>bookshelf</code>、<code>treasuredBookshelf</code>、<code>borrowAndReturnOffice</code>、<code>appointmentOffice</code>、<code>readingRoom</code>、<code>ratingOffice</code> 的关联，在代码中都体现为成员变量；<code>Patron</code> 与 <code>BookCopy</code> 的关联体现在 <code>heldCopies</code> 和阅读状态中；<code>Reservation</code> 与 <code>BookCopy</code> 的关联体现在 <code>assignedCopy</code> 中。</p>
+<h3 id="2-状态流转的追踪"><a href="#2-状态流转的追踪" class="headerlink" title="2. 状态流转的追踪"></a>2. 状态流转的追踪</h3><p>第四单元最难的地方不是单个请求，而是图书在不同状态之间的流转。我的设计选择把状态变化集中在 <code>BookCopy.moveTo</code> 中，并由 <code>LibraryManager</code> 的整理流程统一调用。这样，状态图中的转移可以追踪到代码中的状态修改；顺序图中的交互也可以追踪到 <code>LibraryManager</code> 调用各对象的方法。</p>
+<p>例如一次直接借书的大致链路是：<code>LibraryManager.handleBorrow</code> 获取读者与 ISBN → <code>Bookshelf.borrow</code> 查找书架上的副本 → 检查 <code>Patron.canBorrowOrOrder</code> 和 <code>Patron.canHoldMore</code> → 设置图书持有者 → <code>BookCopy.moveTo(USER)</code> → <code>Patron.addHeldCopy</code> 记录到期日 → 输出接受信息。</p>
+<p>一次闭馆整理的大致链路是：<code>LibraryManager.close</code> 先处理未归还阅览室图书和信用扣分，再进入 <code>arrange</code>；<code>arrange</code> 依次清理过期预约、分配待满足预约、移动阅览室图书、在开馆时移动借还处图书并修正书架状态。这里 <code>movedBookIds</code> 用来保证同一次整理中同一本副本不会被重复移动，避免状态冲突。</p>
+<p>第 15 次作业中信用分和借阅期限使状态不仅存在于图书上，也存在于读者上。<code>Patron.updateOverduePenalties</code> 负责根据当前日期判断是否已逾期并扣分；<code>LibraryManager.handleReturn</code> 根据归还日期和到期日输出 overdue 或 not overdue；<code>handleRenew</code> 判断是否持有该书以及是否未逾期，然后调用 <code>Patron.extendDueDate</code>。这说明二阶类图不仅要表达类名，还要表达状态责任落在哪个对象上。</p>
+<p>下面是我hw15的顺序图：</p>
+<img src="/posts/OO-U4%E6%80%BB%E7%BB%93-%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20260618224650028.png" srcset="/img/loading.gif" lazyload class="" title="image-20260618224650028">
+<h2 id="五、使用大模型辅助正向建模的体会"><a href="#五、使用大模型辅助正向建模的体会" class="headerlink" title="五、使用大模型辅助正向建模的体会"></a>五、使用大模型辅助正向建模的体会</h2><p>在复杂场景中，大模型可以帮助我更快地形成候选架构，但不能直接替代设计判断。我的经验是，与其让大模型“直接写完整代码”，不如把它当作一个建模讨论对象，分阶段约束它的输出。</p>
+<p>第一步是让大模型提取领域名词和业务动作。例如面对图书馆题面，可以要求它区分“实体、场所、流程、约束、状态”。这样比直接要求它生成类图更可靠，因为类图的质量依赖于前面的领域抽象。</p>
+<p>第二步是要求它给出多个架构方案并比较优劣。例如是否需要单独的 <code>ReadingRoom</code>，评分是否应该放在 <code>BookRepository</code>，预约是否应该和读者绑定，图书状态变化是否应该集中在 <code>BookCopy</code>。通过比较方案，我可以发现哪些类只是过程函数的包装，哪些类真正承担了稳定职责。</p>
+<p>第三步是让大模型检查模型和代码的追踪关系。我的做法是列出“类图类名—代码类名—字段—方法—职责”的表格，再检查是否存在模型中有但代码中没有的类、代码中有但模型未体现的类、职责过度集中或关联方向不清晰的问题。这个过程对二阶类图很有帮助。</p>
+<p>第四步是用场景驱动大模型找遗漏。比如输入“一个 C 类书被预约、归还、分配到预约处、预约过期、再回到精品书架”的场景，让它检查需要经过哪些对象、哪些状态、哪些日期边界。这比单纯问“我的架构有没有问题”更容易得到有效反馈。</p>
+<p>我认为引导大模型完成复杂架构任务时，关键不是提示词写得长，而是输入要结构化，约束要明确，输出要可验证。比较有效的提示方式包括：</p>
+<ol>
+<li>先要求列出需求中的实体、状态和操作，而不是直接写代码。</li>
+<li>要求给出职责表，并说明每个职责为什么属于这个类。</li>
+<li>要求按照一阶类图、二阶类图、状态图、顺序图的顺序逐步细化。</li>
+<li>要求输出“模型—代码追踪表”，检查每个 UML 元素是否能落到代码。</li>
+<li>要求基于具体业务场景做设计审查，而不是泛泛评价架构。</li>
+</ol>
+<p>同时，我也意识到大模型容易给出看似完整但不一定符合课程接口、输出格式和边界条件的方案。因此我最终仍然需要回到题面、官方接口和测试结果，确认每一个状态变化、异常条件和输出语义是否正确。</p>
+<h2 id="六、四个单元中架构设计思维的演进"><a href="#六、四个单元中架构设计思维的演进" class="headerlink" title="六、四个单元中架构设计思维的演进"></a>六、四个单元中架构设计思维的演进</h2><p>第一单元让我建立了“语法结构即对象结构”的意识。表达式展开与化简看似是字符串处理，但如果一直依赖字符串拼接，后续加入自定义函数、指数函数、选择表达式和求导时会非常难维护。更好的做法是把表达式拆成词法分析、语法分析、表达式树或项/因子的层次结构，让新增语法尽量变成新增节点或新增规则，而不是修改所有旧逻辑。</p>
+<p>第二单元让我认识到“对象之间的协作比单个对象更重要”。多线程电梯系统中，正确性不仅取决于电梯类怎么写，还取决于输入线程、调度器、请求队列、电梯线程之间如何通信。这个单元让我开始关注线程安全、生产者—消费者模型、共享队列、结束条件和时间顺序。架构设计不再只是类的静态划分，还包括对象生命周期和并发协作方式。</p>
+<p>第三单元的规格化设计改变了我看代码的方式。JML 规格把方法的前置条件、后置条件、副作用和异常情况都写得很清楚，这要求我先理解“这个方法承诺了什么”，再选择数据结构和算法。第 9–11 次作业中，在线视频平台从用户关注和视频互动扩展到硬币经济、评论、粉丝勋章、推荐系统等功能。我的实现逐渐从简单的 <code>Network</code>、<code>User</code>、<code>Video</code> 三类，扩展出 <code>SocialGraph</code> 和 <code>RecommendationEngine</code> 等辅助类，以避免 <code>Network</code> 过度膨胀。这个过程让我意识到，规格不是代码的负担，而是帮助划定责任边界的工具。</p>
+<p>第四单元则把架构设计推进到“模型先行”。我不再只是根据题目直接补类，而是先从类图中确定稳定领域对象，再用状态图确认对象行为，用顺序图检查对象协作。尤其是在图书馆系统中，图书副本状态、读者信用状态、预约状态和日期约束相互影响，如果没有模型，很容易在迭代中把逻辑写散。正向建模让我更习惯于先问：这个状态属于哪个对象？这个变化由谁触发？这个关联能否在代码中追踪？</p>
+<p>总体来看，我的架构思维经历了四个阶段：从字符串过程处理，到对象封装；从对象封装，到并发协作；从并发协作，到规格驱动；从规格驱动，到模型驱动。最后我对“面向对象”的理解也更完整：面向对象不是简单地多建几个类，而是让类的职责、对象状态、交互关系和需求变化保持一致。</p>
+<h2 id="七、四个单元中测试思维的演进"><a href="#七、四个单元中测试思维的演进" class="headerlink" title="七、四个单元中测试思维的演进"></a>七、四个单元中测试思维的演进</h2><p>第一单元的测试重点是表达式正确性。最开始我会手写一些样例，后来逐渐意识到表达式问题适合用随机测试和对拍测试：随机生成表达式，分别用自己的程序和可靠的数学化简/求值方式进行比较。由于输出形式不唯一，测试时不能只比较字符串，而要比较在多个变量取值下的语义等价。</p>
+<p>第二单元的测试重点是并发时序。电梯作业不是单纯比较最终结果，还要检查过程是否符合时间、载重、开关门和接送规则。因此测试思维从“输出对不对”变成“日志过程是否合法”。我需要构造高峰请求、跨楼层请求、临时检修、双轿厢等场景，并关注死锁、线程提前结束、请求丢失、重复接送等问题。</p>
+<p>第三单元的测试重点是规格覆盖。JML 方法的异常条件非常明确，所以我开始按正常路径、异常路径和边界值拆分测试。例如用户不存在、视频不存在、重复关注、自关注、未观看就点赞、硬币不足、评论编号重复等情况，都需要与规格逐条对应。这个单元也让我更加重视数据结构性能测试，因为规格正确但复杂度过高仍然可能超时。代码中对最短路缓存、贡献者 O(1) 维护、评论清理 O(N) 重建、推荐候选堆等优化，都是在正确性之外对性能测试的回应。</p>
+<p>第四单元的测试重点是场景一致性和状态追踪。图书馆系统的很多错误不会在单个请求中暴露，而会在跨日期、跨状态的长序列中出现。例如预约到期日、开馆和闭馆整理时机、阅览室未归还扣分、逾期扣分是否重复、续借是否允许、精品书架和普通书架之间的切换，都需要通过连续场景测试。相比前三个单元，第四单元更适合从状态图和顺序图反推测试用例：每条状态转移至少构造一次，每个拒绝条件至少覆盖一次，每个日期边界单独测试。</p>
+<p>因此，我的测试思维也经历了变化：从样例驱动，到随机与对拍；从结果验证，到过程验证；从功能覆盖，到规格覆盖；最后到模型驱动的场景覆盖。测试不再是写完代码后的补救，而是反过来帮助我检查架构是否清晰。</p>
+<h2 id="八、课程收获"><a href="#八、课程收获" class="headerlink" title="八、课程收获"></a>八、课程收获</h2><p>这门课给我的最大收获，是让我真正理解了“复杂度管理”在软件开发中的意义。很多时候程序失败并不是因为某一行代码写错，而是因为一开始没有把责任边界设计好。第一单元教会我用结构化对象处理表达式，第二单元教会我在并发系统中处理对象协作，第三单元教会我尊重规格和契约，第四单元教会我用 UML 模型指导开发并追踪实现。</p>
+<p>我也更加理解了迭代开发中的可扩展性。一个设计在第一次作业中能通过，不代表它能承受第二、第三次迭代。真正好的设计应该允许需求增长时以局部修改为主，而不是每次都推翻重来。第四单元的图书馆系统就是一个典型例子：当新增精品书架、评分、阅读、信用分、借阅期限和续借时，如果原本已经把图书、读者、预约、仓库、场所和管理器分清楚，新增需求就可以落到相对自然的位置。</p>
+<p>最后，我对大模型辅助编程也有了更理性的认识。大模型适合帮助梳理需求、生成候选类、检查追踪关系、构造测试场景，但最终设计质量仍然取决于我是否理解题面、是否能判断职责边界、是否能用测试验证模型。它可以提升建模效率，却不能替代对系统本身的思考。</p>
+<p>经过四个单元，我从“为了通过评测写代码”逐渐转向“为了控制复杂度做设计”。这也是我认为 OO 课程最有价值的地方：它不只是训练 Java 语法和具体算法，而是训练一种面对复杂需求时仍然保持结构清晰、责任明确、可验证、可迭代的软件设计思维。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/OO/" class="category-chain-item">OO</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/OO/" class="print-no-link">#OO</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>OO U4总结：图书馆管理系统</div>
+      <div>http://example.com/posts/OO-U4总结-图书馆管理系统/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>pppphop</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年6月18日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/OO-U3%E6%80%BB%E7%BB%93-JML%E8%A7%84%E6%A0%BC%E5%8C%96%E8%AE%BE%E8%AE%A1/" title="OO U3总结：JML规格化设计">
+                        <span class="hidden-mobile">OO U3总结：JML规格化设计</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/index-math.js?v=20260625-polish.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
