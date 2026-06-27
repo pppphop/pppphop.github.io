@@ -1,4 +1,50 @@
 (function () {
+  function restoreLegacyMathScripts() {
+    var scripts = document.querySelectorAll('script[type^="math/tex"]');
+    if (!scripts.length) return false;
+
+    Array.prototype.forEach.call(scripts, function (script) {
+      var type = (script.getAttribute('type') || '').toLowerCase();
+      var tex = script.textContent || '';
+      var isDisplay = type.indexOf('mode=display') !== -1;
+      var wrapper = document.createElement(isDisplay ? 'div' : 'span');
+
+      wrapper.className = isDisplay ? 'math-display-legacy' : 'math-inline-legacy';
+      wrapper.textContent = isDisplay ? '\\[' + tex + '\\]' : '\\(' + tex + '\\)';
+      script.parentNode.replaceChild(wrapper, script);
+    });
+
+    return true;
+  }
+
+  function typesetRestoredMath() {
+    if (!window.MathJax) return;
+
+    try {
+      if (
+        MathJax.startup &&
+        MathJax.startup.document &&
+        typeof MathJax.startup.document.state === 'function'
+      ) {
+        MathJax.startup.document.state(0);
+      }
+      if (typeof MathJax.texReset === 'function') {
+        MathJax.texReset();
+      }
+      if (typeof MathJax.typesetPromise === 'function') {
+        MathJax.typesetPromise();
+      } else if (typeof MathJax.typeset === 'function') {
+        MathJax.typeset();
+      }
+    } catch (error) {
+      setTimeout(typesetRestoredMath, 120);
+    }
+  }
+
+  if (restoreLegacyMathScripts()) {
+    typesetRestoredMath();
+  }
+
   var excerpts = document.querySelectorAll('.index-excerpt');
   if (!excerpts.length) return;
 

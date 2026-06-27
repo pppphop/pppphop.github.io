@@ -54,6 +54,26 @@
   box-shadow: none;
 }
 
+.banner-text {
+  padding-top: 4.5rem;
+}
+
+.banner-text .h2,
+.banner-text #subtitle {
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.post-content #seo-header,
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  scroll-margin-top: 5.75rem;
+}
+
 .index-card {
   border: 1px solid var(--polish-card-border);
   border-radius: 8px;
@@ -111,6 +131,21 @@
   letter-spacing: 0;
   margin-top: 1.8em;
   margin-bottom: 0.75em;
+}
+
+.post-content #seo-header {
+  margin-top: 0;
+  line-height: 1.35;
+}
+
+@media (max-width: 767.98px) {
+  .banner-text {
+    padding-top: 5.25rem;
+  }
+
+  .post-content #seo-header {
+    font-size: 1.65rem;
+  }
 }
 
 .markdown-body p,
