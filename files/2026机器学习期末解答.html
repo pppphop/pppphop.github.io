@@ -1,0 +1,546 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pppphop">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="这是一份为你量身定制的《机器学习》期末综合考试卷标准解答。解答过程严格按照评分标准书写，步骤清晰，理论凝练。你可以在考前直接拿来作为终极背诵参考。  《机器学习》期末综合考试卷 标准解答第一题：模型评估与交叉验证(1) 混淆矩阵与性能指标计算根据题意可知，总数&#x3D;40，真实P&#x3D;8，真实N&#x3D;32。预测P&#x3D;10，其中真实P&#x3D;6。可推导出：  TP (真阳性) &#x3D; 6 FP (假阳性) &#x3D; 预测P - T">
+<meta property="og:type" content="website">
+<meta property="og:title" content="page.title">
+<meta property="og:url" content="http://example.com/files/2026%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%9F%E6%9C%AB%E8%A7%A3%E7%AD%94.html">
+<meta property="og:site_name" content="zhp的博客">
+<meta property="og:description" content="这是一份为你量身定制的《机器学习》期末综合考试卷标准解答。解答过程严格按照评分标准书写，步骤清晰，理论凝练。你可以在考前直接拿来作为终极背诵参考。  《机器学习》期末综合考试卷 标准解答第一题：模型评估与交叉验证(1) 混淆矩阵与性能指标计算根据题意可知，总数&#x3D;40，真实P&#x3D;8，真实N&#x3D;32。预测P&#x3D;10，其中真实P&#x3D;6。可推导出：  TP (真阳性) &#x3D; 6 FP (假阳性) &#x3D; 预测P - T">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-07-01T06:29:01.441Z">
+<meta property="article:modified_time" content="2026-07-01T06:29:01.441Z">
+<meta property="article:author" content="pppphop">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>page.title - zhp的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/blog-polish.css?v=20260627-title-gap.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zhp的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              
+              <a class="nav-link dropdown-parent-link" target="_self" href="/quiz/" role="button"
+                  aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>刷题</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/military/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>军理刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ethics/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>思修刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/os/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>OS刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/history/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>史纲刷题</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/ai/" target="_self">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>AI 对话</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="page.title"></span>
+          
+        </div>
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+<article class="page-content">
+  <p>这是一份为你量身定制的<strong>《机器学习》期末综合考试卷标准解答</strong>。解答过程严格按照评分标准书写，步骤清晰，理论凝练。你可以在考前直接拿来作为终极背诵参考。</p>
+<hr>
+<h1 id="《机器学习》期末综合考试卷-标准解答"><a href="#《机器学习》期末综合考试卷-标准解答" class="headerlink" title="《机器学习》期末综合考试卷 标准解答"></a>《机器学习》期末综合考试卷 标准解答</h1><h3 id="第一题：模型评估与交叉验证"><a href="#第一题：模型评估与交叉验证" class="headerlink" title="第一题：模型评估与交叉验证"></a>第一题：模型评估与交叉验证</h3><p><strong>(1) 混淆矩阵与性能指标计算</strong><br>根据题意可知，总数=40，真实P=8，真实N=32。预测P=10，其中真实P=6。可推导出：</p>
+<ul>
+<li><strong>TP (真阳性)</strong> = 6</li>
+<li><strong>FP (假阳性)</strong> = 预测P - TP = 10 - 6 = <strong>4</strong></li>
+<li><strong>FN (假阴性)</strong> = 真实P - TP = 8 - 6 = <strong>2</strong></li>
+<li><strong>TN (真阴性)</strong> = 真实N - FP = 32 - 4 = <strong>28</strong></li>
+</ul>
+<p>计算指标：</p>
+<ul>
+<li><strong>查准率 (Precision)</strong> = <script type="math/tex">TP / (TP + FP) = 6 / 10 = \mathbf{60\%}</script></li>
+<li><strong>查全率 (Recall)</strong> = <script type="math/tex">TP / (TP + FN) = 6 / 8 = \mathbf{75\%}</script></li>
+<li><strong>F1 值</strong> = <script type="math/tex">\frac{2 \times P \times R}{P + R} = \frac{2 \times 0.6 \times 0.75}{0.6 + 0.75} = \frac{0.9}{1.35} = \mathbf{66.7\%}</script> (或 <script type="math/tex">\frac{2}{3}</script>)</li>
+</ul>
+<p><strong>(2) k折交叉验证流程</strong></p>
+<ol>
+<li>将数据集 <script type="math/tex">D</script> 随机划分为 <script type="math/tex">k</script> 个大小相似的互斥子集。</li>
+<li>每次用其中的 <script type="math/tex">k-1</script> 个子集作为训练集，剩下 <script type="math/tex">1</script> 个子集作为测试集，进行模型的训练和评估。</li>
+<li>循环上述过程 <script type="math/tex">k</script> 次，使得每个子集都刚好被当作一次测试集。</li>
+<li>将这 <script type="math/tex">k</script> 次测试结果的平均值作为该模型最终的性能评估。</li>
+</ol>
+<h3 id="第二题：贝叶斯决策理论"><a href="#第二题：贝叶斯决策理论" class="headerlink" title="第二题：贝叶斯决策理论"></a>第二题：贝叶斯决策理论</h3><p><strong>已知条件汇总：</strong></p>
+<ul>
+<li>先验概率：<script type="math/tex">P(\omega_1) = 0.8</script>, <script type="math/tex">P(\omega_2) = 0.2</script></li>
+<li>类条件概率（似然）：<script type="math/tex">P(x|\omega_1) = 0.25</script>, <script type="math/tex">P(x|\omega_2) = 0.5</script></li>
+</ul>
+<p><strong>(1) 最小错误率决策</strong><br>根据贝叶斯公式，后验概率 <script type="math/tex">P(\omega_i|x) = \frac{P(x|\omega_i)P(\omega_i)}{P(x)}</script>。<br>因为全概率 <script type="math/tex">P(x)</script> 对所有类别相同，所以只需比较分子 <script type="math/tex">P(x|\omega_i)P(\omega_i)</script> 的大小：</p>
+<ul>
+<li>对于 <script type="math/tex">\omega_1</script>（无事故）：<script type="math/tex">P(x|\omega_1)P(\omega_1) = 0.25 \times 0.8 = \mathbf{0.20}</script></li>
+<li>对于 <script type="math/tex">\omega_2</script>（发生事故）：<script type="math/tex">P(x|\omega_2)P(\omega_2) = 0.5 \times 0.2 = \mathbf{0.10}</script></li>
+</ul>
+<p>因为 <script type="math/tex">0.20 > 0.10</script>（即 <script type="math/tex">P(\omega_1|x) > P(\omega_2|x)</script>），为了使错误率最小，<strong>应判定为 <script type="math/tex">\omega_1</script>（无事故）</strong>。</p>
+<p><strong>(2) 最小风险决策</strong><br>首先，计算真实的后验概率。全概率 <script type="math/tex">P(x) = 0.20 + 0.10 = 0.30</script>。</p>
+<ul>
+<li><script type="math/tex">P(\omega_1|x) = \frac{0.20}{0.30} = \mathbf{\frac{2}{3}}</script></li>
+<li><script type="math/tex">P(\omega_2|x) = \frac{0.10}{0.30} = \mathbf{\frac{1}{3}}</script>
+
+</li>
+</ul>
+<p>接下来，根据给定的代价矩阵计算采取两种决策的<strong>条件风险</strong>：</p>
+<ul>
+<li><p><strong>判定为 <script type="math/tex">\omega_1</script> 的风险 <script type="math/tex">R(\alpha_1|x)</script>：</strong></p>
+<script type="math/tex">R(\alpha_1|x) = \lambda_{11}P(\omega_1|x) + \lambda_{12}P(\omega_2|x) = 0 \times \frac{2}{3} + 6 \times \frac{1}{3} = \mathbf{2}</script>
+</li>
+<li><p><strong>判定为 <script type="math/tex">\omega_2</script> 的风险 <script type="math/tex">R(\alpha_2|x)</script>：</strong></p>
+<script type="math/tex">R(\alpha_2|x) = \lambda_{21}P(\omega_1|x) + \lambda_{22}P(\omega_2|x) = 1 \times \frac{2}{3} + 0 \times \frac{1}{3} = \mathbf{\frac{2}{3}}</script>
+
+</li>
+</ul>
+<p>因为 <script type="math/tex">R(\alpha_2|x) < R(\alpha_1|x)</script> （即 <script type="math/tex">\frac{2}{3} < 2</script>），为了使风险最小，<strong>应判定为 <script type="math/tex">\omega_2</script>（发生事故）</strong>。</p>
+<h3 id="第三题：线性模型与感知机"><a href="#第三题：线性模型与感知机" class="headerlink" title="第三题：线性模型与感知机"></a>第三题：线性模型与感知机</h3><p>更新规则：若 <script type="math/tex">y_i(w^Tx_i + b) \le 0</script>，则 <script type="math/tex">w \leftarrow w + \eta y_ix_i</script>，<script type="math/tex">b \leftarrow b + \eta y_i</script>。<br>初始 <script type="math/tex">w=(0,0)^T, b=0, \eta=1</script>。</p>
+<p><strong>第一轮迭代：</strong></p>
+<ul>
+<li>考查 <script type="math/tex">x_1(2,1)</script> [正类]: <script type="math/tex">1 \times 0 \le 0</script>，错分。<strong>更新</strong>：<script type="math/tex">w = (2,1)^T, b = 1</script></li>
+<li>考查 <script type="math/tex">x_2(3,2)</script> [正类]: <script type="math/tex">1 \times (6+2+1) = 9 > 0</script>，正确。</li>
+<li>考查 <script type="math/tex">x_3(-1,1)</script> [负类]: <script type="math/tex">-1 \times (-2+1+1) = 0 \le 0</script>，错分。<strong>更新</strong>：<script type="math/tex">w=(2,1)^T - (-1,1)^T = (3,0)^T, b = 1-1 = 0</script></li>
+<li>考查 <script type="math/tex">x_4(0,0)</script> [负类]: <script type="math/tex">-1 \times (0+0) = 0 \le 0</script>，错分。<strong>更新</strong>：<script type="math/tex">w=(3,0)^T - (0,0)^T = (3,0)^T, b = 0-1 = -1</script></li>
+</ul>
+<p><strong>第二轮迭代：</strong></p>
+<ul>
+<li><script type="math/tex">x_1</script>: <script type="math/tex">1 \times (6-1) = 5 > 0</script></li>
+<li><script type="math/tex">x_2</script>: <script type="math/tex">1 \times (9-1) = 8 > 0</script></li>
+<li><script type="math/tex">x_3</script>: <script type="math/tex">-1 \times (-3-1) = 4 > 0</script></li>
+<li><script type="math/tex">x_4</script>: <script type="math/tex">-1 \times (0-1) = 1 > 0</script><br>全部正确，算法收敛停机。<br><strong>最终决策函数：</strong> <strong><script type="math/tex">f(x) = \text{sign}(3x^{(1)} - 1)</script></strong></li>
+</ul>
+<hr>
+<h3 id="第四题：支持向量机-SVM"><a href="#第四题：支持向量机-SVM" class="headerlink" title="第四题：支持向量机 (SVM)"></a>第四题：支持向量机 (SVM)</h3><p><strong>(1) 基本原理：</strong><br>SVM 试图在特征空间中寻找一个能够将两类样本正确分离，且使得<strong>分类间隔（Margin）最大化</strong>的超平面。最大化间隔可以使得模型对未知数据具有更强的鲁棒性，从而提升<strong>泛化能力</strong>。<br><strong>(2) 处理不可分与噪声：</strong></p>
+<ul>
+<li><strong>线性不可分问题：</strong> 引入<strong>核技巧（Kernel Trick）</strong>，将低维空间线性不可分的数据隐式地映射到高维特征空间，使其变得线性可分。</li>
+<li><strong>噪声问题：</strong> 引入<strong>软间隔（Soft Margin）</strong>，即加入松弛变量 <script type="math/tex">\xi</script> 和惩罚参数 <script type="math/tex">C</script>，允许个别噪点越过间隔边界，防止模型为了拟合噪声而产生过拟合。</li>
+</ul>
+<hr>
+<h3 id="第五题：决策树-ID3算法"><a href="#第五题：决策树-ID3算法" class="headerlink" title="第五题：决策树 (ID3算法)"></a>第五题：决策树 (ID3算法)</h3><p><strong>(1) 基本原理：</strong><br>决策树采用自顶向下的递归划分策略。ID3算法的核心准则是<strong>信息增益（Information Gain）</strong>，即每次在节点分裂时，选择能使得数据集纯度提升最大（信息熵下降最多）的特征进行划分。</p>
+<p><strong>(2) 构建过程与计算步骤：</strong><br><strong>1. 计算根节点整体信息熵：</strong> 14个样本，7正7负。<script type="math/tex">H(D) = -\frac{7}{14}\log_2\frac{7}{14} \times 2 = \mathbf{1.0}</script><br><strong>2. 计算第一层各属性信息增益：</strong></p>
+<ul>
+<li><strong>价格(Price)：</strong><ul>
+<li>低价(4正0负): <script type="math/tex">H=0</script></li>
+<li>高价(2正3负): <script type="math/tex">H= -\frac{2}{5}\log_2\frac{2}{5} - \frac{3}{5}\log_2\frac{3}{5} \approx 0.971</script></li>
+<li>中价(1正4负): <script type="math/tex">H= -\frac{1}{5}\log_2\frac{1}{5} - \frac{4}{5}\log_2\frac{4}{5} \approx 0.722</script></li>
+<li><script type="math/tex">Gain(Price) = 1.0 - (\frac{4}{14}\times 0 + \frac{5}{14}\times 0.971 + \frac{5}{14}\times 0.722) \approx \mathbf{0.395}</script></li>
+</ul>
+</li>
+<li><strong>续航时间(Bat) / 摄影性能(Cam)：</strong> 均为 (5正3负) 和 (2正4负)。<ul>
+<li><script type="math/tex">H(5,3) = 0.954</script>； <script type="math/tex">H(2,4) = 0.918</script></li>
+<li><script type="math/tex">Gain(Bat) = Gain(Cam) = 1.0 - (\frac{8}{14}\times 0.954 + \frac{6}{14}\times 0.918) \approx \mathbf{0.062}</script></li>
+</ul>
+</li>
+<li><strong>结论：</strong> 根节点选择<strong>“价格”</strong>。<br><strong>3. 子节点划分与完整树：</strong></li>
+<li>低价分支：纯净（全是），变为叶节点。</li>
+<li>高价分支子集：观察表中数据，按<strong>续航</strong>划分，长<script type="math/tex">\rightarrow</script>是，短<script type="math/tex">\rightarrow</script>否，实现纯净。</li>
+<li>中价分支子集：观察表中数据，按<strong>摄影</strong>划分，强<script type="math/tex">\rightarrow</script>是，弱<script type="math/tex">\rightarrow</script>否，实现纯净。</li>
+</ul>
+<p><strong>决策树图形：</strong><br><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs text">           [ 价格 ]<br>        /     |     \<br>      /       |       \<br>   低价      高价      中价<br>   /          |          \<br>(是)      [ 续航 ]      [ 摄影 ]<br>           /    \        /    \<br>          长    短      强    弱<br>         /        \    /        \<br>       (是)      (否) (是)      (否)<br></code></pre></td></tr></table></figure></p>
+<p><strong>(3) 缺陷与解决方法：</strong></p>
+<ul>
+<li><strong>缺陷：</strong> ID3 算法偏好选择<strong>取值分支极多</strong>的属性（如身份证号），这极易导致模型<strong>过拟合</strong>。</li>
+<li><strong>解决方法（防过拟合）：</strong> ① 引入<strong>预剪枝（Pre-pruning）</strong>，在树生长过程中提前停止；② 引入<strong>后剪枝（Post-pruning）</strong>，生成完整树后自底向上裁剪分支；③ 使用 C4.5 算法，改用<strong>信息增益率</strong>来惩罚分支过多的属性。</li>
+</ul>
+<hr>
+<h3 id="第六题：K-Means-聚类"><a href="#第六题：K-Means-聚类" class="headerlink" title="第六题：K-Means 聚类"></a>第六题：K-Means 聚类</h3><p><strong>(1) 流程与准则函数：</strong></p>
+<ul>
+<li><strong>流程：</strong> ① 随机初始化 <script type="math/tex">K</script> 个簇中心；② 计算所有样本到各中心的距离，将样本划分到距离最近的簇；③ 重新计算每个簇内所有样本的均值，更新为新的中心；④ 重复②③，直到中心不再变化。</li>
+<li><strong>准则函数：</strong> 最小化平方误差和 (SSE)。 <script type="math/tex">J = \sum_{k=1}^K \sum_{x \in C_k} ||x - \mu_k||^2</script><br><strong>(2) 应用与问题：</strong></li>
+<li><strong>应用场景：</strong> 用户画像分群、图像颜色量化压缩。</li>
+<li><strong>问题：</strong> ① 极度依赖初始中心的选择，容易陷入局部最优；② 容易受到异常值（离群点）的干扰。</li>
+<li><strong>改进方法：</strong> 采用 <strong>K-Means++</strong> 算法改进初始化策略，使得初始中心点之间的距离尽可能远。</li>
+</ul>
+<hr>
+<h3 id="第七题：集成学习"><a href="#第七题：集成学习" class="headerlink" title="第七题：集成学习"></a>第七题：集成学习</h3><p><strong>(1) Bagging 流程与结合策略：</strong></p>
+<ul>
+<li><strong>流程：</strong> 采用<strong>自助采样法（Bootstrap）</strong>有放回地从原始数据集中抽取多个不同的训练子集；基于这些子集，<strong>并行且独立地</strong>训练出多个基学习器；最后将基学习器的结果进行结合。</li>
+<li><strong>结合策略：</strong> 在分类任务中，通常采用<strong>简单多数表决法</strong>；在回归任务中，通常采用<strong>简单平均法</strong>。<br><strong>(2) 随机森林原理：</strong></li>
+<li>随机森林是以<strong>决策树</strong>为基学习器的 Bagging 扩展。</li>
+<li>它的特殊机制在于引入了<strong>“特征随机性”</strong>（随机子空间）：在决策树的每个节点分裂时，不考察所有的特征，而是随机抽取一个包含部分特征的子集（如 <script type="math/tex">\sqrt{d}</script> 个），在此子集中寻找最优切分点。这进一步降低了各决策树之间的相关性，提升了泛化能力。</li>
+</ul>
+<hr>
+<h3 id="第八题：BP-神经网络推导"><a href="#第八题：BP-神经网络推导" class="headerlink" title="第八题：BP 神经网络推导"></a>第八题：BP 神经网络推导</h3><p>根据链式求导法则推导：<br><strong>(1) 输出层权值 <script type="math/tex">w_{km}</script> 更新：</strong></p>
+<script type="math/tex; mode=display">\frac{\partial E_n}{\partial w_{km}} = \frac{\partial E_n}{\partial y_{nk}} \frac{\partial y_{nk}}{\partial z_{nk}} \frac{\partial z_{nk}}{\partial w_{km}} = \mathbf{2 (y_{nk} - t_{nk}) \cdot \sigma'(z_{nk}) \cdot h_m}</script><p>令局部梯度 <script type="math/tex">\delta_k = 2(y_{nk} - t_{nk})\sigma'(z_{nk})</script>，则更新公式为：</p>
+<script type="math/tex; mode=display">w_{km} \leftarrow w_{km} - \eta \cdot \delta_k \cdot h_m</script><p><strong>(2) 隐藏层权值 <script type="math/tex">w_{md}</script> 更新：</strong><br>需要对所有受到隐藏层神经元 <script type="math/tex">m</script> 影响的输出层神经元 <script type="math/tex">k</script> 进行求和：</p>
+<script type="math/tex; mode=display">\frac{\partial E_n}{\partial w_{md}} = \left( \sum_{k=1}^K \frac{\partial E_n}{\partial z_{nk}} \frac{\partial z_{nk}}{\partial h_{m}} \right) \frac{\partial h_{m}}{\partial z_{nm}} \frac{\partial z_{nm}}{\partial w_{md}}</script><script type="math/tex; mode=display">= \mathbf{\left( \sum_{k=1}^K \delta_k \cdot w_{km} \right) \cdot h'(z_{nm}) \cdot x_{nd}}</script><p>令局部梯度 <script type="math/tex">\delta_m = \left( \sum_k \delta_k w_{km} \right) h'(z_{nm})</script>，则更新公式为：</p>
+<script type="math/tex; mode=display">w_{md} \leftarrow w_{md} - \eta \cdot \delta_m \cdot x_{nd}</script><hr>
+<h3 id="第九题：开放性论述（大模型技术）"><a href="#第九题：开放性论述（大模型技术）" class="headerlink" title="第九题：开放性论述（大模型技术）"></a>第九题：开放性论述（大模型技术）</h3><p><strong>(1) 关键底层技术：</strong><br>大模型（如 ChatGPT、Sora）的核心建立在 <strong>Transformer 架构</strong>之上，利用其强大的注意力机制进行序列建模。主要依赖<strong>大规模生成式预训练（自回归生成或扩散模型）</strong>，并在后处理阶段辅以<strong>人类反馈强化学习（RLHF）</strong>以对齐人类意图。</p>
+<p><strong>(2) 面临的技术与工程挑战：</strong></p>
+<ul>
+<li><strong>算力与数据壁垒：</strong> 模型的训练和推理需要极其庞大的 GPU 集群算力；同时，高质量的人类标注数据和多模态对齐数据正面临枯竭的风险。</li>
+<li><strong>“黑盒”与幻觉问题：</strong> 大模型缺乏真实的物理规律和逻辑因果知识，极易产生一本正经胡说八道的“幻觉”，且其决策过程不可解释，难以在严肃医疗、自动驾驶等容错率低的领域落地。</li>
+</ul>
+<p><strong>(3) 潜在的社会伦理风险：</strong></p>
+<ul>
+<li><strong>深度伪造与诈骗：</strong> 逼真的音视频生成能力容易被恶意利用，制造虚假新闻冲击社会信任。</li>
+<li><strong>版权与隐私纠纷：</strong> 训练数据往往包含未经授权的版权素材或用户隐私。</li>
+<li><strong>劳动力冲击：</strong> 强大的泛化能力可能导致客服、画师、初级程序员等岗位面临结构性失业危机。</li>
+</ul>
+
+
+  
+
+</article>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/index-math.js?v=20260627-mathfix.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

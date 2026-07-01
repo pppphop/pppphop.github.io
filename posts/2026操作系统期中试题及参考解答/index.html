@@ -19,24 +19,25 @@
   <meta name="author" content="pppphop">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本单元题面第五次作业题面 第六次作业题面 第七次作业题面  面向对象第二单元总结：多线程电梯系统的架构演进与并发控制实践在本单元的三次迭代作业中，我们经历了从单台指定电梯（HW5）到多台自由调度电梯（HW6），再到引入双轿厢与复杂避让机制（HW7）的完整过程。多线程的并发安全与系统性能的动态平衡是本单元的核心挑战。本文将结合这三次作业的迭代经验，对同步机制、调度策略、调试方法及层次化设计进行深">
+    <meta name="description" content="2026 操作系统期中试题及参考解答一、 判断题（正确的打 √，错误的打 ×，每题 2 分，共 20 分） 【 √ 】如果TLB中不保存进程的地址空间标识符，那么在进程上下文切换期间就需要对TLB中的内容进行刷新。 【 √ 】每个线程都有自己的寄存器组和栈。 【 × 】使用分页的系统中不会出现碎片化现象。 【 √ 】哈希页表对于地址空间稀疏的进程尤其有用。 【 × 】系统调用是由硬件触发的。 【">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OO U2总结：多线程电梯系统">
-<meta property="og:url" content="http://example.com/posts/OO-U2%E6%80%BB%E7%BB%93-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%94%B5%E6%A2%AF%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:title" content="2026 操作系统期中试题及参考解答（4.29）">
+<meta property="og:url" content="http://example.com/posts/2026%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E4%B8%AD%E8%AF%95%E9%A2%98%E5%8F%8A%E5%8F%82%E8%80%83%E8%A7%A3%E7%AD%94/index.html">
 <meta property="og:site_name" content="zhp的博客">
-<meta property="og:description" content="本单元题面第五次作业题面 第六次作业题面 第七次作业题面  面向对象第二单元总结：多线程电梯系统的架构演进与并发控制实践在本单元的三次迭代作业中，我们经历了从单台指定电梯（HW5）到多台自由调度电梯（HW6），再到引入双轿厢与复杂避让机制（HW7）的完整过程。多线程的并发安全与系统性能的动态平衡是本单元的核心挑战。本文将结合这三次作业的迭代经验，对同步机制、调度策略、调试方法及层次化设计进行深">
+<meta property="og:description" content="2026 操作系统期中试题及参考解答一、 判断题（正确的打 √，错误的打 ×，每题 2 分，共 20 分） 【 √ 】如果TLB中不保存进程的地址空间标识符，那么在进程上下文切换期间就需要对TLB中的内容进行刷新。 【 √ 】每个线程都有自己的寄存器组和栈。 【 × 】使用分页的系统中不会出现碎片化现象。 【 √ 】哈希页表对于地址空间稀疏的进程尤其有用。 【 × 】系统调用是由硬件触发的。 【">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/posts/OO-U2%E6%80%BB%E7%BB%93-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%94%B5%E6%A2%AF%E7%B3%BB%E7%BB%9F/%E6%9E%B6%E6%9E%84%E5%9B%BE.png">
-<meta property="article:published_time" content="2026-04-30T12:00:00.000Z">
-<meta property="article:modified_time" content="2026-06-27T05:34:27.216Z">
+<meta property="article:published_time" content="2026-04-29T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-01T06:11:50.170Z">
 <meta property="article:author" content="pppphop">
-<meta property="article:tag" content="OO">
+<meta property="article:tag" content="OS">
+<meta property="article:tag" content="往年题">
+<meta property="article:tag" content="往年题解答">
+<meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/posts/OO-U2%E6%80%BB%E7%BB%93-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%94%B5%E6%A2%AF%E7%B3%BB%E7%BB%9F/%E6%9E%B6%E6%9E%84%E5%9B%BE.png">
   
   
   
-  <title>OO U2总结：多线程电梯系统 - zhp的博客</title>
+  <title>2026 操作系统期中试题及参考解答（4.29） - zhp的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -263,7 +264,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="OO U2总结：多线程电梯系统"></span>
+            <span id="subtitle" data-typed-text="2026 操作系统期中试题及参考解答（4.29）"></span>
           
         </div>
 
@@ -274,8 +275,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-04-30 20:00" pubdate>
-          2026年4月30日 晚上
+        <time datetime="2026-04-29 12:00" pubdate>
+          2026年4月29日 中午
         </time>
       </span>
     
@@ -286,7 +287,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.7k 字
+          2.3k 字
         
       </span>
     
@@ -297,7 +298,7 @@
         
         
         
-          23 分钟
+          20 分钟
         
       </span>
     
@@ -334,56 +335,201 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">OO U2总结：多线程电梯系统</h1>
+            <h1 id="seo-header">2026 操作系统期中试题及参考解答（4.29）</h1>
             
             
               <div class="markdown-body">
                 
-                <div class="oo-unit-topic-spacer"></div>
-
-<h2 id="本单元题面"><a href="#本单元题面" class="headerlink" title="本单元题面"></a>本单元题面</h2><a class="btn" href="/files/面向对象设计与构造第五次作业指导书.html"  title="fas fa-file-alt" target="_blank">第五次作业题面</a>
-<a class="btn" href="/files/面向对象设计与构造第六次作业指导书.html"  title="fas fa-file-alt" target="_blank">第六次作业题面</a>
-<a class="btn" href="/files/面向对象设计与构造第七次作业指导书.html"  title="fas fa-file-alt" target="_blank">第七次作业题面</a>
-<hr>
-<h1 id="面向对象第二单元总结：多线程电梯系统的架构演进与并发控制实践"><a href="#面向对象第二单元总结：多线程电梯系统的架构演进与并发控制实践" class="headerlink" title="面向对象第二单元总结：多线程电梯系统的架构演进与并发控制实践"></a>面向对象第二单元总结：多线程电梯系统的架构演进与并发控制实践</h1><p>在本单元的三次迭代作业中，我们经历了从单台指定电梯（HW5）到多台自由调度电梯（HW6），再到引入双轿厢与复杂避让机制（HW7）的完整过程。多线程的并发安全与系统性能的动态平衡是本单元的核心挑战。本文将结合这三次作业的迭代经验，对同步机制、调度策略、调试方法及层次化设计进行深度总结。</p>
-<h2 id="一、-同步块的设置与锁的选择"><a href="#一、-同步块的设置与锁的选择" class="headerlink" title="一、 同步块的设置与锁的选择"></a>一、 同步块的设置与锁的选择</h2><p>在多线程环境中，锁的粒度与对象的选择直接决定了系统的正确性与吞吐量。在三次作业的演进中，我的锁机制也经历了由简入繁的过程。</p>
-<h3 id="1-锁的对象与粒度演进"><a href="#1-锁的对象与粒度演进" class="headerlink" title="1. 锁的对象与粒度演进"></a>1. 锁的对象与粒度演进</h3><ul>
-<li><strong>HW5（基础阶段）</strong>：由于输入指令已经指定了电梯，系统仅需实现基础的生产者-消费者模型。我将锁直接加在 MainQueue 和 SubQueue 内部的集合操作方法上（如 addRequest 和 takeRequest）。这种粗粒度的方法锁在并发度较低时有效保证了数据的原子性。</li>
-<li><strong>HW6 &amp; HW7（动态调度阶段）</strong>：引入自由调度后，共享资源变多。我引入了全局状态板 ElevatorStatusBoard，将锁的粒度细化。调度器读取状态时仅对状态板的局部快照加锁，而不再直接锁定各个电梯的内部队列。</li>
-<li><strong>HW7（物理资源竞争阶段）</strong>：双轿厢模式下出现了针对换乘层（F2）的物理资源互斥。为此，我专门设计了 Coordinator 协作类。此时锁的对象不再是数据结构，而是代表物理空间占用状态的变量 f2Occupied，实现了针对特定楼层的排他性访问。</li>
-</ul>
-<h3 id="2-锁与同步块中处理语句的关系"><a href="#2-锁与同步块中处理语句的关系" class="headerlink" title="2. 锁与同步块中处理语句的关系"></a>2. 锁与同步块中处理语句的关系</h3><p>在编写同步块时，我严格恪守<strong>“锁内仅处理内存共享状态，耗时 I/O 与执行逻辑置于锁外”</strong>的原则。<br>在具体的 Wait-Notify 机制中，我将条件判断与业务逻辑深度绑定。例如，在 SubQueue.waitIfEmpty() 的同步块中，我不仅检查队列是否为空、是否结束，还<strong>特别加入了 !evadeRequest（避让请求标志）</strong>。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">while</span> (requests.isEmpty() &amp;&amp; maintTask == <span class="hljs-literal">null</span> &amp;&amp; ... &amp;&amp; !isEnd &amp;&amp; !evadeRequest) &#123;<br>    wait();<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>这意味着，一旦系统要求电梯让出 F2 楼层，无论电梯是否正在因空载而挂机阻塞，setEvadeRequest(true) 调用的 <code>notifyAll()</code> 都能立刻打破<code>wait()</code> 循环，强制电梯进入避让逻辑。这种将控制信号与同步条件结合的设计，极大提高了线程响应速度。同时，诸如<code>Thread.sleep()</code>和输出语句严禁放入同步块，避免了全局性能雪崩。</p>
-<h2 id="二、-调度器设计与调度策略分析"><a href="#二、-调度器设计与调度策略分析" class="headerlink" title="二、 调度器设计与调度策略分析"></a>二、 调度器设计与调度策略分析</h2><h3 id="1-调度器与线程的交互模式"><a href="#1-调度器与线程的交互模式" class="headerlink" title="1. 调度器与线程的交互模式"></a>1. 调度器与线程的交互模式</h3><p>系统采用了分离的调度架构。在 HW5 中，<code>Dispatcher</code> 仅作为简单的分发器；而在 HW6 与 HW7 中，调度器真正成为了系统的枢纽。<br>在交互上，调度器并不直接干预电梯线程的执行逻辑，而是通过<strong>黑板模式 (Blackboard Pattern)</strong> 进行弱耦合通信。调度器从 <code>MainQueue</code> 获取请求，读取 <code>ElevatorStatusBoard</code> 上的全局快照进行算分，随后将请求压入目标电梯的 <code>SubQueue</code> 中。电梯线程独立轮询自身的队列并向状态板同步最新状态。这种机制彻底解除了调度与执行之间的强同步依赖。</p>
-<h3 id="2-适应多性能指标的调度策略"><a href="#2-适应多性能指标的调度策略" class="headerlink" title="2. 适应多性能指标的调度策略"></a>2. 适应多性能指标的调度策略</h3><p>为了在运行时间与耗电量之间取得最优解，我在分配与执行阶段分别设计了贪心策略：</p>
-<ul>
-<li><strong>调度分配阶段（动态 Cost 计算）</strong>：<br>调度器在分派请求时，依据公式 $Cost = 距离成本 + 负载成本$ 寻找最优电梯。<br>距离成本评估电梯当前运行方向与乘客请求的顺路程度（不顺路则施加大额惩罚值）；负载成本由 <code>(轿厢内人数 + 队列排队人数) * 2</code> 计算得出。乘系数 2 的原因在于，每增加一名乘客，预期将增加一次停靠（开关门时间等效于运行两层楼），这在算分阶段精准量化了时间与电量成本，实现了天然的负载均衡。</li>
-<li><strong>物理执行阶段（多维权重进门策略）</strong>：<br>当电梯开门允许候乘队列上车时，我摒弃了“先来后到”规则，采用了多维优先级的贪心排序。第一优先级为乘客体重升序，第二优先级为目标距离升序。在额定 400kg 的载重限制下，优先接纳体重较轻、路程较短的乘客，最大化了单次开关门的客流吞吐率，有效减少了电梯的无效启停次数。</li>
-</ul>
-<h2 id="三、-典型-Bug-分析与多线程-Debug-方法"><a href="#三、-典型-Bug-分析与多线程-Debug-方法" class="headerlink" title="三、 典型 Bug 分析与多线程 Debug 方法"></a>三、 典型 Bug 分析与多线程 Debug 方法</h2><h3 id="1-典型-Bug-回溯"><a href="#1-典型-Bug-回溯" class="headerlink" title="1. 典型 Bug 回溯"></a>1. 典型 Bug 回溯</h3><p>得益于前期基础架构的稳固，HW5 在强测与互测中均未出现 Bug。但在 HW6 与 HW7 的极端压力测试中，暴露出了一些深层问题：</p>
-<ul>
-<li><strong>资源挤兑引发的系统超时（HW6）</strong>：在互测中，当遭受“多台电梯被强行置入检修，随后瞬间并发大量请求”的攻击时，前期代码缺乏队列容量上限控制，导致所有请求被堆积在唯一存活的电梯队列中，引发严重超时。修复方案是在 <code>SubQueue</code> 中施加容量硬约束，满载后拒绝接收，迫使调度器休眠重试。</li>
-<li><strong>幽灵般的提前退出（HW7）</strong>：引入双轿厢改造任务后，主线程极易发生误判。当输入流关闭且普通乘客清零时，系统可能直接关闭，而此时某些电梯正在执行 <code>UPDATE</code>，尚未将需要重新分配的乘客退回主队列。最终通过在全局引入 <code>taskCount</code> 变量，严格追踪所有特种生命周期任务，才封堵了这一漏洞。</li>
-</ul>
-<h3 id="2-多线程程序的-Debug-方法"><a href="#2-多线程程序的-Debug-方法" class="headerlink" title="2. 多线程程序的 Debug 方法"></a>2. 多线程程序的 Debug 方法</h3><p>多线程并发 Bug 往往难以在本地稳定复现。传统的单步断点调试会破坏线程原有的执行时序，掩盖真实死锁。<br>我的主要调试手段分为两种：<br>其一，<strong>静态查错</strong>。利用一些有针对性的提示词，使用ai辅助debug。例如：</p>
-<blockquote>
-<p>这是我们oo第七次作业，是在第五、六次作业基础上的迭代作业，请仔细读题，阅读代码，请帮我检查代码是否有错，有无bug与各种隐患，如TLE，线程安全，稳定性，错误输出，策略错误，检修超时，某限时的操作超时等</p>
-</blockquote>
-<p>其二，<strong>搭建评测机</strong>。利用ai搭建的评测机，精准判断时间戳等是否有误。</p>
-<h2 id="四、-线程安全与层次化设计"><a href="#四、-线程安全与层次化设计" class="headerlink" title="四、 线程安全与层次化设计"></a>四、 线程安全与层次化设计</h2><p>在迭代过程中，层次化设计的价值不仅体现在代码的扩展性上，更在于它是保障线程安全的底层逻辑。</p>
-<img src="/posts/OO-U2%E6%80%BB%E7%BB%93-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%94%B5%E6%A2%AF%E7%B3%BB%E7%BB%9F/%E6%9E%B6%E6%9E%84%E5%9B%BE.png" srcset="/img/loading.gif" lazyload class="" title="架构图">
-<ul>
-<li><strong>业务逻辑的极致剥离</strong>：如果将寻道逻辑、时序记录和物理动作全部糅合在 <code>Elevator</code> 类中，势必需要设置错综复杂的全局锁。在我的设计中，电梯本身被彻底“掏空”，寻道决策被抽取到 <code>Strategy</code> 类，而指导书严苛的 RECEIVE 时序验证则被封装进 <code>ReceiveTracker</code> 类。各组件之间仅通过局部锁与方法接口通信，降低了死锁风险。</li>
-<li><strong>复杂流程的状态机化</strong>：针对临时检修与双轿厢转换，系统引入了有限状态机（FSM）。状态转移遵循严格的路径（如 <code>NORMAL</code> -&gt; <code>UP_ACCEPT</code> -&gt; <code>UPDATE</code> -&gt; <code>DOUBLE</code>）。在状态切换的边缘，系统统一执行“强制清客”与“重置起点”操作，将滞留乘客打包退回调度大厅。这种设计避免了碎片化的 <code>if-else</code> 判断，极大提升了并发状态下的系统鲁棒性。</li>
-</ul>
-<h2 id="五、-大模型的使用心得"><a href="#五、-大模型的使用心得" class="headerlink" title="五、 大模型的使用心得"></a>五、 大模型的使用心得</h2><p>在本单元的开发中，我使用了大语言模型Gemini 3.1 pro作为辅助开发工具。</p>
-<p><strong>1. 人机分工模式</strong><br>我坚持“人类主导架构，大模型辅助推演”的原则。系统的核心类结构、状态机定义及锁的控制粒度均由我独立设计。大模型主要承担逻辑推演的职责，作为验证多线程并发假想的沙盒。</p>
-<p><strong>2. 大模型在复杂任务中的优势</strong><br>在处理幽灵死锁时，大模型拥有强大的状态排列组合分析能力。我总结出了一套高效的<strong>提示词工程（Prompt Engineering）</strong>：首先进行“上下文前置投喂”，将指导书特定的业务规则（如“部件检修开始时强制清空 RECEIVE”）明确告知大模型；随后进行“代码分块”，仅提交涉及死锁的互斥类代码，避免大模型产生逻辑幻觉；最后采用“假设性提问”，引导大模型顺着我设想的执行路径进行验证。这套方法极大缩短了排查死锁锁粒度问题的时间。</p>
-<p><strong>3. 遇到的困难与感受</strong><br>大模型并非银弹。如果在开发初期直接要求大模型审查整个工程的数百行代码，它往往会给出似是而非的修改建议，甚至破坏原本正常的线程安全机制。因此，使用大模型的核心能力在于开发者的“精准提问”与“边界划定”。它是一个优秀的结对编程助手，但最终的代码审查权和架构决策权必须掌握在开发者手中。</p>
-<h2 id="六、-真实体验与建议"><a href="#六、-真实体验与建议" class="headerlink" title="六、 真实体验与建议"></a>六、 真实体验与建议</h2><p>第二单元的学习曲线陡峭而充实。从第一单元串行思维到本单元并发思维的跨越，初期伴随着对死锁与超时的阵痛。极度考验开发者对于时序控制的敏感度与排错耐心。但随着架构在一次次重构中趋于稳定，亲眼见证系统在高压并发下有条不紊地完成换乘与调度，这种工程实践的成就感是巨大的。</p>
-<p><strong>对课程组的建议：</strong><br>1.希望指导书发布时能更加严谨，不用后续再补充通知，这可能导致代码写了一半需要修改，比较让人头疼；</p>
-<p>2.hw6的中测有点过弱，而强测有很多同质bug能触发的点，导致同学可能通过中测而强测因为一个bug几乎拿0分，这一点确实有点不太合适</p>
+                <h1 id="2026-操作系统期中试题及参考解答"><a href="#2026-操作系统期中试题及参考解答" class="headerlink" title="2026 操作系统期中试题及参考解答"></a>2026 操作系统期中试题及参考解答</h1><h3 id="一、-判断题（正确的打-√，错误的打-×，每题-2-分，共-20-分）"><a href="#一、-判断题（正确的打-√，错误的打-×，每题-2-分，共-20-分）" class="headerlink" title="一、 判断题（正确的打 √，错误的打 ×，每题 2 分，共 20 分）"></a>一、 判断题（正确的打 √，错误的打 ×，每题 2 分，共 20 分）</h3><ol>
+<li>【 <strong>√</strong> 】如果TLB中不保存进程的地址空间标识符，那么在进程上下文切换期间就需要对TLB中的内容进行刷新。</li>
+<li>【 <strong>√</strong> 】每个线程都有自己的寄存器组和栈。</li>
+<li>【 <strong>×</strong> 】使用分页的系统中不会出现碎片化现象。</li>
+<li>【 <strong>√</strong> 】哈希页表对于地址空间稀疏的进程尤其有用。</li>
+<li>【 <strong>×</strong> 】系统调用是由硬件触发的。</li>
+<li>【 <strong>√</strong> 】磁盘驱动器上只有一个 MBR（主引导记录），但可能有多个引导扇区。</li>
+<li>【 <strong>√</strong> 】多个进程可以同时对应到同一个程序/可执行文件。</li>
+<li>【 <strong>×</strong> 】从一个进程到另一个进程的上下文切换无需在内核模式下执行操作系统代码即可完成。</li>
+<li>【 <strong>√</strong> 】动态重定位是指硬件在每次内存访问时动态实现地址的转换。</li>
+<li>【 <strong>√</strong> 】MULTICS 和 UNIX 是典型的分时操作系统。</li>
+</ol>
+<h3 id="二、-单项选择题（每题-2-分，共-20-分）"><a href="#二、-单项选择题（每题-2-分，共-20-分）" class="headerlink" title="二、 单项选择题（每题 2 分，共 20 分）"></a>二、 单项选择题（每题 2 分，共 20 分）</h3><ol>
+<li><p>批处理系统的主要缺点是 <strong>B</strong> 。</p>
+<p>A. CPU 的利用率不高</p>
+<p>B. 失去了交互性</p>
+<p>C. 不具备并行性</p>
+<p>D. 以上都不是</p>
+</li>
+<li><p>以下说法正确的是 <strong>A</strong> 。</p>
+<p>A. 两个不同进程对应的页表中可能包含内容相同的页表项；</p>
+<p>B. 虚拟地址空间总是大于物理地址空间；</p>
+<p>C. 在页式内存管理下，页面尺寸越小越有利于消除外碎片，提高内存使用效率；</p>
+<p>D. 在段式内存管理下，不同分段尺寸大小可以不同，从而可以消除外碎片。</p>
+</li>
+<li><p>下列哪些属于反置页表的优点？ <strong>D</strong> 。</p>
+<p>A. 查找页表项的速度快；</p>
+<p>B. 缺页处理速度快；</p>
+<p>C. 便于进程之间共享数据；</p>
+<p>D. <em>[注：原图未完全截取该选项，通常为“节省页表占用的物理内存空间”]</em></p>
+</li>
+<li><p>用户程序代码被操作系统加载到内存中的过程称为 <strong>C</strong> 。</p>
+<p>A. 编译</p>
+<p>B. 链接</p>
+<p>C. 装载</p>
+<p>D. 置换</p>
+</li>
+<li><p>关于多级页表，下列说法不正确的是： <strong>D</strong> 。</p>
+<p>A. 能够减少页表占用内存的大小；</p>
+<p>B. 级数越多，平均访问内存的时间越长；</p>
+<p>C. 有效的页表项中都会存储页框号；</p>
+<p>D. 使用二级页表的平均访存性能优于一级页表。</p>
+</li>
+<li><p>以下说法正确的是： <strong>A</strong> 。</p>
+<p>A. 进程上下文切换过程一定会陷入内核；</p>
+<p>B. 陷入内核一定会导致进程切换；</p>
+<p>C. 正在执行的程序不可以主动放弃 CPU；</p>
+<p>D. 系统调用一定会导致进程上下文切换。</p>
+</li>
+<li><p>在一个多进程操作系统中，以下说法正确的是 <strong>B</strong> 。</p>
+<p>A. 如果一个用户进程进入死循环，则其他进程永远不可能获得执行；</p>
+<p>B. 如果一个用户进程进入死循环，操作系统可以终止该用户进程执行；</p>
+<p>C. 如果一个用户进程执行了“跳转到 0 地址”的指令，操作系统内核会立即崩溃；</p>
+<p>D. 如果一个用户进程执行了“除以 0”的指令后，操作系统内核会立即崩溃。</p>
+</li>
+<li><p>关于 IPC，不正确的是 <strong>D</strong> 。</p>
+<p>A. 消息传递比信号的信息承载量要大；</p>
+<p>B. 共享内存是最快的 IPC 形式；</p>
+<p>C. 套接字不仅可用于不同机器之间的进程通讯，也可用于本机的两进程通讯；</p>
+<p>D. 共享内存在效率和安全性上都要优于消息传递。</p>
+</li>
+<li><p>在操作系统中，以下过程通常不需要切换到内核态执行的是 <strong>A</strong> 。</p>
+<p>A. 通用寄存器清零</p>
+<p>B. 系统调用</p>
+<p>C. 执行 IO 指令</p>
+<p>D. 修改中断向量</p>
+</li>
+<li><p>关于 PV 操作错误的是 <strong>C</strong> 。</p>
+<p>A. 信号量如果使用不当，可能导致死锁；</p>
+<p>B. 如果信号量小于 1，对信号量的 P 操作会将进程挂起；</p>
+<p>C. S=7，进程 A，B 任意顺序调用 P(S) 各一次，那么 S 不一定是 5；</p>
+<p>D. 信号量能够解决任何进程同步问题。</p>
+</li>
+</ol>
+<h3 id="三、-填空题（每空-2-分，共-20-分）"><a href="#三、-填空题（每空-2-分，共-20-分）" class="headerlink" title="三、 填空题（每空 2 分，共 20 分）"></a>三、 填空题（每空 2 分，共 20 分）</h3><ol>
+<li>一个程序在 Windows 操作系统中编译成可执行文件后，直接拷贝到 Linux 操作系统下无法执行，这是因为 2 个操作系统 <strong>ABI</strong> 是不兼容的。</li>
+<li>某进程运行时依次访问内存页面 1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5。采用 FIFO 算法进行页面置换，共为该进程分配了 3 个页框，初始时这 3 个页框均为空，则完成上述内存页面访问会产生 <strong>9</strong> 次缺页中断；如果采用 OPT 算法进行页面置换，其他条件不变，则会产生 <strong>7</strong> 次缺页中断。</li>
+<li>在分页式虚拟存储器管理中，使用 FIFO 页面置换算法时，如果为进程分配的物理页面数增加，缺页次数不减反增的异常现象称为： <strong>Belady 现象</strong> 。</li>
+<li>如果在一个单处理器系统中总共有 n 个进程，系统执行进程调度后在就绪队列中的进程个数最大值为 <strong>n-1</strong> 。</li>
+<li>在生产者-消费者问题中，当生产者进程尝试向已经装满的缓冲区内放入产品时，进程状态会变更到 <strong>阻塞（填写“等待”、“waiting”、“blocked”都算对）</strong> 态。</li>
+<li>分析以下 C 语言程序段：</li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>foo.c</strong></th>
+<th><strong>main.c</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#include &lt;stdio.h&gt;</code> <code>int m = 1;</code> <code>static int z;</code>  <code>void foo() {</code> <code>printf(&quot;m=%d\n&quot;, m);</code> <code>printf(&quot;z=%d\n&quot;, z);</code> <code>}</code></td>
+<td><code>#include &lt;stdio.h&gt;</code> <code>extern int m;</code> <code>int a = 100;</code> <code>int b;</code> <code>void foo();</code>  <code>int main() {</code> <code>static int x;</code> <code>int y = 10;</code> <code>printf(&quot;a=%d, b=%d\n&quot;, a, b);</code> <code>m = 2;</code> <code>foo();</code> <code>}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>将上述代码编译、链接成可执行文件，装载到 OS 时，在 DATA 段中分配存储空间的变量有： <strong>a、m</strong> 。</p>
+<ol>
+<li>假设有 2 个进程 A 和 B，其代码片段如下（其中 a1、b1、b2 为代码行号）：</li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>进程 A:</strong></th>
+<th><strong>进程 B:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>......</code>  <code>a1:    N := N+1;</code>  <code>......</code></td>
+<td><code>......</code>  <code>b1:    Print(N);</code> <code>b2:    N := 0;</code> <code>......</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>设在两进程运行上述代码之前，N 的值为 2，这几行代码之后没有其他地方访问过 N，两进程结束运行这几行代码后，打印出的结果为 2，最终 N 值为 0，则这 3 条语句的执行顺序为： <strong>b1, a1, b2</strong> 。</p>
+<ol>
+<li>以下 Peterson 算法实现中存在 2 处错误：</li>
+</ol>
+<p>C</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-number">1</span>:  <span class="hljs-meta">#<span class="hljs-keyword">define</span> FALSE 0</span><br><span class="hljs-number">2</span>:  <span class="hljs-meta">#<span class="hljs-keyword">define</span> TRUE 1</span><br><span class="hljs-number">3</span>:  <span class="hljs-meta">#<span class="hljs-keyword">define</span> N 2</span><br><span class="hljs-number">4</span>:  <span class="hljs-type">int</span> turn;<br><span class="hljs-number">5</span>:  <span class="hljs-type">int</span> interested[N];<br><span class="hljs-number">6</span>:<br><span class="hljs-number">7</span>:  <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">enter_region</span><span class="hljs-params">( <span class="hljs-type">int</span> process )</span></span><br><span class="hljs-function">8:  &#123;</span><br><span class="hljs-number">9</span>:      <span class="hljs-type">int</span> other;<br><span class="hljs-number">10</span>:     other = process;<br><span class="hljs-number">11</span>:     interested[process] = TRUE;<br><span class="hljs-number">12</span>:     turn = process;<br><span class="hljs-number">13</span>:     <span class="hljs-keyword">while</span>( turn == process &amp;&amp; interested[other] );<br><span class="hljs-number">14</span>: &#125;<br><span class="hljs-number">15</span>: <br><span class="hljs-number">16</span>: <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">leave_region</span><span class="hljs-params">( <span class="hljs-type">int</span> process )</span></span><br><span class="hljs-function">17: &#123;</span><br><span class="hljs-number">18</span>:     interested[process] = TRUE;<br><span class="hljs-number">19</span>: &#125;<br></code></pre></td></tr></table></figure>
+<p>请指出行号并改正。</p>
+<p>第 1 处错误行号及修正结果为： <strong>第 10 行， other = 1 - process;</strong></p>
+<p>第 2 处错误行号及修正结果为： <strong>第 18 行， interested[process] = FALSE;</strong></p>
+<h3 id="四、-存储管理（共-14-分）"><a href="#四、-存储管理（共-14-分）" class="headerlink" title="四、 存储管理（共 14 分）"></a>四、 存储管理（共 14 分）</h3><p>一个 32 位的虚拟存储系统有两级页表，其逻辑地址形式如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>第一级页表（10位）</strong></th>
+<th><strong>第二级页表（10位）</strong></th>
+<th><strong>页内偏移（12位）</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>物理地址为 32 位，形式为：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>物理页框号（20位）</strong></th>
+<th><strong>页内偏移（12位）</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>页表项（PTE）格式为：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>20位</strong></th>
+<th><strong>12位（为标志位）</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>物理页框号</td>
+<td>第 0 位为有效位，如果为 0，表示 Invalid；如果为 1 表示 Valid。 第 1 位为读写位，如果为 0，表示 Read Only；如果为 1 表示 Read/Write。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>请问：</p>
+<p>（1） 进程地址空间共多少字节？（2分）</p>
+<p>（2） 假设当前进程第一级页表的物理地址为 0x00200000，利用后面物理内存的信息，请在下表中写出以下指令的执行结果。（12分）</p>
+<p><em>(注：原图未提供物理内存信息表和待执行的指令表，因此该题后续部分缺失)</em></p>
+<h3 id="五、-页表自映射（6-分）"><a href="#五、-页表自映射（6-分）" class="headerlink" title="五、 页表自映射（6 分）"></a>五、 页表自映射（6 分）</h3><p>一个 64 位系统架构可以有效使用的虚拟地址是 48 位，每个页面大小 4096 字节，采用 4 级页表管理，每个页表项占 8 字节，在每个页表项中每级页表占 9 位，页内偏移占 12 位。</p>
+<p>（1） 计算进程一级页表、二级页表、三级页表和四级页表各占用的最大空间大小。（3分）</p>
+<p>（2） 假设当前进程从虚拟地址 0x0000F68000000000 开始映射整个页表，请给出三级页表、二级页表和一级页表的虚拟地址。（3分）（提示：1.页表自映射；2.注意64位地址是8字节对齐。）</p>
+<h3 id="六、-进程与线程（共-10-分）"><a href="#六、-进程与线程（共-10-分）" class="headerlink" title="六、 进程与线程（共 10 分）"></a>六、 进程与线程（共 10 分）</h3><p>进程 P 正在 CPU 上运行。为了处理用户数据，进程 P 执行了一次 <code>read()</code> 系统调用，请求从外部 I/O 设备（如磁盘）读取一段数据。</p>
+<p>（1） P 调用 <code>read()</code> 时，CPU 特权级会发生什么变化？（2分）</p>
+<p>（2） 由于 I/O 设备速度较慢，数据无法立即准备好。此时，进程 P 会经历怎样的状态转换？请说明操作系统触发这次状态转换的目的是什么。（3分）</p>
+<p>（3） 当将 I/O 设备将数据准备就绪后，会通过硬件中断通知 CPU。请简述在中断发生后的处理过程？（5分）</p>
+<h3 id="七、-进程互斥与同步（10-分）"><a href="#七、-进程互斥与同步（10-分）" class="headerlink" title="七、 进程互斥与同步（10 分）"></a>七、 进程互斥与同步（10 分）</h3><p>在生产者-消费者问题中，如果缓冲区大小为 1，初始为空。请用 PV 操作实现生产者进程和消费者进程的同步与互斥关系，要求使用的信号量不能超过两个。</p>
 
                 
               </div>
@@ -402,8 +548,15 @@
     
       <span class="category-chain">
         
-  <a href="/categories/OO/" class="category-chain-item">OO</a>
+  <a href="/categories/%E5%BE%80%E5%B9%B4%E9%A2%98/" class="category-chain-item">往年题</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%BE%80%E5%B9%B4%E9%A2%98/%E5%BE%80%E5%B9%B4%E9%A2%98%E8%A7%A3%E7%AD%94/" class="category-chain-item">往年题解答</a>
+  
+  
+
   
 
       </span>
@@ -417,7 +570,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/OO/" class="print-no-link">#OO</a>
+        <a href="/tags/%E5%BE%80%E5%B9%B4%E9%A2%98/" class="print-no-link">#往年题</a>
+      
+        <a href="/tags/%E5%BE%80%E5%B9%B4%E9%A2%98%E8%A7%A3%E7%AD%94/" class="print-no-link">#往年题解答</a>
+      
+        <a href="/tags/OS/" class="print-no-link">#OS</a>
+      
+        <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="print-no-link">#操作系统</a>
       
     </div>
   
@@ -429,8 +588,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>OO U2总结：多线程电梯系统</div>
-      <div>http://example.com/posts/OO-U2总结-多线程电梯系统/</div>
+      <div>2026 操作系统期中试题及参考解答（4.29）</div>
+      <div>http://example.com/posts/2026操作系统期中试题及参考解答/</div>
     </div>
     <div class="license-meta">
       
@@ -442,7 +601,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年4月30日</div>
+          <div>2026年4月29日</div>
         </div>
       
       
@@ -474,9 +633,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/OO-U3%E6%80%BB%E7%BB%93-JML%E8%A7%84%E6%A0%BC%E5%8C%96%E8%AE%BE%E8%AE%A1/" title="OO U3总结：JML规格化设计">
+                      <a href="/posts/OO-U2%E6%80%BB%E7%BB%93-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%94%B5%E6%A2%AF%E7%B3%BB%E7%BB%9F/" title="OO U2总结：多线程电梯系统">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">OO U3总结：JML规格化设计</span>
+                        <span class="hidden-mobile">OO U2总结：多线程电梯系统</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -484,8 +643,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/2026%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E4%B8%AD%E8%AF%95%E9%A2%98%E5%8F%8A%E5%8F%82%E8%80%83%E8%A7%A3%E7%AD%94/" title="2026 操作系统期中试题及参考解答（4.29）">
-                        <span class="hidden-mobile">2026 操作系统期中试题及参考解答（4.29）</span>
+                      <a href="/posts/OO-U1%E6%80%BB%E7%BB%93-%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%A7%A3%E6%9E%90%E4%B8%8E%E7%AC%A6%E5%8F%B7%E6%B1%82%E5%AF%BC/" title="OO U1总结：表达式解析与符号求导">
+                        <span class="hidden-mobile">OO U1总结：表达式解析与符号求导</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
