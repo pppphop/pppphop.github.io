@@ -90,6 +90,220 @@
   box-shadow: 0 22px 54px rgba(31, 41, 55, 0.14);
 }
 
+.home-taxonomy-panel {
+  margin: 0 auto 1.5rem;
+  padding: 1.35rem 1.45rem 1.3rem;
+  border: 1px solid rgba(59, 130, 246, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 252, 0.88));
+}
+
+.home-taxonomy-panel:hover {
+  transform: none;
+  border-color: rgba(59, 130, 246, 0.18);
+  box-shadow: 0 18px 44px rgba(31, 41, 55, 0.12);
+}
+
+.home-taxonomy-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.home-taxonomy-kicker {
+  margin: 0 0 0.2rem;
+  color: #2563eb;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.home-taxonomy-heading {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.home-taxonomy-title {
+  margin: 0;
+  color: var(--polish-ink);
+  font-size: 1.65rem;
+  line-height: 1.15;
+}
+
+.home-taxonomy-summary {
+  margin: 0;
+  color: var(--polish-muted);
+  font-size: 0.98rem;
+}
+
+.home-taxonomy-actions {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.home-taxonomy-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.45rem;
+  padding: 0.56rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid rgba(37, 99, 235, 0.14);
+  background: rgba(37, 99, 235, 0.08);
+  color: #1d4ed8;
+  font-size: 0.93rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.home-taxonomy-action:hover {
+  transform: translateY(-1px);
+  border-color: rgba(37, 99, 235, 0.24);
+  background: rgba(37, 99, 235, 0.12);
+  text-decoration: none;
+}
+
+.home-taxonomy-action--ghost {
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--polish-ink);
+}
+
+.home-taxonomy-groups {
+  display: grid;
+  gap: 1.15rem;
+  margin-top: 1.1rem;
+}
+
+.home-taxonomy-group {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.home-taxonomy-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--polish-ink);
+  font-weight: 600;
+}
+
+.home-taxonomy-card-grid,
+.home-taxonomy-pill-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-taxonomy-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.8rem;
+}
+
+.home-taxonomy-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  height: 100%;
+  min-height: 4.35rem;
+  padding: 0.9rem 1rem;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.20);
+  background:
+    linear-gradient(180deg, rgba(239, 246, 255, 0.96), rgba(255, 255, 255, 0.94));
+  color: var(--polish-ink);
+  text-decoration: none;
+  box-shadow: 0 10px 28px rgba(148, 163, 184, 0.10);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.home-taxonomy-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(37, 99, 235, 0.24);
+  box-shadow: 0 16px 36px rgba(37, 99, 235, 0.12);
+  text-decoration: none;
+}
+
+.home-taxonomy-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.55rem;
+  height: 2.55rem;
+  border-radius: 14px;
+  background: rgba(37, 99, 235, 0.10);
+  color: #2563eb;
+  font-size: 1rem;
+}
+
+.home-taxonomy-card-body {
+  display: grid;
+  gap: 0.16rem;
+  min-width: 0;
+}
+
+.home-taxonomy-card-name {
+  color: var(--polish-ink);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+  word-break: break-word;
+}
+
+.home-taxonomy-card-meta {
+  color: var(--polish-muted);
+  font-size: 0.84rem;
+}
+
+.home-taxonomy-pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.home-taxonomy-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2.45rem;
+  padding: 0.5rem 0.88rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 250, 252, 0.88));
+  color: var(--polish-ink);
+  text-decoration: none;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.home-taxonomy-pill:hover {
+  transform: translateY(-1px);
+  border-color: rgba(37, 99, 235, 0.22);
+  box-shadow: 0 12px 30px rgba(148, 163, 184, 0.12);
+  text-decoration: none;
+}
+
+.home-taxonomy-pill-name {
+  font-size: 0.93rem;
+  font-weight: 500;
+}
+
+.home-taxonomy-pill-count {
+  min-width: 1.75rem;
+  padding: 0.24rem 0.44rem;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--polish-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-align: center;
+}
+
 .index-header a {
   color: var(--polish-ink);
   letter-spacing: 0;
@@ -145,6 +359,53 @@
 
   .post-content #seo-header {
     font-size: 1.65rem;
+  }
+
+  .home-taxonomy-panel {
+    padding: 1.1rem 1rem 0.95rem;
+  }
+
+  .home-taxonomy-title {
+    font-size: 1.4rem;
+  }
+
+  .home-taxonomy-summary {
+    font-size: 0.92rem;
+  }
+
+  .home-taxonomy-actions {
+    width: 100%;
+  }
+
+  .home-taxonomy-action {
+    flex: 1 1 0;
+    padding: 0.54rem 0.8rem;
+  }
+
+  .home-taxonomy-card-grid {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+
+  .home-taxonomy-card {
+    min-height: 4rem;
+    padding: 0.82rem 0.9rem;
+  }
+
+  .home-taxonomy-card-name {
+    font-size: 0.97rem;
+  }
+
+  .home-taxonomy-pill-list {
+    gap: 0.6rem;
+  }
+
+  .home-taxonomy-pill {
+    padding: 0.46rem 0.76rem;
+  }
+
+  .home-taxonomy-pill-name {
+    font-size: 0.9rem;
   }
 }
 
@@ -205,6 +466,53 @@
   background:
     linear-gradient(180deg, rgba(24, 32, 45, 0.76), rgba(15, 23, 42, 0.66));
   border-color: var(--polish-card-border);
+}
+
+[data-user-color-scheme='dark'] .home-taxonomy-kicker {
+  color: #93c5fd;
+}
+
+[data-user-color-scheme='dark'] .home-taxonomy-summary {
+  color: #cbd5e1;
+}
+
+[data-user-color-scheme='dark'] .home-taxonomy-action {
+  border-color: rgba(96, 165, 250, 0.16);
+  background: rgba(59, 130, 246, 0.16);
+  color: #bfdbfe;
+}
+
+[data-user-color-scheme='dark'] .home-taxonomy-action--ghost {
+  background: rgba(30, 41, 59, 0.86);
+  color: #e5e7eb;
+}
+
+[data-user-color-scheme='dark'] .home-taxonomy-card {
+  border-color: rgba(148, 163, 184, 0.18);
+  background:
+    linear-gradient(180deg, rgba(30, 41, 59, 0.96), rgba(15, 23, 42, 0.86));
+  box-shadow: none;
+}
+
+[data-user-color-scheme='dark'] .home-taxonomy-card-icon {
+  background: rgba(96, 165, 250, 0.14);
+  color: #93c5fd;
+}
+
+[data-user-color-scheme='dark'] .home-taxonomy-card-meta {
+  color: #cbd5e1;
+}
+
+[data-user-color-scheme='dark'] .home-taxonomy-pill {
+  border-color: rgba(148, 163, 184, 0.18);
+  background:
+    linear-gradient(180deg, rgba(24, 32, 45, 0.92), rgba(15, 23, 42, 0.82));
+  box-shadow: none;
+}
+
+[data-user-color-scheme='dark'] .home-taxonomy-pill-count {
+  background: rgba(148, 163, 184, 0.18);
+  color: #cbd5e1;
 }
 
 [data-user-color-scheme='dark'] .index-header a,
