@@ -31,8 +31,12 @@
 
     links.forEach(function (a, i) {
       var hue = Math.round((360 / n) * i);
-      a.style.setProperty("color", "hsl(" + hue + ", " + sat + "%, " + light + "%)", "important");
-      a.style.setProperty("font-weight", "600", "important");
+      var col = "hsl(" + hue + ", " + sat + "%, " + light + "%)";
+      a.style.setProperty("color", col, "important");
+      // Fluid colors tags via -webkit-text-fill-color, which wins over
+      // `color`, so we must override it too or our color has no effect.
+      a.style.setProperty("-webkit-text-fill-color", col, "important");
+      a.style.setProperty("font-weight", "500", "important");
       a.dataset.tagHue = hue; // remember hue so hover/theme flip can reuse it
     });
   }
