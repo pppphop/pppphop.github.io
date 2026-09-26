@@ -19,15 +19,15 @@
   <meta name="author" content="pppphop">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Lab 1上机-问题总结与反思题面复原1.Lab1_exam：简化版 readelf64题目描述 本题要求在 tools&#x2F;readelf64 目录下补全一个简化版的 readelf64，用于解析 64-bit little-endian ELF 文件。 符号表 .symtab 是 ELF 文件中的一个重要节，里面记录了程序中的符号信息，比如函数名、变量名等。本题不要求我们真正解析符号表里面的每一项">
+    <meta name="description" content="Lab 1上机-问题总结与反思题面复原1.Lab1&#95;exam：简化版 readelf64题目描述 本题要求在 tools&#x2F;readelf64 目录下补全一个简化版的 readelf64，用于解析 64-bit little-endian ELF 文件。 符号表 .symtab 是 ELF 文件中的一个重要节，里面记录了程序中的符号信息，比如函数名、变量名等。本题不要求我们真正解析符号表里面">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Lab 1上机-问题总结与反思">
-<meta property="og:url" content="http://example.com/posts/os-lab1-reflection/index.html">
+<meta property="og:url" content="https://pppphop.github.io/posts/os-lab1-reflection/index.html">
 <meta property="og:site_name" content="zhp的博客">
-<meta property="og:description" content="Lab 1上机-问题总结与反思题面复原1.Lab1_exam：简化版 readelf64题目描述 本题要求在 tools&#x2F;readelf64 目录下补全一个简化版的 readelf64，用于解析 64-bit little-endian ELF 文件。 符号表 .symtab 是 ELF 文件中的一个重要节，里面记录了程序中的符号信息，比如函数名、变量名等。本题不要求我们真正解析符号表里面的每一项">
+<meta property="og:description" content="Lab 1上机-问题总结与反思题面复原1.Lab1&#95;exam：简化版 readelf64题目描述 本题要求在 tools&#x2F;readelf64 目录下补全一个简化版的 readelf64，用于解析 64-bit little-endian ELF 文件。 符号表 .symtab 是 ELF 文件中的一个重要节，里面记录了程序中的符号信息，比如函数名、变量名等。本题不要求我们真正解析符号表里面">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-01T12:00:00.000Z">
-<meta property="article:modified_time" content="2026-07-03T01:43:58.193Z">
+<meta property="article:modified_time" content="2026-07-03T01:43:58.000Z">
 <meta property="article:author" content="pppphop">
 <meta property="article:tag" content="OS">
 <meta property="article:tag" content="OS上机">
@@ -70,14 +70,14 @@
 
 
   
-<link rel="stylesheet" href="/css/blog-polish.css?v=20260703-home-taxonomy-v2.css">
+<link rel="stylesheet" href="/css/blog-polish.css">
 
 
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"pppphop.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -90,7 +90,7 @@
 
 
   
-<meta name="generator" content="Hexo 8.1.1"></head>
+<meta name="generator" content="Hexo 8.1.2"></head>
 
 
 <body>
@@ -112,7 +112,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -169,9 +169,8 @@
           
           
             <li class="nav-item dropdown">
-              
               <a class="nav-link dropdown-parent-link" target="_self" href="/quiz/" role="button"
-                  aria-haspopup="true" aria-expanded="false">
+                 aria-haspopup="true" aria-expanded="false">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>刷题</span>
               </a>
@@ -253,6 +252,184 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell mobile-grid-parent-cell">
+              <a href="/quiz/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>刷题</span>
+                </div>
+              </a>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/military/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>军理刷题</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/ethics/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>思修刷题</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/os/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>OS刷题</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/history/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>史纲刷题</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/ai/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>AI 对话</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>友链</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -285,7 +462,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.2k 字
+          6.7k 字
         
       </span>
     
@@ -296,7 +473,7 @@
         
         
         
-          27 分钟
+          57 分钟
         
       </span>
     
@@ -313,6 +490,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -338,7 +517,7 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Lab-1上机-问题总结与反思"><a href="#Lab-1上机-问题总结与反思" class="headerlink" title="Lab 1上机-问题总结与反思"></a>Lab 1上机-问题总结与反思</h1><h2 id="题面复原"><a href="#题面复原" class="headerlink" title="题面复原"></a>题面复原</h2><h3 id="1-Lab1-exam：简化版-readelf64"><a href="#1-Lab1-exam：简化版-readelf64" class="headerlink" title="1.Lab1_exam：简化版 readelf64"></a>1.Lab1_exam：简化版 readelf64</h3><p><strong>题目描述</strong></p>
+                <h1 id="Lab-1上机-问题总结与反思"><a href="#Lab-1上机-问题总结与反思" class="headerlink" title="Lab 1上机-问题总结与反思"></a>Lab 1上机-问题总结与反思</h1><h2 id="题面复原"><a href="#题面复原" class="headerlink" title="题面复原"></a>题面复原</h2><h3 id="1-Lab1-95-exam：简化版-readelf64"><a href="#1-Lab1-95-exam：简化版-readelf64" class="headerlink" title="1.Lab1&#95;exam：简化版 readelf64"></a>1.Lab1&#95;exam：简化版 readelf64</h3><p><strong>题目描述</strong></p>
 <p>本题要求在 <code>tools/readelf64</code> 目录下补全一个简化版的 <code>readelf64</code>，用于解析 64-bit little-endian ELF 文件。</p>
 <p>符号表 <code>.symtab</code> 是 ELF 文件中的一个重要节，里面记录了程序中的符号信息，比如函数名、变量名等。本题不要求我们真正解析符号表里面的每一项，而是要求我们输出 ELF 文件中所有节头的信息，并找到 <code>.symtab</code> 这个节在节头表中的下标。</p>
 <p>课下练习中我们已经实现过一个简化版的 32 位 <code>readelf</code>，这次相当于是把思路迁移到 64 位 ELF 上。核心区别在于原来用的 <code>Elf32_</code> 系列结构体，这里要换成 <code>Elf64_</code> 系列结构体。</p>
@@ -357,27 +536,32 @@
 <li><code>sh_size</code>：该节的大小。</li>
 </ul>
 <p>这里最容易误解的是：<code>sh_name</code> 不是一个字符串指针，而是一个偏移量。要拿到真正的节名，必须先通过 <code>e_shstrndx</code> 找到 <code>.shstrtab</code> 对应的节头，再通过这个节头的 <code>sh_offset</code> 找到节名称字符串表的内容。之后某个节的名字就是：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">section_name = shstrtab + shdr-&gt;sh_name;<br></code></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">section_name</span> = shstrtab + shdr-&gt;sh_name<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
 <p><strong>任务要求</strong></p>
 <p>需要在 <code>tools/readelf64/readelf64.c</code> 中补全代码，实现以下功能：</p>
 <ol>
 <li>读取 ELF64 文件头；</li>
 <li>定位节头表；</li>
 <li>通过节名称字符串表解析每个节头的名称；</li>
-<li>遍历所有节头，输出：<ul>
+<li>遍历所有节头，输出：</li>
+</ol>
+<ul>
 <li>节头序号，从 0 开始；</li>
 <li>节名称；</li>
 <li>文件偏移 <code>sh_offset</code>；</li>
 <li>节大小 <code>sh_size</code>；</li>
 </ul>
-</li>
+<ol start="5">
 <li>在遍历过程中找到名称为 <code>.symtab</code> 的节，并输出它在节头表中的下标。</li>
 </ol>
 <p><strong>输出格式</strong></p>
 <p>程序输出格式大致如下：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">section_count=&lt;count&gt;<br>[0]	name=&quot;&lt;section_name&gt;&quot;	offset=0x&lt;offset&gt;	size=&lt;size&gt;<br>[1]	name=&quot;&lt;section_name&gt;&quot;	offset=0x&lt;offset&gt;	size=&lt;size&gt;<br>...<br>symtab_index=&lt;index&gt;<br></code></pre></td></tr></table></figure>
+
 <p>其中每一节的信息要求严格使用下面这个格式串：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-string">&quot;[%d]\tname=\&quot;%s\&quot;\toffset=0x%lx\tsize=%lu\n&quot;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dns"><span class="hljs-string">&quot;[%d]<span class="hljs-char escape_">\t</span>name=<span class="hljs-char escape_">\&quot;</span>%s<span class="hljs-char escape_">\&quot;</span><span class="hljs-char escape_">\t</span>offset=0x%lx<span class="hljs-char escape_">\t</span>size=%lu<span class="hljs-char escape_">\n</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
 <p>也就是说，<code>offset</code> 要用小写十六进制输出，带 <code>0x</code> 前缀，不补前导零；<code>size</code> 按十进制输出。最后还要输出 <code>.symtab</code> 的下标。</p>
 <p><strong>评测重点</strong></p>
 <p>这题的测试点大致可以拆成：</p>
@@ -388,7 +572,7 @@
 <li>最终输出内容是否完全一致。</li>
 </ul>
 <hr>
-<h3 id="2-Lab1-extra：格式化输入-scank-的实现"><a href="#2-Lab1-extra：格式化输入-scank-的实现" class="headerlink" title="2.Lab1_extra：格式化输入 scank 的实现"></a>2.Lab1_extra：格式化输入 scank 的实现</h3><p><strong>题目描述</strong></p>
+<h3 id="2-Lab1-95-extra：格式化输入-scank-的实现"><a href="#2-Lab1-95-extra：格式化输入-scank-的实现" class="headerlink" title="2.Lab1&#95;extra：格式化输入 scank 的实现"></a>2.Lab1&#95;extra：格式化输入 scank 的实现</h3><p><strong>题目描述</strong></p>
 <p>Extra 要在操作系统内核中实现一个简化版的格式化输入函数 <code>scank</code>，功能类似于标准库里的 <code>scanf</code>。由于 OS 内核里没有完整的 C 标准库，所以需要自己实现格式解析。</p>
 <p>本题只需要支持三个格式控制符：</p>
 <ul>
@@ -401,6 +585,7 @@
 <p><strong>核心解析规则</strong></p>
 <p>空白符包括：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">空格 &#x27; &#x27;、水平制表符 &#x27;\t&#x27;、换行符 &#x27;\n&#x27;、回车符 &#x27;\r&#x27;<br></code></pre></td></tr></table></figure>
+
 <h4 id="c"><a href="#c" class="headerlink" title="%c"></a><code>%c</code></h4><p><code>%c</code> 表示读取单个字符。</p>
 <p>它的规则是：</p>
 <ul>
@@ -422,6 +607,7 @@
 </ul>
 <p>举个例子，如果输入是：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">+123abc<br></code></pre></td></tr></table></figure>
+
 <p>那么 <code>%u</code> 应该读到 <code>123</code>，而字符 <code>a</code> 要留给下一个格式符。</p>
 <h4 id="s"><a href="#s" class="headerlink" title="%s"></a><code>%s</code></h4><p><code>%s</code> 表示读取字符串。</p>
 <p>它的规则是：</p>
@@ -434,13 +620,16 @@
 </ul>
 <p>举个例子，如果输入是：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">MOS_Kernel  test<br></code></pre></td></tr></table></figure>
+
 <p>那么 <code>%s</code> 应该读到 <code>MOS_Kernel</code>，而后面的空格要保留下来。</p>
 <p><strong>任务要求</strong></p>
 <p>本题需要修改的地方主要有三个。</p>
 <p>第一，在 <code>include/printk.h</code> 中加入声明：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">scank</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *fmt, ...)</span>;<br></code></pre></td></tr></table></figure>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">scank</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *fmt, ...)</span></span>;<br></code></pre></td></tr></table></figure>
+
 <p>第二，在 <code>include/print.h</code> 中加入声明：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-title function_">void</span> <span class="hljs-params">(*<span class="hljs-type">scan_callback_t</span>)</span><span class="hljs-params">(<span class="hljs-type">void</span> *data, <span class="hljs-type">char</span> *buf, <span class="hljs-type">size_t</span> len)</span>;<br><span class="hljs-type">int</span> <span class="hljs-title function_">vscanfmt</span><span class="hljs-params">(<span class="hljs-type">scan_callback_t</span> in, <span class="hljs-type">void</span> *data, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *fmt, va_list ap)</span>;<br></code></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">typedef</span> <span class="hljs-title">void</span> <span class="hljs-params">(*<span class="hljs-type">scan_callback_t</span>)</span><span class="hljs-params">(<span class="hljs-type">void</span> *data, <span class="hljs-type">char</span> *buf, <span class="hljs-type">size_t</span> len)</span></span>;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">vscanfmt</span><span class="hljs-params">(<span class="hljs-type">scan_callback_t</span> in, <span class="hljs-type">void</span> *data, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *fmt, va_list ap)</span></span>;<br></code></pre></td></tr></table></figure>
+
 <p>第三，在 <code>kern/printk.c</code> 中实现 <code>inputk</code> 和 <code>scank</code>，在 <code>lib/print.c</code> 中实现真正的格式化解析逻辑，包括：</p>
 <ul>
 <li><code>scan_c</code></li>
@@ -463,44 +652,55 @@
 <h2 id="解答与反思"><a href="#解答与反思" class="headerlink" title="解答与反思"></a>解答与反思</h2><p>这次 Lab1 的 exam 和 extra 我都是满分，整体感觉比起代码量，真正考的是能不能把题面里的细节逐条落实。</p>
 <h3 id="Exam-的思路"><a href="#Exam-的思路" class="headerlink" title="Exam 的思路"></a>Exam 的思路</h3><p>Exam 这题本质上还是课下 32 位 <code>readelf</code> 的延伸。只要理解 ELF 文件是“基地址 + 偏移”的结构，整体就很顺。</p>
 <p>我的核心思路大概是这样：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c">Elf64_Ehdr *ehdr = (Elf64_Ehdr *)binary;<br>Elf64_Shdr *sh_table = (Elf64_Shdr *)((<span class="hljs-type">char</span> *)binary + ehdr-&gt;e_shoff);<br>Elf64_Shdr *shstr_shdr = &amp;sh_table[ehdr-&gt;e_shstrndx];<br><span class="hljs-type">char</span> *shstrtab = (<span class="hljs-type">char</span> *)binary + shstr_shdr-&gt;sh_offset;<br></code></pre></td></tr></table></figure>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dns">Elf64_Ehdr *ehdr = <span class="hljs-punctuation">(</span>Elf64_Ehdr *<span class="hljs-punctuation">)</span>binary<span class="hljs-comment">;</span><br>Elf64_Shdr *sh_table = <span class="hljs-punctuation">(</span>Elf64_Shdr *<span class="hljs-punctuation">)</span><span class="hljs-punctuation">(</span><span class="hljs-punctuation">(</span>char *<span class="hljs-punctuation">)</span>binary + ehdr-&gt;e_shoff<span class="hljs-punctuation">)</span><span class="hljs-comment">;</span><br>Elf64_Shdr *shstr_shdr = &amp;sh_table[ehdr-&gt;e_shstrndx]<span class="hljs-comment">;</span><br>char *shstrtab = <span class="hljs-punctuation">(</span>char *<span class="hljs-punctuation">)</span>binary + shstr_shdr-&gt;sh_offset<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
 <p>这几行基本就是整道题的核心。</p>
 <p>第一行先把文件开头当成 ELF Header。然后通过 <code>e_shoff</code> 找到节头表。节头表找到以后，再用 <code>e_shstrndx</code> 找到节名称字符串表对应的节头。最后通过这个节头的 <code>sh_offset</code> 找到真正的字符串表内容。</p>
 <p>后面遍历所有节头即可：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; ehdr-&gt;e_shnum; i++) &#123;<br>    Elf64_Shdr *shdr = &amp;sh_table[i];<br>    <span class="hljs-type">char</span> *section_name = shstrtab + shdr-&gt;sh_name;<br><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;[%d]\tname=\&quot;%s\&quot;\toffset=0x%lx\tsize=%lu\n&quot;</span>,<br>           i, section_name, shdr-&gt;sh_offset, shdr-&gt;sh_size);<br><br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">strcmp</span>(section_name, <span class="hljs-string">&quot;.symtab&quot;</span>) == <span class="hljs-number">0</span>) &#123;<br>        symtab_index = i;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs dns">for <span class="hljs-punctuation">(</span>int i = <span class="hljs-number">0</span><span class="hljs-comment">; i &lt; ehdr-&gt;e_shnum; i++) &#123;</span><br>    Elf64_Shdr *shdr = &amp;sh_table[i]<span class="hljs-comment">;</span><br>    char *section_name = shstrtab + shdr-&gt;sh_name<span class="hljs-comment">;</span><br><br>    printf<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;[%d]<span class="hljs-char escape_">\t</span>name=<span class="hljs-char escape_">\&quot;</span>%s<span class="hljs-char escape_">\&quot;</span><span class="hljs-char escape_">\t</span>offset=0x%lx<span class="hljs-char escape_">\t</span>size=%lu<span class="hljs-char escape_">\n</span>&quot;</span>,<br>           i, section_name, shdr-&gt;sh_offset, shdr-&gt;sh_size<span class="hljs-punctuation">)</span><span class="hljs-comment">;</span><br><br>    if <span class="hljs-punctuation">(</span>strcmp<span class="hljs-punctuation">(</span>section_name, <span class="hljs-string">&quot;.symtab&quot;</span><span class="hljs-punctuation">)</span> == <span class="hljs-number">0</span><span class="hljs-punctuation">)</span> &#123;<br>        symtab_index = i<span class="hljs-comment">;</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
 <p>最后输出：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;symtab_index=%d\n&quot;</span>, symtab_index);<br></code></pre></td></tr></table></figure>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dns">printf<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;symtab_index=%d<span class="hljs-char escape_">\n</span>&quot;</span>, symtab_index<span class="hljs-punctuation">)</span><span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
 <p>这题我觉得最容易错的地方有三个。</p>
 <p>第一个是把偏移当指针。<code>e_shoff</code>、<code>sh_offset</code>、<code>sh_name</code> 都是相对于文件基地址的偏移，不是直接能解引用的地址。一定要写成：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">(<span class="hljs-type">char</span> *)binary + offset<br></code></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">(<span class="hljs-type">char</span> <span class="hljs-operator">*</span>)<span class="hljs-type">binary</span> <span class="hljs-operator">+</span> <span class="hljs-keyword">offset</span><br></code></pre></td></tr></table></figure>
+
 <p>第二个是 32 位和 64 位结构体没有改干净。比如如果还用 <code>Elf32_Ehdr</code> 或 <code>Elf32_Shdr</code>，在 64 位 ELF 上字段解释就会错。</p>
 <p>第三个是输出格式。这个题的格式比较严格，尤其是 <code>\t</code>、<code>0x%lx</code>、<code>%lu</code>，不能自己随便改成空格或者别的格式。满分很大一部分其实就是格式没有飘。</p>
 <h3 id="Extra-的思路"><a href="#Extra-的思路" class="headerlink" title="Extra 的思路"></a>Extra 的思路</h3><p>Extra 这题表面上是在实现 <code>scank</code>，但我感觉真正考的是“输入流状态机”。</p>
 <p>一开始我也会自然想到：读到不属于当前格式的字符就结束。但题面反复强调，这个字符不能丢，因为它可能正是下一个格式符要读的东西。</p>
 <p>所以我把它理解成：<code>ch</code> 是一个单字节缓存，<code>ch_valid</code> 表示这个缓存现在有没有东西。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span> ch;<br><span class="hljs-type">int</span> ch_valid = <span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs abnf">char ch<span class="hljs-comment">;</span><br>int ch_valid <span class="hljs-operator">=</span> <span class="hljs-number">0</span><span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
 <p>如果 <code>ch_valid == 0</code>，说明当前没有缓存字符，需要调用输入函数读一个；如果 <code>ch_valid == 1</code>，说明上一次已经多读了一个字符，这次要先处理它，不能再读新字符。</p>
 <h4 id="scank-的包装"><a href="#scank-的包装" class="headerlink" title="scank 的包装"></a>scank 的包装</h4><p><code>scank</code> 本身没有什么复杂逻辑，基本就是仿照 <code>printk</code> 处理可变参数：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">scank</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *fmt, ...)</span> &#123;<br>    va_list ap;<br>    <span class="hljs-type">int</span> ret;<br><br>    va_start(ap, fmt);<br>    ret = vscanfmt(inputk, <span class="hljs-literal">NULL</span>, fmt, ap);<br>    va_end(ap);<br><br>    <span class="hljs-keyword">return</span> ret;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs stata">int scank(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *fmt, ...) &#123;<br>    va_list <span class="hljs-keyword">ap</span>;<br>    int <span class="hljs-keyword">ret</span>;<br><br>    va_start(<span class="hljs-keyword">ap</span>, fmt);<br>    <span class="hljs-keyword">ret</span> = vscanfmt(inputk, NULL, fmt, <span class="hljs-keyword">ap</span>);<br>    va_end(<span class="hljs-keyword">ap</span>);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">ret</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
 <p>这里 <code>inputk</code> 负责从控制台读字符，同时把 <code>\r</code> 统一成 <code>\n</code>，再做终端回显。真正的格式解析交给 <code>vscanfmt</code>。</p>
 <h4 id="c-的实现"><a href="#c-的实现" class="headerlink" title="%c 的实现"></a>%c 的实现</h4><p><code>%c</code> 最简单，但也是最容易因为“下意识跳过空白”而错的。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">scan_c</span><span class="hljs-params">(<span class="hljs-type">scan_callback_t</span> in, <span class="hljs-type">void</span> *data, <span class="hljs-type">char</span> *ch, <span class="hljs-type">int</span> *ch_valid, <span class="hljs-type">char</span> *cp)</span> &#123;<br>    ensure_char(in, data, ch, ch_valid);<br>    *cp = *ch;<br>    *ch_valid = <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dns">void scan_c<span class="hljs-punctuation">(</span>scan_callback_t <span class="hljs-type">in</span>, void *data, char *<span class="hljs-type">ch</span>, int *ch_valid, char *cp<span class="hljs-punctuation">)</span> &#123;<br>    ensure_char<span class="hljs-punctuation">(</span><span class="hljs-type">in</span>, data, <span class="hljs-type">ch</span>, ch_valid<span class="hljs-punctuation">)</span><span class="hljs-comment">;</span><br>    *cp = *<span class="hljs-type">ch</span><span class="hljs-comment">;</span><br>    *ch_valid = <span class="hljs-number">0</span><span class="hljs-comment">;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
 <p>这里不能调用 <code>skip_whitespace</code>。因为 <code>%c</code> 就是要读当前字符，即使当前字符是空格或者换行，也必须读进去。</p>
 <p>读完后要把 <code>ch_valid</code> 置为 0，因为这个字符已经被 <code>%c</code> 真正吃掉了。</p>
 <h4 id="s-的实现"><a href="#s-的实现" class="headerlink" title="%s 的实现"></a>%s 的实现</h4><p><code>%s</code> 要先跳过前导空白，然后一直读非空白字符：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">scan_s</span><span class="hljs-params">(<span class="hljs-type">scan_callback_t</span> in, <span class="hljs-type">void</span> *data, <span class="hljs-type">char</span> *ch, <span class="hljs-type">int</span> *ch_valid, <span class="hljs-type">char</span> *cp)</span> &#123;<br>    skip_whitespace(in, data, ch, ch_valid);<br><br>    <span class="hljs-keyword">while</span> (*ch != <span class="hljs-string">&#x27; &#x27;</span> &amp;&amp; *ch != <span class="hljs-string">&#x27;\t&#x27;</span> &amp;&amp; *ch != <span class="hljs-string">&#x27;\n&#x27;</span> &amp;&amp; *ch != <span class="hljs-string">&#x27;\r&#x27;</span> &amp;&amp; *ch != <span class="hljs-string">&#x27;\0&#x27;</span>) &#123;<br>        *cp++ = *ch;<br>        in(data, ch, <span class="hljs-number">1</span>);<br>    &#125;<br><br>    *cp = <span class="hljs-string">&#x27;\0&#x27;</span>;<br>    *ch_valid = <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs dns">void scan_s<span class="hljs-punctuation">(</span>scan_callback_t <span class="hljs-type">in</span>, void *data, char *<span class="hljs-type">ch</span>, int *ch_valid, char *cp<span class="hljs-punctuation">)</span> &#123;<br>    skip_whitespace<span class="hljs-punctuation">(</span><span class="hljs-type">in</span>, data, <span class="hljs-type">ch</span>, ch_valid<span class="hljs-punctuation">)</span><span class="hljs-comment">;</span><br><br>    while <span class="hljs-punctuation">(</span>*<span class="hljs-type">ch</span> != &#x27; &#x27; &amp;&amp; *<span class="hljs-type">ch</span> != &#x27;\t&#x27; &amp;&amp; *<span class="hljs-type">ch</span> != &#x27;\n&#x27; &amp;&amp; *<span class="hljs-type">ch</span> != &#x27;\r&#x27; &amp;&amp; *<span class="hljs-type">ch</span> != &#x27;\<span class="hljs-number">0</span>&#x27;<span class="hljs-punctuation">)</span> &#123;<br>        *cp++ = *<span class="hljs-type">ch</span><span class="hljs-comment">;</span><br>        <span class="hljs-type">in</span><span class="hljs-punctuation">(</span>data, <span class="hljs-type">ch</span>, <span class="hljs-number">1</span><span class="hljs-punctuation">)</span><span class="hljs-comment">;</span><br>    &#125;<br><br>    *cp = &#x27;\<span class="hljs-number">0</span>&#x27;<span class="hljs-comment">;</span><br>    *ch_valid = <span class="hljs-number">1</span><span class="hljs-comment">;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
 <p>这里最后 <code>ch_valid</code> 要保持为 1，因为循环停下来的时候，<code>ch</code> 里面正好是那个导致字符串结束的空白字符。这个字符不能丢，要留给下一个格式符。</p>
 <p>这也是这题的核心细节之一。</p>
 <h4 id="u-的实现"><a href="#u-的实现" class="headerlink" title="%u 的实现"></a>%u 的实现</h4><p><code>%u</code> 和 <code>%s</code> 类似，也要先跳过前导空白。不过它多了一个前导 <code>+</code> 的处理：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">scan_u</span><span class="hljs-params">(<span class="hljs-type">scan_callback_t</span> in, <span class="hljs-type">void</span> *data, <span class="hljs-type">char</span> *ch, <span class="hljs-type">int</span> *ch_valid, <span class="hljs-type">int</span> *ip)</span> &#123;<br>    <span class="hljs-type">int</span> num = <span class="hljs-number">0</span>;<br><br>    skip_whitespace(in, data, ch, ch_valid);<br><br>    <span class="hljs-keyword">if</span> (*ch == <span class="hljs-string">&#x27;+&#x27;</span>) &#123;<br>        in(data, ch, <span class="hljs-number">1</span>);<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> (*ch &lt; <span class="hljs-string">&#x27;0&#x27;</span> || *ch &gt; <span class="hljs-string">&#x27;9&#x27;</span>) &#123;<br>        *ip = <span class="hljs-number">0</span>;<br>        *ch_valid = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">while</span> (*ch &gt;= <span class="hljs-string">&#x27;0&#x27;</span> &amp;&amp; *ch &lt;= <span class="hljs-string">&#x27;9&#x27;</span>) &#123;<br>        num = num * <span class="hljs-number">10</span> + (*ch - <span class="hljs-string">&#x27;0&#x27;</span>);<br>        in(data, ch, <span class="hljs-number">1</span>);<br>    &#125;<br><br>    *ip = num;<br>    *ch_valid = <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs dns">void scan_u<span class="hljs-punctuation">(</span>scan_callback_t <span class="hljs-type">in</span>, void *data, char *<span class="hljs-type">ch</span>, int *ch_valid, int *ip<span class="hljs-punctuation">)</span> &#123;<br>    int num = <span class="hljs-number">0</span><span class="hljs-comment">;</span><br><br>    skip_whitespace<span class="hljs-punctuation">(</span><span class="hljs-type">in</span>, data, <span class="hljs-type">ch</span>, ch_valid<span class="hljs-punctuation">)</span><span class="hljs-comment">;</span><br><br>    if <span class="hljs-punctuation">(</span>*<span class="hljs-type">ch</span> == &#x27;+&#x27;<span class="hljs-punctuation">)</span> &#123;<br>        <span class="hljs-type">in</span><span class="hljs-punctuation">(</span>data, <span class="hljs-type">ch</span>, <span class="hljs-number">1</span><span class="hljs-punctuation">)</span><span class="hljs-comment">;</span><br>    &#125;<br><br>    if <span class="hljs-punctuation">(</span>*<span class="hljs-type">ch</span> &lt; &#x27;<span class="hljs-number">0</span>&#x27; || *<span class="hljs-type">ch</span> &gt; &#x27;<span class="hljs-number">9</span>&#x27;<span class="hljs-punctuation">)</span> &#123;<br>        *ip = <span class="hljs-number">0</span><span class="hljs-comment">;</span><br>        *ch_valid = <span class="hljs-number">1</span><span class="hljs-comment">;</span><br>        return<span class="hljs-comment">;</span><br>    &#125;<br><br>    while <span class="hljs-punctuation">(</span>*<span class="hljs-type">ch</span> &gt;= &#x27;<span class="hljs-number">0</span>&#x27; &amp;&amp; *<span class="hljs-type">ch</span> &lt;= &#x27;<span class="hljs-number">9</span>&#x27;<span class="hljs-punctuation">)</span> &#123;<br>        num = num * <span class="hljs-number">10</span> + <span class="hljs-punctuation">(</span>*<span class="hljs-type">ch</span> - &#x27;<span class="hljs-number">0</span>&#x27;<span class="hljs-punctuation">)</span><span class="hljs-comment">;</span><br>        <span class="hljs-type">in</span><span class="hljs-punctuation">(</span>data, <span class="hljs-type">ch</span>, <span class="hljs-number">1</span><span class="hljs-punctuation">)</span><span class="hljs-comment">;</span><br>    &#125;<br><br>    *ip = num<span class="hljs-comment">;</span><br>    *ch_valid = <span class="hljs-number">1</span><span class="hljs-comment">;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
 <p>这里有两个地方比较关键。</p>
 <p>第一，如果遇到 <code>+</code>，要读下一个字符继续判断，但 <code>+</code> 本身不计入数字。</p>
 <p>第二，如果遇到非数字字符停下来，这个非数字字符也要留在 <code>ch</code> 里，所以 <code>ch_valid</code> 仍然是 1。</p>
 <p>比如输入：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">+123abc<br></code></pre></td></tr></table></figure>
+
 <p>那么 <code>%u</code> 读完以后，结果是 <code>123</code>，但是 <code>a</code> 还在缓存里。如果下一个格式是 <code>%c</code>，那它读到的就应该是 <code>a</code>。</p>
 <h4 id="vscanfmt-的整体结构"><a href="#vscanfmt-的整体结构" class="headerlink" title="vscanfmt 的整体结构"></a>vscanfmt 的整体结构</h4><p><code>vscanfmt</code> 的主循环其实就是扫描格式字符串，遇到 <code>%s</code>、<code>%u</code>、<code>%c</code> 就调用对应函数：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">vscanfmt</span><span class="hljs-params">(<span class="hljs-type">scan_callback_t</span> in, <span class="hljs-type">void</span> *data, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *fmt, va_list ap)</span> &#123;<br>    <span class="hljs-type">char</span> ch;<br>    <span class="hljs-type">int</span> ch_valid = <span class="hljs-number">0</span>;<br>    <span class="hljs-type">int</span> ret = <span class="hljs-number">0</span>;<br><br>    <span class="hljs-keyword">while</span> (*fmt) &#123;<br>        <span class="hljs-keyword">if</span> (*fmt == <span class="hljs-string">&#x27;%&#x27;</span>) &#123;<br>            fmt++;<br><br>            <span class="hljs-keyword">switch</span> (*fmt) &#123;<br>            <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;s&#x27;</span>:<br>                scan_s(in, data, &amp;ch, &amp;ch_valid, va_arg(ap, <span class="hljs-type">char</span> *));<br>                ret++;<br>                <span class="hljs-keyword">break</span>;<br><br>            <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;u&#x27;</span>:<br>                scan_u(in, data, &amp;ch, &amp;ch_valid, va_arg(ap, <span class="hljs-type">int</span> *));<br>                ret++;<br>                <span class="hljs-keyword">break</span>;<br><br>            <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;c&#x27;</span>:<br>                scan_c(in, data, &amp;ch, &amp;ch_valid, va_arg(ap, <span class="hljs-type">char</span> *));<br>                ret++;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>        fmt++;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> ret;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs dns">int vscanfmt<span class="hljs-punctuation">(</span>scan_callback_t <span class="hljs-type">in</span>, void *data, const char *fmt, va_list ap<span class="hljs-punctuation">)</span> &#123;<br>    char <span class="hljs-type">ch</span><span class="hljs-comment">;</span><br>    int ch_valid = <span class="hljs-number">0</span><span class="hljs-comment">;</span><br>    int ret = <span class="hljs-number">0</span><span class="hljs-comment">;</span><br><br>    while <span class="hljs-punctuation">(</span>*fmt<span class="hljs-punctuation">)</span> &#123;<br>        if <span class="hljs-punctuation">(</span>*fmt == &#x27;%&#x27;<span class="hljs-punctuation">)</span> &#123;<br>            fmt++<span class="hljs-comment">;</span><br><br>            switch <span class="hljs-punctuation">(</span>*fmt<span class="hljs-punctuation">)</span> &#123;<br>            case &#x27;s&#x27;:<br>                scan_s<span class="hljs-punctuation">(</span><span class="hljs-type">in</span>, data, &amp;<span class="hljs-type">ch</span>, &amp;ch_valid, va_arg<span class="hljs-punctuation">(</span>ap, char *<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span><span class="hljs-comment">;</span><br>                ret++<span class="hljs-comment">;</span><br>                break<span class="hljs-comment">;</span><br><br>            case &#x27;u&#x27;:<br>                scan_u<span class="hljs-punctuation">(</span><span class="hljs-type">in</span>, data, &amp;<span class="hljs-type">ch</span>, &amp;ch_valid, va_arg<span class="hljs-punctuation">(</span>ap, int *<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span><span class="hljs-comment">;</span><br>                ret++<span class="hljs-comment">;</span><br>                break<span class="hljs-comment">;</span><br><br>            case &#x27;c&#x27;:<br>                scan_c<span class="hljs-punctuation">(</span><span class="hljs-type">in</span>, data, &amp;<span class="hljs-type">ch</span>, &amp;ch_valid, va_arg<span class="hljs-punctuation">(</span>ap, char *<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span><span class="hljs-comment">;</span><br>                ret++<span class="hljs-comment">;</span><br>                break<span class="hljs-comment">;</span><br>            &#125;<br>        &#125;<br>        fmt++<span class="hljs-comment">;</span><br>    &#125;<br><br>    return ret<span class="hljs-comment">;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
 <p>这里 <code>ret</code> 统计成功解析的格式符个数。题目骨架本身已经给得比较清楚，只要把三个扫描函数写对，基本就能过。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这次 Lab1 的两个题其实都很典型。</p>
 <p>Exam 考的是 ELF 结构的理解，尤其是“文件基地址 + 偏移”这个思路。只要能从 ELF Header 找到 Section Header Table，再从 <code>e_shstrndx</code> 找到 <code>.shstrtab</code>，后面遍历和找 <code>.symtab</code> 就很自然。</p>
@@ -555,7 +755,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>Lab 1上机-问题总结与反思</div>
-      <div>http://example.com/posts/os-lab1-reflection/</div>
+      <div>https://pppphop.github.io/posts/os-lab1-reflection/</div>
     </div>
     <div class="license-meta">
       
@@ -781,7 +981,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -792,10 +1048,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -807,6 +1069,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -915,8 +1179,7 @@
 
 
   
-<script src="/js/index-math.js?v=20260627-mathfix.js"></script>
-<script src="/js/tag-colors.js?v=20260712-textfill.js"></script>
+<script src="/js/tag-colors.js"></script>
 
 
 

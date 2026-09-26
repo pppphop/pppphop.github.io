@@ -19,15 +19,15 @@
   <meta name="author" content="pppphop">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Lab 0 Extra-off准备工作请在自动初始化分支后，在开发机依次执行以下命令： 123$ cd ~&#x2F;学号$ git fetch$ git checkout lab0-extra-off 题目背景日志是排查问题的重要依据，系统管理员需要定期分析 Web 服务器的日志。 文件说明服务器每天会产生两类日志：  访问日志（access.log）：记录 HTTP 访问请求，每行格式如下： 1IP地址">
+    <meta name="description" content="Lab 0 Extra-off准备工作请在自动初始化分支后，在开发机依次执行以下命令： 123$ cd ~&#x2F;学号$ git fetch$ git checkout lab0-extra-off  题目背景日志是排查问题的重要依据，系统管理员需要定期分析 Web 服务器的日志。 文件说明服务器每天会产生两类日志：  访问日志（access.log）：记录 HTTP 访问请求，每行格式如下：   1I">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Lab 0 Extra-off">
-<meta property="og:url" content="http://example.com/posts/os-lab0-extra-off/index.html">
+<meta property="og:url" content="https://pppphop.github.io/posts/os-lab0-extra-off/index.html">
 <meta property="og:site_name" content="zhp的博客">
-<meta property="og:description" content="Lab 0 Extra-off准备工作请在自动初始化分支后，在开发机依次执行以下命令： 123$ cd ~&#x2F;学号$ git fetch$ git checkout lab0-extra-off 题目背景日志是排查问题的重要依据，系统管理员需要定期分析 Web 服务器的日志。 文件说明服务器每天会产生两类日志：  访问日志（access.log）：记录 HTTP 访问请求，每行格式如下： 1IP地址">
+<meta property="og:description" content="Lab 0 Extra-off准备工作请在自动初始化分支后，在开发机依次执行以下命令： 123$ cd ~&#x2F;学号$ git fetch$ git checkout lab0-extra-off  题目背景日志是排查问题的重要依据，系统管理员需要定期分析 Web 服务器的日志。 文件说明服务器每天会产生两类日志：  访问日志（access.log）：记录 HTTP 访问请求，每行格式如下：   1I">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-18T12:00:00.000Z">
-<meta property="article:modified_time" content="2026-07-03T01:43:58.192Z">
+<meta property="article:modified_time" content="2026-07-03T01:43:58.000Z">
 <meta property="article:author" content="pppphop">
 <meta property="article:tag" content="OS">
 <meta property="article:tag" content="OS上机">
@@ -70,14 +70,14 @@
 
 
   
-<link rel="stylesheet" href="/css/blog-polish.css?v=20260703-home-taxonomy-v2.css">
+<link rel="stylesheet" href="/css/blog-polish.css">
 
 
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"pppphop.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -90,7 +90,7 @@
 
 
   
-<meta name="generator" content="Hexo 8.1.1"></head>
+<meta name="generator" content="Hexo 8.1.2"></head>
 
 
 <body>
@@ -112,7 +112,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -169,9 +169,8 @@
           
           
             <li class="nav-item dropdown">
-              
               <a class="nav-link dropdown-parent-link" target="_self" href="/quiz/" role="button"
-                  aria-haspopup="true" aria-expanded="false">
+                 aria-haspopup="true" aria-expanded="false">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>刷题</span>
               </a>
@@ -253,6 +252,184 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell mobile-grid-parent-cell">
+              <a href="/quiz/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>刷题</span>
+                </div>
+              </a>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/military/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>军理刷题</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/ethics/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>思修刷题</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/os/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>OS刷题</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/history/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>史纲刷题</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/ai/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>AI 对话</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>友链</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -285,7 +462,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          2.3k 字
         
       </span>
     
@@ -296,7 +473,7 @@
         
         
         
-          11 分钟
+          19 分钟
         
       </span>
     
@@ -313,6 +490,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -339,104 +518,64 @@
               <div class="markdown-body">
                 
                 <h1 id="Lab-0-Extra-off"><a href="#Lab-0-Extra-off" class="headerlink" title="Lab 0 Extra-off"></a>Lab 0 Extra-off</h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>请在<strong>自动初始化分支</strong>后，在开发机依次执行以下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">cd</span> ~/学号<br>$ git fetch<br>$ git checkout lab0-extra-off<br></code></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$</span> <span class="hljs-built_in">cd</span> ~/学号<br><span class="hljs-variable">$</span> git fetch<br><span class="hljs-variable">$</span> git checkout lab0<span class="hljs-literal">-extra-off</span><br></code></pre></td></tr></table></figure>
+
 <h2 id="题目背景"><a href="#题目背景" class="headerlink" title="题目背景"></a>题目背景</h2><p>日志是排查问题的重要依据，系统管理员需要定期分析 Web 服务器的日志。</p>
 <h2 id="文件说明"><a href="#文件说明" class="headerlink" title="文件说明"></a>文件说明</h2><p>服务器每天会产生两类日志：</p>
 <ul>
-<li><p>访问日志（<code>access.log</code>）：记录 HTTP 访问请求，每行格式如下：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">IP地址 - - <span class="hljs-selector-attr">[时间 时区]</span> 请求方法 请求路径 协议 状态码 响应大小<br></code></pre></td></tr></table></figure>
-<p>例如：</p>
-<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">172.16.0.3</span> - - <span class="hljs-string">[2025-05-21:00:14:41 +0800]</span> DELETE /images/logo.png HTTP/<span class="hljs-number">2</span>.<span class="hljs-number">0</span> <span class="hljs-number">404</span> <span class="hljs-number">768</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>错误日志（<code>error.log</code>）：记录服务器错误信息，每行格式如下：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">日期 时间 <span class="hljs-selector-attr">[级别]</span>: 消息<br></code></pre></td></tr></table></figure>
-<p>例如：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">2025</span>-<span class="hljs-number">07</span>-<span class="hljs-number">06</span> <span class="hljs-number">02</span>:<span class="hljs-number">02</span>:<span class="hljs-number">05</span><span class="hljs-meta"> [INFO]: Client disconnected</span><br></code></pre></td></tr></table></figure>
-</li>
+<li>访问日志（<code>access.log</code>）：记录 HTTP 访问请求，每行格式如下：</li>
 </ul>
+ <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">IP地址 - - <span class="hljs-selector-attr">[时间 时区]</span> 请求方法 请求路径 协议 状态码 响应大小<br></code></pre></td></tr></table></figure>
+
+<p> 例如：</p>
+ <figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">172.16.0.3</span> - - <span class="hljs-string">[2025-05-21:00:14:41 +0800]</span> DELETE /images/logo.png HTTP/<span class="hljs-number">2</span>.<span class="hljs-number">0</span> <span class="hljs-number">404</span> <span class="hljs-number">768</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>错误日志（<code>error.log</code>）：记录服务器错误信息，每行格式如下：</li>
+</ul>
+ <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">日期 时间 <span class="hljs-selector-attr">[级别]</span>: 消息<br></code></pre></td></tr></table></figure>
+
+<p> 例如：</p>
+ <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">2025</span>-<span class="hljs-number">07</span>-<span class="hljs-number">06</span> <span class="hljs-number">02</span>:<span class="hljs-number">02</span>:<span class="hljs-number">05</span><span class="hljs-meta"> [INFO]: Client disconnected</span><br></code></pre></td></tr></table></figure>
+
 <p>格式说明中的不同字段之间以空格分隔，除 <code>消息</code> 字段外，字段内部均不含空格。</p>
 <p>服务器的日志根目录为 <code>logs</code> ，日志被保存在以对应日期命名的子目录中，结构如下：</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs applescript">logs/<br>├── YYYY-MM-DD/<br>│   ├── access.<span class="hljs-built_in">log</span><br>│   └── <span class="hljs-keyword">error</span>.<span class="hljs-built_in">log</span><br>└── ...<br></code></pre></td></tr></table></figure>
+
 <p>保证日志根目录不为空，且每个子目录中均存在两类日志文件，但不保证日志内容不为空。</p>
 <h2 id="题目要求"><a href="#题目要求" class="headerlink" title="题目要求"></a>题目要求</h2><p>脚本：<code>analyze.sh</code><br>用法：<code>bash analyze.sh 日期</code><br>功能：分析指定日期的日志，日期格式为 <code>YYYY-MM-DD</code></p>
 <ol>
-<li><p>如果 <code>日期</code> 未给出，则打印 <code>analyze.sh: No date provided</code> 到标准输出，并<strong>立即退出</strong>。</p>
-<p>如果 <code>日期</code> 给出，则按如下要求分析对应日期（保证存在）的日志。</p>
-</li>
-<li><p>新建报告根目录 <code>reports</code> ，与日志根目录同级，报告均保存在以对应日期命名的子目录中。</p>
-<p>新建<strong>所有目录</strong>的权限为 <code>rwxrwxr-x</code> ，<strong>所有普通文件</strong>的权限为 <code>rw-rw-r--</code> 。</p>
-</li>
-<li><p>在指定日期的错误日志中检查是否存在含有 <code>ERROR</code> 字样的记录，如果有则将这类记录筛选出来，</p>
-<p>按原顺序保存到相应报告子目录下的 <code>error.log</code> ，否则<strong>不要创建此文件</strong>。</p>
-</li>
-<li><p>在指定日期的访问日志中将 <code>/127.0.0.1</code> 字样全部替换为 <code>/localhost</code> ，其它内容保持不变，</p>
-<p>全文保存到相应报告子目录下的 <code>access.log</code> ，<strong>不要更改原文件</strong>。</p>
-</li>
-<li><p>在指定日期的访问日志中统计每个 <code>IP地址</code> 的总请求次数，并将结果按访问次数从高到低排序，</p>
-<p>保存到相应报告子目录下的 <code>summary.txt</code> ，访问次数相同时的排序<strong>不做要求</strong>，每行格式如下：</p>
-</li>
+<li>如果 <code>日期</code> 未给出，则打印 <code>analyze.sh: No date provided</code> 到标准输出，并<strong>立即退出</strong>。</li>
 </ol>
+<p> 如果 <code>日期</code> 给出，则按如下要求分析对应日期（保证存在）的日志。<br>2. 新建报告根目录 <code>reports</code> ，与日志根目录同级，报告均保存在以对应日期命名的子目录中。</p>
+<p> 新建<strong>所有目录</strong>的权限为 <code>rwxrwxr-x</code> ，<strong>所有普通文件</strong>的权限为 <code>rw-rw-r--</code> 。<br>3. 在指定日期的错误日志中检查是否存在含有 <code>ERROR</code> 字样的记录，如果有则将这类记录筛选出来，</p>
+<p> 按原顺序保存到相应报告子目录下的 <code>error.log</code> ，否则<strong>不要创建此文件</strong>。<br>4. 在指定日期的访问日志中将 <code>/127.0.0.1</code> 字样全部替换为 <code>/localhost</code> ，其它内容保持不变，</p>
+<p> 全文保存到相应报告子目录下的 <code>access.log</code> ，<strong>不要更改原文件</strong>。<br>5. 在指定日期的访问日志中统计每个 <code>IP地址</code> 的总请求次数，并将结果按访问次数从高到低排序，</p>
+<p> 保存到相应报告子目录下的 <code>summary.txt</code> ，访问次数相同时的排序<strong>不做要求</strong>，每行格式如下：</p>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"><span class="hljs-built_in">IP</span>地址 总访问次数<br></code></pre></td></tr></table></figure>
+
 <p>提交时，<strong>只应提交脚本文件本身</strong>，不应提交你测试时产生的临时文件。<br>运行后，脚本<strong>不应执行多余操作</strong>，标准输出、标准错误和提交目录中不能有多余内容，可能的一种目录结构如下：</p>
 <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs stata">logs/<br>├── YYYY-MM-DD/<br>│   ├── access.<span class="hljs-keyword">log</span><br>│   └── <span class="hljs-keyword">error</span>.<span class="hljs-keyword">log</span><br>├── ...<br>reports/<br>├── YYYY-MM-DD/<br>│   ├── access.<span class="hljs-keyword">log</span><br>│   └── <span class="hljs-keyword">error</span>.<span class="hljs-keyword">log</span><br>│   └── summary.txt<br>analyze.<span class="hljs-keyword">sh</span><br></code></pre></td></tr></table></figure>
-<h2 id="提交评测-amp-评测标准"><a href="#提交评测-amp-评测标准" class="headerlink" title="提交评测 &amp; 评测标准"></a>提交评测 &amp; 评测标准</h2><p>请在开发机中执行下列命令后，在课程网站上提交评测。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">cd</span> ~/学号/<br>$ git add analyze.sh<br>$ git commit -m <span class="hljs-string">&quot;message&quot;</span> <span class="hljs-comment"># 请将 message 改为有意义的信息</span><br>$ git push<br></code></pre></td></tr></table></figure>
+
+<h2 id="提交评测-评测标准"><a href="#提交评测-评测标准" class="headerlink" title="提交评测 &amp; 评测标准"></a>提交评测 &amp; 评测标准</h2><p>请在开发机中执行下列命令后，在课程网站上提交评测。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-variable">$ </span>cd ~<span class="hljs-regexp">/学号/</span><br><span class="hljs-variable">$ </span>git add analyze.sh<br><span class="hljs-variable">$ </span>git commit -m <span class="hljs-string">&quot;message&quot;</span> <span class="hljs-comment"># 请将 message 改为有意义的信息</span><br><span class="hljs-variable">$ </span>git push<br></code></pre></td></tr></table></figure>
+
 <p>测试点和分数说明如下：</p>
 <p>共 10 个测试点，每个测试点 10 分。测试用例与给出的样例不同，每个测试点的主要评测内容如下所示。</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>测试点序号</th>
-<th>评测内容</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1, 2</td>
-<td>错误处理</td>
-</tr>
-<tr>
-<td>3</td>
-<td>权限设置</td>
-</tr>
-<tr>
-<td>4, 5</td>
-<td>查找筛选</td>
-</tr>
-<tr>
-<td>6, 7</td>
-<td>全局替换</td>
-</tr>
-<tr>
-<td>8, 9, 10</td>
-<td>排序计数</td>
-</tr>
-</tbody>
-</table>
-</div>
+<p>测试点序号 评测内容     1, 2 错误处理   3 权限设置   4, 5 查找筛选   6, 7 全局替换   8, 9, 10 排序计数</p>
 <h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><ol>
-<li><p>脚本参数用法详见指导书第 34 页</p>
-</li>
-<li><p>流程控制语句用法详见指导书第 35 页</p>
-</li>
-<li><p>权限设定命令用法详见指导书第 31 页</p>
-</li>
-<li><p><code>sed</code> 会将模式字符串当作正则表达式解析，如果需要将特殊符号按原字符解析则应使用反斜杠 <code>\</code> 转义。</p>
-<p>替换命令 <code>s</code> 允许使用其它字符作为分隔符，分隔符如果出现在模式或替换字符串中也应该使用反斜杠 <code>\</code> 转义。</p>
-<p>例如： <code>&#39;s/\/\./\\./g&#39;</code> 和 <code>&#39;s|/\.|\\.|g&#39;</code> 等价，都可以将所有 <code>/.</code> 替换为 <code>\.</code></p>
-</li>
-<li><p><code>sort</code>: 连接所有文件，然后排序，并将结果写到标准输出</p>
-<p>用法：<code>sort [选项]... [文件]...</code></p>
-<p>选项：<code>-r</code> 逆序输出排序结果、<code>-n</code> 按数值大小而非字典序进行排序</p>
-</li>
-<li><p><code>uniq</code>: 从输入文件或标准输入中过滤内容相同的相邻的行，并写到输出文件或标准输出</p>
-<p>用法：<code>uniq [选项]... [输入文件 [输出文件]]</code></p>
-<p>选项：<code>-c</code> 在每行之前加上该行的重复次数作为前缀</p>
-</li>
+<li>脚本参数用法详见指导书第 34 页</li>
+<li>流程控制语句用法详见指导书第 35 页</li>
+<li>权限设定命令用法详见指导书第 31 页</li>
+<li><code>sed</code> 会将模式字符串当作正则表达式解析，如果需要将特殊符号按原字符解析则应使用反斜杠 <code>\</code> 转义。</li>
 </ol>
+<p> 替换命令 <code>s</code> 允许使用其它字符作为分隔符，分隔符如果出现在模式或替换字符串中也应该使用反斜杠 <code>\</code> 转义。</p>
+<p> 例如： <code>&#39;s/\/\./\\./g&#39;</code> 和 <code>&#39;s|/\.|\\.|g&#39;</code> 等价，都可以将所有 <code>/.</code> 替换为 <code>\.</code><br>5. <code>sort</code>: 连接所有文件，然后排序，并将结果写到标准输出</p>
+<p> 用法：<code>sort [选项]... [文件]...</code></p>
+<p> 选项：<code>-r</code> 逆序输出排序结果、<code>-n</code> 按数值大小而非字典序进行排序<br>6. <code>uniq</code>: 从输入文件或标准输入中过滤内容相同的相邻的行，并写到输出文件或标准输出</p>
+<p> 用法：<code>uniq [选项]... [输入文件 [输出文件]]</code></p>
+<p> 选项：<code>-c</code> 在每行之前加上该行的重复次数作为前缀</p>
 <p>参考代码框架如下（实现方法不止一种）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><br>LOG_DIR=<span class="hljs-string">&quot;logs&quot;</span><br>REPORT_DIR=<span class="hljs-string">&quot;reports&quot;</span><br><br><span class="hljs-comment"># 如果缺少参数</span><br><span class="hljs-keyword">if</span> [ ]; <span class="hljs-keyword">then</span><br>    <span class="hljs-comment"># 打印消息，立即退出</span><br><span class="hljs-keyword">fi</span><br><br><span class="hljs-comment"># 获取日期参数</span><br>DATE=<br><br><span class="hljs-comment"># 构建文件路径</span><br>error_src=<br>access_src=<br>error_dst=<br>access_dst=<br>summary_dst=<br><br><span class="hljs-comment"># 查找包含 ERROR 的行</span><br>errors=$(grep TODO <span class="hljs-string">&quot;<span class="hljs-variable">$error_src</span>&quot;</span>)<br><span class="hljs-keyword">if</span> [ ]; <span class="hljs-keyword">then</span><br>    <span class="hljs-comment"># 仅当结果非空时保存</span><br><span class="hljs-keyword">fi</span><br><br><span class="hljs-comment"># 思考如何处理特殊字符</span><br>sed TODO <span class="hljs-string">&quot;<span class="hljs-variable">$access_src</span>&quot;</span><br><br><span class="hljs-comment"># 思考综合使用提示命令</span><br>awk TODO <span class="hljs-string">&quot;<span class="hljs-variable">$access_src</span>&quot;</span> | TODO | TODO | TODO | TODO<br></code></pre></td></tr></table></figure>
+<figure class="highlight freedesktop"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs freedesktop"><span class="hljs-comment">#!/bin/bash</span><br><br><span class="hljs-attr">LOG_DIR</span><span class="hljs-operator">=</span><span class="hljs-string">&quot;logs&quot;</span><br><span class="hljs-attr">REPORT_DIR</span><span class="hljs-operator">=</span><span class="hljs-string">&quot;reports&quot;</span><br><br><span class="hljs-comment"># 如果缺少参数</span><br>if [ ]; then<br>    <span class="hljs-comment"># 打印消息，立即退出</span><br>fi<br><br><span class="hljs-comment"># 获取日期参数</span><br><span class="hljs-attr">DATE</span><span class="hljs-operator">=</span><br><br><span class="hljs-comment"># 构建文件路径</span><br><span class="hljs-attr">error_src</span><span class="hljs-operator">=</span><br><span class="hljs-attr">access_src</span><span class="hljs-operator">=</span><br><span class="hljs-attr">error_dst</span><span class="hljs-operator">=</span><br><span class="hljs-attr">access_dst</span><span class="hljs-operator">=</span><br><span class="hljs-attr">summary_dst</span><span class="hljs-operator">=</span><br><br><span class="hljs-comment"># 查找包含 ERROR 的行</span><br><span class="hljs-attr">errors</span><span class="hljs-operator">=</span>$(grep TODO <span class="hljs-string">&quot;$error_src&quot;</span>)<br>if [ ]; then<br>    <span class="hljs-comment"># 仅当结果非空时保存</span><br>fi<br><br><span class="hljs-comment"># 思考如何处理特殊字符</span><br>sed TODO &quot;$access_src&quot;<br><br><span class="hljs-comment"># 思考综合使用提示命令</span><br>awk TODO &quot;$access_src&quot; | TODO | TODO | TODO | TODO<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -485,7 +624,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>Lab 0 Extra-off</div>
-      <div>http://example.com/posts/os-lab0-extra-off/</div>
+      <div>https://pppphop.github.io/posts/os-lab0-extra-off/</div>
     </div>
     <div class="license-meta">
       
@@ -711,7 +850,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -722,10 +917,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -737,6 +938,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -845,8 +1048,7 @@
 
 
   
-<script src="/js/index-math.js?v=20260627-mathfix.js"></script>
-<script src="/js/tag-colors.js?v=20260712-textfill.js"></script>
+<script src="/js/tag-colors.js"></script>
 
 
 

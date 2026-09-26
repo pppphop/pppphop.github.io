@@ -22,12 +22,12 @@
     <meta name="description" content="第六次作业背景本次作业核心要点包括但不限于：  雇佣系统实现：实现结盟关系建立、雇佣关系解除 目标限制：实现负面效果无法对上级生效，正面效果只能对盟友生效 观察者模式的使用：实现下级对上级的援助  雇佣关系的定义在本次作业中，冒险者间可相互雇佣，雇佣关系是单向的。 为了辅助说明，我们这里引入”雇佣关系图“的概念。我们考虑每个冒险者最初都是一个孤立的点，则当冒险者 A 雇佣了冒险者 B 后，在雇佣关">
 <meta property="og:type" content="article">
 <meta property="og:title" content="oopre-第六次作业">
-<meta property="og:url" content="http://example.com/posts/oopre-%E7%AC%AC%E5%85%AD%E6%AC%A1%E4%BD%9C%E4%B8%9A/index.html">
+<meta property="og:url" content="https://pppphop.github.io/posts/oopre-%E7%AC%AC%E5%85%AD%E6%AC%A1%E4%BD%9C%E4%B8%9A/index.html">
 <meta property="og:site_name" content="zhp的博客">
 <meta property="og:description" content="第六次作业背景本次作业核心要点包括但不限于：  雇佣系统实现：实现结盟关系建立、雇佣关系解除 目标限制：实现负面效果无法对上级生效，正面效果只能对盟友生效 观察者模式的使用：实现下级对上级的援助  雇佣关系的定义在本次作业中，冒险者间可相互雇佣，雇佣关系是单向的。 为了辅助说明，我们这里引入”雇佣关系图“的概念。我们考虑每个冒险者最初都是一个孤立的点，则当冒险者 A 雇佣了冒险者 B 后，在雇佣关">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-10-26T14:51:58.000Z">
-<meta property="article:modified_time" content="2026-02-07T09:54:08.368Z">
+<meta property="article:modified_time" content="2026-02-07T09:54:08.000Z">
 <meta property="article:author" content="pppphop">
 <meta property="article:tag" content="oopre">
 <meta name="twitter:card" content="summary_large_image">
@@ -69,14 +69,14 @@
 
 
   
-<link rel="stylesheet" href="/css/blog-polish.css?v=20260703-home-taxonomy-v2.css">
+<link rel="stylesheet" href="/css/blog-polish.css">
 
 
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"pppphop.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -89,7 +89,7 @@
 
 
   
-<meta name="generator" content="Hexo 8.1.1"></head>
+<meta name="generator" content="Hexo 8.1.2"></head>
 
 
 <body>
@@ -111,7 +111,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -168,9 +168,8 @@
           
           
             <li class="nav-item dropdown">
-              
               <a class="nav-link dropdown-parent-link" target="_self" href="/quiz/" role="button"
-                  aria-haspopup="true" aria-expanded="false">
+                 aria-haspopup="true" aria-expanded="false">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>刷题</span>
               </a>
@@ -252,6 +251,184 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell mobile-grid-parent-cell">
+              <a href="/quiz/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>刷题</span>
+                </div>
+              </a>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/military/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>军理刷题</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/ethics/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>思修刷题</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/os/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>OS刷题</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/history/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>史纲刷题</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/ai/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>AI 对话</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>友链</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -284,7 +461,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.3k 字
+          5.6k 字
         
       </span>
     
@@ -295,7 +472,7 @@
         
         
         
-          28 分钟
+          48 分钟
         
       </span>
     
@@ -312,6 +489,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -361,8 +540,8 @@
 <p>可以证明，在给定的约束下，雇佣关系图一定是一片有向森林。</p>
 <h3 id="雇佣关系的约束"><a href="#雇佣关系的约束" class="headerlink" title="雇佣关系的约束"></a><strong>雇佣关系的约束</strong></h3><p>我们称，如果冒险者 A 的某一行为让冒险者 B 的任意属性下降（包括体力、攻击力、防御力、魔力值)，则称冒险者 A 对冒险者 B 造成了不利影响。同样的，如果冒险者 A 的某一行为让冒险者 B 的任意属性上升，则称冒险者 A 对冒险者 B 造成了有利影响。即使 A 尝试攻击 B 的行为由于一些其他原因失败了，A 的企图也是不利的，我们也称 A 对 B 造成了不利影响。</p>
 <p>冒险者们十分注重契约关系，故当冒险者收到了一条会对其上级造成不利影响的指令，冒险者会拒绝执行该指令。在冒险者收到的攻击指令时，只要攻击目标中包含了至少一位他的上级，他都会拒绝执行该指令。以上两种情况发生时，输出<code>That&#39;s my boss!</code>。同时，如果冒险者收到的指令会对非盟友造成有利影响，冒险者同样会拒绝执行该指令，并输出<code>That&#39;s not my ally</code>。</p>
-<p><strong>注</strong>：<code>use</code> 指令与<code>fight</code> 指令的行为会因此而变化。对于这两个指令，需要<strong>优先判定雇佣关系</strong>是否允许该指令执行，再判定能否成功使用物品/能否战斗成功。</p>
-<h3 id="冒险者援助"><a href="#冒险者援助" class="headerlink" title="冒险者援助"></a>冒险者援助</h3><p>如果一个冒险者在某条指令执行结束后，出现0&lt;HPnew≤⌊HPold2⌋0&lt;<em>H<strong>P</strong>n<strong>e</strong>w</em>≤⌊2<em>H<strong>P</strong>o<strong>l</strong>d</em>⌋（其中 HPold<em>H<strong>P</strong>o<strong>l</strong>d</em> 为该指令生效前的血量， HPnew<em>H<strong>P</strong>n<strong>e</strong>w</em>为该指令生效后的血量），则其<strong>所有</strong>下级会尝试对其进行一次治疗。我们称“某冒险者在一条指令生效后，其所有下级尝试对其进行治疗”的整个过程称为一次<strong>援助事件</strong>。每个下级尝试治疗的过程如下：</p>
+<p><strong>注</strong>：<code>use</code> 指令与<code>fight</code> 指令的行为会因此而变化。对于这两个指令，需要<strong>优先判定雇佣关系</strong>是否允许该指令执行，再判定能否成功使用物品&#x2F;能否战斗成功。</p>
+<h3 id="冒险者援助"><a href="#冒险者援助" class="headerlink" title="冒险者援助"></a>冒险者援助</h3><p>如果一个冒险者在某条指令执行结束后，出现0&#60;HPnew≤⌊HPold2⌋0&#60;<em>H<strong>P</strong>n<strong>e</strong>w</em>≤⌊2<em>H<strong>P</strong>o<strong>l</strong>d</em>⌋（其中 HPold<em>H<strong>P</strong>o<strong>l</strong>d</em> 为该指令生效前的血量， HPnew<em>H<strong>P</strong>n<strong>e</strong>w</em>为该指令生效后的血量），则其<strong>所有</strong>下级会尝试对其进行一次治疗。我们称“某冒险者在一条指令生效后，其所有下级尝试对其进行治疗”的整个过程称为一次<strong>援助事件</strong>。每个下级尝试治疗的过程如下：</p>
 <ul>
 <li>如果该下级没有学习治疗法术，治疗失败</li>
 <li>将下级魔力足以释放的，且学习过的治疗法术记为一个集合 S<em>S</em> ，若 S<em>S</em> 为空，治疗失败</li>
@@ -392,164 +571,18 @@
 <p>以下表格中全称仅供同学们方便将指令缩写和具体指令对应，无实际作用。</p>
 <p>如果一条指令并没有涉及到已经死亡的冒险者，那么将此指令视作“<strong>正常指令</strong>”，其输出格式如下所示。否则，将此指令视作“<strong>异常指令</strong>”，其输出格式与上一次作业保持一致。</p>
 <p>如果某次指令触发了援助事件，请按照”冒险者援助”章节对此进行特殊输出，本部分不再赘述。</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th><strong>type</strong></th>
-<th><strong>全称</strong></th>
-<th><strong>attribute</strong></th>
-<th><strong>意义</strong></th>
-<th><strong>正常情况下的输出（每条对应占一行）</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>aa</code></td>
-<td>add adventurer</td>
-<td><code>{adv_id}</code></td>
-<td>加入一个 ID 为 <code>{adv_id}</code>的冒险者</td>
-<td>无</td>
-</tr>
-<tr>
-<td><code>ab</code></td>
-<td>add bottle</td>
-<td><code>{adv_id} {bot_id} {type} {effect}</code></td>
-<td>给 ID 为 <code>{adv_id}</code> 的冒险者增加一个药水瓶，药水瓶的 ID、类型、效果值分别为 <code>{bot_id}</code>、<code>{type}</code>、<code>{effect}</code>。</td>
-<td>无</td>
-</tr>
-<tr>
-<td><code>ae</code></td>
-<td>add equipment</td>
-<td><code>{adv_id} {equ_id} {type} {CE}</code></td>
-<td>给 ID 为 <code>{adv_id}</code> 的冒险者增加一个装备，装备的 ID、类型、战斗值分别为 <code>{equ_id}</code>、<code>{type}</code>、<code>{CE}</code>。</td>
-<td>无</td>
-</tr>
-<tr>
-<td><code>ls</code></td>
-<td>learn spell</td>
-<td><code>{adv_id} {spe_id} {type} {manaCost} {power}</code></td>
-<td>使 ID 为 <code>{adv_id}</code> 的冒险者学习一个法术，法术的 ID，类型，魔力耗费，能力值分别为 <code>{spe_id}</code> 、<code>{type}</code> 、<code>{manaCost}</code>、<code>{power}</code></td>
-<td>无</td>
-</tr>
-<tr>
-<td><code>ri</code></td>
-<td>remove item</td>
-<td><code>{adv_id} {item_id}</code></td>
-<td>将 ID 为<code>{adv_id}</code>的冒险者的 id 为 <code>{item_id}</code> 的物品删除</td>
-<td><code>{一个字符串A}</code>，字符串 A 为物品的类名（答案只能在以下类名中挑选其一： <code>HpBottle</code>、<code>AtkBottle</code>、<code>DefBottle</code>、<code>ManaBottle</code>、<code>Sword</code>、<code>Magicbook</code>、<code>Armour</code>）</td>
-</tr>
-<tr>
-<td><code>ti</code></td>
-<td>take item</td>
-<td><code>{adv_id} {item_id}</code></td>
-<td>ID 为 <code>{adv_id}</code> 的冒险者尝试携带 id 为 <code>{item_id}</code> 的物品</td>
-<td><code>{一个字符串A}</code>，字符串 A 为物品的类名（答案只能在以下类名中挑选其一： <code>HpBottle</code>、<code>AtkBottle</code>、<code>DefBottle</code>、<code>ManaBottle</code>、<code>Sword</code>、<code>Magicbook</code>、<code>Armour</code>）</td>
-</tr>
-<tr>
-<td><code>use</code></td>
-<td>use</td>
-<td><code>{adv_id} {usable_id} {target_id}</code></td>
-<td>ID 为 <code>{adv_id}</code> 的冒险者尝试对 <code>{target_id}</code> 使用他拥有的 id 为<code>{usable_id}</code>的可用物品</td>
-<td><strong>成功</strong>：<code>{一个字符串} {一个整数A} {一个整数B} {一个整数C} {一个整数D}</code>，字符串为目标的 <code>id</code>，整数 A 为目标被作用后的体力值，整数 B 为目标被作用后的攻击力值，整数 C 为目标被作用后的防御力值 ，整数 D 为目标被作用后的魔力值。<strong>失败</strong>：若不是因为雇佣关系导致的失败，输出 <code>{adv_id} fail to use {usable_id}</code> 否则，按照雇佣关系约束中的要求输出</td>
-</tr>
-<tr>
-<td><code>bi</code></td>
-<td>buy item</td>
-<td><code>{adv_id} {item_id} {type}</code></td>
-<td>ID 为 <code>{adv_id}</code> 的冒险者去商店购买了一件物品，其 ID 为 <code>{item_id}</code>，类型为 <code>{type}</code></td>
-<td><code>{一个整数}</code>，代表进行此次购买后该冒险者剩余的金币数量。</td>
-</tr>
-<tr>
-<td><code>fight</code></td>
-<td>fight</td>
-<td><code>{adv_id} {k}{adv_id_1}{adv_id_2}...{adv_id_k}</code></td>
-<td>ID 为 <code>{adv_id}</code> 的冒险者尝试与<code>k</code>个冒险者进行一次战斗（k个冒险者的 ID 分别为 <code>adv_id_1</code>、<code>adv_id_2</code>、…、<code>adv_id_k</code>）</td>
-<td><strong>成功</strong>：输出一行共 <code>k</code> 个数字，其中第 <code>i</code> 个数代表 <code>{ID 为 adv_id_i 的冒险者受到攻击后的体力值}</code>，每个数之间用一个空格隔开。<strong>失败</strong>：若不是因为雇佣关系导致的失败，输出 <code>Adventurer {adv_id} defeated</code>，其中<code>{adv_id}</code>为输入中的攻击者的 ID，否则，按照雇佣关系约束中的要求输出</td>
-</tr>
-<tr>
-<td><code>ar</code></td>
-<td>add relation</td>
-<td><code>{adv_id_1}{adv_id_2}</code></td>
-<td>ID 为 <code>{adv_id_1}</code> 的冒险者尝试雇佣ID 为 <code>{adv_id2}</code> 的冒险者</td>
-<td>无</td>
-</tr>
-<tr>
-<td><code>rr</code></td>
-<td>remove relation</td>
-<td><code>{adv_id_1}{adv_id_2}</code></td>
-<td>ID 为 <code>{adv_id_1}</code> 的冒险者尝试解除雇佣ID 为 <code>{adv_id2}</code> 的冒险者</td>
-<td>无</td>
-</tr>
-</tbody>
-</table>
-</div>
+<p><strong>type</strong> <strong>全称</strong> <strong>attribute</strong> <strong>意义</strong> <strong>正常情况下的输出（每条对应占一行）</strong>     <code>aa</code> add adventurer <code>{adv_id}</code> 加入一个 ID 为 <code>{adv_id}</code>的冒险者 无   <code>ab</code> add bottle <code>{adv_id} {bot_id} {type} {effect}</code> 给 ID 为 <code>{adv_id}</code> 的冒险者增加一个药水瓶，药水瓶的 ID、类型、效果值分别为 <code>{bot_id}</code>、<code>{type}</code>、<code>{effect}</code>。 无   <code>ae</code> add equipment <code>{adv_id} {equ_id} {type} {CE}</code> 给 ID 为 <code>{adv_id}</code> 的冒险者增加一个装备，装备的 ID、类型、战斗值分别为 <code>{equ_id}</code>、<code>{type}</code>、<code>{CE}</code>。 无   <code>ls</code> learn spell <code>{adv_id} {spe_id} {type} {manaCost} {power}</code> 使 ID 为 <code>{adv_id}</code> 的冒险者学习一个法术，法术的 ID，类型，魔力耗费，能力值分别为 <code>{spe_id}</code> 、<code>{type}</code> 、<code>{manaCost}</code>、<code>{power}</code> 无   <code>ri</code> remove item <code>{adv_id} {item_id}</code> 将 ID 为<code>{adv_id}</code>的冒险者的 id 为 <code>{item_id}</code> 的物品删除 <code>{一个字符串A}</code>，字符串 A 为物品的类名（答案只能在以下类名中挑选其一： <code>HpBottle</code>、<code>AtkBottle</code>、<code>DefBottle</code>、<code>ManaBottle</code>、<code>Sword</code>、<code>Magicbook</code>、<code>Armour</code>）   <code>ti</code> take item <code>{adv_id} {item_id}</code> ID 为 <code>{adv_id}</code> 的冒险者尝试携带 id 为 <code>{item_id}</code> 的物品 <code>{一个字符串A}</code>，字符串 A 为物品的类名（答案只能在以下类名中挑选其一： <code>HpBottle</code>、<code>AtkBottle</code>、<code>DefBottle</code>、<code>ManaBottle</code>、<code>Sword</code>、<code>Magicbook</code>、<code>Armour</code>）   <code>use</code> use <code>{adv_id} {usable_id} {target_id}</code> ID 为 <code>{adv_id}</code> 的冒险者尝试对 <code>{target_id}</code> 使用他拥有的 id 为<code>{usable_id}</code>的可用物品 <strong>成功</strong>：<code>{一个字符串} {一个整数A} {一个整数B} {一个整数C} {一个整数D}</code>，字符串为目标的 <code>id</code>，整数 A 为目标被作用后的体力值，整数 B 为目标被作用后的攻击力值，整数 C 为目标被作用后的防御力值 ，整数 D 为目标被作用后的魔力值。<strong>失败</strong>：若不是因为雇佣关系导致的失败，输出 <code>{adv_id} fail to use {usable_id}</code> 否则，按照雇佣关系约束中的要求输出   <code>bi</code> buy item <code>{adv_id} {item_id} {type}</code> ID 为 <code>{adv_id}</code> 的冒险者去商店购买了一件物品，其 ID 为 <code>{item_id}</code>，类型为 <code>{type}</code> <code>{一个整数}</code>，代表进行此次购买后该冒险者剩余的金币数量。   <code>fight</code> fight <code>{adv_id} {k}{adv_id_1}{adv_id_2}...{adv_id_k}</code> ID 为 <code>{adv_id}</code> 的冒险者尝试与<code>k</code>个冒险者进行一次战斗（k个冒险者的 ID 分别为 <code>adv_id_1</code>、<code>adv_id_2</code>、…、<code>adv_id_k</code>） <strong>成功</strong>：输出一行共 <code>k</code> 个数字，其中第 <code>i</code> 个数代表 <code>{ID 为 adv_id_i 的冒险者受到攻击后的体力值}</code>，每个数之间用一个空格隔开。<strong>失败</strong>：若不是因为雇佣关系导致的失败，输出 <code>Adventurer {adv_id} defeated</code>，其中<code>{adv_id}</code>为输入中的攻击者的 ID，否则，按照雇佣关系约束中的要求输出   <code>ar</code> add relation <code>{adv_id_1}{adv_id_2}</code> ID 为 <code>{adv_id_1}</code> 的冒险者尝试雇佣ID 为 <code>{adv_id2}</code> 的冒险者 无   <code>rr</code> remove relation <code>{adv_id_1}{adv_id_2}</code> ID 为 <code>{adv_id_1}</code> 的冒险者尝试解除雇佣ID 为 <code>{adv_id2}</code> 的冒险者 无</p>
 <p>对于所有的异常指令，除了需要你输出对应的信息以外，该指令<strong>不应当有任何效果</strong>。</p>
-<h3 id="样例"><a href="#样例" class="headerlink" title="样例"></a><strong>样例</strong></h3><h3 id="输入"><a href="#输入" class="headerlink" title="输入"></a><strong>输入</strong></h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">15</span><br><span class="hljs-attribute">aa</span> King<br><span class="hljs-attribute">aa</span> Knight<br><span class="hljs-attribute">aa</span> Archer<br><span class="hljs-attribute">aa</span> Rogue<br><span class="hljs-attribute">aa</span> Goblin<br><span class="hljs-attribute">ls</span> Knight HealWave HealSpell <span class="hljs-number">5</span> <span class="hljs-number">100</span><br><span class="hljs-attribute">ls</span> Archer FirstAid HealSpell <span class="hljs-number">3</span> <span class="hljs-number">80</span><br><span class="hljs-attribute">ar</span> King Knight<br><span class="hljs-attribute">ar</span> Knight Archer<br><span class="hljs-attribute">fight</span> Knight <span class="hljs-number">1</span> King<br><span class="hljs-attribute">use</span> Knight HealWave Rogue<br><span class="hljs-attribute">ae</span> Goblin SharpClaw Sword <span class="hljs-number">301</span><br><span class="hljs-attribute">ti</span> Goblin SharpClaw<br><span class="hljs-attribute">fight</span> Goblin <span class="hljs-number">1</span> King<br><span class="hljs-attribute">fight</span> Goblin <span class="hljs-number">1</span> King<br></code></pre></td></tr></table></figure>
+<h3 id="样例"><a href="#样例" class="headerlink" title="样例"></a><strong>样例</strong></h3><h3 id="输入"><a href="#输入" class="headerlink" title="输入"></a><strong>输入</strong></h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs dart"><span class="hljs-number">15</span><br>aa <span class="hljs-title class_">King</span><br>aa <span class="hljs-title class_">Knight</span><br>aa <span class="hljs-title class_">Archer</span><br>aa <span class="hljs-title class_">Rogue</span><br>aa <span class="hljs-title class_">Goblin</span><br>ls <span class="hljs-title class_">Knight</span> <span class="hljs-title class_">HealWave</span> <span class="hljs-title class_">HealSpell</span> <span class="hljs-number">5</span> <span class="hljs-number">100</span><br>ls <span class="hljs-title class_">Archer</span> <span class="hljs-title class_">FirstAid</span> <span class="hljs-title class_">HealSpell</span> <span class="hljs-number">3</span> <span class="hljs-number">80</span><br>ar <span class="hljs-title class_">King</span> <span class="hljs-title class_">Knight</span><br>ar <span class="hljs-title class_">Knight</span> <span class="hljs-title class_">Archer</span><br>fight <span class="hljs-title class_">Knight</span> <span class="hljs-number">1</span> <span class="hljs-title class_">King</span><br>use <span class="hljs-title class_">Knight</span> <span class="hljs-title class_">HealWave</span> <span class="hljs-title class_">Rogue</span><br>ae <span class="hljs-title class_">Goblin</span> <span class="hljs-title class_">SharpClaw</span> <span class="hljs-title class_">Sword</span> <span class="hljs-number">301</span><br>ti <span class="hljs-title class_">Goblin</span> <span class="hljs-title class_">SharpClaw</span><br>fight <span class="hljs-title class_">Goblin</span> <span class="hljs-number">1</span> <span class="hljs-title class_">King</span><br>fight <span class="hljs-title class_">Goblin</span> <span class="hljs-number">1</span> <span class="hljs-title class_">King</span><br></code></pre></td></tr></table></figure>
+
 <h3 id="输出"><a href="#输出" class="headerlink" title="输出"></a><strong>输出</strong></h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs applescript">That&#x27;s <span class="hljs-keyword">my</span> boss!<br>That&#x27;s <span class="hljs-keyword">not</span> <span class="hljs-keyword">my</span> ally<br>Sword<br><span class="hljs-number">198</span><br>King <span class="hljs-keyword">is</span> helped <span class="hljs-keyword">by</span> <span class="hljs-number">2</span> adventurer(s), now Hp <span class="hljs-keyword">is</span> <span class="hljs-number">378</span><br><span class="hljs-number">76</span><br>King <span class="hljs-keyword">is</span> helped <span class="hljs-keyword">by</span> <span class="hljs-number">2</span> adventurer(s), now Hp <span class="hljs-keyword">is</span> <span class="hljs-number">256</span><br></code></pre></td></tr></table></figure>
-<h3 id="数据限制"><a href="#数据限制" class="headerlink" title="数据限制"></a><strong>数据限制</strong></h3><h3 id="变量约束"><a href="#变量约束" class="headerlink" title="变量约束"></a><strong>变量约束</strong></h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th><strong>变量</strong></th>
-<th><strong>类型</strong></th>
-<th><strong>说明</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>id</code></td>
-<td>字符串</td>
-<td>保证为仅包含大小写字母、数字与下划线的字符串，长度区间为 [1, 40]</td>
-</tr>
-<tr>
-<td><code>effect</code></td>
-<td>整数</td>
-<td>取值范围：0 - 2147483647</td>
-</tr>
-<tr>
-<td><code>CE</code></td>
-<td>整数</td>
-<td>取值范围：0 - 2147483647</td>
-</tr>
-<tr>
-<td><code>manaCost</code></td>
-<td>整数</td>
-<td>取值范围：1 - 2147483647</td>
-</tr>
-<tr>
-<td><code>hitPoint</code></td>
-<td>整数</td>
-<td>取值范围：0 - 2147483647</td>
-</tr>
-<tr>
-<td><code>atk</code></td>
-<td>整数</td>
-<td>取值范围：1 - 1073741823</td>
-</tr>
-<tr>
-<td><code>def</code></td>
-<td>整数</td>
-<td>取值范围：0 - 1073741823</td>
-</tr>
-<tr>
-<td><code>mana</code></td>
-<td>整数</td>
-<td>取值范围：0 - 2147483647</td>
-</tr>
-<tr>
-<td><code>money</code></td>
-<td>整数</td>
-<td>取值范围：0 - 2147483647</td>
-</tr>
-</tbody>
-</table>
-</div>
+
+<h3 id="数据限制"><a href="#数据限制" class="headerlink" title="数据限制"></a><strong>数据限制</strong></h3><h3 id="变量约束"><a href="#变量约束" class="headerlink" title="变量约束"></a><strong>变量约束</strong></h3><p><strong>变量</strong> <strong>类型</strong> <strong>说明</strong>     <code>id</code> 字符串 保证为仅包含大小写字母、数字与下划线的字符串，长度区间为 &#91;1, 40&#93;   <code>effect</code> 整数 取值范围：0 - 2147483647   <code>CE</code> 整数 取值范围：0 - 2147483647   <code>manaCost</code> 整数 取值范围：1 - 2147483647   <code>hitPoint</code> 整数 取值范围：0 - 2147483647   <code>atk</code> 整数 取值范围：1 - 1073741823   <code>def</code> 整数 取值范围：0 - 1073741823   <code>mana</code> 整数 取值范围：0 - 2147483647   <code>money</code> 整数 取值范围：0 - 2147483647</p>
 <p>注意，变量约束指的是，在程序运行时，输入和对应属性值均保证在表格中给出的范围内。</p>
 <h3 id="操作约束"><a href="#操作约束" class="headerlink" title="操作约束"></a><strong>操作约束</strong></h3><ol>
 <li>保证所有添加的冒险者、药水瓶、装备、法术的 id 在全局范围内均不相同，即一个 id 如果在冒险者中使用过，则不会在冒险者，药水瓶和装备中再次使用。。</li>
 <li>保证增加的冒险者、装备、药水瓶和法术在操作执行时，系统中原本不存在对应 id 的实体。</li>
-<li>保证被删除的药水瓶/装备的 id 不会再次被用于添加新的药水瓶/装备/法术/冒险者。</li>
+<li>保证被删除的药水瓶&#x2F;装备的 id 不会再次被用于添加新的药水瓶&#x2F;装备&#x2F;法术&#x2F;冒险者。</li>
 <li>保证 <code>bi</code> 指令中的 <code>{item_id}</code> 是一个全新且此前从未出现过的 ID。</li>
 <li>对于 <code>ab</code>, <code>ae</code>, <code>ls</code>, <code>ri</code>, <code>ti</code>, <code>bi</code> 指令，保证操作中指定的 <code>{adv_id}</code> 一定存在，但不保证其对应的冒险者存活。</li>
 <li>对于 <code>use</code> 指令，保证操作中指定的 <code>{adv_id}</code> 和 <code>{target_id}</code> 一定存在，但不保证两者对应的冒险者存活。</li>
@@ -562,7 +595,8 @@
 <li>保证 <code>ar</code> 指令条数小于等于 500</li>
 </ol>
 <h3 id="提示"><a href="#提示" class="headerlink" title="提示"></a><strong>提示</strong></h3><p>考虑到正课尚未讲解有关输入解析的内容，我们在此提供一份输入解析代码，同学们可以将其复制到自己代码中的适当位置直接使用，当然，同学们也可以自行设计代码来进行输入解析。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java">ArrayList&lt;ArrayList&lt;String&gt;&gt; inputInfo = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;(); <span class="hljs-comment">// 解析后的输入将会存进该容器中, 类似于c语言的二维数组</span><br><span class="hljs-type">Scanner</span> <span class="hljs-variable">scanner</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Scanner</span>(System.in);<br><span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> Integer.parseInt(scanner.nextLine().trim()); <span class="hljs-comment">// 读取行数</span><br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; ++i) &#123;<br>   <span class="hljs-type">String</span> <span class="hljs-variable">nextLine</span> <span class="hljs-operator">=</span> scanner.nextLine(); <span class="hljs-comment">// 读取本行指令</span><br>   String[] strings = nextLine.trim().split(<span class="hljs-string">&quot; +&quot;</span>); <span class="hljs-comment">// 按空格对行进行分割</span><br>   inputInfo.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;(Arrays.asList(strings))); <span class="hljs-comment">// 将指令分割后的各个部分存进容器中</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs dart"><span class="hljs-title class_">ArrayList</span>&lt;<span class="hljs-title class_">ArrayList</span>&lt;<span class="hljs-title class_">String</span>&gt;&gt; inputInfo = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;(); <span class="hljs-comment">// 解析后的输入将会存进该容器中, 类似于c语言的二维数组</span><br><span class="hljs-title class_">Scanner</span> scanner = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Scanner</span>(<span class="hljs-title class_">System</span>.<span class="hljs-keyword">in</span>);<br><span class="hljs-built_in">int</span> n = <span class="hljs-title class_">Integer</span>.<span class="hljs-title function_">parseInt</span>(scanner.<span class="hljs-title function_">nextLine</span>().<span class="hljs-title function_">trim</span>()); <span class="hljs-comment">// 读取行数</span><br><span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) &#123;<br>   <span class="hljs-title class_">String</span> nextLine = scanner.<span class="hljs-title function_">nextLine</span>(); <span class="hljs-comment">// 读取本行指令</span><br>   <span class="hljs-title class_">String</span>[] strings = nextLine.<span class="hljs-title function_">trim</span>().<span class="hljs-title function_">split</span>(<span class="hljs-string">&quot; +&quot;</span>); <span class="hljs-comment">// 按空格对行进行分割</span><br>   inputInfo.<span class="hljs-title function_">add</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;(<span class="hljs-title class_">Arrays</span>.<span class="hljs-title function_">asList</span>(strings))); <span class="hljs-comment">// 将指令分割后的各个部分存进容器中</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
 <p>经过这段代码，输入的信息会被存入 <code>inputInfo</code> 这个”二维数组”中，遍历该容器即可取出各行指令及其各个部分。</p>
 
                 
@@ -610,7 +644,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>oopre-第六次作业</div>
-      <div>http://example.com/posts/oopre-第六次作业/</div>
+      <div>https://pppphop.github.io/posts/oopre-第六次作业/</div>
     </div>
     <div class="license-meta">
       
@@ -836,7 +870,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -847,10 +937,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -862,6 +958,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -970,8 +1068,7 @@
 
 
   
-<script src="/js/index-math.js?v=20260627-mathfix.js"></script>
-<script src="/js/tag-colors.js?v=20260712-textfill.js"></script>
+<script src="/js/tag-colors.js"></script>
 
 
 

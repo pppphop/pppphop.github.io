@@ -19,15 +19,15 @@
   <meta name="author" content="pppphop">
   <meta name="keywords" content="">
   
-    <meta name="description" content="P5第一次上机题目很不幸，笔者这次P5课下写的有问题，遗憾爆$0$离场。 原题重现L1_CCC当GPR[rs]的前导零数目比GPR[rt]的前导一数目多时，将GPR[rs]的高十六位和GPR[rt]的低十六位存入GPR[rd]中，否则将GPR[rt]的高十六位和GPR[rs]的低十六位存入GPR[rd]中。     special rs rt rd 0 ccc     000000 五位寄存器地址">
+    <meta name="description" content="P5第一次上机题目很不幸，笔者这次P5课下写的有问题，遗憾爆$0$离场。 原题重现L1&#95;CCC当GPR[rs]的前导零数目比GPR[rt]的前导一数目多时，将GPR[rs]的高十六位和GPR[rt]的低十六位存入GPR[rd]中，否则将GPR[rt]的高十六位和GPR[rs]的低十六位存入GPR[rd]中。 special rs rt rd 0 ccc     000000 五位寄存器地址">
 <meta property="og:type" content="article">
 <meta property="og:title" content="P5上机-问题解答汇总">
-<meta property="og:url" content="http://example.com/posts/P5%E4%B8%8A%E6%9C%BA-%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94%E6%B1%87%E6%80%BB/index.html">
+<meta property="og:url" content="https://pppphop.github.io/posts/P5%E4%B8%8A%E6%9C%BA-%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94%E6%B1%87%E6%80%BB/index.html">
 <meta property="og:site_name" content="zhp的博客">
-<meta property="og:description" content="P5第一次上机题目很不幸，笔者这次P5课下写的有问题，遗憾爆$0$离场。 原题重现L1_CCC当GPR[rs]的前导零数目比GPR[rt]的前导一数目多时，将GPR[rs]的高十六位和GPR[rt]的低十六位存入GPR[rd]中，否则将GPR[rt]的高十六位和GPR[rs]的低十六位存入GPR[rd]中。     special rs rt rd 0 ccc     000000 五位寄存器地址">
+<meta property="og:description" content="P5第一次上机题目很不幸，笔者这次P5课下写的有问题，遗憾爆$0$离场。 原题重现L1&#95;CCC当GPR[rs]的前导零数目比GPR[rt]的前导一数目多时，将GPR[rs]的高十六位和GPR[rt]的低十六位存入GPR[rd]中，否则将GPR[rt]的高十六位和GPR[rs]的低十六位存入GPR[rd]中。 special rs rt rd 0 ccc     000000 五位寄存器地址">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-11-27T13:15:59.000Z">
-<meta property="article:modified_time" content="2026-02-05T13:18:41.402Z">
+<meta property="article:modified_time" content="2026-02-05T13:18:41.000Z">
 <meta property="article:author" content="pppphop">
 <meta property="article:tag" content="CO">
 <meta property="article:tag" content="CO上机">
@@ -70,14 +70,14 @@
 
 
   
-<link rel="stylesheet" href="/css/blog-polish.css?v=20260703-home-taxonomy-v2.css">
+<link rel="stylesheet" href="/css/blog-polish.css">
 
 
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"pppphop.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -90,7 +90,7 @@
 
 
   
-<meta name="generator" content="Hexo 8.1.1"></head>
+<meta name="generator" content="Hexo 8.1.2"></head>
 
 
 <body>
@@ -112,7 +112,7 @@
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content (desktop) -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
@@ -169,9 +169,8 @@
           
           
             <li class="nav-item dropdown">
-              
               <a class="nav-link dropdown-parent-link" target="_self" href="/quiz/" role="button"
-                  aria-haspopup="true" aria-expanded="false">
+                 aria-haspopup="true" aria-expanded="false">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>刷题</span>
               </a>
@@ -253,6 +252,184 @@
   </div>
 </nav>
 
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell mobile-grid-parent-cell">
+              <a href="/quiz/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>刷题</span>
+                </div>
+              </a>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/military/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>军理刷题</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/ethics/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>思修刷题</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/os/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>OS刷题</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/history/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>史纲刷题</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="/ai/" target="_self">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>AI 对话</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/links/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-link-fill"></i>
+                  <span>友链</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
 
 <div id="banner" class="banner" parallax=true
@@ -285,7 +462,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          4.7k 字
         
       </span>
     
@@ -296,7 +473,7 @@
         
         
         
-          13 分钟
+          40 分钟
         
       </span>
     
@@ -313,6 +490,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 
@@ -339,85 +518,35 @@
               <div class="markdown-body">
                 
                 <h1 id="P5第一次上机题目"><a href="#P5第一次上机题目" class="headerlink" title="P5第一次上机题目"></a>P5第一次上机题目</h1><p>很不幸，笔者这次P5课下写的有问题，遗憾爆$0$离场。</p>
-<h2 id="原题重现"><a href="#原题重现" class="headerlink" title="原题重现"></a>原题重现</h2><h3 id="L1-CCC"><a href="#L1-CCC" class="headerlink" title="L1_CCC"></a>L1_CCC</h3><p>当<code>GPR[rs]</code>的前导零数目比<code>GPR[rt]</code>的前导一数目多时，将<code>GPR[rs]</code>的高十六位和<code>GPR[rt]</code>的低十六位存入<code>GPR[rd]</code>中，否则将<code>GPR[rt]</code>的高十六位和<code>GPR[rs]</code>的低十六位存入<code>GPR[rd]</code>中。</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th><code>special</code></th>
-<th><code>rs</code></th>
-<th><code>rt</code></th>
-<th><code>rd</code></th>
-<th><code>0</code></th>
-<th><code>ccc</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>000000</td>
-<td>五位寄存器地址</td>
-<td>五位寄存器地址</td>
-<td>五位寄存器地址</td>
-<td>000000</td>
-<td>101001</td>
-</tr>
-</tbody>
-</table>
-</div>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs pseudocode">temp1 &lt;- count_leading_zeros(GPR[rs])<br>temp2 &lt;- count_leading_ones(GPR[rt])<br>if temp1 &gt; temp2 then<br>	GPR[rd] &lt;- GPR[rs][31:16] || GPR[rt][15:0]<br>else<br>	GPR[rd] &lt;- GPR[rt][31:16] || GPR[rs][15:0]<br></code></pre></td></tr></table></figure>
-<h3 id="L2-CJOC"><a href="#L2-CJOC" class="headerlink" title="L2_CJOC"></a>L2_CJOC</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th><code>opcode</code></th>
-<th><code>rs</code></th>
-<th><code>rt</code></th>
-<th><code>offset</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>111100</td>
-<td>五位寄存器地址</td>
-<td>五位寄存器地址</td>
-<td>$16$位立即数</td>
-</tr>
-</tbody>
-</table>
-</div>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs pseudocode">ext_offset &lt;- sign_extend(offset||0^2)<br>id &lt;- ext_offset[4:2]<br>temp &lt;- GPR[rs][id+7 : id]<br>condition &lt;- (temp &gt;  8`d21)<br>if condition then<br>	GPR[rt] &lt;- PC+8<br>	PC &lt;- PC + 4 + ext_offset<br>else <br>	NullifyCurrentInstruction()<br></code></pre></td></tr></table></figure>
-<h3 id="L3-CCS"><a href="#L3-CCS" class="headerlink" title="L3_CCS"></a>L3_CCS</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th><code>opcode</code></th>
-<th><code>base</code></th>
-<th><code>rt</code></th>
-<th><code>offset</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>111111</td>
-<td>五位寄存器地址</td>
-<td>五位寄存器地址</td>
-<td>$16$位立即数</td>
-</tr>
-</tbody>
-</table>
-</div>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs pseudocode">addr &lt;- GPR[base] + sign_extend(offset)<br>data &lt;- Memery[addr]<br>high_ones &lt;- count_ones(data[31:16])<br>low_ones &lt;- count_ones(data[15:0])<br>if high_ones &gt; low_ones then<br>	dest_reg &lt;- 31<br>	GPR[dest_reg] &lt;- data ^ GPR[rt]<br>else <br>	dest_reg &lt;- high_ones<br>	GPR[dest_reg] &lt;- data ^ GPR[rt]<br></code></pre></td></tr></table></figure>
-<h2 id="解答反思"><a href="#解答反思" class="headerlink" title="解答反思"></a>解答反思</h2><h3 id="L1-CCC-1"><a href="#L1-CCC-1" class="headerlink" title="L1_CCC"></a>L1_CCC</h3><p>完全就是一个测试你课下是否正确的题，应该是两次P中最简单的一道。做法就是改<code>ALU</code>，然后<code>ctrl</code>里加一个<code>ccc</code>即可。这题过不了说明你的课下有问题。</p>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> ALU(...);<br>    <span class="hljs-comment">// ... 输入输出定义</span><br>    <span class="hljs-keyword">reg</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] cnt1, cnt2; <span class="hljs-comment">// cnt1: rs的前导0, cnt2: rt的前导1</span><br>    <span class="hljs-keyword">integer</span> i;<br>    <span class="hljs-keyword">reg</span> fl;<br><br>    <span class="hljs-keyword">always</span> @(*) <span class="hljs-keyword">begin</span><br>        <span class="hljs-comment">// 统计前导 0 (Count Leading Zeros)</span><br>        cnt1 = <span class="hljs-number">0</span>;<br>        fl = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(i = <span class="hljs-number">31</span>; i &gt;= <span class="hljs-number">0</span>; i = i - <span class="hljs-number">1</span>) <span class="hljs-keyword">begin</span><br>            <span class="hljs-keyword">if</span>(!fl &amp;&amp; !A[i]) cnt1 = cnt1 + <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(A[i]) fl = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">end</span><br><br>        <span class="hljs-comment">// 统计前导 1 (Count Leading Ones)</span><br>        cnt2 = <span class="hljs-number">0</span>;<br>        fl = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(i = <span class="hljs-number">31</span>; i &gt;= <span class="hljs-number">0</span>; i = i - <span class="hljs-number">1</span>) <span class="hljs-keyword">begin</span><br>            <span class="hljs-keyword">if</span>(!fl &amp;&amp; B[i]) cnt2 = cnt2 + <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(!B[i]) fl = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">end</span><br>    <span class="hljs-keyword">end</span><br><br>    <span class="hljs-keyword">assign</span> C = <br>        (ALUop == <span class="hljs-number">3&#x27;b101</span> &amp;&amp; cnt1 &gt; cnt2)  ? &#123;A[<span class="hljs-number">31</span>:<span class="hljs-number">16</span>], B[<span class="hljs-number">15</span>:<span class="hljs-number">0</span>]&#125; :<br>        (ALUop == <span class="hljs-number">3&#x27;b101</span> &amp;&amp; cnt1 &lt;= cnt2) ? &#123;B[<span class="hljs-number">31</span>:<span class="hljs-number">16</span>], A[<span class="hljs-number">15</span>:<span class="hljs-number">0</span>]&#125; :<br>        <span class="hljs-number">0</span>;<br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
-<h3 id="L2-CJOC-1"><a href="#L2-CJOC-1" class="headerlink" title="L2_CJOC"></a>L2_CJOC</h3><p>这题比较复杂。所有取位数、分支语句等操作都在顶层做就行，在顶层对D级的A3和NPCop进行修正。清空延迟槽建议看lmhgg的博客<a target="_blank" rel="noopener" href="https://kamonto.github.io/Kamonto_blog/2025/10/14/一本书教你通关计组实验（下）/#5-5-五级流水线-CPU-实战：加指令练习">【更新中】一本书教你通关计组实验（下） | Kamonto’s Little Planet</a></p>
+<h2 id="原题重现"><a href="#原题重现" class="headerlink" title="原题重现"></a>原题重现</h2><h3 id="L1-95-CCC"><a href="#L1-95-CCC" class="headerlink" title="L1&#95;CCC"></a>L1&#95;CCC</h3><p>当<code>GPR[rs]</code>的前导零数目比<code>GPR[rt]</code>的前导一数目多时，将<code>GPR[rs]</code>的高十六位和<code>GPR[rt]</code>的低十六位存入<code>GPR[rd]</code>中，否则将<code>GPR[rt]</code>的高十六位和<code>GPR[rs]</code>的低十六位存入<code>GPR[rd]</code>中。</p>
+<p><code>special</code> <code>rs</code> <code>rt</code> <code>rd</code> <code>0</code> <code>ccc</code>     000000 五位寄存器地址 五位寄存器地址 五位寄存器地址 000000 101001</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs inform7">temp1 &lt;- count_leading_zeros(GPR<span class="hljs-comment">[rs]</span>)<br>temp2 &lt;- count_leading_ones(GPR<span class="hljs-comment">[rt]</span>)<br>if temp1 &gt; temp2 then<br>	GPR<span class="hljs-comment">[rd]</span> &lt;- GPR<span class="hljs-comment">[rs]</span><span class="hljs-comment">[31:16]</span> || GPR<span class="hljs-comment">[rt]</span><span class="hljs-comment">[15:0]</span><br>else<br>	GPR<span class="hljs-comment">[rd]</span> &lt;- GPR<span class="hljs-comment">[rt]</span><span class="hljs-comment">[31:16]</span> || GPR<span class="hljs-comment">[rs]</span><span class="hljs-comment">[15:0]</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="L2-95-CJOC"><a href="#L2-95-CJOC" class="headerlink" title="L2&#95;CJOC"></a>L2&#95;CJOC</h3><p><code>opcode</code> <code>rs</code> <code>rt</code> <code>offset</code>     111100 五位寄存器地址 五位寄存器地址 $16$位立即数</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs scss">ext_offset &lt;- <span class="hljs-built_in">sign_extend</span>(offset||<span class="hljs-number">0</span>^<span class="hljs-number">2</span>)<br>id &lt;- ext_offset<span class="hljs-selector-attr">[4:2]</span><br>temp &lt;- GPR<span class="hljs-selector-attr">[rs]</span><span class="hljs-selector-attr">[id+7 : id]</span><br>condition &lt;- (temp &gt;  <span class="hljs-number">8</span>`d21)<br>if condition then<br>	GPR<span class="hljs-selector-attr">[rt]</span> &lt;- PC+<span class="hljs-number">8</span><br>	PC &lt;- PC + <span class="hljs-number">4</span> + ext_offset<br>else <br>	<span class="hljs-built_in">NullifyCurrentInstruction</span>()<br></code></pre></td></tr></table></figure>
+
+<h3 id="L3-95-CCS"><a href="#L3-95-CCS" class="headerlink" title="L3&#95;CCS"></a>L3&#95;CCS</h3><p><code>opcode</code> <code>base</code> <code>rt</code> <code>offset</code>     111111 五位寄存器地址 五位寄存器地址 $16$位立即数</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-title">addr</span> &lt;- <span class="hljs-type">GPR</span>[base] + sign_extend(offset)<br><span class="hljs-class"><span class="hljs-keyword">data</span> &lt;- <span class="hljs-type">Memery</span>[addr]</span><br><span class="hljs-title">high_ones</span> &lt;- count_ones(<span class="hljs-class"><span class="hljs-keyword">data</span>[31:16])</span><br><span class="hljs-title">low_ones</span> &lt;- count_ones(<span class="hljs-class"><span class="hljs-keyword">data</span>[15:0])</span><br><span class="hljs-title">if</span> high_ones &gt; low_ones <span class="hljs-keyword">then</span><br>	dest_reg &lt;- <span class="hljs-number">31</span><br>	<span class="hljs-type">GPR</span>[dest_reg] &lt;- <span class="hljs-class"><span class="hljs-keyword">data</span> ^ <span class="hljs-type">GPR</span>[rt]</span><br><span class="hljs-title">else</span> <br>	dest_reg &lt;- high_ones<br>	<span class="hljs-type">GPR</span>[dest_reg] &lt;- <span class="hljs-class"><span class="hljs-keyword">data</span> ^ <span class="hljs-type">GPR</span>[rt]</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="解答反思"><a href="#解答反思" class="headerlink" title="解答反思"></a>解答反思</h2><h3 id="L1-95-CCC-1"><a href="#L1-95-CCC-1" class="headerlink" title="L1&#95;CCC"></a>L1&#95;CCC</h3><p>完全就是一个测试你课下是否正确的题，应该是两次P中最简单的一道。做法就是改<code>ALU</code>，然后<code>ctrl</code>里加一个<code>ccc</code>即可。这题过不了说明你的课下有问题。</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs dns">module ALU<span class="hljs-punctuation">(</span>...<span class="hljs-punctuation">)</span><span class="hljs-comment">;</span><br>    // ... 输入输出定义<br>    reg [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] cnt1, cnt2<span class="hljs-comment">; // cnt1: rs的前导0, cnt2: rt的前导1</span><br>    integer i<span class="hljs-comment">;</span><br>    reg fl<span class="hljs-comment">;</span><br><br>    always @<span class="hljs-punctuation">(</span>*<span class="hljs-punctuation">)</span> begin<br>        // 统计前导 <span class="hljs-number">0</span> <span class="hljs-punctuation">(</span>Count Leading Zeros<span class="hljs-punctuation">)</span><br>        cnt1 = <span class="hljs-number">0</span><span class="hljs-comment">;</span><br>        fl = <span class="hljs-number">0</span><span class="hljs-comment">;</span><br>        for<span class="hljs-punctuation">(</span>i = <span class="hljs-number">31</span><span class="hljs-comment">; i &gt;= 0; i = i - 1) begin</span><br>            if<span class="hljs-punctuation">(</span>!fl &amp;&amp; !<span class="hljs-keyword">A</span>[i]<span class="hljs-punctuation">)</span> cnt1 = cnt1 + <span class="hljs-number">1</span><span class="hljs-comment">;</span><br>            else if<span class="hljs-punctuation">(</span><span class="hljs-keyword">A</span>[i]<span class="hljs-punctuation">)</span> fl = <span class="hljs-number">1</span><span class="hljs-comment">;</span><br>        end<br><br>        // 统计前导 <span class="hljs-number">1</span> <span class="hljs-punctuation">(</span>Count Leading Ones<span class="hljs-punctuation">)</span><br>        cnt2 = <span class="hljs-number">0</span><span class="hljs-comment">;</span><br>        fl = <span class="hljs-number">0</span><span class="hljs-comment">;</span><br>        for<span class="hljs-punctuation">(</span>i = <span class="hljs-number">31</span><span class="hljs-comment">; i &gt;= 0; i = i - 1) begin</span><br>            if<span class="hljs-punctuation">(</span>!fl &amp;&amp; B[i]<span class="hljs-punctuation">)</span> cnt2 = cnt2 + <span class="hljs-number">1</span><span class="hljs-comment">;</span><br>            else if<span class="hljs-punctuation">(</span>!B[i]<span class="hljs-punctuation">)</span> fl = <span class="hljs-number">1</span><span class="hljs-comment">;</span><br>        end<br>    end<br><br>    assign C = <br>        <span class="hljs-punctuation">(</span>ALUop == <span class="hljs-number">3</span>&#x27;b101 &amp;&amp; cnt1 &gt; cnt2<span class="hljs-punctuation">)</span>  ? &#123;<span class="hljs-keyword">A</span>[<span class="hljs-number">31</span>:<span class="hljs-number">16</span>], B[<span class="hljs-number">15</span>:<span class="hljs-number">0</span>]&#125; :<br>        <span class="hljs-punctuation">(</span>ALUop == <span class="hljs-number">3</span>&#x27;b101 &amp;&amp; cnt1 &lt;= cnt2<span class="hljs-punctuation">)</span> ? &#123;B[<span class="hljs-number">31</span>:<span class="hljs-number">16</span>], <span class="hljs-keyword">A</span>[<span class="hljs-number">15</span>:<span class="hljs-number">0</span>]&#125; :<br>        <span class="hljs-number">0</span><span class="hljs-comment">;</span><br>endmodule<br></code></pre></td></tr></table></figure>
+
+<h3 id="L2-95-CJOC-1"><a href="#L2-95-CJOC-1" class="headerlink" title="L2&#95;CJOC"></a>L2&#95;CJOC</h3><p>这题比较复杂。所有取位数、分支语句等操作都在顶层做就行，在顶层对D级的A3和NPCop进行修正。清空延迟槽建议看lmhgg的博客<a target="_blank" rel="noopener" href="https://kamonto.github.io/Kamonto_blog/2025/10/14/%E4%B8%80%E6%9C%AC%E4%B9%A6%E6%95%99%E4%BD%A0%E9%80%9A%E5%85%B3%E8%AE%A1%E7%BB%84%E5%AE%9E%E9%AA%8C%EF%BC%88%E4%B8%8B%EF%BC%89/#5-5-%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BF-CPU-%E5%AE%9E%E6%88%98%EF%BC%9A%E5%8A%A0%E6%8C%87%E4%BB%A4%E7%BB%83%E4%B9%A0">【更新中】一本书教你通关计组实验（下） | Kamonto’s Little Planet</a></p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-comment">// D 级连线区域</span><br><span class="hljs-keyword">wire</span> D_iscjoc = (D_opcode === <span class="hljs-number">6&#x27;b111100</span>);<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] D_ext_offset = &#123;&#123;<span class="hljs-number">14</span>&#123;D_imm16[<span class="hljs-number">15</span>]&#125;&#125;, D_imm16, <span class="hljs-number">2&#x27;b00</span>&#125;; <span class="hljs-comment">// 注意题目这里offset的具体扩展方式，这里参考Beq</span><br><span class="hljs-comment">// 题目公式：id &lt;- ext_offset[4:2]</span><br><span class="hljs-keyword">wire</span> [<span class="hljs-number">4</span>:<span class="hljs-number">0</span>] D_id = D_ext_offset[<span class="hljs-number">4</span>:<span class="hljs-number">2</span>]; <br><span class="hljs-comment">// 题目公式：temp &lt;- GPR[rs][id+7 : id]</span><br><span class="hljs-keyword">wire</span> [<span class="hljs-number">7</span>:<span class="hljs-number">0</span>] D_temp = D_fixedRD1[D_id + <span class="hljs-number">7</span> -: <span class="hljs-number">8</span>]; <span class="hljs-comment">// Verilog 动态位切片语法</span><br><span class="hljs-keyword">wire</span> D_condition = (D_temp &gt; <span class="hljs-number">8&#x27;d21</span>);<br><br><span class="hljs-comment">// 修改传入 NPC 的信号 (Condition False -&gt; 不跳转)</span><br><span class="hljs-keyword">assign</span> D_fixedNPCop = (D_iscjoc &amp;&amp; !D_condition) ? <span class="hljs-number">3&#x27;b000</span> : D_NPCop;<br><br><span class="hljs-comment">// 修改传入流水线寄存器的信号 (Condition False -&gt; 不写寄存器，即 Nullify)</span><br><span class="hljs-comment">// 也可以通过将 A3 设为 0 来实现不写入</span><br><span class="hljs-keyword">assign</span> D_fixedA3 = (D_iscjoc &amp;&amp; !D_condition) ? <span class="hljs-number">5&#x27;b000</span> : D_A3;<br><br><span class="hljs-comment">// 如果 Condition False，可能还需要清空延迟槽或当前指令的影响</span><br><span class="hljs-comment">// 这里的实现选择：如果不跳转，通过将 FD_clear 信号置位来清除当前指令（视具体要求而定）</span><br><span class="hljs-comment">// 或者仅仅是不写入寄存器即可。根据代码，这里用了 D_fixedA3 变 0 来变成 NOP。</span><br></code></pre></td></tr></table></figure>
-<h3 id="L3-CCS-1"><a href="#L3-CCS-1" class="headerlink" title="L3_CCS"></a>L3_CCS</h3><p>这是一道 <strong>Load 后计算再写入</strong> 的指令，且写入的目标寄存器是动态决定的。相关处理方法也可见lmhgg的博客。总之就是阻塞+fix。<code>ctrl</code>部分无法直接确定如何选的信号也是先默认一个，到信号产生处再fix。如果无条件阻塞会TLE，这里只对$&lt;=16$和$31$阻塞就行了。</p>
+
+<h3 id="L3-95-CCS-1"><a href="#L3-95-CCS-1" class="headerlink" title="L3&#95;CCS"></a>L3&#95;CCS</h3><p>这是一道 <strong>Load 后计算再写入</strong> 的指令，且写入的目标寄存器是动态决定的。相关处理方法也可见lmhgg的博客。总之就是阻塞+fix。<code>ctrl</code>部分无法直接确定如何选的信号也是先默认一个，到信号产生处再fix。如果无条件阻塞会TLE，这里只对$&#60;&#x3D;16$和$31$阻塞就行了。</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">parameter</span> ccs = <span class="hljs-number">6&#x27;b111111</span>;<br><br><span class="hljs-comment">// ...</span><br>ccs: <span class="hljs-keyword">begin</span><br>    NPCop = <span class="hljs-number">3&#x27;b000</span>;<br>    A3slt = <span class="hljs-number">2</span>;        <span class="hljs-comment">// 默认先选 31 ($ra)，后面根据条件修</span><br>    WDslt = <span class="hljs-number">3</span>;        <span class="hljs-comment">// 选择新的写回数据源 (DMans)</span><br>    GRFwe = <span class="hljs-number">1</span>;<br>    EXTop = <span class="hljs-number">1</span>;<br>    <span class="hljs-comment">// ...</span><br>    T_use_rs = <span class="hljs-number">4&#x27;h1</span>;  <span class="hljs-comment">// E 级计算地址</span><br>    T_use_rt = <span class="hljs-number">4&#x27;h2</span>;  <span class="hljs-comment">// M 级进行异或运算 (等待 DM 输出)</span><br>    T_new = (t &lt;= <span class="hljs-number">4&#x27;h3</span>) ? (<span class="hljs-number">4&#x27;h3</span> - t) : <span class="hljs-number">0</span>; <span class="hljs-comment">// 类似 Load，W 级写回</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-comment">// M 级区域</span><br><span class="hljs-keyword">wire</span> M_isccs = (M_opcode === <span class="hljs-number">6&#x27;b111111</span>);<br><br><span class="hljs-keyword">reg</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] high_ones, low_ones;<br><span class="hljs-keyword">integer</span> k;<br><br><span class="hljs-keyword">always</span> @(*) <span class="hljs-keyword">begin</span><br>    high_ones = <span class="hljs-number">0</span>;<br>    low_ones = <span class="hljs-number">0</span>;<br>    <span class="hljs-comment">// 统计高16位</span><br>    <span class="hljs-keyword">for</span>(k = <span class="hljs-number">16</span>; k &lt; <span class="hljs-number">32</span>; k = k + <span class="hljs-number">1</span>) <span class="hljs-keyword">begin</span><br>        high_ones = high_ones + M_DMrd[k];<br>    <span class="hljs-keyword">end</span><br>    <span class="hljs-comment">// 统计低16位</span><br>    <span class="hljs-keyword">for</span>(k = <span class="hljs-number">0</span>; k &lt; <span class="hljs-number">16</span>; k = k + <span class="hljs-number">1</span>) <span class="hljs-keyword">begin</span><br>        low_ones = low_ones + M_DMrd[k];<br>    <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">// 计算写回数据：Data XOR rt</span><br><span class="hljs-comment">// 注意：这里 rt 需要转发支持，使用 M_fixedRD2</span><br><span class="hljs-keyword">wire</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] M_DMans = M_DMrd ^ M_fixedRD2; <br><br><span class="hljs-comment">// 动态修正目标寄存器 A3</span><br><span class="hljs-comment">// 默认 CTRL 里 A3slt=2 选了 31。</span><br><span class="hljs-comment">// 如果 high &lt;= low，则目标寄存器变为 high_ones 的值</span><br><span class="hljs-keyword">assign</span> M_fixedA3 = (M_isccs &amp;&amp; high_ones &lt;= low_ones) ? high_ones[<span class="hljs-number">4</span>:<span class="hljs-number">0</span>] : M_A3;<br><br><span class="hljs-comment">// 注意：M_fixedA3 需要传递给 MW 流水线寄存器，替换原本的 M_A3</span><br></code></pre></td></tr></table></figure>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> D_Stall =  (E_isccs &amp;&amp; (D_rs&lt;=<span class="hljs-number">16</span> || D_rs ===<span class="hljs-number">31</span> || D_rt&lt;=<span class="hljs-number">16</span> || D_rt ===<span class="hljs-number">31</span>)) ? <span class="hljs-number">1&#x27;b1</span> :...<br></code></pre></td></tr></table></figure>
-<h2 id="第二次P5题目"><a href="#第二次P5题目" class="headerlink" title="第二次P5题目"></a>第二次P5题目</h2><h3 id="P5-L4-DSC-2025"><a href="#P5-L4-DSC-2025" class="headerlink" title="P5_L4_DSC_2025"></a>P5_L4_DSC_2025</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs pseudocode">left_shift   &lt;- immediate[15:11]<br>right_shift  &lt;- immediate[4:0]<br>left_result  &lt;- GPR[rt] &lt;&lt; left_shift (逻辑左移)<br>right_result &lt;- GPR[rt] &gt;&gt; right_shift(算术右移)<br>result &lt;- left_result ^ right_result<br>GPR[rs] &lt;- result<br></code></pre></td></tr></table></figure>
-<h3 id="P5-L5-BLOC-2025"><a href="#P5-L5-BLOC-2025" class="headerlink" title="P5_L5_BLOC_2025"></a>P5_L5_BLOC_2025</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs pseudocode">def:<br>	count_leading_ones(x):计算x的先导1个数<br>I:<br>	leading_ones &lt;- count_leading_ones(GPR[rs])<br>	threshold &lt;- GPR[rt][5:0]<br>	condition &lt;- (leading_ones &gt; threshold)<br>	GPR[31] &lt;- PC + 8<br>	target &lt;- PC + 4 + signed_ext(offset||00)<br>I+1:<br>	if condition then<br>		PC &lt;- target<br>	end if<br></code></pre></td></tr></table></figure>
-<h3 id="P5-L6-LHP-2025"><a href="#P5-L6-LHP-2025" class="headerlink" title="P5_L6_LHP_2025"></a>P5_L6_LHP_2025</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs pseudocode">addr &lt;- GPR[rs] + sign_ext(offset||00)<br>data &lt;- Memory[addr]<br>temp &lt;- GPR[rt] ^ data<br>if temp[31:16] == temp[15:0] then<br>	highest &lt;- 31<br>	while temp[highest]==0 &amp;&amp; highest &gt; 0 then<br>		highest &lt;- highest - 1<br>	end while<br>	dst &lt;- highest<br>else<br>	dst &lt;- 31<br>GRP[dst] &lt;- data<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-comment">// M 级区域</span><br><span class="hljs-keyword">wire</span> M_isccs = (M_opcode === <span class="hljs-number">6&#x27;b111111</span>);<br><br><span class="hljs-keyword">reg</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] high_ones, low_ones;<br><span class="hljs-keyword">integer</span> k;<br><br><span class="hljs-keyword">always</span> @(*) <span class="hljs-keyword">begin</span><br>    high_ones = <span class="hljs-number">0</span>;<br>    low_ones = <span class="hljs-number">0</span>;<br>    <span class="hljs-comment">// 统计高16位</span><br>    <span class="hljs-keyword">for</span>(k = <span class="hljs-number">16</span>; k &lt; <span class="hljs-number">32</span>; k = k + <span class="hljs-number">1</span>) <span class="hljs-keyword">begin</span><br>        high_ones = high_ones + M_DMrd[k];<br>    <span class="hljs-keyword">end</span><br>    <span class="hljs-comment">// 统计低16位</span><br>    <span class="hljs-keyword">for</span>(k = <span class="hljs-number">0</span>; k &lt; <span class="hljs-number">16</span>; k = k + <span class="hljs-number">1</span>) <span class="hljs-keyword">begin</span><br>        low_ones = low_ones + M_DMrd[k];<br>    <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">// 计算写回数据：Data XOR rt</span><br><span class="hljs-comment">// 注意：这里 rt 需要转发支持，使用 M_fixedRD2</span><br><span class="hljs-keyword">wire</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] M_DMans = M_DMrd ^ M_fixedRD2;<br><br><span class="hljs-comment">// 动态修正目标寄存器 A3</span><br><span class="hljs-comment">// 默认 CTRL 里 A3slt=2 选了 31。</span><br><span class="hljs-comment">// 如果 high &lt;= low，则目标寄存器变为 high_ones 的值</span><br><span class="hljs-keyword">assign</span> M_fixedA3 = (M_isccs &amp;&amp; high_ones &lt;= low_ones) ? high_ones[<span class="hljs-number">4</span>:<span class="hljs-number">0</span>] : M_A3;<br><br><span class="hljs-comment">// 注意：M_fixedA3 需要传递给 MW 流水线寄存器，替换原本的 M_A3</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">assign</span> D_Stall =  (E_isccs &amp;&amp; (D_rs&lt;=<span class="hljs-number">16</span> || D_rs ===<span class="hljs-number">31</span> || D_rt&lt;=<span class="hljs-number">16</span> || D_rt ===<span class="hljs-number">31</span>)) ? <span class="hljs-number">1</span>&#x27;b1 :...<br></code></pre></td></tr></table></figure>
+
+<h2 id="第二次P5题目"><a href="#第二次P5题目" class="headerlink" title="第二次P5题目"></a>第二次P5题目</h2><h3 id="P5-95-L4-95-DSC-95-2025"><a href="#P5-95-L4-95-DSC-95-2025" class="headerlink" title="P5&#95;L4&#95;DSC&#95;2025"></a>P5&#95;L4&#95;DSC&#95;2025</h3><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs scss">left_shift   &lt;- immediate<span class="hljs-selector-attr">[15:11]</span><br>right_shift  &lt;- immediate<span class="hljs-selector-attr">[4:0]</span><br>left_result  &lt;- GPR<span class="hljs-selector-attr">[rt]</span> &lt;&lt; left_shift (逻辑左移)<br>right_result &lt;- GPR<span class="hljs-selector-attr">[rt]</span> &gt;&gt; <span class="hljs-built_in">right_shift</span>(算术右移)<br>result &lt;- left_result ^ right_result<br>GPR<span class="hljs-selector-attr">[rs]</span> &lt;- result<br></code></pre></td></tr></table></figure>
+
+<h3 id="P5-95-L5-95-BLOC-95-2025"><a href="#P5-95-L5-95-BLOC-95-2025" class="headerlink" title="P5&#95;L5&#95;BLOC&#95;2025"></a>P5&#95;L5&#95;BLOC&#95;2025</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">def</span>:<br>	<span class="hljs-attribute">count_leading_ones</span>(x):计算x的先导<span class="hljs-number">1</span>个数<br><span class="hljs-attribute">I</span>:<br>	<span class="hljs-attribute">leading_ones</span> &lt;- count_leading_ones(GPR[rs])<br>	<span class="hljs-attribute">threshold</span> &lt;- GPR[rt][<span class="hljs-number">5</span>:<span class="hljs-number">0</span>]<br>	<span class="hljs-attribute">condition</span> &lt;- (leading_ones &gt; threshold)<br>	<span class="hljs-attribute">GPR</span>[<span class="hljs-number">31</span>] &lt;- PC + <span class="hljs-number">8</span><br>	<span class="hljs-attribute">target</span> &lt;- PC + <span class="hljs-number">4</span> + signed_ext(offset||<span class="hljs-number">00</span>)<br><span class="hljs-attribute">I</span>+<span class="hljs-number">1</span>:<br>	<span class="hljs-attribute">if</span> condition then<br>		<span class="hljs-attribute">PC</span> &lt;- target<br>	<span class="hljs-attribute">end</span> if<br></code></pre></td></tr></table></figure>
+
+<h3 id="P5-95-L6-95-LHP-95-2025"><a href="#P5-95-L6-95-LHP-95-2025" class="headerlink" title="P5&#95;L6&#95;LHP&#95;2025"></a>P5&#95;L6&#95;LHP&#95;2025</h3><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-title">addr</span> &lt;- <span class="hljs-type">GPR</span>[rs] + sign_ext(offset||<span class="hljs-number">00</span>)<br><span class="hljs-class"><span class="hljs-keyword">data</span> &lt;- <span class="hljs-type">Memory</span>[addr]</span><br><span class="hljs-title">temp</span> &lt;- <span class="hljs-type">GPR</span>[rt] ^ <span class="hljs-class"><span class="hljs-keyword">data</span></span><br><span class="hljs-title">if</span> temp[<span class="hljs-number">31</span>:<span class="hljs-number">16</span>] == temp[<span class="hljs-number">15</span>:<span class="hljs-number">0</span>] <span class="hljs-keyword">then</span><br>	highest &lt;- <span class="hljs-number">31</span><br>	while temp[highest]==<span class="hljs-number">0</span> &amp;&amp; highest &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">then</span><br>		highest &lt;- highest - <span class="hljs-number">1</span><br>	end while<br>	dst &lt;- highest<br><span class="hljs-title">else</span><br>	dst &lt;- <span class="hljs-number">31</span><br><span class="hljs-type">GRP</span>[dst] &lt;- <span class="hljs-class"><span class="hljs-keyword">data</span></span><br></code></pre></td></tr></table></figure>
+
 <p>其实并不比第一次简单多少，不过解答我就没有留存了，大家自行思考吧！</p>
 <h2 id="笔者的话"><a href="#笔者的话" class="headerlink" title="笔者的话"></a>笔者的话</h2><p>一路顺风顺水到了P5，第一次挂P，打击还是蛮大的，天塌了的感觉，好像被别人甩在后面。当然现在回头看，好像也没什么，但是不得不说当时我是很崩溃的。其实我课下就错了一个很小的地方，一个条件删的时候没删干净，在一个分支里还留着，显然格式都没对齐了，有一行长一点，这在上机的时候理应是能检查出来的。但是听了学长所说的P5多难，多么容易课下有bug，我又没搭评测机，所以上机看到课下有bug就直接傻了，心浮气躁的根本没能静心检查。如果已经知道自己课下有问题了，也不妨抛掉一切，就当已经挂了，安安心心看一两遍自己的代码，万一能de出来呢。不要魔鬼化P5和P7！</p>
 
@@ -468,7 +597,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>P5上机-问题解答汇总</div>
-      <div>http://example.com/posts/P5上机-问题解答汇总/</div>
+      <div>https://pppphop.github.io/posts/P5上机-问题解答汇总/</div>
     </div>
     <div class="license-meta">
       
@@ -694,7 +823,63 @@
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init(Object.assign({
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
       linkClass       : 'tocbot-link',
@@ -705,10 +890,16 @@
       scrollSmooth    : true,
       includeTitleTags: true,
       headingsOffset  : -boardTop,
-    }, CONFIG.toc));
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+    expandAllToc();
+    bindTocToggle();
 
     Fluid.events.registerRefreshCallback(function() {
       if ('tocbot' in window) {
@@ -720,6 +911,8 @@
         if (toc.find('.toc-list-item').length > 0) {
           toc.css('visibility', 'visible');
         }
+        expandAllToc();
+        bindTocToggle();
       }
     });
   });
@@ -828,8 +1021,7 @@
 
 
   
-<script src="/js/index-math.js?v=20260627-mathfix.js"></script>
-<script src="/js/tag-colors.js?v=20260712-textfill.js"></script>
+<script src="/js/tag-colors.js"></script>
 
 
 
