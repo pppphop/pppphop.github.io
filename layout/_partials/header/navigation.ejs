@@ -73,8 +73,8 @@
 <div id="mobile-grid-menu" class="d-lg-none">
   <div class="mobile-grid-menu-inner">
     <div class="container">
-      <div class="row">
-        <% for(const each of theme.navbar.menu || []) { %>
+      <div class="row mobile-grid-main">
+        <% for(const [menuIndex, each] of (theme.navbar.menu || []).entries()) { %>
           <% if (!each.submenu && !each.link) continue %>
           <% var gridText = each.name || __(each.key + '.menu') || __(each.key + '.title') %>
           <% if (gridText.indexOf('.menu') !== -1 || gridText.indexOf('.title') !== -1) {
@@ -82,28 +82,12 @@
           } %>
           <% if (each.submenu) { %>
             <div class="col-4 mobile-grid-cell mobile-grid-parent-cell">
-              <a href="<%= url_for(each.link || '#') %>" target="<%= each.target || '_self' %>">
-                <div class="mobile-grid-item">
-                  <%- each.icon ? '<i class="' + each.icon + '"></i>' : '<i class="iconfont icon-link-fill"></i>' %>
-                  <span><%- gridText %></span>
-                </div>
-              </a>
+              <button type="button" class="mobile-grid-item mobile-submenu-toggle"
+                      aria-expanded="false" aria-controls="mobile-submenu-<%= menuIndex %>">
+                <%- each.icon ? '<i class="' + each.icon + '"></i>' : '<i class="iconfont icon-link-fill"></i>' %>
+                <span><%- gridText %><span class="mobile-submenu-arrow" aria-hidden="true"> ›</span></span>
+              </button>
             </div>
-            <% for(const subEach of each.submenu || []) { %>
-              <% if (!subEach.link) continue %>
-              <% var subGridText = subEach.name || __(subEach.key + '.title') %>
-              <% if (subGridText.indexOf('.title') !== -1) {
-                subGridText = subEach.key
-              } %>
-              <div class="col-4 mobile-grid-cell">
-                <a href="<%= url_for(subEach.link) %>" target="<%= subEach.target || '_self' %>">
-                  <div class="mobile-grid-item">
-                    <%- subEach.icon ? '<i class="' + subEach.icon + '"></i>' : '<i class="iconfont icon-link-fill"></i>' %>
-                    <span><%- subGridText %></span>
-                  </div>
-                </a>
-              </div>
-            <% } %>
           <% } else { %>
             <div class="col-4 mobile-grid-cell">
               <a href="<%= url_for(each.link) %>" target="<%= each.target || '_self' %>">
@@ -138,6 +122,41 @@
           </div>
         <% } %>
       </div>
+      <% for(const [menuIndex, each] of (theme.navbar.menu || []).entries()) { %>
+        <% if (!each.submenu) continue %>
+        <% var groupText = each.name || each.key %>
+        <section id="mobile-submenu-<%= menuIndex %>" class="mobile-submenu-panel" aria-label="<%= groupText %>" hidden>
+          <div class="mobile-submenu-heading">
+            <button type="button" class="mobile-submenu-back">‹ 返回菜单</button>
+            <h2><%= groupText %></h2>
+          </div>
+          <div class="row">
+            <% if (each.link) { %>
+              <div class="col-4 mobile-grid-cell">
+                <a href="<%= url_for(each.link) %>" target="<%= each.target || '_self' %>">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-category-fill"></i>
+                    <span><%= groupText %>中心</span>
+                  </div>
+                </a>
+              </div>
+            <% } %>
+            <% for(const subEach of each.submenu) { %>
+              <% if (!subEach.link) continue %>
+              <% var subText = subEach.name || __(subEach.key + '.title') %>
+              <% if (subText.indexOf('.title') !== -1) subText = subEach.key %>
+              <div class="col-4 mobile-grid-cell">
+                <a href="<%= url_for(subEach.link) %>" target="<%= subEach.target || '_self' %>">
+                  <div class="mobile-grid-item">
+                    <%- subEach.icon ? '<i class="' + subEach.icon + '"></i>' : '<i class="iconfont icon-link-fill"></i>' %>
+                    <span><%- subText %></span>
+                  </div>
+                </a>
+              </div>
+            <% } %>
+          </div>
+        </section>
+      <% } %>
     </div>
   </div>
 </div>

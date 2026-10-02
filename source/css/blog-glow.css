@@ -310,3 +310,24 @@ html[data-user-color-scheme='dark'] .pagination .current { color: #161c2a; }
   .markdown-body .code-wrapper::after { display: none; }
   .markdown-body figure.highlight, .markdown-body .code-wrapper { padding-top: 0; box-shadow: none; }
 }
+
+/* Keep submenu destinations inside one mobile navigation entry. */
+@media (max-width: 991.98px) {
+  #mobile-grid-menu { background: linear-gradient(var(--g-nav), var(--g-nav)), #1e1b4b; }
+  #mobile-grid-menu [hidden] { display: none !important; }
+  #mobile-grid-menu .mobile-submenu-toggle {
+    width: 100%; border: 0; font: inherit;
+  }
+  #mobile-grid-menu .mobile-submenu-arrow { font-size: 1rem; }
+  #mobile-grid-menu .mobile-submenu-heading {
+    display: flex; align-items: center; gap: 1rem;
+    padding: .5rem 0 1rem; color: var(--navbar-text-color);
+  }
+  #mobile-grid-menu .mobile-submenu-heading h2 { margin: 0; font-size: 1.1rem; }
+  #mobile-grid-menu .mobile-submenu-back {
+    border: 1px solid rgba(255,255,255,.2); border-radius: 10px;
+    padding: .6rem .8rem; background: rgba(255,255,255,.08);
+    color: inherit; font: inherit; font-size: .85rem; cursor: pointer;
+  }
+  #mobile-grid-menu button:focus-visible { outline: 2px solid var(--g-accent-2); outline-offset: 3px; }
+}
