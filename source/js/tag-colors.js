@@ -1,7 +1,7 @@
 /* Give each tag-cloud link a distinct, readable color.
  * Fluid renders the tag cloud as a gradient between two close-in-hue
  * colors (light lavender -> blue), which is low-contrast and hard to
- * tell apart. We override each link with an evenly-spaced hue so every
+ * tell apart. We override each link with a blue-to-purple hue so every
  * tag gets its own color, while keeping Fluid's font-size (popularity)
  * differences untouched. */
 (function () {
@@ -30,7 +30,7 @@
     var n = links.length;
 
     links.forEach(function (a, i) {
-      var hue = Math.round((360 / n) * i);
+      var hue = 200 + Math.round((100 / Math.max(n - 1, 1)) * i);
       var col = "hsl(" + hue + ", " + sat + "%, " + light + "%)";
       a.style.setProperty("color", col, "important");
       // Fluid colors tags via -webkit-text-fill-color, which wins over

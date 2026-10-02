@@ -1,0 +1,312 @@
+/* blog-glow.css —— 放在 blog-polish.css 之后引入 */
+
+/* ===== 0. 设计令牌：全站只保留 1 个主色 + 1 个辅色 ===== */
+/* ===== 1. 字体 + 背景氛围光 ===== */
+/* 想要文艺感：在 head 里加一行 LXGW WenKai 的 CSS，再把它放到下面最前面 */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 500px at 10% -5%, var(--g-accent-soft), transparent 60%),
+    radial-gradient(700px 420px at 100% 10%, rgba(31, 182, 201, .08), transparent 60%);
+}
+
+/* ===== 2. 导航栏：滚动后毛玻璃 + 悬停下划线 ===== */
+#navbar.top-nav-collapse {
+  background-color: color-mix(in srgb, var(--navbar-bg-color) 70%, transparent) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+}
+@media (min-width: 992px) {
+  #navbar .nav-link { position: relative; }
+  #navbar .nav-link::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: .3rem;
+    width: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transform: translateX(-50%);
+    transition: width .25s var(--g-ease);
+  }
+  #navbar .nav-link:hover::before { width: 55%; }
+}
+
+/* ===== 3. 首页 Banner：渐变光斑代替默认图（只作用于首页） ===== */
+body.glow-home .header-inner { height: 62vh !important; min-height: 420px; }
+body.glow-home #banner {
+  border-radius: 0 0 36px 36px;
+  background: var(--site-hero) !important;
+}
+body.glow-home #banner .mask { background: transparent !important; }
+#banner {
+  background: var(--site-hero) !important;
+  border-radius: 0 0 28px 28px;
+}
+#banner .mask { background: transparent !important; }
+body.glow-home .banner-text::before {
+  content: "COMPUTER SCIENCE · NOTES";
+  display: block;
+  margin-bottom: 1rem;
+  font-size: .8rem;
+  letter-spacing: .38em;
+  opacity: .7;
+}
+.glow-home .banner-text .h2 {
+  font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+  font-weight: 700;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, .35);
+}
+
+/* ===== 4. 首页文章卡片 ===== */
+:root .index-card:not(.home-taxonomy-panel) {
+  position: relative;
+  overflow: hidden;
+  padding: 1.3rem 1.2rem 1.3rem 1.5rem;
+  border-radius: var(--g-radius);
+  background: var(--g-surface);
+  border-color: var(--g-border);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 12px 32px rgba(15, 23, 42, .06);
+  transition: opacity .55s var(--g-ease), translate .55s var(--g-ease),
+    transform .2s var(--g-ease), box-shadow .2s, border-color .2s;
+}
+.index-card:not(.home-taxonomy-panel)::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 14%; bottom: 14%;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: linear-gradient(var(--g-accent), var(--g-accent-2));
+  opacity: 0;
+  transform: scaleY(.4);
+  transition: .3s var(--g-ease);
+}
+.index-card:not(.home-taxonomy-panel):hover::before { opacity: 1; transform: scaleY(1); }
+
+.index-header { font-size: 1.4rem; font-weight: 700; line-height: 1.35; }
+:root .index-header a {
+  background: linear-gradient(var(--g-accent), var(--g-accent)) 0 100% / 0 2px no-repeat;
+  transition: background-size .3s var(--g-ease), color .2s;
+}
+:root .index-header a:hover { color: var(--g-accent); background-size: 100% 2px; text-decoration: none; }
+
+.index-btm { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .9rem; font-size: .84rem; }
+.index-btm a {
+  padding: .12rem .6rem;
+  border-radius: 999px;
+  background: var(--g-accent-soft);
+  color: var(--g-accent) !important;
+}
+
+/* 入场动画（JS 加上 .js-reveal 才生效，没 JS 也不会隐藏内容） */
+.js-reveal .index-card:not(.is-in):not(.home-taxonomy-panel) { opacity: 0; translate: 0 18px; }
+
+/* ===== 5. 首页分类 / 标签面板：统一到主色 ===== */
+:root .home-taxonomy-kicker { color: var(--g-accent); }
+:root .home-taxonomy-card-icon { background: linear-gradient(135deg, var(--g-accent), var(--g-accent-2)); color: #fff; }
+:root .home-taxonomy-pill-count { background: var(--g-accent-soft); color: var(--g-accent); }
+:root .home-taxonomy-card:hover,
+:root .home-taxonomy-pill:hover { border-color: var(--g-accent); }
+:root .home-taxonomy-action { background: var(--g-accent); color: #fff; border-color: transparent; }
+:root .home-taxonomy-action--ghost { background: transparent; color: inherit; border-color: var(--g-border); }
+
+/* ===== 6. 文章页 ===== */
+.markdown-body h2 { padding-left: .8rem; border-left: 4px solid var(--g-accent); border-bottom: 0; line-height: 1.3; }
+.markdown-body h3 { color: var(--g-accent); }
+.markdown-body blockquote {
+  margin: 1.4em 0;
+  padding: .9rem 1.2rem;
+  border-left: 4px solid var(--g-accent);
+  border-radius: 0 12px 12px 0;
+  background: var(--g-accent-soft);
+  color: inherit;
+}
+.markdown-body a:not(.anchorjs-link):not(.btn):not(.fancybox) {
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--g-accent) 35%, transparent);
+  transition: border-color .2s, color .2s;
+}
+.markdown-body a:not(.anchorjs-link):not(.btn):not(.fancybox):hover { border-bottom-color: var(--g-accent-2); }
+.markdown-body :not(pre) > code { color: var(--g-accent); padding: .15em .45em; border-radius: 6px; font-size: .88em; }
+.markdown-body img { border-radius: 12px; }
+.markdown-body table th { background: var(--g-accent-soft); }
+
+/* 目录当前项 + 阅读进度条 */
+.tocbot-active-link, .is-active-link { color: var(--g-accent) !important; font-weight: 600; }
+.read-progress {
+  position: fixed; top: 0; left: 0;
+  width: 0; height: 3px;
+  z-index: 1100;
+  background: linear-gradient(90deg, var(--g-accent), var(--g-accent-2));
+  transition: width .08s linear;
+}
+
+/* ===== 7. 页脚 + 小屏适配 ===== */
+footer .footer-inner { opacity: .75; font-size: .85rem; }
+@media (max-width: 767.98px) {
+  body.glow-home .header-inner { height: 52vh !important; min-height: 340px; }
+  .index-header { font-size: 1.2rem; }
+  :root .index-card:not(.home-taxonomy-panel) { padding: 1.1rem 1rem 1.1rem 1.2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal .index-card { opacity: 1 !important; translate: none !important; }
+}
+
+/* Fluid compatibility: shared theme colors and components. */
+#navbar.top-nav-collapse {
+  background: var(--g-nav) !important;
+}
+#nprogress .bar { background: var(--g-accent) !important; }
+#nprogress .peg { box-shadow: 0 0 10px var(--g-accent), 0 0 5px var(--g-accent) !important; }
+:root .home-taxonomy-panel {
+  border-radius: var(--g-radius);
+  border-color: var(--g-border);
+  background: var(--g-surface);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, .06);
+}
+:root .home-taxonomy-card, :root .home-taxonomy-pill {
+  background: var(--g-card);
+  border-color: var(--g-border);
+}
+:root .home-taxonomy-summary, :root .home-taxonomy-card-meta { color: var(--g-muted); }
+:root .home-taxonomy-action--ghost { color: var(--g-ink); }
+:root .index-excerpt { color: var(--g-muted); }
+:root .markdown-body, :root .post-content { color: var(--g-ink); }
+:root .pagination .current { background: var(--g-accent); color: white; border-radius: 8px; }
+:root .pagination a:hover { color: var(--g-accent); background: var(--g-accent-soft); border-radius: 8px; }
+:root .links .card-body {
+  background: var(--g-surface);
+  border: 1px solid var(--g-border);
+  border-radius: var(--g-radius);
+  box-shadow: var(--site-shadow);
+}
+:root .links .card-body:hover { background: var(--g-accent-soft); border-color: var(--g-accent); }
+:root .modal-content { background: var(--g-card); color: var(--g-ink); border: 1px solid var(--g-border); border-radius: var(--g-radius); }
+:root .btn-primary { background: var(--g-accent); color: var(--site-button-ink); border-color: var(--g-accent); }
+:root #board { margin-top: 1.5rem !important; }
+.glow-home .typed-cursor { display: none; }
+html[data-user-color-scheme='dark'] .home-taxonomy-action:not(.home-taxonomy-action--ghost),
+html[data-user-color-scheme='dark'] .pagination .current { color: #161c2a; }
+
+/* Replace the old invisible anchor spacer with scroll-margin. */
+.markdown-body h1::before, .markdown-body h2::before,
+.markdown-body h3::before, .markdown-body h4::before,
+.markdown-body h5::before, .markdown-body h6::before { display: none; }
+.markdown-body h2 { padding-top: .12em; padding-bottom: .12em; }
+.markdown-body h1, .markdown-body h2, .markdown-body h3,
+.markdown-body h4, .markdown-body h5, .markdown-body h6 { overflow-wrap: anywhere; }
+.markdown-body :not(pre) > code { overflow-wrap: anywhere; }
+.markdown-body .btn { border-bottom: 0; }
+
+/* One header per whole code block. The widget stays next to CODE so
+   Fluid's copy button continues to copy only the original source. */
+.markdown-body figure.highlight, .markdown-body .code-wrapper {
+  position: relative;
+  padding-top: 2.6rem;
+  border: 1px solid var(--g-border);
+  border-radius: 12px;
+  background: var(--highlight-bg-color);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, .06);
+  margin-bottom: 1.4rem;
+}
+.markdown-body figure.highlight::before, .markdown-body .code-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 1rem; left: 1rem;
+  width: .65rem; height: .65rem;
+  border-radius: 50%;
+  background: #ff5f56;
+  box-shadow: 1.1rem 0 #ffbd2e, 2.2rem 0 #27c93f;
+}
+.markdown-body figure.highlight::after, .markdown-body .code-wrapper::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 2.6rem;
+  border-bottom: 1px solid var(--g-border);
+  pointer-events: none;
+}
+.markdown-body figure.highlight table {
+  display: table;
+  width: 100%;
+  overflow: visible;
+  border-radius: 0;
+  margin: 0;
+  border: 0;
+}
+.markdown-body figure.highlight td { vertical-align: top; }
+.markdown-body figure.highlight pre, .markdown-body .code-wrapper pre {
+  position: static;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  font-size: .875rem;
+  line-height: 1.6;
+}
+.markdown-body figure.highlight td.code > pre, .markdown-body .code-wrapper pre {
+  padding: 1rem;
+}
+.markdown-body figure.highlight td.gutter {
+  position: static;
+  width: 1%;
+  background: transparent;
+  user-select: none;
+}
+.markdown-body figure.highlight td.gutter pre {
+  padding: 1rem .75rem;
+  border-right: 1px solid var(--g-border);
+  color: var(--g-muted);
+}
+.markdown-body pre code.hljs { padding: 0; line-height: inherit; font-size: inherit; }
+.markdown-body .code-widget {
+  top: .55rem; right: .85rem;
+  max-width: calc(100% - 5.5rem);
+  padding: .25rem .35rem;
+  font-size: .7rem; line-height: 1.4;
+  color: var(--g-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.markdown-body .copy-btn > i { opacity: .75; }
+.markdown-body .code-widget:hover { color: var(--g-accent); }
+.markdown-body .glow-code-scroll {
+  overflow-x: auto;
+  border-radius: 0 0 12px 12px;
+}
+/* Plain fenced blocks, including nested list examples, share the header. */
+.markdown-body pre:not(.glow-code-pre) {
+  border-color: var(--g-border);
+  border-radius: 12px;
+}
+:root .markdown-body mjx-container.glow-wide-math,
+:root .markdown-body mjx-container[display='true'] {
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: middle;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: .15em 0;
+}
+:root .markdown-body mjx-container[display='true'] { display: block; }
+@media (max-width: 767.98px) {
+  .glow-home .banner-text::before { font-size: .65rem; letter-spacing: .2em; }
+  .glow-home .banner-text .h2 { font-size: 1.45rem; }
+  .index-btm .meta-category, .index-btm .meta-tags { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .2rem; }
+  .markdown-body figure.highlight pre, .markdown-body .code-wrapper pre { font-size: .8rem; }
+}
+@media print {
+  .read-progress, .markdown-body figure.highlight::before,
+  .markdown-body figure.highlight::after, .markdown-body .code-wrapper::before,
+  .markdown-body .code-wrapper::after { display: none; }
+  .markdown-body figure.highlight, .markdown-body .code-wrapper { padding-top: 0; box-shadow: none; }
+}

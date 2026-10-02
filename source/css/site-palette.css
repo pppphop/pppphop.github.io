@@ -1,0 +1,72 @@
+/* Shared palette for blog, study pages and archived reading pages. */
+:root {
+  --g-accent: #4f5bd5;
+  --g-accent-2: #1fb6c9;
+  --g-accent-soft: rgba(79, 91, 213, .10);
+  --g-surface: rgba(255, 255, 255, .82);
+  --g-border: rgba(99, 102, 241, .14);
+  --g-radius: 16px;
+  --g-ease: cubic-bezier(.22, .8, .3, 1);
+  --body-bg-color: #f4f6fb;
+  --board-bg-color: #fff;
+  --post-link-color: var(--g-accent);
+  --link-hover-color: var(--g-accent-2);
+  --post-heading-color: #111827;
+  --line-color: #e5e9f2;
+  --inlinecode-bg-color: var(--g-accent-soft);
+}
+html[data-user-color-scheme='dark'] {
+  --g-accent: #8f9bff;
+  --g-accent-2: #4fd1e0;
+  --g-accent-soft: rgba(143, 155, 255, .14);
+  --g-surface: rgba(24, 31, 48, .78);
+  --g-border: rgba(143, 155, 255, .16);
+  --body-bg-color: #0e121c;
+  --board-bg-color: #161c2a;
+  --post-heading-color: #eef1f8;
+  --line-color: #27304a;
+}
+
+
+:root {
+  --g-ink: #253244;
+  --g-muted: #64748b;
+  --g-card: #ffffff;
+  --g-nav: rgba(30, 27, 75, .90);
+  --highlight-bg-color: #f6f7fc;
+}
+html[data-user-color-scheme='dark'] {
+  --g-ink: #e5e9f4;
+  --g-muted: #a8b3ca;
+  --g-card: #161c2a;
+  --g-nav: rgba(20, 24, 44, .94);
+  --highlight-bg-color: #1b2234;
+}
+:root, html[data-user-color-scheme='dark'] {
+  --text-color: var(--g-ink);
+  --sec-text-color: var(--g-muted);
+  --post-text-color: var(--g-ink);
+  --post-link-color: var(--g-accent);
+  --link-hover-color: var(--g-accent-2);
+  --link-hover-bg-color: var(--g-accent-soft);
+  --navbar-bg-color: var(--g-nav);
+  --polish-ink: var(--g-ink);
+  --polish-muted: var(--g-muted);
+  --polish-card-border: var(--g-border);
+  --inlinecode-bg-color: var(--g-accent-soft);
+}
+
+:root {
+  color-scheme: light;
+  --site-button-ink: #fff;
+  --site-shadow: 0 12px 32px rgba(15, 23, 42, .06);
+  --site-hero: radial-gradient(60% 80% at 15% 20%, rgba(99, 102, 241, .55), transparent 60%),
+    radial-gradient(50% 70% at 85% 30%, rgba(34, 184, 207, .45), transparent 60%),
+    radial-gradient(70% 90% at 50% 115%, rgba(167, 139, 250, .5), transparent 60%),
+    linear-gradient(160deg, #0f172a, #1e1b4b 60%, #0f2a3d);
+}
+html[data-user-color-scheme='dark'] {
+  color-scheme: dark;
+  --site-button-ink: #161c2a;
+  --site-shadow: 0 12px 32px rgba(0, 0, 0, .18);
+}

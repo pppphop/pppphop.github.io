@@ -11,6 +11,9 @@ const fs = require('fs');
 const path = require('path');
 
 hexo.extend.filter.register('before_generate', function restoreHomepageLayout() {
+  const layoutPath = path.join(this.base_dir, 'layout', 'layout.ejs');
+  this.theme.setView('layout.ejs', fs.readFileSync(layoutPath, 'utf8'));
+
   const templatePath = path.join(this.base_dir, 'layout', 'index.ejs');
   if (fs.existsSync(templatePath)) {
     this.theme.setView('index.ejs', fs.readFileSync(templatePath, 'utf8'));

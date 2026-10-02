@@ -28,9 +28,13 @@ theme_config:
   dark_mode:
     enable: true
     default: light
-  custom_css: /css/blog-polish.css
+  custom_css:
+    - /css/blog-polish.css
+    - /css/site-palette.css
+    - /css/blog-glow.css
   custom_js:
     - /js/tag-colors.js
+    - /js/blog-glow.js
   index:
     slogan:
       enable: true
