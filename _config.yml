@@ -1,0 +1,75 @@
+# Hexo source configuration. GitHub Actions builds and deploys public/.
+title: zhp的博客
+author: pppphop
+language: zh-CN
+timezone: Asia/Shanghai
+url: https://pppphop.github.io
+root: /
+skip_render:
+  - files/**
+  - ai/**
+  - ethics/**
+  - history/**
+  - military/**
+  - os/**
+  - quiz/**
+  - 404.html
+permalink: posts/:title/
+post_asset_folder: true
+theme: fluid
+archive_dir: archives
+pagination_dir: page
+archive_generator:
+  per_page: 10
+  yearly: true
+  monthly: true
+  daily: false
+theme_config:
+  dark_mode:
+    enable: true
+    default: light
+  custom_css: /css/blog-polish.css
+  custom_js:
+    - /js/tag-colors.js
+  index:
+    slogan:
+      enable: true
+      text: "欢迎来到我的博客，这里记录了我的计算机学习。"
+  navbar:
+    blog_title: "zhp的博客"
+    menu:
+      - { key: "home", link: "/", icon: "iconfont icon-home-fill" }
+      - { key: "archive", link: "/archives/", icon: "iconfont icon-archive-fill" }
+      - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
+      - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
+      - key: "quiz"
+        name: "刷题"
+        link: "/quiz/"
+        icon: "iconfont icon-tags-fill"
+        submenu:
+          - { key: "military", name: "军理刷题", link: "/military/", icon: "iconfont icon-tags-fill" }
+          - { key: "ethics", name: "思修刷题", link: "/ethics/", icon: "iconfont icon-tags-fill" }
+          - { key: "os", name: "OS刷题", link: "/os/", icon: "iconfont icon-tags-fill" }
+          - { key: "history", name: "史纲刷题", link: "/history/", icon: "iconfont icon-tags-fill" }
+          - { key: "ai", name: "AI 对话", link: "/ai/", icon: "iconfont icon-tags-fill" }
+      - { key: "links", name: "友链", link: "/links/", icon: "iconfont icon-link-fill" }
+  post:
+    math:
+      enable: true
+      specific: false
+      engine: mathjax
+  links:
+    enable: true
+    banner_img: /img/default.png
+    banner_img_height: 60
+    banner_mask_alpha: 0.3
+    items:
+      - { title: "Istina's blog", intro: "一位oier的博客", link: "https://istinaa.github.io/", avatar: "/img/favicon.png" }
+      - { title: "Recloud's blog", intro: "我的高中同学&oier的博客", link: "https://reclouds.github.io/", avatar: "/img/favicon.png" }
+      - { title: "Archer's blog", intro: "zygg的博客", link: "https://stratus-z.github.io", avatar: "/img/favicon.png" }
+      - { title: "Kamonto's blog", intro: "lmhgg的博客,传奇学长！", link: "https://kamonto.github.io/Kamonto_blog/", avatar: "/img/favicon.png" }
+index_generator:
+  path: ""
+  per_page: 10
+  order_by: -date
+  pagination_dir: page

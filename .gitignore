@@ -1,0 +1,9 @@
+node_modules/
+public/
+db.json
+.hexo/
+__pycache__/
+*.pyc
+*.log
+.DS_Store
+Thumbs.db

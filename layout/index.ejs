@@ -1,0 +1,135 @@
+<%
+if (theme.index.slogan.enable) {
+  page.subtitle = theme.index.slogan.text || config.subtitle || ''
+}
+page.banner_img = theme.index.banner_img
+page.banner_img_height = theme.index.banner_img_height
+page.banner_mask_alpha = theme.index.banner_mask_alpha
+
+var showHomeTaxonomy = page.path === 'index.html'
+var quickCategories = site.categories.sort('-length').filter(function (category) {
+  return category.length
+})
+var quickTags = site.tags.sort('-length').filter(function (tag) {
+  return tag.length
+})
+%>
+
+<h1 style="display: none"><%= config.title %></h1>
+
+<% if (showHomeTaxonomy) { %>
+  <section class="home-taxonomy-panel" aria-labelledby="home-taxonomy-title">
+    <div class="home-taxonomy-head">
+      <div class="home-taxonomy-heading">
+        <p class="home-taxonomy-kicker">快速导航</p>
+        <h2 id="home-taxonomy-title" class="home-taxonomy-title">分类与标签</h2>
+      </div>
+      <div class="home-taxonomy-actions">
+        <a class="home-taxonomy-action" href="<%= url_for('categories/') %>">全部分类</a>
+        <a class="home-taxonomy-action home-taxonomy-action--ghost" href="<%= url_for('tags/') %>">标签云</a>
+      </div>
+    </div>
+
+    <div class="home-taxonomy-groups">
+      <div class="home-taxonomy-group">
+        <h3 class="home-taxonomy-label">
+          <i class="iconfont icon-category-fill" aria-hidden="true"></i>
+          <span>分类</span>
+        </h3>
+        <ul class="home-taxonomy-card-grid">
+          <% quickCategories.each(function (category) { %>
+            <li>
+              <a class="home-taxonomy-card" href="<%= url_for(category.path) %>">
+                <span class="home-taxonomy-card-icon" aria-hidden="true">
+                  <i class="iconfont icon-category-fill"></i>
+                </span>
+                <span class="home-taxonomy-card-body">
+                  <span class="home-taxonomy-card-name"><%= category.name %></span>
+                  <span class="home-taxonomy-card-meta"><%= category.length %> 篇文章</span>
+                </span>
+              </a>
+            </li>
+          <% }) %>
+        </ul>
+      </div>
+
+      <div class="home-taxonomy-group">
+        <h3 class="home-taxonomy-label">
+          <i class="iconfont icon-tags-fill" aria-hidden="true"></i>
+          <span>标签</span>
+        </h3>
+        <ul class="home-taxonomy-pill-list">
+          <% quickTags.each(function (tag) { %>
+            <li>
+              <a class="home-taxonomy-pill" href="<%= url_for(tag.path) %>">
+                <span class="home-taxonomy-pill-name">#<%= tag.name %></span>
+                <span class="home-taxonomy-pill-count"><%= tag.length %></span>
+              </a>
+            </li>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+  </section>
+<% } %>
+
+<% page.posts.each(function (post) { %>
+  <div class="row mx-auto index-card">
+    <% var post_url = url_for(post.path), index_img = post.index_img || theme.post.default_index_img %>
+    <% if (index_img) { %>
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="<%= post_url %>" target="<%- theme.index.post_url_target %>">
+          <img src="<%= url_for(index_img) %>" alt="<%= post.title %>">
+        </a>
+      </div>
+    <% } %>
+    <article class="col-12 col-md-<%= index_img ? '8' : '12' %> mx-auto index-info">
+      <h2 class="index-header">
+        <% if (theme.index.post_sticky && theme.index.post_sticky.enable && post.sticky > 0) { %>
+          <i class="index-pin <%= theme.index.post_sticky && theme.index.post_sticky.icon %>" title="Pin on top"></i>
+        <% } %>
+        <a href="<%= post_url %>" target="<%- theme.index.post_url_target %>">
+          <%= post.title %>
+        </a>
+      </h2>
+
+      <% var excerpt = post.description || post.excerpt || (theme.index.auto_excerpt.enable && !post.encrypt && post.content) %>
+      <a class="index-excerpt <%= index_img ? '' : 'index-excerpt__noimg' %>" href="<%= post_url %>" target="<%- theme.index.post_url_target %>">
+        <div>
+          <%- strip_html(excerpt).trim().replace(/\n/g, ' ') %>
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        <% if (theme.index.post_meta.date) { %>
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="<%= full_date(post.date, 'YYYY-MM-DD HH:mm') %>" pubdate>
+              <%- date(post.date, config.date_format) %>
+            </time>
+          </div>
+        <% } %>
+        <% if (theme.index.post_meta.category && post.categories.length > 0) { %>
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            <%- partial('_partials/category-chains', { categories: post.categories, limit: 1 }) %>
+          </div>
+        <% } %>
+        <% if (theme.index.post_meta.tag && post.tags.length > 0) { %>
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            <% post.tags.each(function(tag){ %>
+              <a href="<%= url_for(tag.path) %>">#<%- tag.name %></a>
+            <% }) %>
+          </div>
+        <% } %>
+      </div>
+    </article>
+  </div>
+<% }) %>
+
+<%- partial('_partials/paginator') %>
+
+<% if (theme.post.math && theme.post.math.enable && theme.post.math.engine === 'mathjax') { %>
+  <%- partial('_partials/plugins/math.ejs') %>
+<% } %>

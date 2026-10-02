@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 对话</title>
+  <style>
+    :root {
+      --bg: #edf2f7;
+      --panel: rgba(255, 255, 255, 0.74);
+      --panel-strong: rgba(255, 255, 255, 0.92);
+      --line: rgba(148, 163, 184, 0.34);
+      --ink: #1f2937;
+      --muted: #64748b;
+      --accent: #2563eb;
+      --accent-2: #1d4ed8;
+      --accent-soft: rgba(37, 99, 235, 0.12);
+      --danger: #b42318;
+      --shadow: 0 24px 70px rgba(31, 41, 55, 0.13);
+      --code-bg: rgba(15, 23, 42, 0.06);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(37, 99, 235, 0.13) 0, rgba(37, 99, 235, 0) 34%),
+        linear-gradient(225deg, rgba(93, 107, 145, 0.12) 0, rgba(93, 107, 145, 0) 36%),
+        linear-gradient(180deg, #f3f6fb 0, var(--bg) 52%, #e7edf3 100%);
+      letter-spacing: 0;
+    }
+
+    button, textarea { font: inherit; }
+    button { border: 0; cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+
+    .app {
+      width: min(1080px, calc(100% - 28px));
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 26px 0;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 16px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 44px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .home-link,
+    .plain-btn,
+    .primary-btn,
+    .mode-btn,
+    .preset-btn {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--ink);
+      backdrop-filter: blur(14px);
+      transition: background-color 0.16s ease, border-color 0.16s ease, transform 0.16s ease;
+    }
+
+    .home-link:hover,
+    .plain-btn:hover,
+    .mode-btn:hover,
+    .preset-btn:hover {
+      border-color: rgba(37, 99, 235, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .primary-btn {
+      background: rgba(31, 41, 55, 0.94);
+      color: #fff;
+      border-color: rgba(31, 41, 55, 0.94);
+    }
+
+    .primary-btn:disabled {
+      cursor: wait;
+      opacity: 0.6;
+    }
+
+    .mode-btn.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: rgba(37, 99, 235, 0.3);
+      font-weight: 700;
+    }
+
+    .chat-shell {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+
+    .sidebar {
+      padding: 18px;
+      border-right: 1px solid var(--line);
+      background: rgba(248, 250, 252, 0.56);
+      overflow-y: auto;
+    }
+
+    .side-title {
+      margin: 0 0 10px;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .side-title.sep {
+      margin-top: 20px;
+    }
+
+    .modes {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .presets {
+      display: grid;
+      gap: 8px;
+    }
+
+    .preset-btn {
+      justify-content: flex-start;
+      text-align: left;
+      padding: 9px 12px;
+      min-height: 0;
+      line-height: 1.5;
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .preset-btn:hover {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .hint {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .chat-main {
+      min-width: 0;
+      min-height: 640px;
+      display: grid;
+      grid-template-rows: 1fr auto;
+    }
+
+    .messages {
+      min-height: 0;
+      padding: 22px;
+      overflow-y: auto;
+    }
+
+    .message {
+      max-width: 82%;
+      margin: 0 0 14px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-strong);
+      line-height: 1.75;
+    }
+
+    .message.user {
+      margin-left: auto;
+      background: var(--accent-soft);
+      border-color: rgba(37, 99, 235, 0.24);
+      white-space: pre-wrap;
+    }
+
+    .message.error {
+      color: var(--danger);
+      border-color: rgba(180, 35, 24, 0.3);
+      background: rgba(255, 241, 242, 0.9);
+      white-space: pre-wrap;
+    }
+
+    /* Markdown rendering inside assistant messages */
+    .message.assistant > :first-child { margin-top: 0; }
+    .message.assistant > :last-child { margin-bottom: 0; }
+    .message.assistant h1,
+    .message.assistant h2,
+    .message.assistant h3 {
+      margin: 1em 0 0.5em;
+      line-height: 1.3;
+    }
+    .message.assistant h1 { font-size: 1.3em; }
+    .message.assistant h2 { font-size: 1.18em; }
+    .message.assistant h3 { font-size: 1.06em; }
+    .message.assistant p { margin: 0.6em 0; }
+    .message.assistant ul,
+    .message.assistant ol { margin: 0.6em 0; padding-left: 1.5em; }
+    .message.assistant li { margin: 0.25em 0; }
+    .message.assistant code {
+      padding: 0.12em 0.4em;
+      border-radius: 5px;
+      background: var(--code-bg);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.9em;
+    }
+    .message.assistant pre {
+      margin: 0.7em 0;
+      padding: 12px 14px;
+      border-radius: 8px;
+      background: var(--code-bg);
+      overflow-x: auto;
+    }
+    .message.assistant pre code {
+      padding: 0;
+      background: none;
+    }
+    .message.assistant strong { font-weight: 700; }
+    .message.assistant a { color: var(--accent); text-decoration: underline; }
+
+    /* Typing indicator */
+    .message.typing {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .message.typing .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--muted);
+      animation: typing-bounce 1.2s infinite ease-in-out;
+    }
+    .message.typing .dot:nth-child(2) { animation-delay: 0.18s; }
+    .message.typing .dot:nth-child(3) { animation-delay: 0.36s; }
+
+    @keyframes typing-bounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+      30% { transform: translateY(-4px); opacity: 1; }
+    }
+
+    .composer {
+      padding: 14px;
+      border-top: 1px solid var(--line);
+      background: rgba(248, 250, 252, 0.62);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 96px;
+      resize: vertical;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(148, 163, 184, 0.44);
+      background: #fff;
+      color: var(--ink);
+      line-height: 1.7;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .composer-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .status {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111827;
+        --panel: rgba(23, 31, 45, 0.72);
+        --panel-strong: rgba(30, 41, 59, 0.82);
+        --line: rgba(148, 163, 184, 0.22);
+        --ink: #e5e7eb;
+        --muted: #a6b3c4;
+        --accent: #93c5fd;
+        --accent-2: #bfdbfe;
+        --accent-soft: rgba(59, 130, 246, 0.2);
+        --danger: #fca5a5;
+        --shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+        --code-bg: rgba(148, 163, 184, 0.16);
+      }
+
+      body {
+        background:
+          linear-gradient(135deg, rgba(59, 130, 246, 0.14) 0, rgba(59, 130, 246, 0) 34%),
+          linear-gradient(225deg, rgba(168, 181, 216, 0.10) 0, rgba(168, 181, 216, 0) 36%),
+          linear-gradient(180deg, #111827 0, #0f172a 100%);
+      }
+
+      .home-link,
+      .plain-btn,
+      .mode-btn,
+      .preset-btn {
+        background: rgba(30, 41, 59, 0.7);
+      }
+
+      .primary-btn {
+        background: rgba(59, 130, 246, 0.9);
+        border-color: rgba(59, 130, 246, 0.9);
+        color: #0b1220;
+      }
+
+      .sidebar {
+        background: rgba(15, 23, 42, 0.5);
+      }
+
+      textarea {
+        background: rgba(15, 23, 42, 0.7);
+        border-color: rgba(148, 163, 184, 0.3);
+      }
+
+      .message.error {
+        background: rgba(80, 20, 20, 0.5);
+        border-color: rgba(252, 165, 165, 0.4);
+      }
+    }
+
+    @media (max-width: 820px) {
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .chat-shell { grid-template-columns: 1fr; }
+      .sidebar { border-right: 0; border-bottom: 1px solid var(--line); }
+      .modes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .message { max-width: 100%; }
+      .chat-main { min-height: 560px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <h1>AI 对话</h1>
+        <p class="subtitle">复习时直接问，也可以让它解释错题、整理提纲、模拟追问。</p>
+      </div>
+      <a class="home-link" href="/quiz/">返回刷题中心</a>
+    </header>
+
+    <section class="chat-shell">
+      <aside class="sidebar">
+        <p class="side-title">对话模式</p>
+        <div class="modes" id="modes">
+          <button class="mode-btn active" type="button" data-mode="study">学习答疑</button>
+          <button class="mode-btn" type="button" data-mode="quiz">刷题陪练</button>
+          <button class="mode-btn" type="button" data-mode="general">普通对话</button>
+        </div>
+
+        <p class="side-title sep">快捷提示</p>
+        <div class="presets" id="presets">
+          <button class="preset-btn" type="button" data-preset="points">帮我看这道题的要点</button>
+          <button class="preset-btn" type="button" data-preset="standard">把我的答案改成标准答案</button>
+          <button class="preset-btn" type="button" data-preset="memory">把这个知识点变成更好背的版本</button>
+        </div>
+
+        <p class="hint">点快捷提示会把模板填进输入框，你再把题干或答案补在下面即可。涉及具体题目时，把题干、你的答案或参考答案一起贴进来，效果会更稳。</p>
+      </aside>
+
+      <section class="chat-main">
+        <div class="messages" id="messages"></div>
+        <form class="composer" id="chatForm">
+          <textarea id="chatInput" placeholder="输入问题。Ctrl + Enter 发送，例如：帮我把这道军理简答题按要点批改一下。"></textarea>
+          <div class="composer-actions">
+            <span class="status" id="status">对话记录保存在当前浏览器。</span>
+            <div>
+              <button class="plain-btn" type="button" id="clearBtn">清空</button>
+              <button class="primary-btn" type="submit" id="sendBtn">发送</button>
+            </div>
+          </div>
+        </form>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const AI_CHAT_URL = "https://quiz-ai-grader.washerockey.workers.dev/";
+    const STORE_KEY = "quiz-ai-chat-state-v1";
+    const MODE_PROMPTS = {
+      study: "你是用户博客里的学习助手。回答要适合大学生复习，简洁、准确、分点清楚。遇到课程知识点，优先帮助用户理解、背诵和辨析易错点。",
+      quiz: "你是刷题陪练老师。请围绕题干、学生答案、参考答案做讲解，可以追问、改写答案、指出漏点。不要无根据编造考试范围。",
+      general: "你是一个可靠、友好的中文 AI 助手。回答自然、清晰，必要时给出可执行步骤。"
+    };
+    const PRESET_TEMPLATES = {
+      points: "帮我看下这道题的要点，指出得分点和容易漏的地方。\n\n题目：\n\n我的答案：",
+      standard: "把我的答案改成标准答案的写法，保留我的正确内容，补齐缺的要点。\n\n题目：\n\n我的答案：",
+      memory: "把下面这个知识点整理成更好背的版本：分点、精简、能提炼口诀或记忆线索更好。\n\n知识点："
+    };
+
+    const state = loadState();
+    const messages = document.getElementById("messages");
+    const input = document.getElementById("chatInput");
+    const statusEl = document.getElementById("status");
+    const sendBtn = document.getElementById("sendBtn");
+
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORE_KEY) || "{}");
+        return {
+          mode: saved.mode || "study",
+          messages: Array.isArray(saved.messages) ? saved.messages.slice(-30) : [
+            { role: "assistant", content: "可以开始问我。比如贴一道题，让我帮你看要点、改成标准答案，或者让它变成更好背的版本。" }
+          ]
+        };
+      } catch (_) {
+        return { mode: "study", messages: [] };
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORE_KEY, JSON.stringify({
+        mode: state.mode,
+        messages: state.messages.slice(-30)
+      }));
+    }
+
+    function esc(text) {
+      return String(text || "").replace(/[&<>"']/g, (ch) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      }[ch]));
+    }
+
+    // Minimal, safe Markdown renderer. Input is escaped first, so no raw HTML
+    // from the model can reach the DOM; we only re-introduce a fixed set of tags.
+    function renderMarkdown(text) {
+      const source = String(text || "");
+      const lines = source.split("\n");
+      const out = [];
+      let i = 0;
+      let listType = null;
+
+      function closeList() {
+        if (listType) { out.push(`</${listType}>`); listType = null; }
+      }
+
+      function inline(str) {
+        // Split on backtick code spans: odd indices are code, even are text.
+        // Avoids any placeholder/sentinel, so no risk of stray characters.
+        return String(str).split("`").map((part, idx) => {
+          if (idx % 2 === 1) return `<code>${esc(part)}</code>`;
+          let s = esc(part);
+          s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+          s = s.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+          s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
+            '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+          return s;
+        }).join("");
+      }
+
+      while (i < lines.length) {
+        const line = lines[i];
+
+        // fenced code block
+        const fence = line.match(/^```(.*)$/);
+        if (fence) {
+          closeList();
+          const buf = [];
+          i++;
+          while (i < lines.length && !/^```/.test(lines[i])) {
+            buf.push(lines[i]);
+            i++;
+          }
+          i++; // skip closing fence
+          out.push(`<pre><code class="hljs">${esc(buf.join("\n"))}</code></pre>`);
+          continue;
+        }
+
+        const heading = line.match(/^(#{1,3})\s+(.*)$/);
+        if (heading) {
+          closeList();
+          const level = heading[1].length;
+          out.push(`<h${level}>${inline(heading[2])}</h${level}>`);
+          i++;
+          continue;
+        }
+
+        const ul = line.match(/^\s*[-*]\s+(.*)$/);
+        if (ul) {
+          if (listType !== "ul") { closeList(); out.push("<ul>"); listType = "ul"; }
+          out.push(`<li>${inline(ul[1])}</li>`);
+          i++;
+          continue;
+        }
+
+        const ol = line.match(/^\s*\d+\.\s+(.*)$/);
+        if (ol) {
+          if (listType !== "ol") { closeList(); out.push("<ol>"); listType = "ol"; }
+          out.push(`<li>${inline(ol[1])}</li>`);
+          i++;
+          continue;
+        }
+
+        if (line.trim() === "") {
+          closeList();
+          i++;
+          continue;
+        }
+
+        // paragraph: gather consecutive non-empty, non-special lines
+        closeList();
+        const para = [line];
+        i++;
+        while (i < lines.length && lines[i].trim() !== "" &&
+               !/^```/.test(lines[i]) &&
+               !/^(#{1,3})\s+/.test(lines[i]) &&
+               !/^\s*[-*]\s+/.test(lines[i]) &&
+               !/^\s*\d+\.\s+/.test(lines[i])) {
+          para.push(lines[i]);
+          i++;
+        }
+        out.push(`<p>${para.map(inline).join("<br>")}</p>`);
+      }
+
+      closeList();
+      return out.join("\n");
+    }
+
+    function render() {
+      document.querySelectorAll(".mode-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.mode === state.mode);
+      });
+      messages.innerHTML = state.messages.map((item) => {
+        if (item.role === "user") {
+          return `<div class="message user">${esc(item.content)}</div>`;
+        }
+        if (item.error) {
+          return `<div class="message error">${esc(item.content)}</div>`;
+        }
+        return `<div class="message assistant">${renderMarkdown(item.content)}</div>`;
+      }).join("");
+      messages.scrollTop = messages.scrollHeight;
+      saveState();
+    }
+
+    function showTyping() {
+      const bubble = document.createElement("div");
+      bubble.className = "message assistant typing";
+      bubble.id = "typingBubble";
+      bubble.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+      messages.appendChild(bubble);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function hideTyping() {
+      const bubble = document.getElementById("typingBubble");
+      if (bubble) bubble.remove();
+    }
+
+    function summarizeApiError(status, data) {
+      const detail = data?.detail || data;
+      const message = detail?.error?.message || detail?.error || detail?.message || data?.error || "";
+      return `AI 对话失败${status ? " " + status : ""}${message ? "：" + message : ""}`;
+    }
+
+    async function sendMessage(text) {
+      state.messages.push({ role: "user", content: text });
+      render();
+      showTyping();
+      statusEl.textContent = "AI 正在回复...";
+      sendBtn.disabled = true;
+
+      try {
+        const response = await fetch(AI_CHAT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            mode: "chat",
+            system: MODE_PROMPTS[state.mode],
+            messages: state.messages.filter((item) => item.role === "user" || item.role === "assistant").slice(-12)
+          })
+        });
+        const data = await response.json().catch(() => null);
+        if (!response.ok) throw new Error(summarizeApiError(data?.status || response.status, data));
+        const content = data?.reply || data?.result || data?.content || "AI 没有返回内容。";
+        state.messages.push({ role: "assistant", content });
+        statusEl.textContent = "回复完成。";
+      } catch (error) {
+        state.messages.push({ role: "assistant", error: true, content: error.message || String(error) });
+        statusEl.textContent = "对话失败，请稍后重试。";
+      } finally {
+        hideTyping();
+        sendBtn.disabled = false;
+        render();
+      }
+    }
+
+    document.getElementById("modes").addEventListener("click", (event) => {
+      const btn = event.target.closest(".mode-btn");
+      if (!btn) return;
+      state.mode = btn.dataset.mode;
+      render();
+    });
+
+    document.getElementById("presets").addEventListener("click", (event) => {
+      const btn = event.target.closest(".preset-btn");
+      if (!btn) return;
+      const template = PRESET_TEMPLATES[btn.dataset.preset];
+      if (!template) return;
+      const existing = input.value.trim();
+      input.value = existing ? `${existing}\n\n${template}` : template;
+      input.focus();
+      // place cursor at end
+      input.setSelectionRange(input.value.length, input.value.length);
+    });
+
+    document.getElementById("chatForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = "";
+      sendMessage(text);
+    });
+
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+        event.preventDefault();
+        document.getElementById("chatForm").requestSubmit();
+      }
+    });
+
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      if (!confirm("清空当前 AI 对话记录？")) return;
+      state.messages = [{ role: "assistant", content: "对话已清空。继续问吧。" }];
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>
